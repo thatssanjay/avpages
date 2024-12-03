@@ -63,24 +63,19 @@ body {
     height: 100%;
     position: relative;
     box-sizing: border-box;
-    border-radius: 0; /* No rounded corners */
-    transition: background-color 0.5s ease-in-out;
+    background-color: #b3c100; /* Golden-like color */
+    transition: width 0.5s ease-in-out;
   }
   
   #pointer {
     position: absolute;
-    top: -5px;
+    top: -10px; /* Above the progress bar */
     left: 0;
-    width: 10px; /* Adjust size */
-    height: 30px; /* Full height of the progress bar */
-    background: linear-gradient(to top, green, orange); /* Gradient color */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transform: rotate(90deg); /* Rotate text vertically */
-    color: white; /* Text color */
-    font-size: 0.8rem; /* Font size */
-    font-weight: bold;
+    width: 10px;
+    height: 50px; /* Clock-style pointer */
+    background-color: black;
+    transform-origin: bottom center; /* Rotate around the bottom */
+    transform: rotate(0deg); /* Initial position */
   }
   
   .countdown-box {
@@ -88,10 +83,37 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-size: 1rem; /* Updated font size */
+    font-size: 1rem; /* Countdown font size */
     font-weight: bold;
     color: #333;
     width: 100%;
     text-align: center;
+  }
+  
+  #unicode-display {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 2rem; /* Bigger size for Unicode */
+    opacity: 0; /* Hidden by default */
+    color: #333;
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  
+  /* Zoom-in animation */
+  @keyframes zoom-in {
+    0% {
+      transform: translate(-50%, -50%) scale(0.5);
+      opacity: 0;
+    }
+    100% {
+      transform: translate(-50%, -50%) scale(1);
+      opacity: 1;
+    }
+  }
+  
+  .zoom-in {
+    animation: zoom-in 1s ease forwards;
   }
   

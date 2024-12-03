@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Golden Progress Bar with Clock Pointer</title>
+  <link rel="stylesheet" href="timer.css">
+</head>
+<body>
+  <div class="timer-container">
+    <h1>Golden Progress Bar Timer</h1>
+    <div class="input-container">
+      <input type="number" id="set-time" placeholder="Enter seconds">
+      <button onclick="setTimer()">Set Timer</button>
+      <button onclick="startTimer()">Start Timer</button>
+    </div>
+    <div class="progress-bar-container">
+        <div id="progress-bar"></div>
+        <div id="pointer"></div>
+        <div class="countdown-box" id="countdown"></div>
+        <div id="unicode-display">👍</div> <!-- Unicode Display -->
+      </div>
+  </div>
+  <script src="timer.js"></script>
+</body>
+</html>
