@@ -17,6 +17,18 @@
     color: white;
     padding: 1rem;
     text-align: center;
+    position: relative;
+  }
+  
+  header .menu-toggle {
+    position: absolute;
+    left: 1rem;
+    top: 1rem;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
   }
   
   footer {
@@ -30,18 +42,25 @@
   .container {
     display: flex;
     flex: 1;
+    position: relative;
   }
   
   nav {
-    background-color: #f4f4f4;
+    position: fixed;
+    top: 0;
+    left: -250px; /* Initially hidden */
     width: 250px;
-    min-width: 200px;
+    height: 100%;
+    background-color: #f4f4f4;
     padding: 1rem;
     border-right: 1px solid #ddd;
+    transition: left 0.3s ease;
+    z-index: 1000;
   }
   
   nav ul {
     list-style: none;
+    margin-top: 2rem; /* Space for the close button */
   }
   
   nav ul li {
@@ -53,21 +72,40 @@
     color: #333;
   }
   
+  nav.active {
+    left: 0; /* Slide in */
+  }
+  
+  nav .close-btn {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #333;
+  }
+  
   main {
     flex: 1;
     padding: 1rem;
+    margin-left: 0; /* Adjust when nav is active */
+    transition: margin-left 0.3s ease;
+  }
+  
+  main.shifted {
+    margin-left: 250px;
   }
   
   /* Responsive Design */
   @media (max-width: 768px) {
-    .container {
-      flex-direction: column;
+    main.shifted {
+      margin-left: 0; /* No shift for smaller screens */
     }
   
     nav {
-      width: 100%;
-      border-right: none;
-      border-bottom: 1px solid #ddd;
+      width: 200px;
     }
   }
   
