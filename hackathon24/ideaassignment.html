@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hackathon Ideas Allocation</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      text-align: center;
+    }
+    h2 {
+      margin-bottom: 10px;
+      text-align: center;
+    }
+    table {
+      width: 60%;
+      border-collapse: collapse;
+      margin: 20px auto;
+    }
+    table, th, td {
+      border: 1px solid #ccc;
+    }
+    th, td {
+      padding: 12px;
+      text-align: left;
+    }
+    th {
+      background-color: #f4f4f4;
+    }
+    td:first-child {
+      font-weight: bold;
+      text-align: left;
+    }
+    tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+    tr:nth-child(odd) {
+      background-color: #ffffff;
+    }
+    select {
+      padding: 5px;
+    }
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    #resultTable {
+      width: 60%;
+      margin-top: 40px;
+      margin-left: auto;
+      margin-right: auto;
+      border-collapse: collapse;
+    }
+    #resultTable th, #resultTable td {
+      padding: 12px;
+      text-align: left;
+      border: 1px solid #ccc;
+    }
+    #resultTable th {
+      background-color: #f4f4f4;
+    }
+    #resultTable td {
+      text-align: left;
+    }
+  </style>
+</head>
+<body>
+  <h2>Hackathon Ideas Allocation</h2>
+
+  <!-- Table for Teams and Ideas -->
+  <table id="teamsIdeasTable">
+    <thead>
+      <tr>
+        <th>Team</th>
+        <th>Priority #1</th>
+        <th>Priority #2</th>
+        <th>Priority #3</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Rows for each team will be dynamically added here -->
+    </tbody>
+  </table>
+
+  <button onclick="submitAllocation()">Submit Allocation</button>
+
+  <!-- Result Table -->
+  <h2>Ideas Allocation</h2>
+  <table id="resultTable">
+    <thead>
+      <tr>
+        <th>Team</th>
+        <th>Idea</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Result rows will be displayed here -->
+    </tbody>
+  </table>
+
+  <button onclick="exportToPDF()">Export to PDF</button>
+
+  <!-- Add the jsPDF library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+  <script>
+    // Top 10 Teams data
+    const teams = [
+      "Idea Ignitors", "AstonishingAlphansoes", "Binary Bytes Squad",
+      "Bug Smashers", "Code Commandos", "Code Viewer", "D17 CurioMinds",
+      "EruDItes", "F3", "Fantastic Four"
+    ];
+
+    // Ideas data
+    const ideas = [
+      "Impact Identifier", "Employee Health App", "Terraform Scripting",
+      "Incident Self-Service Portal with Chatbot",
+      "AI-Driven Employee Wellness and Productivity Assistant",
+      "Meeting Concierge", "Medline Landscape",
+      "GenAI Test Suite Assistant: Elevating QA",
+      "Patching Notifications", "Environment booking application",
+      "SAP Licensing Optimization", "Vendor Performance Analysis",
+      "Predictive Order Fulfillment",
+      "Real-Time Customer Order Prioritization in SAP ECC",
+      "License Queue Management"
+    ];
+
+    // Format Ideas with SN numbers as "{SN} - {Idea}"
+    const formattedIdeas = ["--Select--", ...ideas.map((idea, index) => `${index + 1} - ${idea}`)];
+
+    // Store team-idea allocations
+    const teamIdeaAllocations = [];
+
+    // Function to create a dropdown with provided options and add change event listener
+    function createDropdown(options, row) {
+      const select = document.createElement("select");
+
+      options.forEach((option) => {
+        const opt = document.createElement("option");
+        opt.value = option;
+        opt.textContent = option;
+        select.appendChild(opt);
+      });
+
+      return select;
+    }
+
+    // Function to populate the table with teams and idea dropdowns
+    function populateTable() {
+      const tableBody = document.querySelector("#teamsIdeasTable tbody");
+
+      teams.forEach((team) => {
+        const row = document.createElement("tr");
+
+        // Team Column (Bold and Left Aligned)
+        const teamCell = document.createElement("td");
+        teamCell.textContent = team;
+        row.appendChild(teamCell);
+
+        // Priority #1 Column
+        const idea1Cell = document.createElement("td");
+        const idea1Dropdown = createDropdown(formattedIdeas, row);
+        idea1Cell.appendChild(idea1Dropdown);
+        row.appendChild(idea1Cell);
+
+        // Priority #2 Column
+        const idea2Cell = document.createElement("td");
+        const idea2Dropdown = createDropdown(formattedIdeas, row);
+        idea2Cell.appendChild(idea2Dropdown);
+        row.appendChild(idea2Cell);
+
+        // Priority #3 Column
+        const idea3Cell = document.createElement("td");
+        const idea3Dropdown = createDropdown(formattedIdeas, row);
+        idea3Cell.appendChild(idea3Dropdown);
+        row.appendChild(idea3Cell);
+
+        // Append the row to the table body
+        tableBody.appendChild(row);
+      });
+    }
+
+    // Function to handle allocation submission
+    function submitAllocation() {
+      const allocation = [];
+      const ideaCount = {}; // To keep track of the number of teams assigned to each idea
+
+      // Iterate over each row to map ideas to teams
+      const rows = document.querySelectorAll("#teamsIdeasTable tbody tr");
+
+      rows.forEach((row, index) => {
+        const teamName = row.cells[0].textContent;
+        const selectedIdeas = [
+          row.cells[1].querySelector("select").value,
+          row.cells[2].querySelector("select").value,
+          row.cells[3].querySelector("select").value,
+        ];
+
+        // Logic to assign the highest priority idea available
+        let assignedIdea = "--Select--";
+        for (let i = 0; i < selectedIdeas.length; i++) {
+          const idea = selectedIdeas[i];
+          if (idea !== "--Select--" && (ideaCount[idea] || 0) < 2) {
+            assignedIdea = idea;
+            ideaCount[idea] = (ideaCount[idea] || 0) + 1;
+            break; // Assign the first available idea based on priority
+          }
+        }
+
+        if (assignedIdea !== "--Select--") {
+          allocation.push({ Team: teamName, Idea: assignedIdea });
+        } else {
+          allocation.push({ Team: teamName, Idea: "Not assigned" });
+        }
+      });
+
+      // Display the result
+      displayResult(allocation);
+    }
+
+    // Function to display the allocation result
+    function displayResult(allocation) {
+      const resultTableBody = document.querySelector("#resultTable tbody");
+      resultTableBody.innerHTML = ""; // Clear previous results
+
+      if (allocation.length === 0) {
+        const row = document.createElement("tr");
+        const cell = document.createElement("td");
+        cell.colSpan = 2;
+        cell.textContent = "No valid allocations made.";
+        row.appendChild(cell);
+        resultTableBody.appendChild(row);
+        return;
+      }
+
+      allocation.forEach((allocationItem) => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td><strong>${allocationItem.Team}</strong></td>
+          <td>${allocationItem.Idea}</td>
+        `;
+        resultTableBody.appendChild(row);
+      });
+    }
+
+    // Function to export the Ideas Allocation table to PDF (without using autoTable)
+    function exportToPDF() {
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF();
+
+      // Title for the PDF - "Ideas Allocation"
+      doc.setFontSize(16);
+      doc.text("Ideas Allocation", 20, 20);
+      doc.setFontSize(12);
+
+      // Prepare data for the table
+      const rows = [];
+      const tableRows = document.querySelectorAll("#resultTable tbody tr");
+
+      tableRows.forEach(row => {
+        const cells = row.querySelectorAll("td");
+        const rowData = [
+          cells[0].textContent.trim(),  // Team name
+          cells[1].textContent.trim()   // Idea number & name
+        ];
+        rows.push(rowData);
+      });
+
+      // Set Y coordinate for table rows
+      let yPosition = 30;
+
+      // Loop through rows to add them to the PDF
+      rows.forEach(rowData => {
+        doc.text(`${rowData[0]} # ${rowData[1]}`, 20, yPosition);
+        yPosition += 10;
+      });
+
+      // Save the PDF with custom file name
+      doc.save("Hackathon-Ideas-Allocation.pdf");
+    }
+
+    // Initialize the page by populating the table
+    populateTable();
+  </script>
+</body>
+</html>
