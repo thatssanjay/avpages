@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSV Upload and Processing</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+    <h1>Upload Team Idea Preferences</h1>
+    <input type="file" id="csvFile" accept=".csv">
+    <button id="processBtn">Process CSV</button>
+    <div id="tableContainer"></div>
+    <h2>Team Idea Mapping</h2>
+    <div id="allocationContainer"></div>
+    <button id="exportBtn">Export to Excel</button>
+
+    <script>
+        document.getElementById('processBtn').addEventListener('click', () => {
+            const fileInput = document.getElementById('csvFile');
+            if (!fileInput.files.length) {
+                alert('Please upload a CSV file first!');
+                return;
+            }
+
+            const file = fileInput.files[0];
+            const reader = new FileReader();
+
+            reader.onload = function(event) {
+                const csvData = event.target.result;
+                processCSV(csvData);
+            };
+
+            reader.readAsText(file);
+        });
+
+        document.getElementById('exportBtn').addEventListener('click', () => {
+            const table = document.querySelector('#allocationContainer table');
+            if (!table) {
+                alert('No data to export!');
+                return;
+            }
+
+            const rows = Array.from(table.rows);
+            const csvContent = rows.map(row => 
+                Array.from(row.cells).map(cell => cell.innerText).join(',')
+            ).join('\n');
+
+            const blob = new Blob([csvContent], { type: 'text/csv' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'team_idea_mapping.csv';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        });
+
+        function processCSV(data) {
+            const rows = data.split(/\r?\n/).filter(row => row.trim() !== '');
+            const headers = rows[0].split(',').map(h => h.trim());
+            const records = rows.slice(1).map(row => row.split(',').map(cell => cell.trim()));
+
+            const columnMapping = {
+                'Select Idea by order of preference (Preference 1)': '#Preference 1',
+                'Select Idea by order of preference (Preference 1)1': '#Preference 2',
+                'Select Idea by order of preference (Preference 3)': '#Preference 3',
+                'Select your Team': 'Team Name'
+            };
+
+            const renamedHeaders = headers.map(header => columnMapping[header] || header);
+            const displayColumns = ['Id', 'Team Name', '#Preference 1', '#Preference 2', '#Preference 3', 'Completion time'];
+            const displayIndexes = displayColumns.map(col => renamedHeaders.indexOf(col));
+
+            const processedData = records.map(row => displayIndexes.map(index => row[index] || ''));
+
+            processedData.sort((a, b) => new Date(a[5]) - new Date(b[5]));
+
+            const tableHTML = generateTable(displayColumns, processedData);
+            document.getElementById('tableContainer').innerHTML = tableHTML;
+
+            const allocationData = allocateTeams(processedData);
+            const allocationHTML = generateTable(['Team Name', 'Idea'], allocationData);
+            document.getElementById('allocationContainer').innerHTML = allocationHTML;
+        }
+
+        function generateTable(columns, data) {
+            let html = '<table><thead><tr>';
+
+            columns.forEach(col => {
+                html += `<th>${col}</th>`;
+            });
+
+            html += '</tr></thead><tbody>';
+
+            data.forEach(row => {
+                html += '<tr>';
+                row.forEach(cell => {
+                    html += `<td>${cell}</td>`;
+                });
+                html += '</tr>';
+            });
+
+            html += '</tbody></table>';
+            return html;
+        }
+
+        function allocateTeams(data) {
+            const allocation = [];
+            const ideaCount = {};
+
+            data.forEach(row => {
+                const teamName = row[1];
+                const preferences = [row[2], row[3], row[4]];
+
+                for (const idea of preferences) {
+                    if (idea && (!ideaCount[idea] || ideaCount[idea] < 2)) {
+                        ideaCount[idea] = (ideaCount[idea] || 0) + 1;
+                        allocation.push([teamName, idea]);
+                        break;
+                    }
+                }
+            });
+
+            return allocation;
+        }
+    </script>
+</body>
+</html>
