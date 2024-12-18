@@ -42,6 +42,9 @@
     select {
       padding: 5px;
     }
+    select.error {
+      border: 2px solid red;
+    }
     button {
       margin-top: 20px;
       padding: 10px 20px;
@@ -98,6 +101,7 @@
   <table id="resultTable">
     <thead>
       <tr>
+        <th>SN</th>
         <th>Team</th>
         <th>Idea</th>
       </tr>
@@ -151,6 +155,7 @@
         select.appendChild(opt);
       });
 
+      select.addEventListener("change", () => validateRow(row));
       return select;
     }
 
@@ -189,6 +194,21 @@
       });
     }
 
+    // Function to validate row for duplicate selections
+    function validateRow(row) {
+      const dropdowns = Array.from(row.querySelectorAll("select"));
+      const selectedValues = dropdowns.map(select => select.value);
+      const duplicates = selectedValues.filter((item, index) => item !== "--Select--" && selectedValues.indexOf(item) !== index);
+
+      dropdowns.forEach(select => {
+        if (duplicates.includes(select.value)) {
+          select.classList.add("error");
+        } else {
+          select.classList.remove("error");
+        }
+      });
+    }
+
     // Function to handle allocation submission
     function submitAllocation() {
       const allocation = [];
@@ -217,9 +237,9 @@
         }
 
         if (assignedIdea !== "--Select--") {
-          allocation.push({ Team: teamName, Idea: assignedIdea });
+          allocation.push({ SN: index + 1, Team: teamName, Idea: assignedIdea });
         } else {
-          allocation.push({ Team: teamName, Idea: "Not assigned" });
+          allocation.push({ SN: index + 1, Team: teamName, Idea: "Not assigned" });
         }
       });
 
@@ -235,17 +255,18 @@
       if (allocation.length === 0) {
         const row = document.createElement("tr");
         const cell = document.createElement("td");
-        cell.colSpan = 2;
+        cell.colSpan = 3;
         cell.textContent = "No valid allocations made.";
         row.appendChild(cell);
         resultTableBody.appendChild(row);
         return;
       }
 
-      allocation.forEach((allocationItem) => {
+      allocation.forEach((allocationItem, index) => {
         const row = document.createElement("tr");
         row.innerHTML = `
-          <td><strong>${allocationItem.Team}</strong></td>
+          <td>${allocationItem.SN}</td>
+          <td>${allocationItem.Team}</td>
           <td>${allocationItem.Idea}</td>
         `;
         resultTableBody.appendChild(row);
@@ -269,8 +290,8 @@
       tableRows.forEach(row => {
         const cells = row.querySelectorAll("td");
         const rowData = [
-          cells[0].textContent.trim(),  // Team name
-          cells[1].textContent.trim()   // Idea number & name
+          cells[1].textContent.trim(),  // Team name
+          `# ${cells[0].textContent.trim()} ${cells[2].textContent.trim()}`  // Idea number & name
         ];
         rows.push(rowData);
       });
@@ -280,7 +301,8 @@
 
       // Loop through rows to add them to the PDF
       rows.forEach(rowData => {
-        doc.text(`${rowData[0]} # ${rowData[1]}`, 20, yPosition);
+        doc.text(rowData[0], 20, yPosition);
+        doc.text(rowData[1], 80, yPosition);
         yPosition += 10;
       });
 
