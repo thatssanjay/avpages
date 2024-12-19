@@ -1,0 +1,11 @@
+/* Styling for Duplicate Row */
+.duplicate-row {
+    background-color: red;
+    color: white;
+  }
+  
+  /* Styling for "No Idea" Rows */
+  .no-idea {
+    color: red;
+  }
+  

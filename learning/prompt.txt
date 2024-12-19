@@ -1,0 +1,10 @@
+Prompt: "Create an HTML website template for an advanced .NET application architecture learning portal. The page should include the following features:
+
+A fixed header with a navbar.
+A collapsible sidebar menu with submenus for different phases of learning (Phase 1: Advanced Design Patterns Mastery, Phase 2: Architecture-Level Best Practices, Phase 3: Performance and Scalability, Phase 4: Leadership and Strategy, Phase 5: Capstone Project, and Key Resources).
+Each phase should have a list of topics and practices for learning.
+The sidebar should be collapsible using Bootstrap’s collapse feature.
+The content area should display the learning materials for each phase.
+The page should be responsive, using Bootstrap.
+Include a footer with a copyright message.
+Provide links to resources and additional reading materials for each section."
