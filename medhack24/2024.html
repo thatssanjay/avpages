@@ -80,22 +80,19 @@
     document.getElementById('exportCsvButton').addEventListener('click', exportMappingToCsv);
     document.getElementById('toggleCountButton').addEventListener('click', toggleIdeaCount);
     const ideas = [
-                        "1 - Impact Identifier",
-                        "2 - Employee Health App",
-                        "3 - Teraform Scripting",
-                        "4 - Incident Self-Service Portal with Chatbot",
-                        "5 - Wellness-Driven Productivity",
-                        "6 - Meeting Concierge",
-                        "7 - Medline Landscape",
-                        "8 - GenAI Test Suite Assistant: Elevating QA",
-                        "9 - Patching Notifications",
-                        "10 - Environment booking application",
-                        "11 - SAP Licensing Optimization",
-                        "12 - Vendor Performance Analysis",
-                        "13 - Predictive Order Fulfillment",
-                        "14 - Real-Time Customer Order Prioritization in SAP ECC",
-                        "15 - License Queue management"
-                    ];
+                "1 - Impact Identifier",
+                "2 - Employee Health App",
+                "3 - Terraform Scripting",
+                "4 - Incident Self-Service Portal",
+                "5 - Organization Application Landscape",
+                "6 - GenAI Test Suite Assistant: Elevating QA",
+                "7 - Automate Server Patching Notification",
+                "8 - SAP Licensing Optimization",
+                "9 - Vendor Performance Analysis",
+                "10 - Predictive Order Fulfillment",
+                "11 - Real-time Customer Order Prioritization",
+                "12 - Environment Booking Application"
+                ];
     function processCsv() {
     const fileInput = document.getElementById('csvFileInput');
     const file = fileInput.files[0];
