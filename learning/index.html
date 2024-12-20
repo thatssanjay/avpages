@@ -1,20 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/> 
-    <title>Knowledge Trail > </title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Child Page</title>
+    <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-
-    <!-- Header (Top Menu) -->
+    <!-- Top Header with Main Menu -->
     <header>
-        <a class="brand-name" href="index.html">
-            <h1>Knowledge Trail ></h1>
-        </a>
-        <nav class="main-menu">
+        <div class="header-content">
+            <a class="brand-name" href="index.html">
+                <h1>Knowledge Trail ></h1>
+            </a>
+            <button class="toggle-menu-btn" onclick="toggleMenu()">☰</button>
+        </div>
+        <nav class="main-menu" id="mainMenu">
             <a href="index.html">Home</a>
             <a href="#">Courses</a>
             <a href="#">Tutorials</a>
@@ -23,80 +24,33 @@
         </nav>
     </header>
 
-    <!-- Left Sidebar (Floating) -->
-    <div class="left-sidebar">
-        <h3>Topics</h3>
-        <a href="#">HTML</a>
-        <a href="#">CSS</a>
-        <a href="#">JavaScript</a>
-        <a href="#">Python</a>
-        <a href="#">SQL</a>
-        <a href="#">Machine Learning</a>
+    <!-- Left Sidebar (Child Menu) -->
+    <div class="left-sidebar" id="leftSidebar">
+        <h3>Child Page Menu</h3>
+        <a href="#">Overview</a>
+        <a href="#">Details</a>
+        <a href="#">Related Topics</a>
+        <a href="#">Contact</a>
         <a href="child-page.html">Child Page</a>
     </div>
 
     <!-- Main Content -->
     <div class="main-content">
-        <h2>Main Content Area</h2>
-        <p>This is where your main content will appear. Use this area to display courses, tutorials, or any other content you wish to highlight.</p>
-        <h2>Main Content Area</h2>
-        <p>This is where your main content will appear. Use this area to display courses, tutorials, or any other content you wish to highlight.</p>
-        <h2>Main Content Area</h2>
-        <p>This is where your main content will appear. Use this area to display courses, tutorials, or any other content you wish to highlight.</p>
-        <h2>Main Content Area</h2>
-        <p>This is where your main content will appear. Use this area to display courses, tutorials, or any other content you wish to highlight.</p>
-        <h2>Main Content Area</h2>
-        <p>This is where your main content will appear. Use this area to display courses, tutorials, or any other content you wish to highlight.</p>
-        <h2>Main Content Area</h2>
-        <p>This is where your main content will appear. Use this area to display courses, tutorials, or any other content you wish to highlight.</p>
-        <h2>Main Content Area</h2>
-        <p>This is where your main content will appear. Use this area to display courses, tutorials, or any other content you wish to highlight.</p>
-        <h2>Main Content Area</h2>
-        <p>This is where your main content will appear. Use this area to display courses, tutorials, or any other content you wish to highlight.</p>
-        <h2>Main Content Area</h2>
-        <p>This is where your main content will appear. Use this area to display courses, tutorials, or any other content you wish to highlight.</p>
-        <h2>Main Content Area</h2>
-        <p>This is where your main content will appear. Use this area to display courses, tutorials, or any other content you wish to highlight.</p>
-        <h2>Main Content Area</h2>
-        <p>This is where your main content will appear. Use this area to display courses, tutorials, or any other content you wish to highlight.</p>
-        <h2>Main Content Area</h2>
-        <p>This is where your main content will appear. Use this area to display courses, tutorials, or any other content you wish to highlight.</p>
-        <h2>Main Content Area</h2>
-        <p>This is where your main content will appear. Use this area to display courses, tutorials, or any other content you wish to highlight.</p>
-        <h2>Main Content Area</h2>
-        <p>This is where your main content will appear. Use this area to display courses, tutorials, or any other content you wish to highlight.</p>
-        <h2>Main Content Area</h2>
-        <p>This is where your main content will appear. Use this area to display courses, tutorials, or any other content you wish to highlight.</p>
-        <h2>Main Content Area</h2>
-        <p>This is where your main content will appear. Use this area to display courses, tutorials, or any other content you wish to highlight.</p>
-        <h2>Main Content Area</h2>
-        <p>This is where your main content will appear. Use this area to display courses, tutorials, or any other content you wish to highlight.</p>
-        <h2>Main Content Area</h2>
-        <p>This is where your main content will appear. Use this area to display courses, tutorials, or any other content you wish to highlight.</p>
-        <h2>Main Content Area</h2>
-        <p>This is where your main content will appear. Use this area to display courses, tutorials, or any other content you wish to highlight.</p>
-        <h2>Main Content Area</h2>
-        <p>This is where your main content will appear. Use this area to display courses, tutorials, or any other content you wish to highlight.</p>
-        <h2>Main Content Area</h2>
-        <p>This is where your main content will appear. Use this area to display courses, tutorials, or any other content you wish to highlight.</p>
-        <h2>Main Content Area</h2>
-        <p>This is where your main content will appear. Use this area to display courses, tutorials, or any other content you wish to highlight.</p>
-        <h2>Main Content Area</h2>
-        <p>This is where your main content will appear. Use this area to display courses, tutorials, or any other content you wish to highlight.</p>
-        <h2>Main Content Area</h2>
-        <p>This is where your main content will appear. Use this area to display courses, tutorials, or any other content you wish to highlight.</p>
-        <h2>Main Content Area</h2>
-        <p>This is where your main content will appear. Use this area to display courses, tutorials, or any other content you wish to highlight.</p>
-        <h2>Main Content Area</h2>
-        <p>This is where your main content will appear. Use this area to display courses, tutorials, or any other content you wish to highlight.</p>
-        <h2>Main Content Area</h2>
-        <p>This is where your main content will appear. Use this area to display courses, tutorials, or any other content you wish to highlight.</p>
+        <h2>Welcome to the Child Page</h2>
+        <p>This is the main content area of the child page. Resize the window to see how the layout adapts to mobile screens. On mobile, press the ☰ button to show or hide the menus.</p>
     </div>
 
-    <!-- Footer -->
     <footer>
         <p>&copy; 2024 Your Platform. All Rights Reserved.</p>
     </footer>
 
+    <script>
+        function toggleMenu() {
+            const mainMenu = document.getElementById('mainMenu');
+            const sidebar = document.getElementById('leftSidebar');
+            mainMenu.classList.toggle('open');
+            sidebar.classList.toggle('open');
+        }
+    </script>
 </body>
 </html>
