@@ -1,249 +1,102 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Learning Platform</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <!-- FontAwesome for icons -->
-    <style>
-        /* Global Styles */
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f1f1f1;
-        }
-
-        /* Header Styles */
-        header {
-            background-color: #4CAF50;
-            color: white;
-            text-align: center;
-            padding: 10px 0;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            left: 0;
-            z-index: 1000;
-        }
-
-        header h1 {
-            margin: 0;
-        }
-
-        /* Main Layout */
-        .container {
-            display: flex;
-            height: 100vh;
-            margin-top: 60px; /* Adjust for fixed header */
-        }
-
-        /* Left Sidebar (Navigation) */
-        .left-sidebar {
-            width: 250px;
-            background-color: #2c3e50;
-            color: white;
-            padding: 20px;
-            height: 100%;
-            overflow-y: auto;
-            position: fixed;
-            top: 60px; /* Adjust for fixed header */
-            left: 0;
-            z-index: 999;
-            transition: transform 0.3s ease-in-out;
-        }
-
-        .left-sidebar a {
-            color: white;
-            padding: 10px;
-            text-decoration: none;
-            display: block;
-            margin-bottom: 8px;
-        }
-
-        .left-sidebar a:hover {
-            background-color: #575757;
-        }
-
-        .toggle-btn {
-            font-size: 30px;
-            color: #fff;
-            background-color: #333;
-            position: absolute;
-            top: 15px;
-            right: -40px;
-            padding: 10px;
-            border-radius: 50%;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        .toggle-btn:hover {
-            background-color: #4CAF50;
-        }
-
-        /* Main Content Area */
-        .main-content {
-            flex: 1;
-            padding: 20px;
-            background-color: #ffffff;
-            overflow-y: auto;
-            margin-left: 250px; /* Adjust for left sidebar */
-            transition: margin-left 0.3s ease;
-        }
-
-        /* Menu Buttons */
-        .main-menu {
-            background-color: #333;
-            overflow: hidden;
-            color: white;
-            padding: 10px;
-        }
-
-        .main-menu a {
-            color: white;
-            padding: 14px 16px;
-            text-decoration: none;
-            display: inline-block;
-        }
-
-        .main-menu a:hover {
-            background-color: #575757;
-        }
-
-        /* Footer */
-        footer {
-            background-color: #333;
-            color: white;
-            text-align: center;
-            padding: 10px;
-        }
-
-        .content-section {
-            margin-top: 20px;
-        }
-
-        .content-section h2 {
-            color: #333;
-        }
-
-        .content-section ul {
-            list-style-type: none;
-            padding: 0;
-        }
-
-        .content-section ul li {
-            background-color: #f1f1f1;
-            margin: 10px 0;
-            padding: 10px;
-        }
-
-        /* Mobile Responsiveness */
-        @media (max-width: 768px) {
-            .container {
-                flex-direction: column;
-                margin-top: 0;
-            }
-
-            .left-sidebar {
-                position: absolute;
-                left: -250px; /* Initially hidden */
-                top: 60px;
-                width: 200px;
-                z-index: 999;
-            }
-
-            .main-content {
-                margin-left: 0;
-            }
-
-            .toggle-btn {
-                display: block;
-            }
-
-            .left-sidebar.open {
-                left: 0;
-            }
-        }
-    </style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/> 
+    <title>Knowledge Trail > </title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-<!-- Header Section -->
-<header>
-    <h1>Your Learning Platform</h1>
-    <p>Welcome to your personalized learning journey!</p>
-</header>
+    <!-- Header (Top Menu) -->
+    <header>
+        <a class="brand-name" href="index.html">
+            <h1>Knowledge Trail ></h1>
+        </a>
+        <nav class="main-menu">
+            <a href="index.html">Home</a>
+            <a href="#">Courses</a>
+            <a href="#">Tutorials</a>
+            <a href="#">Resources</a>
+            <a href="#">About</a>
+        </nav>
+    </header>
 
-<!-- Main Layout -->
-<div class="container">
-
-    <!-- Left Sidebar -->
-    <div class="left-sidebar" id="leftSidebar">
-        <div class="toggle-btn" onclick="toggleSidebar()">&#9776;</div>
-        <h3>Learning Topics</h3>
+    <!-- Left Sidebar (Floating) -->
+    <div class="left-sidebar">
+        <h3>Topics</h3>
         <a href="#">HTML</a>
         <a href="#">CSS</a>
         <a href="#">JavaScript</a>
         <a href="#">Python</a>
         <a href="#">SQL</a>
         <a href="#">Machine Learning</a>
-        <a href="#">Cloud Computing</a>
-        <a href="#">AI & Deep Learning</a>
+        <a href="child-page.html">Child Page</a>
     </div>
 
-    <!-- Main Content Area -->
+    <!-- Main Content -->
     <div class="main-content">
-
-        <!-- Main Menu -->
-        <div class="main-menu">
-            <a href="#">Home</a>
-            <a href="#">Courses</a>
-            <a href="#">Tutorials</a>
-            <a href="#">Certification</a>
-            <a href="#">Resources</a>
-            <a href="#">Community</a>
-        </div>
-
-        <!-- Content Section -->
-        <div class="content-section">
-            <h2>Featured Courses</h2>
-            <ul>
-                <li><strong>HTML5 & CSS3: Building Responsive Websites</strong></li>
-                <li><strong>Introduction to JavaScript</strong></li>
-                <li><strong>Mastering Python for Data Science</strong></li>
-                <li><strong>SQL for Beginners</strong></li>
-                <li><strong>AI & Machine Learning: An Introduction</strong></li>
-            </ul>
-        </div>
-
-        <!-- Featured Topics -->
-        <div class="content-section">
-            <h2>Popular Topics</h2>
-            <ul>
-                <li><strong>Responsive Web Design</strong></li>
-                <li><strong>ES6 JavaScript Features</strong></li>
-                <li><strong>Data Structures & Algorithms in Python</strong></li>
-                <li><strong>Introduction to SQL Queries</strong></li>
-                <li><strong>Data Science & AI Concepts</strong></li>
-            </ul>
-        </div>
-
+        <h2>Main Content Area</h2>
+        <p>This is where your main content will appear. Use this area to display courses, tutorials, or any other content you wish to highlight.</p>
+        <h2>Main Content Area</h2>
+        <p>This is where your main content will appear. Use this area to display courses, tutorials, or any other content you wish to highlight.</p>
+        <h2>Main Content Area</h2>
+        <p>This is where your main content will appear. Use this area to display courses, tutorials, or any other content you wish to highlight.</p>
+        <h2>Main Content Area</h2>
+        <p>This is where your main content will appear. Use this area to display courses, tutorials, or any other content you wish to highlight.</p>
+        <h2>Main Content Area</h2>
+        <p>This is where your main content will appear. Use this area to display courses, tutorials, or any other content you wish to highlight.</p>
+        <h2>Main Content Area</h2>
+        <p>This is where your main content will appear. Use this area to display courses, tutorials, or any other content you wish to highlight.</p>
+        <h2>Main Content Area</h2>
+        <p>This is where your main content will appear. Use this area to display courses, tutorials, or any other content you wish to highlight.</p>
+        <h2>Main Content Area</h2>
+        <p>This is where your main content will appear. Use this area to display courses, tutorials, or any other content you wish to highlight.</p>
+        <h2>Main Content Area</h2>
+        <p>This is where your main content will appear. Use this area to display courses, tutorials, or any other content you wish to highlight.</p>
+        <h2>Main Content Area</h2>
+        <p>This is where your main content will appear. Use this area to display courses, tutorials, or any other content you wish to highlight.</p>
+        <h2>Main Content Area</h2>
+        <p>This is where your main content will appear. Use this area to display courses, tutorials, or any other content you wish to highlight.</p>
+        <h2>Main Content Area</h2>
+        <p>This is where your main content will appear. Use this area to display courses, tutorials, or any other content you wish to highlight.</p>
+        <h2>Main Content Area</h2>
+        <p>This is where your main content will appear. Use this area to display courses, tutorials, or any other content you wish to highlight.</p>
+        <h2>Main Content Area</h2>
+        <p>This is where your main content will appear. Use this area to display courses, tutorials, or any other content you wish to highlight.</p>
+        <h2>Main Content Area</h2>
+        <p>This is where your main content will appear. Use this area to display courses, tutorials, or any other content you wish to highlight.</p>
+        <h2>Main Content Area</h2>
+        <p>This is where your main content will appear. Use this area to display courses, tutorials, or any other content you wish to highlight.</p>
+        <h2>Main Content Area</h2>
+        <p>This is where your main content will appear. Use this area to display courses, tutorials, or any other content you wish to highlight.</p>
+        <h2>Main Content Area</h2>
+        <p>This is where your main content will appear. Use this area to display courses, tutorials, or any other content you wish to highlight.</p>
+        <h2>Main Content Area</h2>
+        <p>This is where your main content will appear. Use this area to display courses, tutorials, or any other content you wish to highlight.</p>
+        <h2>Main Content Area</h2>
+        <p>This is where your main content will appear. Use this area to display courses, tutorials, or any other content you wish to highlight.</p>
+        <h2>Main Content Area</h2>
+        <p>This is where your main content will appear. Use this area to display courses, tutorials, or any other content you wish to highlight.</p>
+        <h2>Main Content Area</h2>
+        <p>This is where your main content will appear. Use this area to display courses, tutorials, or any other content you wish to highlight.</p>
+        <h2>Main Content Area</h2>
+        <p>This is where your main content will appear. Use this area to display courses, tutorials, or any other content you wish to highlight.</p>
+        <h2>Main Content Area</h2>
+        <p>This is where your main content will appear. Use this area to display courses, tutorials, or any other content you wish to highlight.</p>
+        <h2>Main Content Area</h2>
+        <p>This is where your main content will appear. Use this area to display courses, tutorials, or any other content you wish to highlight.</p>
+        <h2>Main Content Area</h2>
+        <p>This is where your main content will appear. Use this area to display courses, tutorials, or any other content you wish to highlight.</p>
+        <h2>Main Content Area</h2>
+        <p>This is where your main content will appear. Use this area to display courses, tutorials, or any other content you wish to highlight.</p>
     </div>
-</div>
 
-<!-- Footer Section -->
-<footer>
-    <p>&copy; 2024 Your Learning Platform. All Rights Reserved.</p>
-</footer>
-
-<script>
-    // Function to toggle sidebar visibility on mobile
-    function toggleSidebar() {
-        const sidebar = document.getElementById("leftSidebar");
-        sidebar.classList.toggle("open");
-    }
-</script>
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Your Platform. All Rights Reserved.</p>
+    </footer>
 
 </body>
 </html>

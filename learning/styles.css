@@ -1,0 +1,125 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+/* Header (Top Menu) */
+header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: #4CAF50;
+    color: #fff;
+    padding: 10px;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+.main-menu {
+    display: flex;
+    gap: 15px;
+}
+
+.main-menu a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.main-menu a:hover {
+    text-decoration: underline;
+}
+
+/* Left Sidebar (Floating) */
+.left-sidebar {
+    position: fixed;
+    top: 60px; /* Adjust to fit below header */
+    left: 0;
+    width: 200px;
+    height: calc(100% - 60px);
+    background-color: #2c3e50;
+    color: #fff;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.left-sidebar h3 {
+    margin-top: 0;
+}
+
+.left-sidebar a {
+    display: block;
+    color: #fff;
+    text-decoration: none;
+    margin-bottom: 10px;
+}
+
+.left-sidebar a:hover {
+    text-decoration: underline;
+}
+
+/* Main Content Area */
+.main-content {
+    margin-top: 60px; /* header height */
+    margin-left: 200px; /* left sidebar width */
+    padding: 20px;
+    background: #f1f1f1;
+    height: calc(100vh - 60px - 40px); /* subtract header and footer heights */
+    box-sizing: border-box;
+    overflow-y: auto;
+}
+
+/* Footer */
+footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 10px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .left-sidebar {
+        position: static;
+        width: 100%;
+        height: auto;
+        top: 0;
+    }
+
+    .main-content {
+        margin-left: 0;
+    }
+
+    header, footer {
+        text-align: center;
+    }
+
+    .main-menu {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+
+.brand-name {
+    text-decoration: none; /* Removes underline from the link */
+    color: inherit;        /* Inherits color from parent or default */
+}
+
+.brand-name h1 {
+    margin: 0;
+    font-size: 2em;        /* Typical <h1> font size */
+    font-weight: bold;
+    color: white;           /* Desired text color */
+}
+
