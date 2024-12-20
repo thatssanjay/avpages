@@ -1,23 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Child Page Title</title>
-
-    <!-- Bootstrap CSS (v3) -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" href="styles.css">
-   
+    <title>Child Page</title>
+    <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-
-    <!-- Header (Top Menu) -->
+    <!-- Top Header with Main Menu -->
     <header>
-        <a class="brand-name" href="index.html">
+        <div class="header-content">
             <h1>Knowledge Trail ></h1>
-        </a>
-        <nav class="main-menu">
+            <button class="toggle-menu-btn" onclick="toggleMenu()">☰</button>
+        </div>
+        <nav class="main-menu" id="mainMenu">
             <a href="index.html">Home</a>
             <a href="#">Courses</a>
             <a href="#">Tutorials</a>
@@ -26,8 +22,8 @@
         </nav>
     </header>
 
-    <!-- Left Sidebar (Floating) -->
-    <div class="left-sidebar">
+    <!-- Left Sidebar (Child Menu) -->
+    <div class="left-sidebar" id="leftSidebar">
         <h3>Child Page Menu</h3>
         <a href="#">Overview</a>
         <a href="#">Details</a>
@@ -38,34 +34,20 @@
     <!-- Main Content -->
     <div class="main-content">
         <h2>Welcome to the Child Page</h2>
-        <p>This is the main content area of the child page. Feel free to add any information that complements the master page content.</p>
-
-        <h3>Additional Information</h3>
-        <p>Use headings, paragraphs, lists, images, and more to provide detailed content to your visitors.</p>
-
-        <!-- Collapsible Panel -->
-        <div class="panel-group">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h4 class="panel-title">
-                        <a data-toggle="collapse" href="#collapse1">Collapsible panel</a>
-                    </h4>
-                </div>
-                <div id="collapse1" class="panel-collapse collapse">
-                    <div class="panel-body">Panel Body content goes here. This could be an explanation, extra resources, or any supplementary information.</div>
-                    <div class="panel-footer">Panel Footer with additional notes or links.</div>
-                </div>
-            </div>
-        </div>
+        <p>This is the main content area of the child page. Resize the window to see how the layout adapts to mobile screens. On mobile, press the ☰ button to show or hide the menus.</p>
     </div>
 
-    <!-- Footer -->
     <footer>
         <p>&copy; 2024 Your Platform. All Rights Reserved.</p>
     </footer>
 
-    <!-- jQuery and Bootstrap JS (v3) -->
-    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script>
+        function toggleMenu() {
+            const mainMenu = document.getElementById('mainMenu');
+            const sidebar = document.getElementById('leftSidebar');
+            mainMenu.classList.toggle('open');
+            sidebar.classList.toggle('open');
+        }
+    </script>
 </body>
 </html>

@@ -26,9 +26,14 @@ header h1 {
     font-size: 1.5rem;
 }
 
+/* Initially, the main menu is displayed horizontally for desktop */
 .main-menu {
+    background-color: #4CAF50;
     display: flex;
+    justify-content: center;
     gap: 15px;
+    padding: 10px 0;
+    transition: max-height 0.3s ease;
 }
 
 .main-menu a {
@@ -41,23 +46,22 @@ header h1 {
     text-decoration: underline;
 }
 
-/* Toggle Sidebar Button (Visible on smaller screens) */
-.toggle-sidebar-btn {
-    display: none;
+.toggle-menu-btn {
     background: none;
     border: none;
     color: #fff;
     font-size: 1.5em;
     cursor: pointer;
+    display: none; /* Hidden on large screens */
 }
 
 /* Left Sidebar (Child Menu) */
 .left-sidebar {
     position: fixed;
-    top: 60px; /* Below header */
+    top: 120px; /* Below header and main menu */
     left: 0;
     width: 200px;
-    height: calc(100% - 60px);
+    height: calc(100% - 120px);
     background-color: #2c3e50;
     color: #fff;
     padding: 20px;
@@ -83,12 +87,12 @@ header h1 {
 
 /* Main Content Area */
 .main-content {
-    margin-top: 60px; /* space for header */
+    margin-top: 120px; /* space for header + main menu */
     margin-left: 200px; /* space for sidebar */
     padding: 20px;
     background: #f1f1f1;
     box-sizing: border-box;
-    min-height: calc(100vh - 60px - 40px); /* subtract header and footer heights */
+    min-height: calc(100vh - 120px - 40px);
     overflow-y: auto;
 }
 
@@ -106,19 +110,27 @@ footer {
 
 /* Responsive Adjustments */
 @media (max-width: 768px) {
-    .main-menu {
-        display: none; /* Hide main menu on small screens, can adjust if needed */
-    }
-
-    .toggle-sidebar-btn {
+    /* Show toggle button and hide menu by default */
+    .toggle-menu-btn {
         display: inline-block;
     }
 
+    /* Main menu converts to a vertical dropdown */
+    .main-menu {
+        display: block;
+        max-height: 0;
+        overflow: hidden;
+    }
+
+    .main-menu.open {
+        max-height: 300px; /* enough to show all items */
+    }
+
+    /* Sidebar off-canvas for mobile */
     .left-sidebar {
-        position: fixed;
         top: 60px;
         left: -220px;
-        width: 200px;
+        height: calc(100% - 60px);
         transform: translateX(0);
     }
 
@@ -128,18 +140,16 @@ footer {
 
     .main-content {
         margin-left: 0;
+        margin-top: 60px;
     }
 }
 
-/* For even smaller screens, ensure text fits */
+/* For even smaller screens */
 @media (max-width: 480px) {
     header h1 {
         font-size: 1.2rem;
     }
 }
-
-
-
 .brand-name {
     text-decoration: none; /* Removes underline from the link */
     color: inherit;        /* Inherits color from parent or default */
