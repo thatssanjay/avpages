@@ -128,7 +128,7 @@ footer {
 
     /* Sidebar off-canvas for mobile */
     .left-sidebar {
-        top: 60px;
+        top: 90px;
         left: -220px;
         height: calc(100% - 60px);
         transform: translateX(0);
