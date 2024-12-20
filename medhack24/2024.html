@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Team Idea Preferences</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .highlight-duplicate {
+            color: red !important;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<div class="container mt-5">
+    <h1 class="text-center">Upload Team Idea Preferences</h1>
+
+    <!-- CSV Upload Section -->
+    <div class="mb-4">
+        <h3>Upload CSV</h3>
+        <input type="file" id="csvFileInput" class="form-control mb-2">
+        <button class="btn btn-primary" id="processCsvButton">Process CSV</button>
+    </div>
+
+    <!-- Data Table Display -->
+    <div class="mb-4">
+        <h3>Uploaded Data</h3>
+        <table class="table table-striped table-bordered" id="dataTable">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Team Name</th>
+                    <th>Idea Preference 1</th>
+                    <th>Idea Preference 2</th>
+                    <th>Idea Preference 3</th>
+                    <th>Completion Time</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+
+    <!-- Team Idea Mapping Section -->
+    <div>
+        <h3>Team Idea Mapping</h3>
+        <table class="table table-striped table-bordered" id="ideaMappingTable">
+            <thead>
+                <tr>
+                    <th>Team Name</th>
+                    <th>Idea</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+        <button class="btn btn-success" id="exportCsvButton">Export Mapping to CSV</button>
+    </div>
+
+    <!-- Idea Selection Count Section -->
+    <div class="mt-4">
+        <h3>Idea Selection Count</h3>
+        <button class="btn btn-secondary" id="toggleCountButton">Show Count</button>
+        <table class="table table-striped table-bordered hidden" id="ideaCountTable">
+            <thead>
+                <tr>
+                    <th>SN</th>
+                    <th>Idea</th>
+                    <th>Selection Count</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    document.getElementById('processCsvButton').addEventListener('click', processCsv);
+    document.getElementById('exportCsvButton').addEventListener('click', exportMappingToCsv);
+    document.getElementById('toggleCountButton').addEventListener('click', toggleIdeaCount);
+    const ideas = [
+                        "1 - Impact Identifier",
+                        "2 - Employee Health App",
+                        "3 - Teraform Scripting",
+                        "4 - Incident Self-Service Portal with Chatbot",
+                        "5 - Wellness-Driven Productivity",
+                        "6 - Meeting Concierge",
+                        "7 - Medline Landscape",
+                        "8 - GenAI Test Suite Assistant: Elevating QA",
+                        "9 - Patching Notifications",
+                        "10 - Environment booking application",
+                        "11 - SAP Licensing Optimization",
+                        "12 - Vendor Performance Analysis",
+                        "13 - Predictive Order Fulfillment",
+                        "14 - Real-Time Customer Order Prioritization in SAP ECC",
+                        "15 - License Queue management"
+                    ];
+    function processCsv() {
+    const fileInput = document.getElementById('csvFileInput');
+    const file = fileInput.files[0];
+    if (!file) {
+        alert('Please select a CSV file.');
+        return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = function (e) {
+        const csvData = e.target.result;
+        const rows = csvData.split('\n').map(row => row.split(','));
+
+        // Process CSV header and rows
+        const headers = rows[0];
+        const data = rows.slice(1).filter(row => row[5] && row[2]) // Remove blank rows
+            .map((row, index) => ({
+                id: index + 1,
+                teamName: row[5]?.trim(), // Remove any leading/trailing whitespace
+                preference1: row[6]?.trim(),
+                preference2: row[7]?.trim(),
+                preference3: row[8]?.trim(),
+                completionTime: row[2]?.trim() // Also trim the completion time
+            }));
+
+        // Remove duplicate rows based on Team Name and sort by Completion Time (A-Z)
+        const uniqueData = Object.values(data.reduce((acc, curr) => {
+            if (!acc[curr.teamName] || curr.completionTime < acc[curr.teamName].completionTime) {
+                acc[curr.teamName] = curr;
+            }
+            return acc;
+        }, {}));
+
+        uniqueData.sort((a, b) => a.completionTime.localeCompare(b.completionTime));
+
+        displayData(uniqueData);
+        mapIdeas(uniqueData);
+    };
+
+    reader.readAsText(file);
+}
+
+
+    function displayData(data) {
+        const tableBody = document.getElementById('dataTable').querySelector('tbody');
+        tableBody.innerHTML = '';
+
+        data.forEach(row => {
+            const tr = document.createElement('tr');
+
+            Object.keys(row).forEach((key, index) => {
+                const td = document.createElement('td');
+                td.textContent = row[key];
+
+                // Highlight duplicate preferences
+                if (['preference1', 'preference2', 'preference3'].includes(key) && [row.preference1, row.preference2, row.preference3].filter(pref => pref === row[key]).length > 1) {
+                    td.classList.add('highlight-duplicate');
+                }
+
+                tr.appendChild(td);
+            });
+
+            tableBody.appendChild(tr);
+        });
+    }
+
+    function mapIdeas(data) {
+        const ideaMapping = [];
+        const ideaCount = {}; // To track how many times an idea has been assigned
+        const maxAssignmentsPerIdea = 2; // Max teams per idea
+
+        // Iterate over each team in the data
+        data.forEach(row => {
+            let assignedIdea = 'No Available Ideas'; // Default if no valid idea is available
+            // Iterate over the preferences and try to assign an idea
+            [row.preference1, row.preference2, row.preference3].some(pref => {
+                // Initialize count for this idea if it doesn't exist
+                if (!ideaCount[pref]) {
+                    ideaCount[pref] = 0;
+                }
+                // Check if the idea has been assigned to less than 2 teams in ideaMapping array
+                const assignedCount = ideaMapping.filter(mapping => mapping.idea === pref).length;
+
+                // If the idea has been assigned to less than 2 teams, assign it
+                if (assignedCount < maxAssignmentsPerIdea) {
+                    assignedIdea = pref; // Assign this idea to the team
+                    ideaCount[pref]++; // Track the assignment count
+                    return true; // Break the loop as we have assigned an idea
+                }
+                
+
+                return false; // Continue to next preference if current one is already assigned to 2 teams
+            });
+
+            // Add the mapping for the current team
+            
+            ideaMapping.push({ teamName: row.teamName, idea: assignedIdea });
+        });
+
+        // Display the mappings and idea count
+        displayMapping(ideaMapping);
+        displayIdeaCount(ideaCount,ideas);
+    }
+
+    function displayMapping(mapping) {
+        const tableBody = document.getElementById('ideaMappingTable').querySelector('tbody');
+        tableBody.innerHTML = '';
+
+        mapping.forEach(row => {
+            const tr = document.createElement('tr');
+
+            const teamNameTd = document.createElement('td');
+            teamNameTd.textContent = row.teamName;
+
+            const ideaTd = document.createElement('td');
+            ideaTd.textContent = row.idea;
+
+            tr.appendChild(teamNameTd);
+            tr.appendChild(ideaTd);
+            tableBody.appendChild(tr);
+        });
+    }
+
+    function displayIdeaCount(ideaCount, data) {
+    const tableBody = document.getElementById('ideaCountTable').querySelector('tbody');
+    tableBody.innerHTML = '';
+    // Extract the ideas and their corresponding numbers from the given data array
+    const allIdeas = [...new Set(data.map(item => {
+        const parts = item.split(' - ');
+        return { id: parts[0], idea: item }; // Split into number and idea
+    }))];
+
+    const ideaCountArray = allIdeas.map(({ id, idea }) => {
+        // Check if the idea is in ideaCount object and compare ID as well
+        const count = ideaCount.hasOwnProperty(idea) ? ideaCount[idea] : 'Not Selected';
+        return {
+            id,
+            idea,
+            count
+        };
+    });
+
+    // Sort by selection count Z-A
+    ideaCountArray.sort((a, b) => {
+        // Handle sorting: if the count is "Not Selected", sort it at the end
+        if (a.count === 'Not Selected') return 1;
+        if (b.count === 'Not Selected') return -1;
+        return b.count - a.count; // Normal sorting for numbers
+    });
+
+    let sn = 1;
+
+    ideaCountArray.forEach(({ id, idea, count }) => {
+        const tr = document.createElement('tr');
+        const snTd = document.createElement('td');
+        const ideaTd = document.createElement('td');
+        const countTd = document.createElement('td');
+
+        snTd.textContent = sn++;
+        ideaTd.textContent =  idea; // Display the ID along with the idea
+        countTd.textContent = count;
+
+        // Highlight "Not Selected" in red
+        if (count === 'Not Selected') {
+            countTd.classList.add('highlight-duplicate'); // Add red color for unselected ideas
+        }
+debugger
+        tr.appendChild(snTd);
+        tr.appendChild(ideaTd);
+        tr.appendChild(countTd);
+
+        tableBody.appendChild(tr);
+    });
+}
+
+
+    function toggleIdeaCount() {
+        const ideaCountTable = document.getElementById('ideaCountTable');
+        const toggleButton = document.getElementById('toggleCountButton');
+
+        if (ideaCountTable.classList.contains('hidden')) {
+            ideaCountTable.classList.remove('hidden');
+            toggleButton.textContent = 'Hide Count';
+        } else {
+            ideaCountTable.classList.add('hidden');
+            toggleButton.textContent = 'Show Count';
+        }
+    }
+
+    function exportMappingToCsv() {
+        const rows = [];
+        const table = document.getElementById('ideaMappingTable');
+        const headers = Array.from(table.querySelectorAll('thead th')).map(th => th.textContent);
+        rows.push(headers.join(','));
+
+        table.querySelectorAll('tbody tr').forEach(tr => {
+            const row = Array.from(tr.querySelectorAll('td')).map(td => td.textContent);
+            rows.push(row.join(','));
+        });
+
+        const csvContent = rows.join('\n');
+        const blob = new Blob([csvContent], { type: 'text/csv' });
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = 'team_idea_mapping.csv';
+        link.click();
+    }
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
