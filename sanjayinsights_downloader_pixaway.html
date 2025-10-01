@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pixabay Stock Downloader — Photos & Videos</title>
+  <style>
+    :root{--bg:#0b0f14;--panel:#111827;--muted:#8aa0b5;--text:#e6eef7;--line:#223047;--brand:#60a5fa;--ok:#34d399;--warn:#f59e0b;--err:#ef4444}
+    *{box-sizing:border-box}
+    body{margin:0;background:linear-gradient(120deg,#0b0f14,#0e1420 55%,#0b0f14);font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;color:var(--text)}
+    .wrap{max-width:1000px;margin:36px auto;padding:0 20px}
+    h1{margin:0 0 8px 0;font-size:28px}
+    .lead{color:var(--muted);margin:0 0 18px 0}
+    .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px 18px 14px;box-shadow:0 10px 30px rgba(0,0,0,.28)}
+    label{display:block;font-weight:600;margin:10px 0 6px}
+    input[type=text],input[type=password],input[type=number],select{width:100%;padding:12px 14px;border-radius:12px;border:1px solid var(--line);background:#0c1320;color:var(--text)}
+    input::placeholder{color:#8393aa}
+    .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    .grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
+    .row{display:flex;gap:12px;flex-wrap:wrap}
+    .radio{display:flex;gap:12px;flex-wrap:wrap}
+    .radio label{display:flex;gap:8px;align-items:center;font-weight:500;background:#0c1320;border:1px solid var(--line);padding:10px 12px;border-radius:12px;cursor:pointer}
+    button{appearance:none;border:0;border-radius:12px;padding:12px 16px;font-weight:700;cursor:pointer}
+    .primary{background:var(--brand);color:#061427}
+    .ghost{background:transparent;border:1px solid var(--line);color:var(--text)}
+    .note{font-size:12px;color:var(--muted);margin-top:6px}
+    .hr{height:1px;background:linear-gradient(90deg,transparent,var(--line),transparent);margin:18px 0}
+    .log{margin-top:14px;background:#0a111b;border:1px dashed var(--line);border-radius:12px;padding:12px;max-height:230px;overflow:auto;font-family:ui-monospace,Consolas,monospace;font-size:12px}
+    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px;margin-top:14px}
+    .thumb{border-radius:10px;overflow:hidden;border:1px solid var(--line);background:#0c1320;display:flex;flex-direction:column}
+    .thumb img,.thumb video{width:100%;height:220px;object-fit:cover;display:block;background:#0c1320}
+    .thumb label{display:flex;align-items:center;gap:8px;padding:8px}
+    .status{margin-left:8px;font-size:13px}
+    .ok{color:var(--ok)}
+    .err{color:var(--err)}
+
+    /* Loader overlay */
+    .overlay{
+      position:fixed; inset:0; background:rgba(5,10,18,.72);
+      display:none; align-items:center; justify-content:center; z-index:9999;
+      backdrop-filter: blur(2px);
+    }
+    .loader{
+      width:360px; max-width:90vw; background:#0c1320; border:1px solid var(--line);
+      border-radius:16px; padding:18px; box-shadow:0 10px 30px rgba(0,0,0,.35);
+    }
+    .spin{
+      width:28px; height:28px; border:3px solid #29415f; border-top-color:var(--brand);
+      border-radius:50%; animation:spin 1s linear infinite; margin-right:10px;
+    }
+    @keyframes spin{to{transform:rotate(360deg)}}
+    .loader-row{display:flex;align-items:center;gap:10px}
+    .loader-text{font-weight:700}
+    .bar{height:8px;background:#0a111b;border:1px solid var(--line);border-radius:999px;margin-top:12px;overflow:hidden}
+    .bar > span{display:block;height:100%;width:0%;background:linear-gradient(90deg,var(--brand),#8bc5ff); transition:width .2s}
+    .small-note{font-size:12px;color:#9bb0c6;margin-top:8px}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Pixabay Stock Downloader</h1>
+    <p class="lead">Choose <b>Photos</b> or <b>Videos</b>, set topic & aspect ratio, preview with checkboxes, and download selected items as a ZIP.</p>
+
+    <div class="card">
+      <div class="grid2">
+        <div>
+          <label for="apiKey">Pixabay API Key</label>
+          <input id="apiKey" type="password" placeholder="Paste your API key" />
+          <div class="note">Get one free at <a href="https://pixabay.com/api/docs/" target="_blank">pixabay.com/api/docs</a></div>
+        </div>
+        <div>
+          <label for="topic">Topic (keyword)</label>
+          <input id="topic" type="text" placeholder="e.g., AI technology" value="AI technology" />
+        </div>
+      </div>
+
+      <div class="grid3" style="margin-top:10px">
+        <div>
+          <label for="contentType">Content Type</label>
+          <select id="contentType">
+            <option value="photos" selected>Photos</option>
+            <option value="videos">Videos</option>
+          </select>
+          <div class="note">Switch to Videos to fetch MP4 clips via Pixabay Videos API.</div>
+        </div>
+        <div>
+          <label>Aspect Ratio</label>
+          <div class="radio">
+            <label><input type="radio" name="ratio" value="16x9"> 16:9 (landscape)</label>
+            <label><input type="radio" name="ratio" value="9x16" checked> 9:16 (portrait)</label>
+          </div>
+          <div class="note">We’ll pick the closest file; strict orientation can filter harder.</div>
+        </div>
+        <div>
+          <label for="prefix">Filename prefix</label>
+          <input id="prefix" type="text" value="ai_" placeholder="e.g., ai_" />
+          <div class="note">Files named like <code>ai_TOPIC-ID.jpg</code> or <code>.mp4</code>.</div>
+        </div>
+      </div>
+
+      <div class="grid3" style="margin-top:10px">
+        <div>
+          <label for="count">How many items</label>
+          <input id="count" type="number" min="1" max="200" step="1" value="20" />
+          <div class="note">Max 200 per page; auto-pages until your count.</div>
+        </div>
+        <div>
+          <label for="zipname">ZIP file name</label>
+          <input id="zipname" type="text" value="AI_technology_portrait" placeholder="e.g., AI_technology_portrait" />
+          <div class="note">Browser security = ZIP download (no direct save to folders).</div>
+        </div>
+        <div>
+          <label for="orientationOnly">Strict orientation</label>
+          <select id="orientationOnly">
+            <option value="any" selected>Allow any (fallback to closest)</option>
+            <option value="portrait">Portrait only</option>
+            <option value="landscape">Landscape only</option>
+          </select>
+          <div class="note">If strict, non-matching files are skipped.</div>
+        </div>
+      </div>
+
+      <div class="hr"></div>
+
+      <div class="row" style="margin-top:14px">
+        <button class="primary" id="fetchBtn">Fetch & Preview</button>
+        <button class="ghost" id="downloadBtn" disabled>Download Selected as ZIP</button>
+        <button class="ghost" id="testBtn">Test (3 items)</button>
+        <span class="status" id="status"></span>
+      </div>
+
+      <div class="row" style="margin-top:10px;align-items:center">
+        <label class="row" style="gap:8px; align-items:center">
+          <input type="checkbox" id="toggleAll">
+          <span>Select / Deselect all</span>
+        </label>
+        <span class="note" id="selCount">0 selected</span>
+      </div>
+
+      <div class="log" id="log"></div>
+      <div class="grid" id="preview"></div>
+    </div>
+
+    <p class="note">Tip: Extract into <code>…/SanjayInsights_StockLibrary/&lt;Theme&gt;/Images</code> or <code>…/Videos</code>.</p>
+  </div>
+
+  <!-- Loader Overlay -->
+  <div class="overlay" id="overlay">
+    <div class="loader">
+      <div class="loader-row">
+        <div class="spin"></div>
+        <div class="loader-text" id="loaderText">Loading…</div>
+      </div>
+      <div class="bar"><span id="loaderBar"></span></div>
+      <div class="small-note" id="loaderNote">Please keep this tab open.</div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+  <script>
+    // ======= State =======
+    var STATE = { items: [], selected: 0 };
+
+    // Utility
+    function $(sel){ return document.querySelector(sel); }
+    function addLog(msg, cls){
+      var logBox = $('#log');
+      var div = document.createElement('div');
+      if(typeof cls === 'string' && cls.length > 0){ div.className = cls; }
+      div.textContent = msg;
+      logBox.appendChild(div);
+      logBox.scrollTop = logBox.scrollHeight;
+    }
+    function setStatus(msg){ $('#status').textContent = msg; }
+    function safeString(v, fallback){ return (typeof v === 'string' && v.length > 0) ? v : (typeof fallback === 'string' ? fallback : ''); }
+
+    // Loader helpers
+    function showLoader(text){
+      var o = $('#overlay'); var t = $('#loaderText'); var b = $('#loaderBar');
+      if(t){ t.textContent = text; }
+      if(b){ b.style.width = '0%'; }
+      if(o){ o.style.display = 'flex'; }
+    }
+    function setLoaderText(text){ var t = $('#loaderText'); if(t){ t.textContent = text; } }
+    function setLoaderProgress(pct){ var b = $('#loaderBar'); if(b){ b.style.width = String(Math.max(0, Math.min(100, pct))) + '%'; } }
+    function hideLoader(){ var o = $('#overlay'); if(o){ o.style.display = 'none'; } }
+
+    // ---------- PHOTO helpers (Pixabay images) ----------
+    function pickPhotoUrl(hit){
+      // Prefer largest available
+      if(typeof hit.fullHDURL === 'string' && hit.fullHDURL.length > 0) return hit.fullHDURL;
+      if(typeof hit.largeImageURL === 'string' && hit.largeImageURL.length > 0) return hit.largeImageURL;
+      if(typeof hit.webformatURL === 'string' && hit.webformatURL.length > 0) return hit.webformatURL;
+      if(typeof hit.previewURL === 'string' && hit.previewURL.length > 0) return hit.previewURL;
+      return '';
+    }
+    function matchesPhotoOrientation(hit, want){
+      if(want === 'any') return true;
+      var w = hit.imageWidth, h = hit.imageHeight;
+      if(!(typeof w === 'number' && typeof h === 'number')) return true;
+      var isPortrait = h > w;
+      return (want === 'portrait') ? isPortrait : !isPortrait;
+    }
+
+    // ---------- VIDEO helpers (Pixabay videos) ----------
+    function pickVideoFile(hit, ratio){
+      // hit.videos = { large:{url,width,height}, medium:{}, small:{}, tiny:{} }
+      var candidates = [];
+      if(hit.videos && hit.videos.large)  candidates.push(hit.videos.large);
+      if(hit.videos && hit.videos.medium) candidates.push(hit.videos.medium);
+      if(hit.videos && hit.videos.small)  candidates.push(hit.videos.small);
+      if(hit.videos && hit.videos.tiny)   candidates.push(hit.videos.tiny);
+
+      var best = null;
+      var wantPortrait = ratio === '9x16';
+      for(var i=0;i<candidates.length;i++){
+        var f = candidates[i];
+        if(!(f && typeof f.url === 'string' && f.url.length > 0)) continue;
+        if(!(typeof f.width === 'number' && typeof f.height === 'number')) continue;
+        var isPortrait = f.height > f.width;
+        if(wantPortrait && !isPortrait) continue;
+        if(!wantPortrait && isPortrait) continue;
+        if(best === null || f.width > best.width) best = f;
+      }
+      if(best !== null) return best;
+      // fallback: any largest
+      for(var j=0;j<candidates.length;j++){
+        var g = candidates[j];
+        if(!(g && typeof g.url === 'string' && g.url.length > 0)) continue;
+        if(best === null || g.width > best.width) best = g;
+      }
+      return best; // may be null
+    }
+    function matchesVideoOrientation(file, want){
+      if(want === 'any') return true;
+      if(!(file && typeof file.width === 'number' && typeof file.height === 'number')) return true;
+      var isPortrait = file.height > file.width;
+      return (want === 'portrait') ? isPortrait : !isPortrait;
+    }
+
+    // ---------- API fetchers ----------
+    async function fetchPhotosPaged(apiKey, q, needed, strictOrient, ratio){
+      var perPage = Math.min(200, needed); // Pixabay allows up to 200
+      var page = 1, results = [];
+      while(results.length < needed){
+        var url = 'https://pixabay.com/api/?key=' + encodeURIComponent(apiKey) +
+                  '&q=' + encodeURIComponent(q) +
+                  '&image_type=photo' +
+                  '&safesearch=true' +
+                  '&per_page=' + String(perPage) +
+                  '&page=' + String(page);
+        // If strict orientation, ask API to pre-filter
+        if(strictOrient === 'portrait') url += '&orientation=vertical';
+        if(strictOrient === 'landscape') url += '&orientation=horizontal';
+
+        var res = await fetch(url);
+        if(!res.ok){ throw new Error('API error ' + String(res.status) + ': ' + (await res.text())); }
+        var data = await res.json();
+        if(!(data && Array.isArray(data.hits)) || data.hits.length === 0) break;
+
+        for(var i=0;i<data.hits.length;i++){
+          var h = data.hits[i];
+          // If not strict, we still let any through; otherwise enforced above.
+          if(strictOrient !== 'any' && !matchesPhotoOrientation(h, strictOrient)) continue;
+          results.push(h);
+          if(results.length >= needed) break;
+        }
+        if(data.hits.length < perPage) break;
+        page++;
+      }
+      return results.slice(0, needed);
+    }
+
+    async function fetchVideosPaged(apiKey, q, needed, strictOrient, ratio){
+      var perPage = Math.min(200, needed);
+      var page = 1, results = [];
+      while(results.length < needed){
+        var url = 'https://pixabay.com/api/videos/?key=' + encodeURIComponent(apiKey) +
+                  '&q=' + encodeURIComponent(q) +
+                  '&per_page=' + String(perPage) +
+                  '&page=' + String(page) +
+                  '&safesearch=true';
+        var res = await fetch(url);
+        if(!res.ok){ throw new Error('API error ' + String(res.status) + ': ' + (await res.text())); }
+        var data = await res.json();
+        if(!(data && Array.isArray(data.hits)) || data.hits.length === 0) break;
+
+        for(var i=0;i<data.hits.length;i++){
+          var v = data.hits[i];
+          var file = pickVideoFile(v, ratio);
+          if(!(file && typeof file.url === 'string' && file.url.length > 0)) continue;
+          if(strictOrient !== 'any' && !matchesVideoOrientation(file, strictOrient)) continue;
+          v._chosen = file;
+          results.push(v);
+          if(results.length >= needed) break;
+        }
+        if(data.hits.length < perPage) break;
+        page++;
+      }
+      return results.slice(0, needed);
+    }
+
+    async function blobFromUrl(url){
+      var r = await fetch(url);
+      if(!r.ok) throw new Error('Fetch failed ' + String(r.status));
+      return await r.blob();
+    }
+
+    // ---------- UI helpers ----------
+    function updateSelectedCount(){
+      var sel = STATE.items.filter(function(it){ return it.selected; }).length;
+      STATE.selected = sel;
+      $('#selCount').textContent = String(sel) + ' selected';
+      $('#downloadBtn').disabled = sel === 0;
+      var toggleAll = $('#toggleAll');
+      if(toggleAll){ toggleAll.checked = sel > 0 && sel === STATE.items.length; }
+    }
+
+    function addThumb(it){
+      var box = document.createElement('div');
+      box.className = 'thumb';
+
+      if(it.kind === 'video'){
+        var vid = document.createElement('video');
+        vid.src = URL.createObjectURL(it.blob);
+        vid.muted = true; vid.loop = true; vid.controls = true;
+        box.appendChild(vid);
+      } else {
+        var img = document.createElement('img');
+        img.src = URL.createObjectURL(it.blob);
+        box.appendChild(img);
+      }
+
+      var label = document.createElement('label');
+      label.style.display = 'flex';
+      label.style.alignItems = 'center';
+      label.style.gap = '8px';
+      label.style.padding = '8px';
+
+      var cb = document.createElement('input');
+      cb.type = 'checkbox';
+      cb.checked = !!it.selected;
+      cb.addEventListener('change', function(){
+        it.selected = cb.checked;
+        updateSelectedCount();
+      });
+
+      var caption = document.createElement('span');
+      caption.textContent = it.fname;
+
+      label.appendChild(cb);
+      label.appendChild(caption);
+      box.appendChild(label);
+      $('#preview').appendChild(box);
+    }
+
+    // ---------- Main flows ----------
+    async function fetchAndPreview(limitOverride){
+      // Reset UI
+      $('#log').textContent = '';
+      $('#preview').innerHTML = '';
+      setStatus('');
+      STATE.items = [];
+      updateSelectedCount();
+
+      var apiKey = safeString($('#apiKey').value, '');
+      var topic  = safeString($('#topic').value, '');
+      var ratioInput = document.querySelector('input[name="ratio"]:checked');
+      var ratio  = ratioInput ? ratioInput.value : '9x16';
+      var prefix = safeString($('#prefix').value, '');
+      var countVal = parseInt($('#count').value, 10);
+      var need   = (typeof limitOverride === 'number') ? limitOverride : (isNaN(countVal) ? 10 : countVal);
+      var orientOnly = $('#orientationOnly').value; // any | portrait | landscape
+      var contentType = $('#contentType').value;    // photos | videos
+
+      if(apiKey.length === 0){ addLog('Please paste your Pixabay API key.', 'err'); return; }
+      if(topic.length  === 0){ addLog('Please enter a topic.', 'err'); return; }
+
+      addLog('Searching Pixabay ' + contentType + ' for "' + topic + '" (need ' + String(need) + ', ratio ' + ratio + ', strict: ' + orientOnly + ') ...');
+
+      showLoader('Fetching ' + contentType + '…');
+      setLoaderProgress(0);
+
+      try{
+        if(contentType === 'videos'){
+          var vids = await fetchVideosPaged(apiKey, topic, need, orientOnly, ratio);
+          addLog('Found ' + String(vids.length) + ' usable videos.');
+          if(vids.length === 0){ hideLoader(); setStatus('No videos matched.'); return; }
+          var baseV = topic.replace(/\s+/g,'_');
+          for(var i=0;i<vids.length;i++){
+            var v = vids[i];
+            var file = v._chosen;
+            var src  = file ? file.url : '';
+            if(!(typeof src === 'string' && src.length > 0)){ addLog('Skip (no src) id ' + String(v.id)); continue; }
+            var fnameV = (prefix.length > 0 ? prefix : '') + baseV + '-' + String(v.id) + '.mp4';
+            try{
+              var blobV = await blobFromUrl(src);
+              var itemV = { id: v.id, fname: fnameV, blob: blobV, selected: true, kind: 'video' };
+              STATE.items.push(itemV);
+              addThumb(itemV);
+              addLog('Added ' + fnameV);
+            }catch(err){ addLog('Skip ' + fnameV + ': ' + err.message, 'err'); }
+            var p1 = ((i+1)/vids.length)*100;
+            setLoaderProgress(p1);
+            setLoaderText('Downloading previews… ' + String(Math.round(p1)) + '%');
+          }
+        } else {
+          var photos = await fetchPhotosPaged(apiKey, topic, need, orientOnly, ratio);
+          addLog('Found ' + String(photos.length) + ' usable photos.');
+          if(photos.length === 0){ hideLoader(); setStatus('No photos matched.'); return; }
+          var base = topic.replace(/\s+/g,'_');
+          for(var j=0;j<photos.length;j++){
+            var p = photos[j];
+            // If user chose strict via dropdown = already filtered. For ratio preference we don't force crop here.
+            var srcP = pickPhotoUrl(p);
+            if(!(typeof srcP === 'string' && srcP.length > 0)){ addLog('Skip (no src) id ' + String(p.id)); continue; }
+            var fname = (prefix.length > 0 ? prefix : '') + base + '-' + String(p.id) + '.jpg';
+            try{
+              var blob = await blobFromUrl(srcP);
+              var item = { id: p.id, fname: fname, blob: blob, selected: true, kind: 'photo' };
+              STATE.items.push(item);
+              addThumb(item);
+              addLog('Added ' + fname);
+            }catch(err){ addLog('Skip ' + fname + ': ' + err.message, 'err'); }
+            var p2 = ((j+1)/photos.length)*100;
+            setLoaderProgress(p2);
+            setLoaderText('Downloading previews… ' + String(Math.round(p2)) + '%');
+          }
+        }
+      }catch(e){
+        addLog('API error: ' + e.message, 'err');
+        hideLoader();
+        return;
+      }
+
+      hideLoader();
+      updateSelectedCount();
+      setStatus('Preview ready. Choose items and press "Download Selected as ZIP".');
+    }
+
+    async function downloadSelected(){
+      var zipname = safeString($('#zipname').value, 'download').replace(/\s+/g,'_');
+      var chosen = STATE.items.filter(function(it){ return it.selected; });
+      if(chosen.length === 0){ addLog('No items selected.', 'err'); return; }
+
+      showLoader('Building ZIP…');
+      setLoaderProgress(0);
+
+      var zip = new JSZip();
+      var photosFolder = zip.folder('photos');
+      var videosFolder = zip.folder('videos');
+      for(var i=0;i<chosen.length;i++){
+        var it = chosen[i];
+        if(it.kind === 'video'){ videosFolder.file(it.fname, it.blob); }
+        else { photosFolder.file(it.fname, it.blob); }
+      }
+
+      var out = await JSZip.generateAsync.call(zip, {type:'blob'}, function (metadata) {
+        var pct = typeof metadata.percent === 'number' ? metadata.percent : 0;
+        setLoaderProgress(pct);
+        setLoaderText('Zipping… ' + String(Math.round(pct)) + '%');
+      });
+
+      setLoaderText('Starting download…');
+      var a = document.createElement('a');
+      a.href = URL.createObjectURL(out);
+      a.download = zipname + '.zip';
+      a.click();
+      URL.revokeObjectURL(a.href);
+      hideLoader();
+
+      addLog('✅ Downloaded ' + String(chosen.length) + ' selected item(s) into ' + zipname + '.zip', 'ok');
+    }
+
+    // ---------- Bindings ----------
+    document.addEventListener('DOMContentLoaded', function(){
+      $('#fetchBtn').addEventListener('click', function(){ fetchAndPreview(); });
+      $('#testBtn').addEventListener('click', function(){ fetchAndPreview(3); });
+      $('#downloadBtn').addEventListener('click', function(){ downloadSelected(); });
+
+      var toggleAll = $('#toggleAll');
+      if(toggleAll){
+        toggleAll.addEventListener('change', function(){
+          var want = toggleAll.checked;
+          for(var i=0;i<STATE.items.length;i++){ STATE.items[i].selected = want; }
+          var checks = document.querySelectorAll('#preview input[type="checkbox"]');
+          checks.forEach(function(cb){ cb.checked = want; });
+          updateSelectedCount();
+        });
+      }
+    });
+  </script>
+</body>
+</html>
