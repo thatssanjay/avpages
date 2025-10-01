@@ -54,7 +54,7 @@
         <div>
           <label for="apiKey">Unsplash Access Key</label>
           <input id="apiKey" type="password" placeholder="Paste your Access Key" />
-          <div class="note">Create one at <a href="https://unsplash.com/developers" target="_blank">unsplash.com/developers</a>. This page calls <code>download_location</code> before saving, per API rules.</div>
+          <div class="note">Create one at <a href="https://unsplash.com/developers" target="_blank" rel="noopener">unsplash.com/developers</a>. This page calls <code>download_location</code> before saving, per API rules.</div>
         </div>
         <div>
           <label for="topic">Topic (keyword)</label>
@@ -201,12 +201,11 @@
     async function fetchPhotosPaged(accessKey, q, needed, strictOrient, ratio, mode){
       var perPage = 30; // Unsplash max per_page
       var page = 1; var results = [];
-      // Orientation param for API
       var orientationParam = '';
       if(strictOrient === 'portrait') orientationParam = 'portrait';
       if(strictOrient === 'landscape') orientationParam = 'landscape';
 
-      // Bias query when user chooses "Illustrations"
+      // Bias query when "Illustrations" is chosen
       var biasedQuery = q;
       if(mode === 'illustrations'){
         biasedQuery = q + ' illustration, vector, flat design, digital art, 3D render';
@@ -227,7 +226,6 @@
 
         for(var i=0;i<data.results.length;i++){
           var ph = data.results[i];
-          // If strict orientation was not sent, also guard locally just in case
           if(strictOrient !== 'any' && !matchesOrientationWH(ph.width, ph.height, strictOrient)) continue;
           results.push(ph);
           if(results.length >= needed) break;
@@ -281,7 +279,6 @@
 
     // ===== Main flows =====
     async function fetchAndPreview(limitOverride){
-      // Reset UI
       $('#log').textContent = '';
       $('#preview').innerHTML = '';
       setStatus('');
@@ -306,9 +303,8 @@
       showLoader('Fetching ' + contentType + '…');
       setLoaderProgress(0);
 
-      var photos;
       try{
-        photos = await fetchPhotosPaged(apiKey, topic, need, orientOnly, ratio, contentType);
+        var photos = await fetchPhotosPaged(apiKey, topic, need, orientOnly, ratio, contentType);
         addLog('Found ' + String(photos.length) + ' photos.');
         if(photos.length === 0){ hideLoader(); setStatus('No results matched.'); return; }
 
@@ -375,7 +371,8 @@
         }
       }
 
-      var out = await JSZip.generateAsync.call(zip, {type:'blob'}, function (m) {
+      // ✅ Correct instance call (no .call on JSZip.generateAsync)
+      var out = await zip.generateAsync({ type:'blob' }, function (m) {
         var pct = typeof m.percent === 'number' ? m.percent : 0;
         setLoaderProgress(pct);
         setLoaderText('Zipping… ' + String(Math.round(pct)) + '%');
@@ -385,8 +382,9 @@
       var a = document.createElement('a');
       a.href = URL.createObjectURL(out);
       a.download = zipname + '.zip';
+      document.body.appendChild(a);
       a.click();
-      URL.revokeObjectURL(a.href);
+      setTimeout(function(){ URL.revokeObjectURL(a.href); a.remove(); }, 1000);
       hideLoader();
 
       addLog('✅ Downloaded ' + String(chosen.length) + ' selected photo(s) into ' + zipname + '.zip', 'ok');
