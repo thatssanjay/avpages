@@ -1,0 +1,1125 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Smart Workout planner</title>
+
+  <style>
+    :root{
+      /* Light Blue / Trust / Peace theme */
+      --bg1:#e9f6ff;
+      --bg2:#f7fbff;
+      --card:#ffffff;
+      --text:#0b1a2a;
+      --muted:#4b6b86;
+      --line:rgba(11,26,42,.10);
+      --accent:#2f8cff;
+      --accent2:#69d2ff;
+      --soft:#dff2ff;
+      --chip:#f0f8ff;
+      --shadow: 0 14px 40px rgba(17, 74, 132, .12);
+      --radius:18px;
+      --danger:#ff4d4d;
+
+      /* Timer ring */
+      --ringSize: 72px;
+      --ringStroke: 8px;
+    }
+
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial;
+      color:var(--text);
+      background: radial-gradient(1200px 800px at 20% 10%, var(--bg1), var(--bg2));
+    }
+
+    .app{
+      max-width: 980px;
+      margin: 0 auto;
+      min-height: 100vh;
+      display:flex;
+      flex-direction:column;
+      padding-bottom: 78px; /* bottom nav space */
+    }
+
+    .header{
+      position: sticky;
+      top:0;
+      z-index: 20;
+      background: rgba(255,255,255,.78);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--line);
+    }
+    .headerInner{
+      padding: 14px 16px 10px;
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+
+    .brand{
+      display:flex; flex-direction:column; gap:6px;
+    }
+    .appTitle{
+      margin:0;
+      font-size: 18px;
+      letter-spacing:.2px;
+      color:#08335f;
+    }
+    .brand p{
+      margin:0;
+      color: var(--muted);
+      font-size: 12px;
+      line-height:1.35;
+      max-width: 780px;
+    }
+
+    .statusPills{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:flex-end;
+    }
+    .pill{
+      border: 1px solid var(--line);
+      background: var(--chip);
+      color: var(--muted);
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      white-space:nowrap;
+    }
+    .dot{
+      width:8px;height:8px;border-radius:999px;background:var(--accent);
+      box-shadow:0 0 0 4px rgba(47,140,255,.15);
+    }
+
+    .content{
+      padding: 14px 16px 18px;
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+    }
+    .card{
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 14px;
+    }
+
+    .dayTitle{
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+      justify-content:space-between;
+      flex-wrap:wrap;
+    }
+    .dayTitle h2{
+      margin:0;
+      font-size: 18px;
+    }
+    .dayTitle p{
+      margin:6px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height:1.4;
+      max-width: 760px;
+    }
+
+    .motivation{
+      margin-top:10px;
+      padding:10px 12px;
+      border-radius: 16px;
+      border: 1px solid rgba(47,140,255,.22);
+      background: linear-gradient(180deg, rgba(47,140,255,.12), rgba(105,210,255,.06));
+      color:#0a3f7a;
+      font-weight: 900;
+      letter-spacing:.15px;
+      line-height:1.25;
+    }
+
+    .sectionHead{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      margin-bottom: 10px;
+      flex-wrap:wrap;
+    }
+    .sectionHead h3{
+      margin:0;
+      font-size: 13px;
+      letter-spacing:.2px;
+    }
+    .hint{
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.35;
+    }
+
+    .steps{
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      margin-top: 10px;
+    }
+
+    .step{
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 10px;
+      background: linear-gradient(180deg, rgba(47,140,255,.06), rgba(105,210,255,.04));
+    }
+    .stepTop{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+    .stepTop .left{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      min-width: 260px;
+    }
+    .badge{
+      width: 26px; height: 26px; border-radius: 10px;
+      background: rgba(47,140,255,.15);
+      border: 1px solid rgba(47,140,255,.25);
+      display:flex; align-items:center; justify-content:center;
+      font-weight: 900;
+      color: #0a3f7a;
+      flex: 0 0 auto;
+    }
+    .stepName{
+      display:flex;
+      flex-direction:column;
+      gap:3px;
+    }
+    .stepName b{font-size: 13px;}
+    .meta{
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .stepActions{
+      display:flex;
+      gap:8px;
+      align-items:center;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+    .btn{
+      border: 1px solid rgba(47,140,255,.30);
+      background: linear-gradient(180deg, rgba(47,140,255,.20), rgba(105,210,255,.12));
+      color: #0a3f7a;
+      padding: 8px 12px;
+      border-radius: 14px;
+      cursor:pointer;
+      font-weight: 850;
+      transition: .15s ease;
+      font-size: 12px;
+    }
+    .btn:hover{transform: translateY(-1px); border-color: rgba(47,140,255,.55)}
+    .btn.ghost{
+      background: rgba(255,255,255,.65);
+      border-color: var(--line);
+      color: var(--muted);
+    }
+    .btn.danger{
+      border-color: rgba(255,77,77,.35);
+      background: rgba(255,77,77,.12);
+      color: #7a0a0a;
+    }
+
+    .stepBody{
+      margin-top: 8px;
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:flex-start;
+      justify-content:space-between;
+    }
+    .list{
+      margin:0;
+      padding-left: 18px;
+      color: #16324b;
+      font-size: 13px;
+      line-height: 1.45;
+      flex:1 1 460px;
+    }
+
+    /* Android-like ring timer */
+    .timerRow{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+      margin-top: 6px;
+    }
+    .ringWrap{
+      position: relative;
+      width: var(--ringSize);
+      height: var(--ringSize);
+      flex: 0 0 auto;
+    }
+    .ringText{
+      position:absolute;
+      inset:0;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      font-weight: 950;
+      color:#08335f;
+      font-variant-numeric: tabular-nums;
+      line-height:1;
+      pointer-events:none;
+    }
+    .ringText small{
+      font-size: 10px;
+      color: var(--muted);
+      font-weight: 800;
+      margin-top: 4px;
+    }
+    .ringSvg{
+      transform: rotate(-90deg);
+    }
+    .ringBg{
+      stroke: rgba(11,26,42,.12);
+    }
+    .ringFg{
+      stroke: var(--accent);
+      filter: drop-shadow(0 8px 12px rgba(47,140,255,.18));
+    }
+
+    table{
+      width:100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      overflow:hidden;
+      border-radius: 16px;
+      border: 1px solid var(--line);
+    }
+    th, td{
+      padding: 10px 10px;
+      border-bottom: 1px solid var(--line);
+      font-size: 13px;
+      vertical-align: middle;
+    }
+    th{
+      text-align:left;
+      color: var(--muted);
+      font-size: 12px;
+      background: rgba(47,140,255,.06);
+    }
+    tr:last-child td{border-bottom:none}
+
+    /* Quick Table images */
+    .qImgs{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+    }
+    .qImg{
+      width: 46px;
+      height: 46px;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: var(--soft);
+      object-fit: cover;
+      cursor:pointer;
+      transition:.15s ease;
+    }
+    .qImg:hover{transform: translateY(-1px); border-color: rgba(47,140,255,.55)}
+
+    details{
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 10px 12px;
+      background: rgba(47,140,255,.04);
+    }
+    summary{
+      cursor:pointer;
+      font-weight: 900;
+      color:#0a3f7a;
+      outline:none;
+    }
+    .detailsBody{
+      margin-top:10px;
+      color:#16324b;
+      font-size:13px;
+      line-height:1.5;
+    }
+
+    /* Bottom day navigation */
+    .bottomNav{
+      position: fixed;
+      left:0; right:0; bottom:0;
+      background: rgba(255,255,255,.82);
+      backdrop-filter: blur(14px);
+      border-top: 1px solid var(--line);
+      padding: 10px 10px 12px;
+      z-index: 30;
+    }
+    .navInner{
+      max-width: 980px;
+      margin: 0 auto;
+      display:flex;
+      gap:8px;
+      overflow-x:auto;
+      scrollbar-width: none;
+      padding: 0 6px;
+    }
+    .navInner::-webkit-scrollbar{display:none}
+    .dayBtn{
+      flex: 0 0 auto;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      gap:4px;
+      padding: 10px 12px;
+      border-radius: 16px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.72);
+      cursor:pointer;
+      min-width: 90px;
+      transition: .15s ease;
+      user-select:none;
+    }
+    .dayBtn:hover{transform: translateY(-1px); border-color: rgba(47,140,255,.45)}
+    .dayBtn.active{
+      background: linear-gradient(180deg, rgba(47,140,255,.22), rgba(105,210,255,.10));
+      border-color: rgba(47,140,255,.75);
+      box-shadow: 0 10px 28px rgba(47,140,255,.18);
+    }
+    .dow{
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: .4px;
+      text-transform: uppercase;
+    }
+    .mini{
+      font-size: 12px;
+      font-weight: 950;
+      color: #0a3f7a;
+      text-align:center;
+      line-height:1.15;
+    }
+
+    /* Image popup */
+    .modal{
+      position: fixed;
+      inset: 0;
+      background: rgba(3, 14, 24, .55);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding: 18px;
+      z-index: 80;
+    }
+    .modal.show{display:flex;}
+    .modalCard{
+      width: min(560px, 96vw);
+      background: rgba(255,255,255,.95);
+      border: 1px solid rgba(255,255,255,.6);
+      border-radius: 20px;
+      box-shadow: 0 26px 70px rgba(0,0,0,.25);
+      overflow:hidden;
+      position: relative;
+    }
+    .modalTop{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding: 10px 12px;
+      border-bottom: 1px solid rgba(11,26,42,.10);
+      gap:10px;
+    }
+    .modalTop b{
+      font-size: 13px;
+      color:#08335f;
+    }
+    .closeBtn{
+      border: 1px solid rgba(11,26,42,.12);
+      background: rgba(255,255,255,.8);
+      border-radius: 12px;
+      padding: 8px 10px;
+      font-weight: 900;
+      cursor:pointer;
+      color: var(--muted);
+    }
+    .modalImg{
+      width:100%;
+      height:auto;
+      display:block;
+      background: var(--soft);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="app">
+
+    <!-- Header -->
+    <div class="header">
+      <div class="headerInner">
+        <div class="brand">
+          <h1 class="appTitle">Smart Workout planner</h1>
+          <p>
+            Month 1 baseline: <b>40 minutes/day</b>, cardio-first fat burn.
+            Alternate days:
+            <b>A</b> = treadmill 30 min focus • <b>B</b> = treadmill 10 + dumbbell + stepper.
+            Warm-up must. Post-stretch more.
+          </p>
+        </div>
+
+        <div class="statusPills">
+          <div class="pill"><span class="dot"></span> 40 min/day</div>
+          <div class="pill"><span class="dot"></span> Timers + alarm</div>
+          <div class="pill"><span class="dot"></span> Month-1 build</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main content -->
+    <div class="content">
+
+      <!-- Day overview -->
+      <div class="card">
+        <div class="dayTitle">
+          <div>
+            <h2 id="dayTitle">Today</h2>
+            <p id="dayDesc">Select a day from the bottom menu to view the routine.</p>
+            <div class="motivation" id="motivation">You don’t need motivation. You need a start.</div>
+          </div>
+          <div class="pill" id="dayMeta">Total: —</div>
+        </div>
+
+        <div class="hint" style="margin-top:10px;">
+          Talk-test pace = you can talk, not sing. If knee/back pain: reduce speed, avoid jogging.
+        </div>
+      </div>
+
+      <!-- Steps -->
+      <div class="card">
+        <div class="sectionHead">
+          <h3>Routine Steps + Timer</h3>
+          <div class="hint">Start a step timer. When time ends, alarm plays.</div>
+        </div>
+        <div class="steps" id="steps"></div>
+      </div>
+
+      <!-- Quick Table -->
+      <div class="card">
+        <div class="sectionHead">
+          <h3>Quick Table</h3>
+          <div class="hint">Includes images (except treadmill).</div>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th style="width:58px;">SN</th>
+              <th style="width:280px;">Type of Exe</th>
+              <th style="width:90px;">Min</th>
+              <th>Images</th>
+            </tr>
+          </thead>
+          <tbody id="tableBody"></tbody>
+        </table>
+        <div class="hint" style="margin-top:10px;">
+          Tap an image to enlarge.
+        </div>
+      </div>
+
+      <!-- Options (collapsed) -->
+      <div class="card">
+        <div class="sectionHead">
+          <h3>Options (Collapsed)</h3>
+          <div class="hint">Open only if needed.</div>
+        </div>
+        <div id="optionsWrap"></div>
+      </div>
+
+    </div>
+
+    <!-- Bottom day navigation -->
+    <div class="bottomNav">
+      <div class="navInner" id="nav"></div>
+    </div>
+  </div>
+
+  <!-- Image Modal -->
+  <div class="modal" id="imgModal" aria-hidden="true">
+    <div class="modalCard" role="dialog" aria-modal="true">
+      <div class="modalTop">
+        <b id="modalTitle">Preview</b>
+        <button class="closeBtn" id="modalClose">Close</button>
+      </div>
+      <img class="modalImg" id="modalImg" alt="Preview" />
+    </div>
+  </div>
+
+  <script>
+    /******************************************************************
+     * Month 1 baseline (40 minutes) — repeat weekly for 1 month
+     * A day: Warm-up 5 + Treadmill 30 + Post-stretch 5
+     * B day: Warm-up 5 + Treadmill 10 + Dumbbell 15 + Stepper 5 + Stretch 5
+     ******************************************************************/
+
+    // Weekly alternation (edit if you want):
+    // Mon A, Tue B, Wed A, Thu B, Fri A, Sat B, Sun A
+    function dayTypeForKey(key){
+      const A = ["mon","wed","fri","sun"];
+      return A.includes(key) ? "A" : "B";
+    }
+
+    const OPTIONS_TEXT = {
+      A: [
+        "If you feel strong: add 1–2% incline in the last 10 minutes.",
+        "If you feel tired: do brisk walk only (no jog).",
+        "Goal: steady sweat, steady breathing (not all-out)."
+      ],
+      B: [
+        "If knees are sensitive: replace squats with chair squats + glute bridges.",
+        "If shoulder pain: lighter weight, more rows, less pressing.",
+        "Keep rest 45–60 seconds between sets."
+      ]
+    };
+
+    // Motivation lines (day-wise)
+    const MOTIVATION = {
+      mon: "Monday: Start clean. One session = momentum.",
+      tue: "Tuesday: Consistency beats intensity. Show up.",
+      wed: "Wednesday: Halfway wins. Keep your streak alive.",
+      thu: "Thursday: Strong heart, strong mind. Do it.",
+      fri: "Friday: Finish the week proud. No excuses.",
+      sat: "Saturday: Today is for discipline, not mood.",
+      sun: "Sunday: Reset your body. Prepare your next week."
+    };
+
+    // Images from your folder (same directory as HTML file)
+    // Put these files in: ./images/
+    // You can rename them, but keep same names here OR update names below.
+    const IMG = {
+      warmup:   "images/warmup.jpg",
+      dumbbell: "images/dumbbell.jpg",
+      stepper:  "images/stepper.jpg",
+      stretch:  "images/stretch.jpg"
+    };
+
+    // Templates (steps) — NO images shown in routine section now
+    function templateA(){
+      return {
+        titleSuffix: "Treadmill Focus (Fat Burn)",
+        desc: "Warm-up → 30 min treadmill fat-burn → longer stretch.",
+        note: "Month 1 goal: consistency + stamina. Keep talk-test zone.",
+        steps: [
+          {
+            slug: "warmup",
+            name: "Pre Warm-up (mandatory)",
+            min: 5,
+            details: [
+              "Joint circles: neck/shoulder/hips/knees/ankles (2 min)",
+              "Easy walk on treadmill (3 min)"
+            ]
+          },
+          {
+            slug: "treadmill30",
+            name: "Treadmill Fat Burn (30 min full focus)",
+            min: 30,
+            details: [
+              "0–5 min: warm walk (comfortable)",
+              "5–25 min: brisk walk OR light jog-walk mix (talk-test zone)",
+              "25–30 min: fast walk finish (steady breathing)",
+              "Rule: you can talk, but not sing"
+            ]
+          },
+          {
+            slug: "stretch",
+            name: "Post Stretching (longer)",
+            min: 5,
+            details: [
+              "Calf stretch: 45 sec/side",
+              "Hamstring stretch: 45 sec/side",
+              "Quad stretch: 45 sec/side",
+              "Chest opener + shoulder stretch: 30 sec each"
+            ]
+          }
+        ]
+      };
+    }
+
+    function templateB(){
+      return {
+        titleSuffix: "Treadmill + Dumbbell + Stepper (Fat burn + strength)",
+        desc: "Short treadmill + strength circuit + stepper + stretch.",
+        note: "Keep form perfect. Smooth reps only. No ego lifting.",
+        steps: [
+          {
+            slug: "warmup",
+            name: "Pre Warm-up (mandatory)",
+            min: 5,
+            details: [
+              "Joint circles (hips/knees/ankles): 2 min",
+              "Easy walk: 3 min"
+            ]
+          },
+          {
+            slug: "treadmill10",
+            name: "Treadmill (10 min run/walk)",
+            min: 10,
+            details: [
+              "Walk 3 min",
+              "Jog 1 min (optional) + fast walk 2 min",
+              "Repeat 2 times"
+            ]
+          },
+          {
+            slug: "dumbbell15",
+            name: "Dumbbell Circuit (15 min) — 2 rounds",
+            min: 15,
+            details: [
+              "Squat (or chair squat): 12 reps",
+              "Row: 12 reps/side",
+              "Shoulder press: 12 reps",
+              "Bicep curls: 15 reps",
+              "Triceps extension: 12 reps",
+              "Rest 60 sec, repeat 2 rounds"
+            ]
+          },
+          {
+            slug: "stepper",
+            name: "Stepper (fat burn finisher)",
+            min: 5,
+            details: [
+              "Steady pace 5 min (talk-test zone)"
+            ]
+          },
+          {
+            slug: "stretch",
+            name: "Post Stretching (longer)",
+            min: 5,
+            details: [
+              "Hamstring: 45 sec/side",
+              "Calf: 45 sec/side",
+              "Hip flexor/quad: 45 sec/side",
+              "Back stretch + deep breathing: 60 sec"
+            ]
+          }
+        ]
+      };
+    }
+
+    const DAYS = [
+      { key:"mon", label:"Mon", name:"Monday" },
+      { key:"tue", label:"Tue", name:"Tuesday" },
+      { key:"wed", label:"Wed", name:"Wednesday" },
+      { key:"thu", label:"Thu", name:"Thursday" },
+      { key:"fri", label:"Fri", name:"Friday" },
+      { key:"sat", label:"Sat", name:"Saturday" },
+      { key:"sun", label:"Sun", name:"Sunday" }
+    ];
+
+    const PLAN = {};
+    for (const d of DAYS){
+      const type = dayTypeForKey(d.key);
+      const t = (type === "A") ? templateA() : templateB();
+      PLAN[d.key] = {
+        label: d.label,
+        title: `${d.name} — ${type} Day • ${t.titleSuffix}`,
+        desc: t.desc,
+        note: `Month 1: repeat this weekly for 4 weeks. Today is a ${type} day. ${t.note}`,
+        type,
+        steps: t.steps.map((s, idx) => ({
+          ...s,
+          sid: `${d.key}-${type}-step-${idx+1}`,
+          seconds: s.min * 60
+        }))
+      };
+    }
+
+    /******************************************************************
+     * Timers + Alarm
+     ******************************************************************/
+    let activeTimer = null; // { sid, intervalId, remaining, paused }
+    const timerState = new Map(); // sid -> remaining seconds
+
+    function fmtTime(sec){
+      const s = Math.max(0, Math.floor(sec));
+      const mm = String(Math.floor(s / 60)).padStart(2, "0");
+      const ss = String(s % 60).padStart(2, "0");
+      return `${mm}:${ss}`;
+    }
+
+    function beepAlarm(){
+      try{
+        const AudioCtx = window.AudioContext || window.webkitAudioContext;
+        const ctx = new AudioCtx();
+        const o = ctx.createOscillator();
+        const g = ctx.createGain();
+        o.type = "sine";
+        o.frequency.value = 880;
+        g.gain.value = 0.0001;
+        o.connect(g);
+        g.connect(ctx.destination);
+        o.start();
+
+        const now = ctx.currentTime;
+        g.gain.setValueAtTime(0.0001, now);
+        g.gain.exponentialRampToValueAtTime(0.28, now + 0.02);
+        g.gain.exponentialRampToValueAtTime(0.0001, now + 0.25);
+
+        g.gain.setValueAtTime(0.0001, now + 0.35);
+        g.gain.exponentialRampToValueAtTime(0.28, now + 0.37);
+        g.gain.exponentialRampToValueAtTime(0.0001, now + 0.60);
+
+        setTimeout(()=>{ o.stop(); ctx.close(); }, 800);
+      } catch(e){
+        alert("Time done!");
+      }
+      if (navigator.vibrate) navigator.vibrate([250, 120, 250, 120, 250]);
+    }
+
+    function stopActiveTimer(){
+      if(activeTimer?.intervalId) clearInterval(activeTimer.intervalId);
+      activeTimer = null;
+    }
+
+    function ringCircumference(r){ return 2 * Math.PI * r; }
+
+    function updateTimerUI(sid){
+      const stepEl = document.querySelector(`.step[data-sid="${sid}"]`);
+      if(!stepEl) return;
+
+      const total = Number(stepEl.dataset.totalSeconds || 0);
+      const remaining = timerState.get(sid) ?? total;
+
+      // Text
+      const text = stepEl.querySelector(".ringText b");
+      if(text) text.textContent = fmtTime(remaining);
+
+      // Ring
+      const fg = stepEl.querySelector(".ringFg");
+      if(fg){
+        const r = Number(fg.dataset.r || 0);
+        const C = ringCircumference(r);
+        const progress = total > 0 ? (remaining / total) : 0;
+        const dash = Math.max(0, Math.min(C, C * progress));
+        fg.style.strokeDasharray = `${C} ${C}`;
+        fg.style.strokeDashoffset = `${C - dash}`;
+      }
+
+      // Buttons
+      const startBtn = stepEl.querySelector('[data-timer="start"]');
+      const pauseBtn = stepEl.querySelector('[data-timer="pause"]');
+      const resumeBtn = stepEl.querySelector('[data-timer="resume"]');
+
+      const isThis = activeTimer && activeTimer.sid === sid;
+      const isRunning = isThis && !activeTimer.paused;
+      const isPaused = isThis && activeTimer.paused;
+
+      if(startBtn) startBtn.disabled = isRunning;
+      if(pauseBtn) pauseBtn.disabled = !isThis || isPaused;
+      if(resumeBtn) resumeBtn.disabled = !isThis || !isPaused;
+    }
+
+    function startTimerForStep(step){
+      // Stop other timer
+      if(activeTimer && activeTimer.sid !== step.sid){
+        stopActiveTimer();
+      }
+
+      let remaining = timerState.get(step.sid);
+      if(remaining == null) remaining = step.seconds;
+
+      activeTimer = {
+        sid: step.sid,
+        remaining,
+        paused: false,
+        intervalId: setInterval(() => {
+          if(!activeTimer || activeTimer.paused) return;
+
+          activeTimer.remaining -= 1;
+          timerState.set(step.sid, activeTimer.remaining);
+          updateTimerUI(step.sid);
+
+          if(activeTimer.remaining <= 0){
+            timerState.set(step.sid, 0);
+            updateTimerUI(step.sid);
+            stopActiveTimer();
+            beepAlarm();
+          }
+        }, 1000)
+      };
+
+      updateTimerUI(step.sid);
+    }
+
+    function pauseTimer(sid){
+      if(!activeTimer || activeTimer.sid !== sid) return;
+      activeTimer.paused = true;
+      updateTimerUI(sid);
+    }
+
+    function resumeTimer(sid){
+      if(!activeTimer || activeTimer.sid !== sid) return;
+      activeTimer.paused = false;
+      updateTimerUI(sid);
+    }
+
+    function resetTimer(step){
+      if(activeTimer && activeTimer.sid === step.sid){
+        stopActiveTimer();
+      }
+      timerState.set(step.sid, step.seconds);
+      updateTimerUI(step.sid);
+    }
+
+    /******************************************************************
+     * Modal for image popup
+     ******************************************************************/
+    const imgModal = document.getElementById("imgModal");
+    const modalImg = document.getElementById("modalImg");
+    const modalTitle = document.getElementById("modalTitle");
+    const modalClose = document.getElementById("modalClose");
+
+    function openModal(src, title){
+      modalTitle.textContent = title || "Preview";
+      modalImg.src = src;
+      imgModal.classList.add("show");
+      imgModal.setAttribute("aria-hidden", "false");
+    }
+    function closeModal(){
+      imgModal.classList.remove("show");
+      imgModal.setAttribute("aria-hidden", "true");
+      modalImg.src = "";
+    }
+    modalClose.addEventListener("click", closeModal);
+    imgModal.addEventListener("click", (e) => {
+      if(e.target === imgModal) closeModal();
+    });
+    document.addEventListener("keydown", (e) => {
+      if(e.key === "Escape") closeModal();
+    });
+
+    /******************************************************************
+     * Render
+     ******************************************************************/
+    const nav = document.getElementById("nav");
+    const dayTitle = document.getElementById("dayTitle");
+    const dayDesc = document.getElementById("dayDesc");
+    const dayMeta = document.getElementById("dayMeta");
+    const stepsEl = document.getElementById("steps");
+    const tableBody = document.getElementById("tableBody");
+    const optionsWrap = document.getElementById("optionsWrap");
+    const motivationEl = document.getElementById("motivation");
+
+    function escapeHtml(str){
+      return String(str)
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
+    }
+
+    function totalMinutes(dayKey){
+      const d = PLAN[dayKey];
+      return d.steps.reduce((sum, s) => sum + (Number(s.min) || 0), 0);
+    }
+
+    function renderDay(dayKey){
+      const d = PLAN[dayKey];
+
+      dayTitle.textContent = d.title;
+      dayDesc.textContent = d.desc;
+      dayMeta.textContent = `Total: ${totalMinutes(dayKey)} min • Month 1`;
+
+      motivationEl.textContent = MOTIVATION[dayKey] || "Show up today. Your future self is watching.";
+
+      // Steps (NO images shown here)
+      stepsEl.innerHTML = d.steps.map((s, idx) => {
+        const remaining = timerState.get(s.sid) ?? s.seconds;
+
+        // ring params
+        const size = 72;
+        const stroke = 8;
+        const r = (size - stroke) / 2;
+        const C = ringCircumference(r);
+        const dash = C; // initial full
+
+        return `
+          <div class="step" data-sid="${s.sid}" data-totalSeconds="${s.seconds}">
+            <div class="stepTop">
+              <div class="left">
+                <div class="badge">${idx+1}</div>
+                <div class="stepName">
+                  <b>${escapeHtml(s.name)}</b>
+                  <div class="meta">${s.min} min</div>
+                </div>
+              </div>
+
+              <div class="stepActions">
+                <button class="btn" data-timer="start">Start</button>
+                <button class="btn ghost" data-timer="pause">Pause</button>
+                <button class="btn ghost" data-timer="resume">Resume</button>
+                <button class="btn danger" data-timer="reset">Reset</button>
+              </div>
+            </div>
+
+            <div class="timerRow">
+              <div class="ringWrap" aria-label="timer ring">
+                <svg class="ringSvg" width="${size}" height="${size}" viewBox="0 0 ${size} ${size}">
+                  <circle class="ringBg" cx="${size/2}" cy="${size/2}" r="${r}" fill="none" stroke-width="${stroke}"></circle>
+                  <circle class="ringFg" data-r="${r}" cx="${size/2}" cy="${size/2}" r="${r}"
+                          fill="none" stroke-width="${stroke}" stroke-linecap="round"
+                          style="stroke-dasharray:${C} ${C}; stroke-dashoffset:${C - dash};"></circle>
+                </svg>
+                <div class="ringText">
+                  <b>${fmtTime(remaining)}</b>
+                  <small>left</small>
+                </div>
+              </div>
+              <div class="hint" style="max-width:520px;">
+                ${(s.details || []).map(x => "• " + escapeHtml(x)).join("<br/>")}
+              </div>
+            </div>
+          </div>
+        `;
+      }).join("");
+
+      // Quick Table: show images for warmup, dumbbell, stepper, stretch (NOT treadmill)
+      // For A day: warmup + stretch
+      // For B day: warmup + dumbbell + stepper + stretch
+      const imgsForDay = (d.type === "A")
+        ? [
+            { key:"warmup",  label:"Warmup",  src: IMG.warmup },
+            { key:"stretch", label:"Stretch", src: IMG.stretch }
+          ]
+        : [
+            { key:"warmup",  label:"Warmup",   src: IMG.warmup },
+            { key:"dumbbell",label:"Dumbbell", src: IMG.dumbbell },
+            { key:"stepper", label:"Stepper",  src: IMG.stepper },
+            { key:"stretch", label:"Stretch",  src: IMG.stretch }
+          ];
+
+      tableBody.innerHTML = d.steps.map((s, i) => {
+        const thumbs = imgsForDay.map(im => {
+          return `<img class="qImg" src="${escapeHtml(im.src)}" alt="${escapeHtml(im.label)}"
+                    data-popup="1" data-title="${escapeHtml(im.label)}" data-src="${escapeHtml(im.src)}"
+                    onerror="this.style.opacity=0.35; this.title='Missing image in /images folder';" />`;
+        }).join("");
+
+        return `
+          <tr>
+            <td>${i+1}</td>
+            <td>${escapeHtml(s.name)}</td>
+            <td>${s.min}</td>
+            <td><div class="qImgs">${thumbs}</div></td>
+          </tr>
+        `;
+      }).join("");
+
+      // Options (collapsed by default)
+      const opt = OPTIONS_TEXT[d.type] || [];
+      optionsWrap.innerHTML = `
+        <details>
+          <summary>${d.label} Options (click to open)</summary>
+          <div class="detailsBody">
+            <ul style="margin:0; padding-left:18px;">
+              ${opt.map(x => `<li>${escapeHtml(x)}</li>`).join("")}
+            </ul>
+            <div style="margin-top:10px;">
+              <b>Month 1 target:</b> follow this pattern for 4 weeks, then revise intensity.
+            </div>
+          </div>
+        </details>
+      `;
+
+      // Active nav
+      [...nav.querySelectorAll(".dayBtn")].forEach(btn=>{
+        btn.classList.toggle("active", btn.dataset.day === dayKey);
+      });
+
+      // Refresh timer visuals for all steps
+      d.steps.forEach(s => updateTimerUI(s.sid));
+    }
+
+    // Bottom nav build
+    for (const d of DAYS){
+      const type = dayTypeForKey(d.key);
+      const btn = document.createElement("div");
+      btn.className = "dayBtn";
+      btn.dataset.day = d.key;
+      btn.innerHTML = `
+        <div class="dow">${d.label}</div>
+        <div class="mini">${type} Day</div>
+      `;
+      btn.addEventListener("click", () => renderDay(d.key));
+      nav.appendChild(btn);
+    }
+
+    // Default open: today's day based on browser date
+    function dayKeyFromBrowser(){
+      // getDay(): 0=Sun,1=Mon,...6=Sat
+      const dow = new Date().getDay();
+      if(dow === 0) return "sun";
+      if(dow === 1) return "mon";
+      if(dow === 2) return "tue";
+      if(dow === 3) return "wed";
+      if(dow === 4) return "thu";
+      if(dow === 5) return "fri";
+      return "sat";
+    }
+
+    /******************************************************************
+     * Click handling for timers + image popup
+     ******************************************************************/
+    document.addEventListener("click", (e) => {
+      // image popup
+      const img = e.target.closest('[data-popup="1"]');
+      if(img){
+        const src = img.dataset.src || "";
+        const title = img.dataset.title || "Preview";
+        if(src) openModal(src, title);
+        return;
+      }
+
+      const stepEl = e.target.closest(".step");
+      if(!stepEl) return;
+
+      const navActive = nav.querySelector(".dayBtn.active");
+      const dayKey = navActive?.dataset.day || dayKeyFromBrowser();
+      const sid = stepEl.dataset.sid;
+      const step = PLAN[dayKey].steps.find(x => x.sid === sid);
+      if(!step) return;
+
+      const timerBtn = e.target.closest("[data-timer]");
+      if(timerBtn){
+        const t = timerBtn.dataset.timer;
+        if(t === "start"){ startTimerForStep(step); return; }
+        if(t === "pause"){ pauseTimer(sid); return; }
+        if(t === "resume"){ resumeTimer(sid); return; }
+        if(t === "reset"){ resetTimer(step); return; }
+      }
+    });
+
+    // Init
+    renderDay(dayKeyFromBrowser());
+  </script>
+</body>
+</html>
