@@ -42,6 +42,7 @@
       min-height: 100vh;
       display:flex;
       flex-direction:column;
+      padding-bottom: 76px; /* room for bottom pills */
     }
 
     .header{
@@ -75,13 +76,7 @@
       max-width: 780px;
     }
 
-    .statusPills{
-      display:flex;
-      gap:8px;
-      flex-wrap:wrap;
-      align-items:center;
-      justify-content:flex-end;
-    }
+    /* Pills */
     .pill{
       border: 1px solid var(--line);
       background: var(--chip);
@@ -104,7 +99,7 @@
       position: sticky;
       top: 64px;
       z-index: 25;
-      background: rgba(255,255,255,.70);
+      background: rgba(255,255,255,.7070);
       backdrop-filter: blur(10px);
       border-bottom: 1px solid var(--line);
       padding: 10px 12px;
@@ -137,7 +132,6 @@
     }
     .dow{font-size: 11px; color: var(--muted); letter-spacing: .4px; text-transform: uppercase;}
     .mini{font-size: 12px; font-weight: 950; color: #0a3f7a; text-align:center; line-height:1.1;}
-
     @media (max-width: 520px){
       .dayGrid{grid-template-columns: repeat(4, minmax(0, 1fr));}
     }
@@ -350,19 +344,8 @@
     }
     tr:last-child td{border-bottom:none}
 
-    .qImgs{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      align-items:center;
-    }
-    .qImgWrap{
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      gap:4px;
-      width: 72px;
-    }
+    .qImgs{display:flex; gap:10px; flex-wrap:wrap; align-items:center;}
+    .qImgWrap{display:flex; flex-direction:column; align-items:center; gap:4px; width: 72px;}
     .qImg{
       width: 56px;
       height: 56px;
@@ -388,12 +371,7 @@
       padding: 10px 12px;
       background: rgba(47,140,255,.04);
     }
-    summary{
-      cursor:pointer;
-      font-weight: 950;
-      color:#0a3f7a;
-      outline:none;
-    }
+    summary{cursor:pointer; font-weight: 950; color:#0a3f7a; outline:none;}
     .detailsBody{margin-top:10px; color:#16324b; font-size:13px; line-height:1.5;}
 
     /* Modal */
@@ -436,6 +414,25 @@
       color: var(--muted);
     }
     .modalImg{width:100%; height:auto; display:block; background: var(--soft);}
+
+    /* Bottom pills bar */
+    .bottomPills{
+      position: fixed;
+      left:0; right:0; bottom:0;
+      background: rgba(255,255,255,.82);
+      backdrop-filter: blur(12px);
+      border-top: 1px solid var(--line);
+      z-index: 60;
+    }
+    .bottomPillsInner{
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 10px 12px;
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      justify-content:center;
+    }
   </style>
 </head>
 
@@ -451,12 +448,6 @@
             Alternate days: <b>A</b> = treadmill 30 min focus • <b>B</b> = treadmill 10 + dumbbell + stepper.
             (All GIFs except treadmill)
           </p>
-        </div>
-
-        <div class="statusPills">
-          <div class="pill"><span class="dot"></span> 40 min/day</div>
-          <div class="pill"><span class="dot"></span> 10s beep</div>
-          <div class="pill"><span class="dot"></span> Tick on complete</div>
         </div>
       </div>
     </div>
@@ -519,6 +510,15 @@
     </div>
   </div>
 
+  <!-- Bottom pills moved here -->
+  <div class="bottomPills">
+    <div class="bottomPillsInner">
+      <div class="pill"><span class="dot"></span> 40 min/day</div>
+      <div class="pill"><span class="dot"></span> 10s beep</div>
+      <div class="pill"><span class="dot"></span> Tick on complete</div>
+    </div>
+  </div>
+
   <!-- Modal -->
   <div class="modal" id="imgModal" aria-hidden="true">
     <div class="modalCard" role="dialog" aria-modal="true">
@@ -531,9 +531,6 @@
   </div>
 
   <script>
-    /*********************
-     *  PLAN CONFIG
-     *********************/
     function dayTypeForKey(key){
       const A = ["mon","wed","fri","sun"];
       return A.includes(key) ? "A" : "B";
@@ -562,7 +559,6 @@
       sun: "Sunday: Reset the body. Prepare the next week."
     };
 
-    // All GIFs (no treadmill GIF)
     const GIF = {
       warmup_joint_circles: "images/warmup_joint_circles.gif",
       warmup_easy_walk: "images/warmup_easy_walk.gif",
@@ -589,39 +585,30 @@
         titleSuffix: "Treadmill Focus (Fat Burn)",
         desc: "Warm-up → 30 min treadmill fat-burn → long stretching.",
         steps: [
-          {
-            slug: "warmup",
-            name: "Pre Warm-up (mandatory)",
-            min: 5,
-            details: [
+          { slug:"warmup", name:"Pre Warm-up (mandatory)", min:5,
+            details:[
               "Joint circles: neck/shoulder/hips/knees/ankles (2 min)",
               "Easy walk on treadmill (3 min)"
             ],
-            gifKeys: ["warmup_joint_circles","warmup_easy_walk"]
+            gifKeys:["warmup_joint_circles","warmup_easy_walk"]
           },
-          {
-            slug: "treadmill30",
-            name: "Treadmill Fat Burn (30 min full focus)",
-            min: 30,
-            details: [
+          { slug:"treadmill30", name:"Treadmill Fat Burn (30 min full focus)", min:30,
+            details:[
               "0–5 min: warm walk (comfortable)",
               "5–25 min: brisk walk OR light jog-walk mix (talk-test zone)",
               "25–30 min: fast walk finish (steady breathing)"
             ],
-            gifKeys: [] // excluded
+            gifKeys:[]
           },
-          {
-            slug: "stretch",
-            name: "Post Stretching (longer)",
-            min: 5,
-            details: [
+          { slug:"stretch", name:"Post Stretching (longer)", min:5,
+            details:[
               "Calf stretch: 45 sec/side",
               "Hamstring stretch: 45 sec/side",
               "Quad stretch: 45 sec/side",
               "Chest opener: 30 sec",
               "Shoulder stretch: 30 sec"
             ],
-            gifKeys: ["stretch_calf","stretch_hamstring","stretch_quad","stretch_chest_opener","stretch_shoulder"]
+            gifKeys:["stretch_calf","stretch_hamstring","stretch_quad","stretch_chest_opener","stretch_shoulder"]
           }
         ]
       };
@@ -632,32 +619,23 @@
         titleSuffix: "Treadmill + Dumbbell + Stepper (Fat burn + strength)",
         desc: "Short treadmill + strength circuit + stepper + long stretch.",
         steps: [
-          {
-            slug: "warmup",
-            name: "Pre Warm-up (mandatory)",
-            min: 5,
-            details: [
+          { slug:"warmup", name:"Pre Warm-up (mandatory)", min:5,
+            details:[
               "Joint circles (hips/knees/ankles): 2 min",
               "Easy walk: 3 min"
             ],
-            gifKeys: ["warmup_joint_circles","warmup_easy_walk"]
+            gifKeys:["warmup_joint_circles","warmup_easy_walk"]
           },
-          {
-            slug: "treadmill10",
-            name: "Treadmill (10 min run/walk)",
-            min: 10,
-            details: [
+          { slug:"treadmill10", name:"Treadmill (10 min run/walk)", min:10,
+            details:[
               "Walk 3 min",
               "Jog 1 min (optional) + fast walk 2 min",
               "Repeat 2 times"
             ],
-            gifKeys: [] // excluded
+            gifKeys:[]
           },
-          {
-            slug: "dumbbell15",
-            name: "Dumbbell Circuit (15 min) — 2 rounds",
-            min: 15,
-            details: [
+          { slug:"dumbbell15", name:"Dumbbell Circuit (15 min) — 2 rounds", min:15,
+            details:[
               "Squat: 12 reps",
               "Row: 12 reps/side",
               "Shoulder press: 12 reps",
@@ -665,26 +643,20 @@
               "Triceps extension: 12 reps",
               "Rest 60 sec, repeat 2 rounds"
             ],
-            gifKeys: ["db_squat","db_row","db_shoulder_press","db_biceps_curl","db_triceps_ext"]
+            gifKeys:["db_squat","db_row","db_shoulder_press","db_biceps_curl","db_triceps_ext"]
           },
-          {
-            slug: "stepper",
-            name: "Stepper (fat burn finisher)",
-            min: 5,
-            details: ["Steady pace 5 min (talk-test zone)"],
-            gifKeys: ["stepper"]
+          { slug:"stepper", name:"Stepper (fat burn finisher)", min:5,
+            details:["Steady pace 5 min (talk-test zone)"],
+            gifKeys:["stepper"]
           },
-          {
-            slug: "stretch",
-            name: "Post Stretching (longer)",
-            min: 5,
-            details: [
+          { slug:"stretch", name:"Post Stretching (longer)", min:5,
+            details:[
               "Hamstring: 45 sec/side",
               "Calf: 45 sec/side",
               "Hip flexor/quad: 45 sec/side",
               "Back stretch: 60 sec"
             ],
-            gifKeys: ["stretch_hamstring","stretch_calf","stretch_hip_flexor","stretch_back"]
+            gifKeys:["stretch_hamstring","stretch_calf","stretch_hip_flexor","stretch_back"]
           }
         ]
       };
@@ -717,9 +689,6 @@
       };
     }
 
-    /*********************
-     *  UI REFS
-     *********************/
     const nav = document.getElementById("nav");
     const dayTitle = document.getElementById("dayTitle");
     const dayDesc = document.getElementById("dayDesc");
@@ -729,9 +698,7 @@
     const optionsWrap = document.getElementById("optionsWrap");
     const motivationEl = document.getElementById("motivation");
 
-    /*********************
-     *  MODAL
-     *********************/
+    // Modal
     const imgModal = document.getElementById("imgModal");
     const modalImg = document.getElementById("modalImg");
     const modalTitle = document.getElementById("modalTitle");
@@ -752,9 +719,6 @@
     imgModal.addEventListener("click", (e) => { if(e.target === imgModal) closeModal(); });
     document.addEventListener("keydown", (e) => { if(e.key === "Escape") closeModal(); });
 
-    /*********************
-     *  HELPERS
-     *********************/
     function escapeHtml(str){
       return String(str)
         .replaceAll("&","&amp;")
@@ -774,9 +738,7 @@
     }
     function ringCircumference(r){ return 2 * Math.PI * r; }
 
-    /*********************
-     *  DONE STATE
-     *********************/
+    // Done state
     function doneKey(sid){ return `done:${sid}`; }
     function isDone(sid){ return localStorage.getItem(doneKey(sid)) === "1"; }
     function setDone(sid, v){
@@ -784,9 +746,7 @@
       else localStorage.removeItem(doneKey(sid));
     }
 
-    /*********************
-     *  ALARM 10s
-     *********************/
+    // Alarm
     const alarmState = { ctx:null, osc:null, gain:null, interval:null, startMs:0 };
 
     function stopAlarm(){
@@ -821,7 +781,6 @@
         alarmState.gain = gain;
         alarmState.startMs = Date.now();
 
-        // pulse 200ms on / 200ms off
         alarmState.interval = setInterval(() => {
           const elapsed = Date.now() - alarmState.startMs;
           if(elapsed >= 10000){
@@ -839,10 +798,8 @@
       if (navigator.vibrate) navigator.vibrate([250, 120, 250, 120, 250]);
     }
 
-    /*********************
-     *  TIMERS
-     *********************/
-    let activeTimer = null; // { sid, intervalId, remaining, paused }
+    // Timers
+    let activeTimer = null;
     const timerState = new Map();
 
     function stopActiveTimer(){
@@ -944,9 +901,6 @@
       updateTimerUI(step.sid);
     }
 
-    /*********************
-     *  RENDER
-     *********************/
     function renderDay(dayKey){
       const d = PLAN[dayKey];
       dayTitle.textContent = d.title;
@@ -954,7 +908,6 @@
       dayMeta.textContent = `Total: ${totalMinutes(dayKey)} min • Month 1`;
       motivationEl.textContent = MOTIVATION[dayKey] || "Show up today. That’s the win.";
 
-      // Steps
       stepsEl.innerHTML = d.steps.map((s, idx) => {
         const remaining = timerState.get(s.sid) ?? s.seconds;
 
@@ -1013,10 +966,8 @@
         `;
       }).join("");
 
-      // Quick table: GIFs per step (except treadmill)
       tableBody.innerHTML = d.steps.map((s, i) => {
         let cell = "";
-
         if (s.slug.startsWith("treadmill")){
           cell = `<span class="hint">No GIF (treadmill)</span>`;
         } else {
@@ -1044,7 +995,6 @@
             }</div>`;
           }
         }
-
         return `
           <tr>
             <td>${i+1}</td>
@@ -1055,7 +1005,6 @@
         `;
       }).join("");
 
-      // Options
       const opt = OPTIONS_TEXT[d.type] || [];
       optionsWrap.innerHTML = `
         <details>
@@ -1068,16 +1017,12 @@
         </details>
       `;
 
-      // Nav active
       [...nav.querySelectorAll(".dayBtn")].forEach(btn=>{
         btn.classList.toggle("active", btn.dataset.day === dayKey);
       });
-
-      // Update rings now
       d.steps.forEach(s => updateTimerUI(s.sid));
     }
 
-    // Build nav
     for (const d of DAYS){
       const type = dayTypeForKey(d.key);
       const btn = document.createElement("button");
@@ -1089,7 +1034,6 @@
       nav.appendChild(btn);
     }
 
-    // Default day from browser
     function dayKeyFromBrowser(){
       const dow = new Date().getDay(); // 0=Sun
       if(dow === 0) return "sun";
@@ -1101,9 +1045,7 @@
       return "sat";
     }
 
-    // Global click handler (timers + modal)
     document.addEventListener("click", (e) => {
-      // modal image
       const img = e.target.closest('[data-popup="1"]');
       if(img){
         const src = img.dataset.src || "";
@@ -1132,7 +1074,6 @@
       }
     });
 
-    // Init
     renderDay(dayKeyFromBrowser());
   </script>
 </body>
