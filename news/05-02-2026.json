@@ -1,0 +1,48 @@
+{
+  "title": "Infrastructure Stress, AI Maturity, and Big Tech Strategy Shifts",
+  "news": [
+    {
+      "category": "India Infrastructure",
+      "headline": "Mumbai–Pune Expressway Gridlock Highlights Infrastructure Stress",
+      "summary": "A severe traffic jam on the Mumbai–Pune Expressway left thousands stranded for over 8 hours, including a prominent industrialist who eventually returned by helicopter. The incident exposes how critical infrastructure still struggles under peak pressure, impacting daily life and business continuity.",
+      "source_link": "https://timesofindia.indiatimes.com/city/pune/mumbaipune-expressway-gridlock-leaves-industrialist-stranded-for-8-hours-returns-by-helicopter/articleshow/127921489.cms"
+    },
+    {
+      "category": "Global Tech & India",
+      "headline": "Google May Expand India Operations to Offset H-1B Visa Limits",
+      "summary": "Facing stricter H-1B visa regulations in the US, Google is reportedly exploring ways to expand high-skill work within India. This suggests a shift where global tech companies bring work to India instead of relocating talent abroad.",
+      "source_link": "https://timesofindia.indiatimes.com/technology/tech-news/google-may-have-an-india-plan-to-tackle-h-1b-visa-restrictions/articleshow/127909205.cms"
+    },
+    {
+      "category": "Artificial Intelligence & Markets",
+      "headline": "AI Stock Volatility Reflects Market Caution Around Profitability",
+      "summary": "Recent fluctuations in AI-related stocks, including companies linked to Anthropic, reveal growing investor concern about how soon AI innovations will translate into profits. The market is shifting focus from hype-driven growth to sustainable business models.",
+      "source_link": "https://indianexpress.com/article/explained/explained-sci-tech/anthropic-tech-stock-crash-10512905/"
+    },
+    {
+      "category": "Cybersecurity",
+      "headline": "Microsoft Introduces Sysmon Support for Advanced System Monitoring",
+      "summary": "Microsoft has added Sysmon support to improve deep system visibility and threat detection. This enhancement strengthens enterprise security by enabling continuous monitoring rather than relying solely on reactive security tools.",
+      "source_link": "https://www.linkedin.com/pulse/microsoft-introduces-system-monitor-sysmon-support-cenie/"
+    },
+    {
+      "category": "Developer Tools & AI",
+      "headline": "GitHub Agent HQ Points to the Future of AI-Assisted Development",
+      "summary": "GitHub is experimenting with AI agents capable of managing tasks, workflows, and development planning. This signals a shift in developer roles from writing code to supervising intelligent systems and processes.",
+      "source_link": "https://thenewstack.io/github-agent-hq/"
+    },
+    {
+      "category": "Big Tech Trends",
+      "headline": "Big Tech Moves from AI Experiments to Consolidation",
+      "summary": "Recent developments across major technology companies indicate a move away from experimental AI features toward deeper integration and productivity-focused solutions. The industry is entering a more mature AI phase.",
+      "source_link": "https://news.google.com/stories/CAAqNggKIjBDQklTSGpvSmMzUnZjbmt0TXpZd1NoRUtEd2lBbFBDM0VCSGNzY014Sm13dDVDZ0FQAQ?hl=en-IN&gl=IN&ceid=IN%3Aen"
+    },
+    {
+      "category": "Consumer AI",
+      "headline": "Amazon Rolls Out Generative AI Alexa to US Prime Members",
+      "summary": "Amazon has launched a generative AI-powered version of Alexa for US Prime users, enabling more natural conversations, contextual memory, and reasoning. This marks a major reboot of voice assistants for the generative AI era.",
+      "source_link": "https://theaiinsider.tech/2026/02/04/amazon-rolls-out-alexa-generative-ai-assistant-to-all-u-s-prime-members/"
+    }
+  ],
+  "editor_note": "These developments show a clear shift toward AI maturity, stronger cybersecurity, rising importance of India in global tech, and ongoing challenges in physical infrastructure."
+}

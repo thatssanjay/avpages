@@ -1,0 +1,793 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>News Reader (JSON Upload)</title>
+  <style>
+    :root{
+      --bg:#0b0c10;
+      --card:#12141b;
+      --text:#e8e8ea;
+      --muted:#b7b9c2;
+      --line:#232634;
+      --accent:#6aa6ff;
+      --pill:#0f1117;
+    }
+    *{ box-sizing:border-box; }
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    /* ====== Top bar ====== */
+    .topbar{
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(11,12,16,.85);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--line);
+    }
+    .topbar-inner{
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 10px 16px;
+      display:flex;
+      align-items:center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      min-width: 0;
+    }
+    .brand-title{
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: .2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .menu-btn{
+      border: 1px solid var(--line);
+      background: transparent;
+      color: var(--text);
+      padding: 8px 10px;
+      border-radius: 12px;
+      cursor:pointer;
+      font-weight: 800;
+      font-size: 13px;
+    }
+    .menu-btn:hover{
+      background: rgba(255,255,255,0.05);
+    }
+
+    /* ====== Drawer ====== */
+    .backdrop{
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.55);
+      display:none;
+      z-index: 60;
+    }
+    .drawer{
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: min(360px, 88vw);
+      background: #0f1117;
+      border-right: 1px solid var(--line);
+      transform: translateX(-105%);
+      transition: transform .22s ease;
+      z-index: 70;
+      display:flex;
+      flex-direction:column;
+    }
+    .drawer.open{ transform: translateX(0); }
+    .backdrop.show{ display:block; }
+
+    .drawer-header{
+      padding: 14px 14px 10px;
+      border-bottom: 1px solid var(--line);
+      display:flex;
+      align-items:center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .drawer-header strong{
+      font-size: 14px;
+      letter-spacing: .2px;
+    }
+    .close-btn{
+      border: 1px solid var(--line);
+      background: transparent;
+      color: var(--text);
+      padding: 8px 10px;
+      border-radius: 12px;
+      cursor:pointer;
+      font-weight: 800;
+      font-size: 13px;
+    }
+    .close-btn:hover{ background: rgba(255,255,255,0.05); }
+
+    .drawer-body{
+      padding: 14px;
+      display:flex;
+      flex-direction:column;
+      gap: 12px;
+      overflow:auto;
+    }
+
+    .panel{
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: rgba(255,255,255,0.03);
+    }
+    .panel h2{
+      margin:0 0 8px 0;
+      font-size: 12px;
+      color: var(--muted);
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+    }
+    .row{
+      display:flex;
+      gap: 10px;
+      align-items:center;
+      flex-wrap: wrap;
+    }
+    .date-input{
+      width: 100%;
+      padding: 10px;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      background: #0f1117;
+      color: var(--text);
+      font-weight: 700;
+    }
+    .small{
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.4;
+      margin: 8px 0 0 0;
+    }
+    .load-btn{
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(106,166,255,.18), rgba(106,166,255,.06));
+      color: var(--text);
+      font-weight: 800;
+      cursor:pointer;
+    }
+    .load-btn:hover{
+      filter: brightness(1.05);
+    }
+
+    .quicklist{
+      display:flex;
+      flex-direction:column;
+      gap: 8px;
+      margin-top: 10px;
+    }
+    .quickitem{
+      display:flex;
+      align-items:center;
+      justify-content: space-between;
+      gap: 8px;
+      padding: 10px;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      background: #0f1117;
+      cursor:pointer;
+      font-weight: 800;
+      color: var(--text);
+    }
+    .quickitem:hover{ background: rgba(255,255,255,0.05); }
+    .quickitem span{
+      font-weight: 700;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    /* ====== Main content ====== */
+    .wrap{
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 16px;
+    }
+    header{
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      margin-bottom: 14px;
+    }
+    h1{
+      font-size: 18px;
+      margin: 0;
+      letter-spacing: .2px;
+    }
+    .controls{
+      display:flex;
+      gap:10px;
+      flex-wrap: wrap;
+      align-items:center;
+      padding: 12px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+    }
+    input[type="file"]{
+      width: 100%;
+      max-width: 360px;
+      padding: 10px;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      background: #0f1117;
+      color: var(--text);
+    }
+    button{
+      padding: 10px 14px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: linear-gradient(180deg, rgba(106,166,255,.18), rgba(106,166,255,.06));
+      color: var(--text);
+      cursor:pointer;
+      font-weight: 600;
+    }
+    button:disabled{ opacity:.5; cursor:not-allowed; }
+    .hint{ color: var(--muted); font-size: 12px; margin-left:auto; }
+
+    .meta{
+      margin-top: 14px;
+      display:grid;
+      gap: 10px;
+    }
+    .pill{
+      padding: 12px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+    }
+    .pill h2{
+      margin:0 0 6px 0;
+      font-size: 14px;
+      color: var(--muted);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+    }
+    .pill .big{
+      font-size: 16px;
+      line-height: 1.35;
+      margin:0;
+    }
+    .pill .note{
+      margin:0;
+      color: var(--muted);
+      line-height: 1.45;
+      font-size: 14px;
+    }
+    .count{
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .grid{
+      margin-top: 14px;
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+    @media (min-width: 820px){
+      .grid{ grid-template-columns: 1fr 1fr; }
+    }
+    .card{
+      padding: 14px;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      box-shadow: 0 8px 24px rgba(0,0,0,.25);
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      min-height: 160px;
+    }
+    .category{
+      display:inline-flex;
+      align-self:flex-start;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: var(--pill);
+      color: var(--text);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .02em;
+    }
+    .card h3{
+      margin:0;
+      font-size: 16px;
+      line-height: 1.25;
+    }
+    .card p{
+      margin:0;
+      color: var(--muted);
+      line-height: 1.45;
+      font-size: 14px;
+    }
+    .spacer{ flex: 1; }
+    .linkrow{
+      display:flex;
+      justify-content: space-between;
+      align-items:center;
+      gap:10px;
+      padding-top: 8px;
+      border-top: 1px solid var(--line);
+      margin-top: 2px;
+    }
+    .linkrow a{
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 13px;
+    }
+    .linkrow a:hover{ text-decoration: underline; }
+    .idx{
+      color: var(--muted);
+      font-size: 12px;
+      white-space: nowrap;
+    }
+
+    .share-btn{
+      border: 1px solid var(--line);
+      background: transparent;
+      color: var(--text);
+      padding: 6px 10px;
+      border-radius: 10px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .share-btn:hover{
+      background: rgba(255,255,255,0.05);
+    }
+
+    .error{
+      margin-top: 12px;
+      padding: 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,80,80,.35);
+      background: rgba(255,80,80,.08);
+      color: #ffd1d1;
+      display:none;
+    }
+    .footer{
+      margin-top: 18px;
+      color: var(--muted);
+      font-size: 12px;
+      opacity:.9;
+    }
+    code{ color:#d6d7dc; }
+
+    .source-banner{
+      margin-top: 10px;
+      padding: 10px 12px;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.03);
+      color: var(--muted);
+      font-size: 12px;
+      display:none;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top bar -->
+  <div class="topbar">
+    <div class="topbar-inner">
+      <button class="menu-btn" id="openMenuBtn">☰ History</button>
+      <div class="brand">
+        <div class="brand-title">News Reader</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Drawer + backdrop -->
+  <div class="backdrop" id="backdrop"></div>
+  <aside class="drawer" id="drawer">
+    <div class="drawer-header">
+      <strong>History (Load by Date)</strong>
+      <button class="close-btn" id="closeMenuBtn">✕</button>
+    </div>
+
+    <div class="drawer-body">
+      <div class="panel">
+        <h2>Select date</h2>
+        <input class="date-input" id="datePicker" type="date" />
+        <button class="load-btn" id="loadByDateBtn">Load news for this date</button>
+        <p class="small">
+          File naming convention in your root folder:
+          <br><code>dd-mm-yyyy.json</code> (example: <code>05-02-2026.json</code>)
+        </p>
+      </div>
+
+      <div class="panel">
+        <h2>Quick last 14 days</h2>
+        <div class="quicklist" id="quickList"></div>
+        <p class="small">
+          If a file is missing, you will see an error like “File not found”.
+        </p>
+      </div>
+
+      <div class="panel">
+        <h2>Note</h2>
+        <p class="small" style="margin:0;">
+          History loading uses <code>fetch()</code>. Run this app via a local server (VS Code Live Server or Python http.server),
+          otherwise browsers can block local file reads.
+        </p>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <div class="wrap">
+    <header>
+      <h1>News Reader (Upload JSON)</h1>
+
+      <!-- ✅ Upload feature: unchanged -->
+      <div class="controls">
+        <input id="fileInput" type="file" accept="application/json,.json" />
+        <button id="showBtn" disabled>Show Summary</button>
+        <span class="hint">Upload JSON → click “Show Summary”</span>
+      </div>
+      <div id="errorBox" class="error"></div>
+
+      <div id="sourceBanner" class="source-banner"></div>
+    </header>
+
+    <section id="meta" class="meta" style="display:none;">
+      <div class="pill">
+        <h2>Title</h2>
+        <p id="mainTitle" class="big"></p>
+        <div class="count" id="newsCount"></div>
+      </div>
+      <div class="pill">
+        <h2>Editor note</h2>
+        <p id="editorNote" class="note"></p>
+      </div>
+    </section>
+
+    <section id="cards" class="grid"></section>
+
+    <div class="footer">
+      Required keys: <code>title</code>, <code>news[]</code> (category, headline, summary, source_link), <code>editor_note</code>
+    </div>
+  </div>
+
+<script>
+  // ===== Existing upload feature variables (unchanged wiring) =====
+  const fileInput = document.getElementById('fileInput');
+  const showBtn = document.getElementById('showBtn');
+  const cardsEl = document.getElementById('cards');
+  const metaEl = document.getElementById('meta');
+  const mainTitleEl = document.getElementById('mainTitle');
+  const editorNoteEl = document.getElementById('editorNote');
+  const newsCountEl = document.getElementById('newsCount');
+  const errorBox = document.getElementById('errorBox');
+  const sourceBanner = document.getElementById('sourceBanner');
+
+  let loadedData = null;
+
+  function showError(msg){
+    errorBox.textContent = msg;
+    errorBox.style.display = 'block';
+  }
+  function clearError(){
+    errorBox.textContent = '';
+    errorBox.style.display = 'none';
+  }
+  function setSourceBanner(text){
+    if (!text){
+      sourceBanner.style.display = 'none';
+      sourceBanner.textContent = '';
+      return;
+    }
+    sourceBanner.style.display = 'block';
+    sourceBanner.textContent = text;
+  }
+
+  function isValidStructure(data){
+    if (!data || typeof data !== 'object') return { ok:false, msg:'JSON root must be an object.' };
+    if (typeof data.title !== 'string') return { ok:false, msg:'Missing/invalid "title" (string).' };
+    if (!Array.isArray(data.news)) return { ok:false, msg:'Missing/invalid "news" (array).' };
+
+    for (let i=0; i<data.news.length; i++){
+      const item = data.news[i];
+      if (!item || typeof item !== 'object') return { ok:false, msg:`news[${i}] must be an object.` };
+      if (typeof item.category !== 'string') return { ok:false, msg:`news[${i}].category must be a string.` };
+      if (typeof item.headline !== 'string') return { ok:false, msg:`news[${i}].headline must be a string.` };
+      if (typeof item.summary !== 'string') return { ok:false, msg:`news[${i}].summary must be a string.` };
+      if (typeof item.source_link !== 'string') return { ok:false, msg:`news[${i}].source_link must be a string.` };
+    }
+
+    if (typeof data.editor_note !== 'string') return { ok:false, msg:'Missing/invalid "editor_note" (string).' };
+    return { ok:true, msg:'' };
+  }
+
+  function safeUrl(url){
+    try{
+      const u = new URL(url);
+      return (u.protocol === "http:" || u.protocol === "https:") ? u.toString() : "";
+    }catch{
+      return "";
+    }
+  }
+
+  async function shareNews(headline, url){
+    const text = `${headline}\n\n${url}`;
+
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: headline,
+          text: headline,
+          url: url
+        });
+      } catch (err) {
+        // cancelled - ignore
+      }
+      return;
+    }
+
+    try{
+      await navigator.clipboard.writeText(text);
+      alert("Copied to clipboard 👍");
+    }catch(err){
+      alert("Unable to share automatically. Please copy manually.");
+    }
+  }
+
+  // ===== Rendering (reused by upload + history load) =====
+  function renderNews(data, bannerText){
+    clearError();
+
+    const check = isValidStructure(data);
+    if (!check.ok){
+      showError(check.msg);
+      return;
+    }
+
+    loadedData = data;
+
+    metaEl.style.display = 'grid';
+    mainTitleEl.textContent = data.title;
+    editorNoteEl.textContent = data.editor_note;
+    newsCountEl.textContent = `Items: ${data.news.length}`;
+
+    setSourceBanner(bannerText || "");
+
+    cardsEl.innerHTML = '';
+    data.news.forEach((item, idx) => {
+      const card = document.createElement('article');
+      card.className = 'card';
+
+      const cat = document.createElement('div');
+      cat.className = 'category';
+      cat.textContent = item.category;
+
+      const h3 = document.createElement('h3');
+      h3.textContent = item.headline;
+
+      const p = document.createElement('p');
+      p.textContent = item.summary;
+
+      const spacer = document.createElement('div');
+      spacer.className = 'spacer';
+
+      const linkrow = document.createElement('div');
+      linkrow.className = 'linkrow';
+
+      const left = document.createElement('span');
+      left.className = 'idx';
+      left.textContent = `#${idx + 1}`;
+
+      const actions = document.createElement('div');
+      actions.style.display = "flex";
+      actions.style.alignItems = "center";
+      actions.style.gap = "8px";
+
+      const a = document.createElement('a');
+      const url = safeUrl(item.source_link);
+      a.href = url || "#";
+      a.target = "_blank";
+      a.rel = "noopener noreferrer";
+      a.textContent = "Read source →";
+      if (!url){
+        a.textContent = "Invalid link";
+        a.style.opacity = "0.6";
+        a.style.pointerEvents = "none";
+      }
+
+      const shareBtn = document.createElement('button');
+      shareBtn.className = 'share-btn';
+      shareBtn.type = "button";
+      shareBtn.textContent = "Share";
+      shareBtn.disabled = !url;
+      shareBtn.style.opacity = url ? "1" : "0.6";
+      shareBtn.onclick = () => shareNews(item.headline, url);
+
+      actions.appendChild(a);
+      actions.appendChild(shareBtn);
+
+      linkrow.appendChild(left);
+      linkrow.appendChild(actions);
+
+      card.appendChild(cat);
+      card.appendChild(h3);
+      card.appendChild(p);
+      card.appendChild(spacer);
+      card.appendChild(linkrow);
+
+      cardsEl.appendChild(card);
+    });
+
+    metaEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  // ===== Upload feature (kept as-is in behavior) =====
+  fileInput.addEventListener('change', async (e) => {
+    clearError();
+    loadedData = null;
+    showBtn.disabled = true;
+
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    try{
+      const text = await file.text();
+      const data = JSON.parse(text);
+      const check = isValidStructure(data);
+      if (!check.ok){
+        showError(check.msg);
+        return;
+      }
+      loadedData = data;
+      showBtn.disabled = false;
+      setSourceBanner(""); // no banner yet
+    }catch(err){
+      showError('Failed to read/parse JSON. Make sure the file is valid JSON.');
+    }
+  });
+
+  showBtn.addEventListener('click', () => {
+    if (!loadedData){
+      showError('Please upload a valid JSON file first.');
+      return;
+    }
+    renderNews(loadedData, "Loaded from uploaded file");
+  });
+
+  // ===== History drawer feature (new) =====
+  const openMenuBtn = document.getElementById('openMenuBtn');
+  const closeMenuBtn = document.getElementById('closeMenuBtn');
+  const drawer = document.getElementById('drawer');
+  const backdrop = document.getElementById('backdrop');
+
+  const datePicker = document.getElementById('datePicker');
+  const loadByDateBtn = document.getElementById('loadByDateBtn');
+  const quickList = document.getElementById('quickList');
+
+  function openDrawer(){
+    drawer.classList.add('open');
+    backdrop.classList.add('show');
+  }
+  function closeDrawer(){
+    drawer.classList.remove('open');
+    backdrop.classList.remove('show');
+  }
+  openMenuBtn.addEventListener('click', openDrawer);
+  closeMenuBtn.addEventListener('click', closeDrawer);
+  backdrop.addEventListener('click', closeDrawer);
+
+  function pad2(n){ return String(n).padStart(2,'0'); }
+
+  // Convert "YYYY-MM-DD" -> "dd-mm-yyyy"
+  function toDdMmYyyy(yyyyMmDd){
+    if (!yyyyMmDd) return "";
+    const [y,m,d] = yyyyMmDd.split('-');
+    if (!y || !m || !d) return "";
+    return `${pad2(d)}-${pad2(m)}-${y}`;
+  }
+
+  // Generate last N days in local time
+  function lastNDates(n){
+    const out = [];
+    const today = new Date();
+    for (let i=0; i<n; i++){
+      const dt = new Date(today);
+      dt.setDate(today.getDate() - i);
+      const dd = pad2(dt.getDate());
+      const mm = pad2(dt.getMonth() + 1);
+      const yy = dt.getFullYear();
+      out.push(`${dd}-${mm}-${yy}`);
+    }
+    return out;
+  }
+
+  async function loadNewsFileByName(fileName){
+    clearError();
+    const path = `./${fileName}.json`;
+
+    try{
+      const res = await fetch(path, { cache: "no-store" });
+      if (!res.ok){
+        // Common helpful message
+        if (res.status === 404){
+          showError(`File not found: ${fileName}.json (place it in the same folder as index.html)`);
+        } else {
+          showError(`Failed to load ${fileName}.json (HTTP ${res.status})`);
+        }
+        return;
+      }
+      const data = await res.json();
+      renderNews(data, `Loaded from: ${fileName}.json`);
+      closeDrawer();
+    }catch(err){
+      showError(
+        `Unable to fetch ${fileName}.json. If you opened index.html directly, run via a local server (Live Server / python http.server).`
+      );
+    }
+  }
+
+  // Button load from date picker
+  loadByDateBtn.addEventListener('click', () => {
+    const fileName = toDdMmYyyy(datePicker.value);
+    if (!fileName){
+      showError("Please select a valid date.");
+      return;
+    }
+    loadNewsFileByName(fileName);
+  });
+
+  // Quick list render
+  function renderQuickList(){
+    quickList.innerHTML = '';
+    const items = lastNDates(14);
+    items.forEach((ddmmyyyy) => {
+      const btn = document.createElement('button');
+      btn.type = "button";
+      btn.className = "quickitem";
+      btn.textContent = ddmmyyyy;
+      const hint = document.createElement('span');
+      hint.textContent = `${ddmmyyyy}.json`;
+      btn.appendChild(hint);
+      btn.addEventListener('click', () => loadNewsFileByName(ddmmyyyy));
+      quickList.appendChild(btn);
+    });
+  }
+  renderQuickList();
+
+  // Set date picker default to today
+  (function setToday(){
+    const now = new Date();
+    const y = now.getFullYear();
+    const m = pad2(now.getMonth() + 1);
+    const d = pad2(now.getDate());
+    datePicker.value = `${y}-${m}-${d}`;
+  })();
+</script>
+</body>
+</html>
