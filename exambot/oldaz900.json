@@ -1,0 +1,1211 @@
+{
+  "exam": "AZ-900 Practice (Practical & Popular)",
+  "count": 100,
+  "format": {
+    "options": ["A", "B", "C", "D"],
+    "correct_option": "One of A/B/C/D",
+    "complexity": ["low", "medium", "high"]
+  },
+  "questions": [
+    {
+      "id": 1,
+      "complexity": "low",
+      "question": "You want to host a simple marketing website with minimal admin and automatic scaling. Which Azure service fits best?",
+      "options": {
+        "A": "Azure App Service",
+        "B": "Azure SQL Database",
+        "C": "Azure Virtual Machines",
+        "D": "Azure Virtual Network"
+      },
+      "correct_option": "A"
+    },
+    {
+      "id": 2,
+      "complexity": "low",
+      "question": "You need object storage for images, videos, and backups. Which service should you use?",
+      "options": {
+        "A": "Azure Files",
+        "B": "Azure Blob Storage",
+        "C": "Azure Queue Storage",
+        "D": "Azure Table Storage"
+      },
+      "correct_option": "B"
+    },
+    {
+      "id": 3,
+      "complexity": "low",
+      "question": "You want to run a Windows or Linux server in the cloud that you manage (OS patches, apps). What should you use?",
+      "options": {
+        "A": "Azure Functions",
+        "B": "Azure Virtual Machines",
+        "C": "Azure Logic Apps",
+        "D": "Azure Cosmos DB"
+      },
+      "correct_option": "B"
+    },
+    {
+      "id": 4,
+      "complexity": "low",
+      "question": "You need a managed relational database for an app without managing OS or database servers. Which service is best?",
+      "options": {
+        "A": "Azure SQL Database",
+        "B": "Azure Virtual Machines",
+        "C": "Azure Storage account",
+        "D": "Azure Kubernetes Service (AKS)"
+      },
+      "correct_option": "A"
+    },
+    {
+      "id": 5,
+      "complexity": "low",
+      "question": "Which cloud benefit lets you increase resources quickly during peak demand and reduce after?",
+      "options": {
+        "A": "High availability",
+        "B": "Elasticity",
+        "C": "Geographic distribution",
+        "D": "Governance"
+      },
+      "correct_option": "B"
+    },
+    {
+      "id": 6,
+      "complexity": "low",
+      "question": "You want to pay only for compute time when your code runs, not for idle time. Which service is serverless compute?",
+      "options": {
+        "A": "Azure Virtual Machines",
+        "B": "Azure Functions",
+        "C": "Azure Virtual Network",
+        "D": "Azure Disk Storage"
+      },
+      "correct_option": "B"
+    },
+    {
+      "id": 7,
+      "complexity": "low",
+      "question": "You need a private network connection from your on-premises environment to Azure over the internet using encryption. What do you use?",
+      "options": {
+        "A": "Azure VPN Gateway",
+        "B": "Azure ExpressRoute",
+        "C": "Azure Load Balancer",
+        "D": "Azure DNS"
+      },
+      "correct_option": "A"
+    },
+    {
+      "id": 8,
+      "complexity": "medium",
+      "question": "You want a dedicated private connection from your datacenter to Azure that does not use the public internet. What should you use?",
+      "options": {
+        "A": "Azure VPN Gateway",
+        "B": "Azure ExpressRoute",
+        "C": "Azure Bastion",
+        "D": "Network Security Group (NSG)"
+      },
+      "correct_option": "B"
+    },
+    {
+      "id": 9,
+      "complexity": "low",
+      "question": "You need to control inbound/outbound traffic to Azure VM network interfaces or subnets. Which feature should you use?",
+      "options": {
+        "A": "Network Security Group (NSG)",
+        "B": "Azure Policy",
+        "C": "Azure Advisor",
+        "D": "Azure Cost Management"
+      },
+      "correct_option": "A"
+    },
+    {
+      "id": 10,
+      "complexity": "low",
+      "question": "You want to centrally manage identities (users, groups) and sign-in for Microsoft cloud services. What service is this?",
+      "options": {
+        "A": "Azure Key Vault",
+        "B": "Microsoft Entra ID (Azure Active Directory)",
+        "C": "Azure Monitor",
+        "D": "Azure Firewall"
+      },
+      "correct_option": "B"
+    },
+    {
+      "id": 11,
+      "complexity": "medium",
+      "question": "You want to enforce MFA for all users accessing Azure portal. Which feature should you use?",
+      "options": {
+        "A": "Azure Blueprints",
+        "B": "Conditional Access (Entra ID)",
+        "C": "Azure Storage lifecycle management",
+        "D": "Azure Load Balancer"
+      },
+      "correct_option": "B"
+    },
+    {
+      "id": 12,
+      "complexity": "low",
+      "question": "You need to store secrets like API keys and passwords securely with access policies and auditing. What should you use?",
+      "options": {
+        "A": "Azure Key Vault",
+        "B": "Azure Blob Storage",
+        "C": "Azure Advisor",
+        "D": "Azure DevTest Labs"
+      },
+      "correct_option": "A"
+    },
+    {
+      "id": 13,
+      "complexity": "medium",
+      "question": "You want to grant a VM access to Azure resources without storing credentials in code. What should you use?",
+      "options": {
+        "A": "Shared Access Signature (SAS)",
+        "B": "Managed Identity",
+        "C": "Storage account keys",
+        "D": "Local admin account"
+      },
+      "correct_option": "B"
+    },
+    {
+      "id": 14,
+      "complexity": "low",
+      "question": "You want to organize Azure resources by department and apply policies/budgets at that level. What should you use?",
+      "options": {
+        "A": "Resource group",
+        "B": "Subscription",
+        "C": "Management group",
+        "D": "Availability zone"
+      },
+      "correct_option": "C"
+    },
+    {
+      "id": 15,
+      "complexity": "low",
+      "question": "What is the primary purpose of an Azure Resource Group?",
+      "options": {
+        "A": "A billing unit for Azure services",
+        "B": "A logical container to manage related resources",
+        "C": "A private network segment",
+        "D": "A physical datacenter building"
+      },
+      "correct_option": "B"
+    },
+    {
+      "id": 16,
+      "complexity": "medium",
+      "question": "You need to deploy the same resources repeatedly in a consistent way (IaC). Which service/template helps with this?",
+      "options": {
+        "A": "ARM templates / Bicep",
+        "B": "Azure Advisor",
+        "C": "Azure Marketplace",
+        "D": "Azure Cost Management"
+      },
+      "correct_option": "A"
+    },
+    {
+      "id": 17,
+      "complexity": "low",
+      "question": "Which Azure tool provides best-practice recommendations for reliability, security, and cost optimization?",
+      "options": {
+        "A": "Azure Advisor",
+        "B": "Azure Policy",
+        "C": "Azure Monitor",
+        "D": "Azure Service Health"
+      },
+      "correct_option": "A"
+    },
+    {
+      "id": 18,
+      "complexity": "medium",
+      "question": "You want to enforce that only certain VM sizes can be created in a subscription. Which service should you use?",
+      "options": {
+        "A": "Azure Monitor",
+        "B": "Azure Policy",
+        "C": "Azure Advisor",
+        "D": "Azure Firewall"
+      },
+      "correct_option": "B"
+    },
+    {
+      "id": 19,
+      "complexity": "medium",
+      "question": "You want to ensure resources have required tags (like CostCenter) before they can be created. What should you use?",
+      "options": {
+        "A": "Azure Policy",
+        "B": "NSG",
+        "C": "Azure Load Balancer",
+        "D": "Azure Bastion"
+      },
+      "correct_option": "A"
+    },
+    {
+      "id": 20,
+      "complexity": "low",
+      "question": "You want to view current and historical performance metrics for a VM (CPU, disk, network). What service helps?",
+      "options": {
+        "A": "Azure Monitor",
+        "B": "Azure Key Vault",
+        "C": "Azure Blueprints",
+        "D": "Azure DNS"
+      },
+      "correct_option": "A"
+    },
+    {
+      "id": 21,
+      "complexity": "medium",
+      "question": "You need centralized log analytics queries across multiple resources. Which Azure service provides this workspace-based log store?",
+      "options": {
+        "A": "Azure Storage account",
+        "B": "Log Analytics workspace",
+        "C": "Azure Policy",
+        "D": "Azure Front Door"
+      },
+      "correct_option": "B"
+    },
+    {
+      "id": 22,
+      "complexity": "low",
+      "question": "You want to know about Azure outages, planned maintenance, and health advisories affecting your services. What should you use?",
+      "options": {
+        "A": "Azure Advisor",
+        "B": "Azure Service Health",
+        "C": "Azure Policy",
+        "D": "Azure DevOps"
+      },
+      "correct_option": "B"
+    },
+    {
+      "id": 23,
+      "complexity": "low",
+      "question": "Which pricing model is most aligned with cloud (pay for what you use)?",
+      "options": {
+        "A": "CapEx",
+        "B": "OpEx",
+        "C": "Fixed asset depreciation",
+        "D": "One-time license only"
+      },
+      "correct_option": "B"
+    },
+    {
+      "id": 24,
+      "complexity": "medium",
+      "question": "You have steady VM workloads for 1–3 years and want lower cost than pay-as-you-go. What should you consider?",
+      "options": {
+        "A": "Spot VMs",
+        "B": "Reserved Instances",
+        "C": "Azure Free Account only",
+        "D": "Azure DevTest pricing"
+      },
+      "correct_option": "B"
+    },
+    {
+      "id": 25,
+      "complexity": "medium",
+      "question": "You have fault-tolerant batch jobs and want to use unused Azure capacity at big discounts, but jobs may be interrupted. What should you use?",
+      "options": {
+        "A": "Reserved Instances",
+        "B": "Spot VMs",
+        "C": "Dedicated Hosts",
+        "D": "Premium SSD only"
+      },
+      "correct_option": "B"
+    },
+    {
+      "id": 26,
+      "complexity": "low",
+      "question": "Which Azure service provides a content delivery network for caching content closer to users?",
+      "options": {
+        "A": "Azure CDN",
+        "B": "Azure Backup",
+        "C": "Azure SQL Database",
+        "D": "Azure Virtual Network"
+      },
+      "correct_option": "A"
+    },
+    {
+      "id": 27,
+      "complexity": "medium",
+      "question": "You need global HTTP load balancing with SSL offload and WAF-like features at the edge. Which service fits best?",
+      "options": {
+        "A": "Azure Load Balancer",
+        "B": "Azure Application Gateway",
+        "C": "Azure Front Door",
+        "D": "Azure Traffic Manager"
+      },
+      "correct_option": "C"
+    },
+    {
+      "id": 28,
+      "complexity": "medium",
+      "question": "You need DNS-based traffic routing to direct users to the nearest endpoint based on latency. Which service is best?",
+      "options": {
+        "A": "Azure Traffic Manager",
+        "B": "Azure Load Balancer",
+        "C": "Azure Bastion",
+        "D": "Azure Firewall"
+      },
+      "correct_option": "A"
+    },
+    {
+      "id": 29,
+      "complexity": "low",
+      "question": "Which service provides Layer 4 (TCP/UDP) load balancing for VMs in a region?",
+      "options": {
+        "A": "Azure Front Door",
+        "B": "Azure Load Balancer",
+        "C": "Azure API Management",
+        "D": "Azure Logic Apps"
+      },
+      "correct_option": "B"
+    },
+    {
+      "id": 30,
+      "complexity": "medium",
+      "question": "You need Layer 7 (HTTP/HTTPS) load balancing for web apps inside a region and also want WAF capabilities. What should you use?",
+      "options": {
+        "A": "Azure Application Gateway",
+        "B": "Azure Load Balancer",
+        "C": "Azure VPN Gateway",
+        "D": "Azure DNS"
+      },
+      "correct_option": "A"
+    },
+    {
+      "id": 31,
+      "complexity": "low",
+      "question": "You want to group multiple VMs to protect against datacenter-level failures within a region. Which feature helps?",
+      "options": {
+        "A": "Availability zones",
+        "B": "Resource tags",
+        "C": "Azure Policy",
+        "D": "Azure Arc"
+      },
+      "correct_option": "A"
+    },
+    {
+      "id": 32,
+      "complexity": "medium",
+      "question": "You need high availability within a single datacenter using multiple VMs across racks/power/network. What should you use?",
+      "options": {
+        "A": "Availability set",
+        "B": "Azure Region Pair",
+        "C": "Azure ExpressRoute",
+        "D": "Azure Lighthouse"
+      },
+      "correct_option": "A"
+    },
+    {
+      "id": 33,
+      "complexity": "medium",
+      "question": "Which statement best describes an Azure region pair?",
+      "options": {
+        "A": "Two datacenters in the same building",
+        "B": "Two regions within the same geography paired for disaster recovery and updates",
+        "C": "Two subscriptions under one tenant",
+        "D": "Two resource groups linked together"
+      },
+      "correct_option": "B"
+    },
+    {
+      "id": 34,
+      "complexity": "low",
+      "question": "Which feature replicates Azure Storage data to a secondary region for disaster recovery?",
+      "options": {
+        "A": "LRS",
+        "B": "ZRS",
+        "C": "GRS",
+        "D": "Premium SSD"
+      },
+      "correct_option": "C"
+    },
+    {
+      "id": 35,
+      "complexity": "medium",
+      "question": "You need replication across availability zones within a region for storage. Which redundancy option is best?",
+      "options": {
+        "A": "LRS",
+        "B": "ZRS",
+        "C": "GRS",
+        "D": "RA-GRS only"
+      },
+      "correct_option": "B"
+    },
+    {
+      "id": 36,
+      "complexity": "low",
+      "question": "Which storage option provides SMB-based shared file storage in Azure that can be mounted like a network drive?",
+      "options": {
+        "A": "Azure Files",
+        "B": "Azure Blob Storage",
+        "C": "Azure Queue Storage",
+        "D": "Azure Table Storage"
+      },
+      "correct_option": "A"
+    },
+    {
+      "id": 37,
+      "complexity": "medium",
+      "question": "You need a globally distributed NoSQL database with low latency and multiple APIs. What should you use?",
+      "options": {
+        "A": "Azure SQL Database",
+        "B": "Azure Cosmos DB",
+        "C": "Azure Database for MySQL",
+        "D": "Azure Synapse Analytics"
+      },
+      "correct_option": "B"
+    },
+    {
+      "id": 38,
+      "complexity": "low",
+      "question": "You need a message queue to decouple components and handle bursts. Which service should you use?",
+      "options": {
+        "A": "Azure Queue Storage",
+        "B": "Azure Files",
+        "C": "Azure DNS",
+        "D": "Azure Disk Storage"
+      },
+      "correct_option": "A"
+    },
+    {
+      "id": 39,
+      "complexity": "medium",
+      "question": "You need enterprise messaging with topics, subscriptions, and advanced features like sessions and dead-lettering. What should you use?",
+      "options": {
+        "A": "Azure Queue Storage",
+        "B": "Azure Service Bus",
+        "C": "Azure Files",
+        "D": "Azure CDN"
+      },
+      "correct_option": "B"
+    },
+    {
+      "id": 40,
+      "complexity": "medium",
+      "question": "You want event-based integration where many subscribers react to events (serverless eventing). Which service fits?",
+      "options": {
+        "A": "Azure Event Grid",
+        "B": "Azure Service Bus",
+        "C": "Azure Virtual Machines",
+        "D": "Azure SQL Database"
+      },
+      "correct_option": "A"
+    },
+    {
+      "id": 41,
+      "complexity": "low",
+      "question": "Which service is best for orchestrating workflow steps using a visual designer and connectors (no-code/low-code)?",
+      "options": {
+        "A": "Azure Logic Apps",
+        "B": "Azure Kubernetes Service (AKS)",
+        "C": "Azure Virtual Network",
+        "D": "Azure Disk Storage"
+      },
+      "correct_option": "A"
+    },
+    {
+      "id": 42,
+      "complexity": "medium",
+      "question": "You want to deploy and manage Kubernetes clusters in Azure with a managed control plane. What service is this?",
+      "options": {
+        "A": "Azure Container Instances (ACI)",
+        "B": "Azure Kubernetes Service (AKS)",
+        "C": "Azure Functions",
+        "D": "Azure App Service"
+      },
+      "correct_option": "B"
+    },
+    {
+      "id": 43,
+      "complexity": "low",
+      "question": "You want to run a container quickly without managing servers or clusters, ideal for simple jobs. What should you use?",
+      "options": {
+        "A": "Azure Kubernetes Service (AKS)",
+        "B": "Azure Container Instances (ACI)",
+        "C": "Azure Virtual Machines",
+        "D": "Azure Virtual Network"
+      },
+      "correct_option": "B"
+    },
+    {
+      "id": 44,
+      "complexity": "medium",
+      "question": "You need a fully managed platform for hosting web apps with built-in deployment slots and autoscale. What should you use?",
+      "options": {
+        "A": "Azure App Service",
+        "B": "Azure Virtual Machines",
+        "C": "Azure VPN Gateway",
+        "D": "Azure Data Factory"
+      },
+      "correct_option": "A"
+    },
+    {
+      "id": 45,
+      "complexity": "low",
+      "question": "Which tool helps estimate Azure costs before deploying resources?",
+      "options": {
+        "A": "Azure Pricing Calculator",
+        "B": "Azure Policy",
+        "C": "Azure Monitor",
+        "D": "Azure Service Health"
+      },
+      "correct_option": "A"
+    },
+    {
+      "id": 46,
+      "complexity": "medium",
+      "question": "You want to track spending, set budgets, and analyze costs by tags and resource groups. Which service helps?",
+      "options": {
+        "A": "Azure Cost Management + Billing",
+        "B": "Azure Advisor only",
+        "C": "Azure Key Vault",
+        "D": "Azure Bastion"
+      },
+      "correct_option": "A"
+    },
+    {
+      "id": 47,
+      "complexity": "low",
+      "question": "Which service provides DDoS protection for Azure virtual networks (basic/standard)?",
+      "options": {
+        "A": "Azure DDoS Protection",
+        "B": "Azure Advisor",
+        "C": "Azure Resource Graph",
+        "D": "Azure CDN"
+      },
+      "correct_option": "A"
+    },
+    {
+      "id": 48,
+      "complexity": "medium",
+      "question": "You need a managed firewall with central policy and threat intelligence filtering. What should you use?",
+      "options": {
+        "A": "Network Security Group (NSG)",
+        "B": "Azure Firewall",
+        "C": "Azure Load Balancer",
+        "D": "Azure DNS"
+      },
+      "correct_option": "B"
+    },
+    {
+      "id": 49,
+      "complexity": "medium",
+      "question": "You want to securely access VMs over RDP/SSH via the Azure portal without exposing public IPs. What should you use?",
+      "options": {
+        "A": "Azure Bastion",
+        "B": "Azure ExpressRoute",
+        "C": "Azure Traffic Manager",
+        "D": "Azure DNS"
+      },
+      "correct_option": "A"
+    },
+    {
+      "id": 50,
+      "complexity": "low",
+      "question": "Which Azure service is designed for backup of Azure VMs and on-prem resources (via agents) with retention policies?",
+      "options": {
+        "A": "Azure Backup",
+        "B": "Azure Monitor",
+        "C": "Azure Advisor",
+        "D": "Azure CDN"
+      },
+      "correct_option": "A"
+    },
+    {
+      "id": 51,
+      "complexity": "medium",
+      "question": "You need site recovery (DR) to replicate VMs and failover to Azure during an outage. What should you use?",
+      "options": {
+        "A": "Azure Backup",
+        "B": "Azure Site Recovery",
+        "C": "Azure Blob Storage",
+        "D": "Azure Files"
+      },
+      "correct_option": "B"
+    },
+    {
+      "id": 52,
+      "complexity": "low",
+      "question": "You want a single sign-on experience for many SaaS apps using your organization identity. Which service supports this?",
+      "options": {
+        "A": "Microsoft Entra ID (Azure AD)",
+        "B": "Azure Storage",
+        "C": "Azure Monitor",
+        "D": "Azure Virtual Network"
+      },
+      "correct_option": "A"
+    },
+    {
+      "id": 53,
+      "complexity": "medium",
+      "question": "Which model is best described as 'you manage applications and data, provider manages runtime/OS/hardware'?",
+      "options": {
+        "A": "IaaS",
+        "B": "PaaS",
+        "C": "SaaS",
+        "D": "On-premises"
+      },
+      "correct_option": "B"
+    },
+    {
+      "id": 54,
+      "complexity": "low",
+      "question": "Which model provides complete software to users (like email service) where provider manages everything?",
+      "options": {
+        "A": "IaaS",
+        "B": "PaaS",
+        "C": "SaaS",
+        "D": "Serverless only"
+      },
+      "correct_option": "C"
+    },
+    {
+      "id": 55,
+      "complexity": "medium",
+      "question": "You need to ensure that only approved Azure regions are used for deployment due to compliance. What should you use?",
+      "options": {
+        "A": "Azure Policy",
+        "B": "Azure Monitor",
+        "C": "Azure Service Health",
+        "D": "Azure DNS"
+      },
+      "correct_option": "A"
+    },
+    {
+      "id": 56,
+      "complexity": "medium",
+      "question": "You want to apply the principle of least privilege by assigning permissions at a subscription/resource scope. What is this called in Azure?",
+      "options": {
+        "A": "RBAC",
+        "B": "SLA",
+        "C": "TCO",
+        "D": "CDN"
+      },
+      "correct_option": "A"
+    },
+    {
+      "id": 57,
+      "complexity": "low",
+      "question": "Which feature in Azure defines 'who can do what' at a given scope using roles like Reader/Contributor/Owner?",
+      "options": {
+        "A": "Azure RBAC",
+        "B": "Azure Advisor",
+        "C": "Azure Monitor",
+        "D": "Azure Service Health"
+      },
+      "correct_option": "A"
+    },
+    {
+      "id": 58,
+      "complexity": "medium",
+      "question": "You want to allow temporary, time-bound privileged access to Azure resources. Which service helps?",
+      "options": {
+        "A": "Privileged Identity Management (PIM)",
+        "B": "Azure DNS",
+        "C": "Azure Storage",
+        "D": "Azure Virtual Network"
+      },
+      "correct_option": "A"
+    },
+    {
+      "id": 59,
+      "complexity": "low",
+      "question": "Which service helps you classify and label sensitive data and apply information protection?",
+      "options": {
+        "A": "Microsoft Purview Information Protection",
+        "B": "Azure Load Balancer",
+        "C": "Azure Virtual Machines",
+        "D": "Azure DNS"
+      },
+      "correct_option": "A"
+    },
+    {
+      "id": 60,
+      "complexity": "medium",
+      "question": "You need to manage governance and compliance posture with secure score and recommendations. What should you use?",
+      "options": {
+        "A": "Microsoft Defender for Cloud",
+        "B": "Azure Bastion",
+        "C": "Azure CDN",
+        "D": "Azure Storage Explorer"
+      },
+      "correct_option": "A"
+    },
+    {
+      "id": 61,
+      "complexity": "medium",
+      "question": "You want to store and manage certificates and integrate with applications securely. Which service is best?",
+      "options": {
+        "A": "Azure Key Vault",
+        "B": "Azure Files",
+        "C": "Azure Queue Storage",
+        "D": "Azure Monitor"
+      },
+      "correct_option": "A"
+    },
+    {
+      "id": 62,
+      "complexity": "low",
+      "question": "You need to create a private DNS zone for internal name resolution within a VNet. Which service helps?",
+      "options": {
+        "A": "Azure DNS (Private DNS zones)",
+        "B": "Azure CDN",
+        "C": "Azure Advisor",
+        "D": "Azure Marketplace"
+      },
+      "correct_option": "A"
+    },
+    {
+      "id": 63,
+      "complexity": "medium",
+      "question": "You need to connect two VNets in Azure to communicate privately. Which feature is used?",
+      "options": {
+        "A": "VNet Peering",
+        "B": "Azure CDN",
+        "C": "Azure Traffic Manager",
+        "D": "Azure DDoS Protection"
+      },
+      "correct_option": "A"
+    },
+    {
+      "id": 64,
+      "complexity": "low",
+      "question": "Which Azure service helps automate configuration and patching across multiple VMs using desired state and runbooks?",
+      "options": {
+        "A": "Azure Automation",
+        "B": "Azure Load Balancer",
+        "C": "Azure Front Door",
+        "D": "Azure DNS"
+      },
+      "correct_option": "A"
+    },
+    {
+      "id": 65,
+      "complexity": "medium",
+      "question": "You want to run queries across your Azure resources (like 'list all VMs without tags') at scale. What should you use?",
+      "options": {
+        "A": "Azure Resource Graph",
+        "B": "Azure Policy",
+        "C": "Azure Advisor",
+        "D": "Azure Service Health"
+      },
+      "correct_option": "A"
+    },
+    {
+      "id": 66,
+      "complexity": "low",
+      "question": "You need a web-based interactive console to manage Azure resources. What is it called?",
+      "options": {
+        "A": "Azure Portal",
+        "B": "Azure DevOps",
+        "C": "Azure Storage Explorer",
+        "D": "Azure Databricks"
+      },
+      "correct_option": "A"
+    },
+    {
+      "id": 67,
+      "complexity": "low",
+      "question": "Which tool is a command-line interface for managing Azure resources?",
+      "options": {
+        "A": "Azure CLI",
+        "B": "Azure Monitor",
+        "C": "Azure Advisor",
+        "D": "Azure Service Health"
+      },
+      "correct_option": "A"
+    },
+    {
+      "id": 68,
+      "complexity": "low",
+      "question": "Which PowerShell module is commonly used to manage Azure resources?",
+      "options": {
+        "A": "Az PowerShell",
+        "B": "Bash",
+        "C": "kubectl",
+        "D": "git"
+      },
+      "correct_option": "A"
+    },
+    {
+      "id": 69,
+      "complexity": "medium",
+      "question": "You want to run cloud-based shell with pre-authenticated Azure CLI and common tools in a browser. Which service is this?",
+      "options": {
+        "A": "Azure Cloud Shell",
+        "B": "Azure Bastion",
+        "C": "Azure Service Bus",
+        "D": "Azure Functions"
+      },
+      "correct_option": "A"
+    },
+    {
+      "id": 70,
+      "complexity": "medium",
+      "question": "You need to store frequently accessed data with very low latency in memory. Which service is best?",
+      "options": {
+        "A": "Azure Cache for Redis",
+        "B": "Azure Queue Storage",
+        "C": "Azure Blob Storage",
+        "D": "Azure Files"
+      },
+      "correct_option": "A"
+    },
+    {
+      "id": 71,
+      "complexity": "low",
+      "question": "You want to store structured NoSQL key-value data with simple queries at low cost in Azure Storage. Which is best?",
+      "options": {
+        "A": "Azure Table Storage",
+        "B": "Azure SQL Database",
+        "C": "Azure Files",
+        "D": "Azure Disk Storage"
+      },
+      "correct_option": "A"
+    },
+    {
+      "id": 72,
+      "complexity": "medium",
+      "question": "You want to run analytics on big data using a managed Apache Spark platform in Azure. What service is this?",
+      "options": {
+        "A": "Azure Databricks",
+        "B": "Azure Blob Storage",
+        "C": "Azure Files",
+        "D": "Azure DNS"
+      },
+      "correct_option": "A"
+    },
+    {
+      "id": 73,
+      "complexity": "medium",
+      "question": "You need an ETL/ELT orchestration tool to move and transform data between sources and sinks. Which Azure service fits?",
+      "options": {
+        "A": "Azure Data Factory",
+        "B": "Azure CDN",
+        "C": "Azure DNS",
+        "D": "Azure Bastion"
+      },
+      "correct_option": "A"
+    },
+    {
+      "id": 74,
+      "complexity": "low",
+      "question": "You need a globally accessible, fully managed DNS hosting service for your public domain. Which service is this?",
+      "options": {
+        "A": "Azure DNS",
+        "B": "Azure Load Balancer",
+        "C": "Azure App Service",
+        "D": "Azure SQL Database"
+      },
+      "correct_option": "A"
+    },
+    {
+      "id": 75,
+      "complexity": "high",
+      "question": "You must ensure data is not readable if disks are stolen, and you also want encryption in transit. Which two concepts match?",
+      "options": {
+        "A": "Encryption at rest and encryption in transit",
+        "B": "DDoS protection and NAT",
+        "C": "Autoscale and elasticity",
+        "D": "Tagging and resource groups"
+      },
+      "correct_option": "A"
+    },
+    {
+      "id": 76,
+      "complexity": "medium",
+      "question": "You want to centrally define and manage policy + role assignments and deploy repeatable environments for compliance. Which is most aligned?",
+      "options": {
+        "A": "Azure Blueprints",
+        "B": "Azure CDN",
+        "C": "Azure Files",
+        "D": "Azure Queue Storage"
+      },
+      "correct_option": "A"
+    },
+    {
+      "id": 77,
+      "complexity": "low",
+      "question": "Which service provides a fully managed API gateway with policies, throttling, and developer portal?",
+      "options": {
+        "A": "Azure API Management",
+        "B": "Azure Front Door",
+        "C": "Azure VPN Gateway",
+        "D": "Azure Logic Apps"
+      },
+      "correct_option": "A"
+    },
+    {
+      "id": 78,
+      "complexity": "medium",
+      "question": "You want to protect web apps from common exploits like SQL injection and XSS at Layer 7. Which feature helps?",
+      "options": {
+        "A": "Web Application Firewall (WAF)",
+        "B": "Network Security Group (NSG)",
+        "C": "Azure Queue Storage",
+        "D": "Azure Table Storage"
+      },
+      "correct_option": "A"
+    },
+    {
+      "id": 79,
+      "complexity": "low",
+      "question": "You want to separate dev/test resources from production and apply different access controls. Which approach is most common?",
+      "options": {
+        "A": "Use different subscriptions",
+        "B": "Use a single VM for all environments",
+        "C": "Use only tags",
+        "D": "Use only availability zones"
+      },
+      "correct_option": "A"
+    },
+    {
+      "id": 80,
+      "complexity": "medium",
+      "question": "You want to ensure resources are deployed close to users to reduce latency. Which concept helps most?",
+      "options": {
+        "A": "Choose the nearest Azure region",
+        "B": "Use only LRS storage",
+        "C": "Use only a single resource group",
+        "D": "Disable scaling"
+      },
+      "correct_option": "A"
+    },
+    {
+      "id": 81,
+      "complexity": "high",
+      "question": "A compliance rule says: 'Logs must be retained for 7 years and stored immutably.' Which Azure storage feature aligns best?",
+      "options": {
+        "A": "Azure Blob Storage immutable (WORM) policies",
+        "B": "Azure Queue Storage TTL",
+        "C": "Azure Files SMB",
+        "D": "Azure Disk snapshots only"
+      },
+      "correct_option": "A"
+    },
+    {
+      "id": 82,
+      "complexity": "medium",
+      "question": "You need to control costs by automatically deleting blobs after 90 days and moving older data to cheaper tiers. What feature helps?",
+      "options": {
+        "A": "Blob lifecycle management",
+        "B": "Azure Advisor only",
+        "C": "NSG rules",
+        "D": "Azure DNS"
+      },
+      "correct_option": "A"
+    },
+    {
+      "id": 83,
+      "complexity": "medium",
+      "question": "You want to restrict public access to a storage account and allow access only from specific VNets. What should you use?",
+      "options": {
+        "A": "Storage account firewall and virtual network rules",
+        "B": "Traffic Manager",
+        "C": "Azure CDN",
+        "D": "Azure Advisor"
+      },
+      "correct_option": "A"
+    },
+    {
+      "id": 84,
+      "complexity": "high",
+      "question": "You need private connectivity to Azure PaaS services (like Storage/SQL) from a VNet without public IP exposure. What should you use?",
+      "options": {
+        "A": "Private Endpoint (Azure Private Link)",
+        "B": "Azure CDN",
+        "C": "Public IP + NSG",
+        "D": "Traffic Manager"
+      },
+      "correct_option": "A"
+    },
+    {
+      "id": 85,
+      "complexity": "medium",
+      "question": "You want to store container images and manage them privately in Azure. Which service is best?",
+      "options": {
+        "A": "Azure Container Registry (ACR)",
+        "B": "Azure Container Instances (ACI)",
+        "C": "Azure Files",
+        "D": "Azure API Management"
+      },
+      "correct_option": "A"
+    },
+    {
+      "id": 86,
+      "complexity": "medium",
+      "question": "You want to scan for security vulnerabilities and get recommendations on your Azure workloads. Which service helps most?",
+      "options": {
+        "A": "Microsoft Defender for Cloud",
+        "B": "Azure DNS",
+        "C": "Azure CDN",
+        "D": "Azure Storage Explorer"
+      },
+      "correct_option": "A"
+    },
+    {
+      "id": 87,
+      "complexity": "low",
+      "question": "You want to deploy resources in Azure using a browser-based wizard with prebuilt solutions. Where do you commonly find these?",
+      "options": {
+        "A": "Azure Marketplace",
+        "B": "Azure Advisor",
+        "C": "Azure Monitor",
+        "D": "Azure Service Health"
+      },
+      "correct_option": "A"
+    },
+    {
+      "id": 88,
+      "complexity": "medium",
+      "question": "You want to manage Azure resources from another cloud or on-prem using a unified approach. Which service helps?",
+      "options": {
+        "A": "Azure Arc",
+        "B": "Azure CDN",
+        "C": "Azure Traffic Manager",
+        "D": "Azure Files"
+      },
+      "correct_option": "A"
+    },
+    {
+      "id": 89,
+      "complexity": "low",
+      "question": "You need to limit who can access a VM. Which is the best first step?",
+      "options": {
+        "A": "Open RDP/SSH to the internet for convenience",
+        "B": "Use NSG rules to restrict inbound access",
+        "C": "Disable encryption",
+        "D": "Move VM to a different resource group"
+      },
+      "correct_option": "B"
+    },
+    {
+      "id": 90,
+      "complexity": "high",
+      "question": "You must ensure business continuity across a region outage for a web app. Which combination is most appropriate?",
+      "options": {
+        "A": "Single VM + local backup only",
+        "B": "Deploy in two regions and use Traffic Manager/Front Door for failover",
+        "C": "Use a single availability set only",
+        "D": "Use only tags and policies"
+      },
+      "correct_option": "B"
+    },
+    {
+      "id": 91,
+      "complexity": "medium",
+      "question": "You want to see which Azure services are available in a specific region before deploying. Where do you check?",
+      "options": {
+        "A": "Products available by region (Azure global infrastructure pages)",
+        "B": "NSG rules",
+        "C": "Azure Queue Storage",
+        "D": "Azure Files share"
+      },
+      "correct_option": "A"
+    },
+    {
+      "id": 92,
+      "complexity": "low",
+      "question": "Which concept describes using many small resources and combining them to meet demand (like scale-out)?",
+      "options": {
+        "A": "Vertical scaling",
+        "B": "Horizontal scaling",
+        "C": "Single point of failure",
+        "D": "Capital expense"
+      },
+      "correct_option": "B"
+    },
+    {
+      "id": 93,
+      "complexity": "low",
+      "question": "Which concept describes increasing the size of a VM (more CPU/RAM) to meet demand (scale-up)?",
+      "options": {
+        "A": "Horizontal scaling",
+        "B": "Vertical scaling",
+        "C": "Geo-replication",
+        "D": "Tagging"
+      },
+      "correct_option": "B"
+    },
+    {
+      "id": 94,
+      "complexity": "medium",
+      "question": "You want to automatically increase App Service instances when CPU exceeds a threshold. What feature is this?",
+      "options": {
+        "A": "Autoscale",
+        "B": "Availability zones",
+        "C": "Resource locks",
+        "D": "ExpressRoute"
+      },
+      "correct_option": "A"
+    },
+    {
+      "id": 95,
+      "complexity": "medium",
+      "question": "You need to prevent accidental deletion of a critical resource group. What should you use?",
+      "options": {
+        "A": "Resource locks",
+        "B": "Availability zones",
+        "C": "Traffic Manager",
+        "D": "Azure CDN"
+      },
+      "correct_option": "A"
+    },
+    {
+      "id": 96,
+      "complexity": "high",
+      "question": "A team needs read-only access to view resources but must not make changes. Which built-in role fits best?",
+      "options": {
+        "A": "Owner",
+        "B": "Contributor",
+        "C": "Reader",
+        "D": "User Access Administrator"
+      },
+      "correct_option": "C"
+    },
+    {
+      "id": 97,
+      "complexity": "high",
+      "question": "You want to give a developer permission to manage a single resource group but not the whole subscription. What should you do?",
+      "options": {
+        "A": "Assign Owner at subscription scope",
+        "B": "Assign Contributor at resource group scope",
+        "C": "Assign Reader at tenant scope",
+        "D": "Disable RBAC and use shared passwords"
+      },
+      "correct_option": "B"
+    },
+    {
+      "id": 98,
+      "complexity": "medium",
+      "question": "You want a centralized place to track compliance requirements and understand how Azure meets standards (ISO, SOC, etc.). Where do you look?",
+      "options": {
+        "A": "Microsoft Trust Center / compliance documentation",
+        "B": "Azure Queue Storage",
+        "C": "Azure Files",
+        "D": "Azure CDN"
+      },
+      "correct_option": "A"
+    },
+    {
+      "id": 99,
+      "complexity": "high",
+      "question": "You need to store secrets and also automatically rotate them and control access using identities. Which combination best matches?",
+      "options": {
+        "A": "Key Vault + Managed Identity",
+        "B": "Blob Storage + SAS",
+        "C": "Azure CDN + WAF",
+        "D": "Traffic Manager + DNS"
+      },
+      "correct_option": "A"
+    },
+    {
+      "id": 100,
+      "complexity": "high",
+      "question": "You want centralized monitoring for apps and detect issues end-to-end (requests, dependencies, failures) with distributed tracing. What should you use?",
+      "options": {
+        "A": "Application Insights",
+        "B": "Azure DNS",
+        "C": "Azure Files",
+        "D": "Azure Queue Storage"
+      },
+      "correct_option": "A"
+    }
+  ]
+}

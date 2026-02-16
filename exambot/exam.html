@@ -1,0 +1,1063 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Evalio • Smart Exams. Smarter You.</title>
+
+  <style>
+    /* ===== Azure-ish light theme ===== */
+    :root{
+      --bg1:#e8f3ff;
+      --bg2:#f6fbff;
+      --card:#ffffff;
+      --text:#0b1f33;
+      --muted:#4b6b8a;
+      --line:#cfe4fb;
+      --primary:#0078d4;        /* Azure blue */
+      --primary2:#005a9e;
+
+      --ok:#107c10;            /* green */
+      --bad:#d13438;           /* red */
+      --mid:#ca5010;           /* amber-ish (MS) */
+
+      --shadow: 0 14px 40px rgba(0,60,120,.12);
+    }
+
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(1100px 600px at 10% 0%, var(--bg1) 0%, var(--bg2) 60%),
+        radial-gradient(900px 450px at 95% 15%, #d9efff 0%, var(--bg2) 55%);
+    }
+
+    .wrap{max-width:1140px; margin:22px auto; padding:0 16px;}
+    .topbar{
+      display:flex; gap:12px; align-items:flex-start; justify-content:space-between; flex-wrap:wrap;
+      margin-bottom:14px;
+    }
+
+    .brand{
+      display:flex; align-items:center; gap:12px; flex-wrap:wrap;
+    }
+    .brandTitle{
+      margin:0;
+      font-size:22px;
+      letter-spacing:.2px;
+      font-weight:900;
+      color:var(--primary2);
+    }
+    .tagline{
+      margin:2px 0 0;
+      font-size:13px;
+      color:var(--muted);
+      font-weight:700;
+    }
+
+    .topRight{
+      display:flex;
+      align-items:flex-start;
+      gap:12px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+
+    .logoMark{
+      width:34px; height:34px;
+      border-radius:10px;
+      border:1px solid var(--line);
+      background:
+        radial-gradient(circle at 35% 30%, rgba(0,120,212,.25), transparent 55%),
+        linear-gradient(145deg, rgba(0,120,212,.16), rgba(0,90,158,.10));
+      display:grid; place-items:center;
+      box-shadow: 0 10px 24px rgba(0,60,120,.10);
+      flex:0 0 auto;
+    }
+    .logoMark svg{display:block}
+
+    .pill{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:6px 10px; border-radius:999px; border:1px solid var(--line);
+      background:rgba(0,120,212,.06); color:var(--muted); font-size:12px;
+      font-weight:800;
+    }
+    .pill.ok{border-color: rgba(16,124,16,.35); background: rgba(16,124,16,.07); color:var(--ok);}
+    .pill.bad{border-color: rgba(209,52,56,.35); background: rgba(209,52,56,.07); color:var(--bad);}
+    .pill.mid{border-color: rgba(202,80,16,.35); background: rgba(202,80,16,.07); color:var(--mid);}
+
+    .mono{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;}
+
+    .grid{display:grid; grid-template-columns: 1fr; gap:14px;}
+    @media (min-width: 980px){
+      .grid{grid-template-columns: 380px 1fr;}
+    }
+
+    .card{
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:14px;
+      padding:16px;
+      box-shadow: var(--shadow);
+    }
+
+    label{display:block; font-size:12px; color:var(--muted); margin-bottom:6px; font-weight:800}
+    input[type="text"], select{
+      width:100%;
+      background:#f6fbff;
+      border:1px solid var(--line);
+      color:var(--text);
+      border-radius:10px;
+      padding:10px 12px;
+      outline:none;
+      font-weight:700;
+    }
+    input[type="file"]{width:100%}
+
+    .row{display:grid; grid-template-columns:1fr; gap:10px}
+    .row2{display:grid; grid-template-columns:1fr 1fr; gap:10px}
+
+    .btnbar{display:flex; gap:10px; flex-wrap:wrap; margin-top:12px}
+    button{
+      border:0; border-radius:10px; padding:10px 12px; cursor:pointer; font-weight:900;
+      background:var(--primary); color:white;
+    }
+    button:hover{background:var(--primary2)}
+    button.secondary{background:#e7f3ff; color:var(--primary2); border:1px solid var(--line)}
+    button.secondary:hover{background:#d5edff}
+    button.ghost{background:transparent; border:1px solid var(--line); color:var(--primary2)}
+    button:disabled{opacity:.55; cursor:not-allowed}
+
+    .divider{height:1px; background:var(--line); margin:14px 0}
+
+    .qhead{display:flex; align-items:flex-start; justify-content:space-between; gap:10px; flex-wrap:wrap}
+    .qmeta{display:flex; gap:10px; flex-wrap:wrap; align-items:center}
+    .qtitle{margin:8px 0 0; font-size:16px; line-height:1.35}
+
+    .opt{
+      display:flex; gap:10px; align-items:flex-start;
+      padding:10px 12px; border-radius:12px; border:1px solid var(--line);
+      background:#f7fbff;
+      margin-top:10px;
+    }
+    .opt:hover{border-color:#86c5ff}
+    .opt input{margin-top:3px}
+    .opt b{min-width:22px; display:inline-block}
+
+    .hint{color:var(--muted); font-size:12px; margin-top:10px; font-weight:700}
+    .msg{font-size:13px; margin-top:10px; color:var(--muted); font-weight:700}
+    .msg.ok{color:var(--ok)}
+    .msg.bad{color:var(--bad)}
+
+    /* Summary key-value list */
+    .kv{display:grid; gap:10px; margin-top:10px}
+    .kvrow{
+      display:flex; justify-content:space-between; gap:14px; flex-wrap:wrap;
+      border:1px solid var(--line); border-radius:12px; padding:10px 12px;
+      background:#f7fbff;
+    }
+    .kvrow .k{color:var(--muted); font-size:13px; font-weight:900}
+    .kvrow .v{font-weight:1000}
+    .v.ok{color:var(--ok)}
+    .v.bad{color:var(--bad)}
+
+    /* Collapsible explanation + menu panels */
+    details.panel{
+      border:1px solid var(--line);
+      background:#f7fbff;
+      border-radius:12px;
+      overflow:hidden;
+    }
+    details.panel + details.panel{margin-top:10px}
+    details.panel > summary{
+      cursor:pointer;
+      list-style:none;
+      padding:10px 12px;
+      font-weight:1000;
+      color:var(--primary2);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      background:rgba(0,120,212,.06);
+      border-bottom:1px solid var(--line);
+    }
+    details.panel > summary::-webkit-details-marker{display:none;}
+    .caret{
+      width:10px; height:10px;
+      border-right:2px solid var(--muted);
+      border-bottom:2px solid var(--muted);
+      transform: rotate(-45deg);
+      transition: transform .15s ease;
+      margin-left:auto;
+    }
+    details.panel[open] .caret{ transform: rotate(45deg); }
+    .panelBody{padding:10px 12px 12px}
+
+    /* Exam menu */
+    .menuGroupTitle{
+      font-size:12px; font-weight:1000; color:var(--muted);
+      text-transform:uppercase; letter-spacing:.6px;
+      margin:10px 0 8px;
+    }
+    .menuItem{
+      width:100%;
+      text-align:left;
+      border:1px solid var(--line);
+      background:#fff;
+      color:var(--text);
+      padding:10px 10px;
+      border-radius:10px;
+      cursor:pointer;
+      font-weight:1000;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      margin-bottom:8px;
+    }
+    .menuItem:hover{border-color:#86c5ff}
+    .menuItem small{color:var(--muted); font-weight:900}
+
+    /* Floating Setup button */
+    .floatingOpen{
+      position:fixed;
+      left:16px;
+      bottom:16px;
+      z-index:999;
+      display:none;
+      box-shadow: var(--shadow);
+    }
+
+    /* Hidden setup during exam */
+    .hidden{display:none !important;}
+
+    /* Buttons under options */
+    .actionsUnderOptions{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top:12px;
+    }
+
+    /* Top exam line */
+    .examTopLine{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:space-between;
+      margin-bottom:8px;
+    }
+    .examNameBig{
+      font-weight:1000;
+      color:var(--primary2);
+      font-size:14px;
+    }
+    .clock{
+      font-weight:1000;
+      letter-spacing:.6px;
+      color:var(--primary2);
+      border:1px solid var(--line);
+      padding:6px 10px;
+      border-radius:999px;
+      background:#fff;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <div class="brand">
+        <div>
+          <h1 class="brandTitle">Evalio</h1>
+          <div class="tagline">Smart Exams. Smarter You.</div>
+        </div>
+      </div>
+
+      <div class="topRight">
+        <div class="pill" id="topExamPill">Exam: —</div>
+        <div class="pill mono" id="topClockPill">00:00:00</div>
+
+        <div class="logoMark" title="Evalio">
+          <!-- Simple inline logo -->
+          <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
+            <path fill="#0078d4" d="M12 2a10 10 0 1 0 10 10A10.01 10.01 0 0 0 12 2Zm4.8 7.2-5.6 9a1 1 0 0 1-1.71.07L7.2 15.2a1 1 0 1 1 1.6-1.2l1.9 2.53 4.8-7.72a1 1 0 1 1 1.3 1.39Z"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid">
+      <!-- LEFT: Setup -->
+      <div class="card" id="setupCard">
+        <div class="row">
+
+          <div class="pill" id="examPill">No exam loaded</div>
+
+          <!-- Collapsible sections -->
+          <details class="panel" id="menuPanel" open>
+            <summary>
+              Exam Menu
+              <span class="caret"></span>
+            </summary>
+            <div class="panelBody">
+
+              <!-- IMPORTANT: rename your JSON files to match File: names -->
+              <div class="menuGroupTitle">Azure Fundamentals</div>
+
+              <button class="menuItem" data-file="az900.json">
+                AZ-900 Practice
+                <small>File: az900.json</small>
+              </button>
+
+              <button class="menuItem" data-file="az900-practical.json">
+                AZ-900 Practical Set
+                <small>File: az900-practical.json</small>
+              </button>
+
+              <div class="menuGroupTitle">DevOps</div>
+
+              <button class="menuItem" data-file="az400.json">
+                AZ-400 Practice
+                <small>File: az400.json</small>
+              </button>
+
+              <div class="msg" id="menuLoadedPill">Loaded file: —</div>
+            </div>
+          </details>
+
+          <details class="panel" id="manualPanel">
+            <summary>
+              Manual Exam (Upload JSON)
+              <span class="caret"></span>
+            </summary>
+            <div class="panelBody">
+              <label>Upload JSON File</label>
+              <input id="jsonFile" type="file" accept=".json,application/json" />
+              <div class="btnbar">
+                <button id="btnLoadUploaded" class="secondary">Load Uploaded JSON</button>
+              </div>
+              <div class="msg" id="setupMsg">Click a menu exam OR upload JSON.</div>
+            </div>
+          </details>
+
+          <div class="divider"></div>
+
+          <div class="row2">
+            <div>
+              <label>Name</label>
+              <input id="userName" type="text" placeholder="e.g., Sanjay" />
+            </div>
+            <div>
+              <label>Complexity Filter</label>
+              <select id="complexity">
+                <option value="all">All</option>
+                <option value="low">Low</option>
+                <option value="medium">Medium</option>
+                <option value="high">High</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="row2">
+            <div>
+              <label>Number of Questions (optional)</label>
+              <input id="limit" type="text" inputmode="numeric" placeholder="e.g., 20 (blank = all)" />
+            </div>
+            <div>
+              <label>Pass %</label>
+              <input id="passPercent" type="text" inputmode="numeric" value="80" />
+            </div>
+          </div>
+
+          <div class="btnbar">
+            <button id="btnStart" disabled>Start Exam</button>
+            <button id="btnReset" class="ghost" disabled>Reset</button>
+          </div>
+
+          <div class="msg" id="metaLine">
+            File: <span class="mono" id="metaFile">—</span> • Questions: <span id="metaCount">—</span> • Pass: <span id="metaPass">80%</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: Exam + Result -->
+      <div class="card">
+        <!-- EXAM VIEW -->
+        <div id="examView" style="display:none;">
+          <div class="examTopLine">
+            <div class="examNameBig" id="examNameTop">Exam: —</div>
+            <div class="clock mono" id="examClock">00:00:00</div>
+          </div>
+
+          <div class="qhead">
+            <div class="qmeta">
+              <span class="pill" id="progressPill">Q 0 / 0</span>
+              <span class="pill" id="complexPill">Complexity: —</span>
+            </div>
+          </div>
+
+          <h2 class="qtitle" id="qText">—</h2>
+          <div id="optionsWrap"></div>
+
+          <!-- ACTIONS after option D -->
+          <div class="actionsUnderOptions">
+            <button id="btnSubmit" class="secondary" disabled>Submit</button>
+            <button id="btnNext" disabled>Next</button>
+            <button id="btnFinish" class="ghost">Finish</button>
+          </div>
+
+          <!-- Explanation panel (closed) -->
+          <details class="panel" id="summaryPanel" style="display:none; margin-top:12px;">
+            <summary>
+              Explanation / Summary
+              <span class="caret"></span>
+            </summary>
+            <div class="panelBody" style="color:var(--muted); font-weight:800; line-height:1.45" id="summaryText">—</div>
+          </details>
+
+          <div class="msg" id="answerMsg"></div>
+          <div class="hint">Select one option → Submit → Next.</div>
+        </div>
+
+        <!-- READY VIEW -->
+        <div id="emptyView">
+          <div class="pill">Ready</div>
+          <div class="divider"></div>
+          <div class="msg">
+            Load an exam from the menu, enter your name, then start.
+            (During exam, left setup will auto-hide. Use floating ⚙️ Setup if needed.)
+          </div>
+        </div>
+
+        <!-- RESULT VIEW -->
+        <div id="resultView" style="display:none;">
+          <div class="qhead">
+            <div class="qmeta" style="align-items:center;">
+              <span class="pill" id="resultBadge">Result</span>
+              <span class="pill" id="passFailBadge">PASS</span>
+            </div>
+            <div class="qmeta">
+              <button id="btnRestart" class="secondary">Restart</button>
+              <button id="btnShowSummary" class="ghost">Show Summary</button>
+              <button id="btnShowSetup" class="ghost">Show Setup</button>
+            </div>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="kv" id="kvWrap"></div>
+
+          <!-- Detailed Q summary (collapsible) -->
+          <div id="detailSummaryWrap" style="display:none; margin-top:14px;">
+            <details class="panel" id="correctPanel">
+              <summary>All Correct Answers <span class="caret"></span></summary>
+              <div class="panelBody" id="correctList"></div>
+            </details>
+
+            <details class="panel" id="wrongPanel" style="margin-top:10px;">
+              <summary>All Wrong Answers <span class="caret"></span></summary>
+              <div class="panelBody" id="wrongList"></div>
+            </details>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Floating Setup button -->
+  <button class="floatingOpen" id="floatingSetupBtn">⚙️ Setup</button>
+
+  <script>
+    // ---------- Helpers ----------
+    const $ = (id) => document.getElementById(id);
+    const safeText = (s) => (s ?? "").toString();
+
+    function shuffle(arr){
+      const a = arr.slice();
+      for(let i=a.length-1;i>0;i--){
+        const j = Math.floor(Math.random()*(i+1));
+        [a[i], a[j]] = [a[j], a[i]];
+      }
+      return a;
+    }
+    function normalizeCorrectOption(x){
+      const s = safeText(x).trim().toUpperCase();
+      return ["A","B","C","D"].includes(s) ? s : null;
+    }
+    function msToTime(ms){
+      const totalSec = Math.max(0, Math.floor(ms / 1000));
+      const hh = Math.floor(totalSec / 3600);
+      const mm = Math.floor((totalSec % 3600) / 60);
+      const ss = totalSec % 60;
+      return String(hh).padStart(2,"0") + ":" + String(mm).padStart(2,"0") + ":" + String(ss).padStart(2,"0");
+    }
+    function escapeHtml(str){
+      return safeText(str)
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
+    }
+
+    // ---------- State ----------
+    let rawExam = null;
+    let currentFileName = "—";
+    let currentExamName = "—";
+
+    let filteredQuestions = [];
+    let queue = [];
+    let idx = 0;
+
+    let answers = [];   // {id, selected, correct, isCorrect, qRef}
+    let currentSelected = null;
+    let submitted = false;
+
+    let examStartAt = null;
+    let examEndAt = null;
+
+    // clock timer
+    let clockTimer = null;
+
+    // ---------- UI ----------
+    const setupCard = $("setupCard");
+    const floatingSetupBtn = $("floatingSetupBtn");
+
+    const examPill = $("examPill");
+    const menuLoadedPill = $("menuLoadedPill");
+    const setupMsg = $("setupMsg");
+
+    const topExamPill = $("topExamPill");
+    const topClockPill = $("topClockPill");
+
+    const examNameTop = $("examNameTop");
+    const examClock = $("examClock");
+
+    const metaFile = $("metaFile");
+    const metaCount = $("metaCount");
+    const metaPass = $("metaPass");
+
+    const emptyView = $("emptyView");
+    const examView = $("examView");
+    const resultView = $("resultView");
+
+    const btnStart = $("btnStart");
+    const btnReset = $("btnReset");
+    const btnLoadUploaded = $("btnLoadUploaded");
+
+    const progressPill = $("progressPill");
+    const complexPill = $("complexPill");
+    const qText = $("qText");
+    const optionsWrap = $("optionsWrap");
+    const answerMsg = $("answerMsg");
+
+    const btnSubmit = $("btnSubmit");
+    const btnNext = $("btnNext");
+    const btnFinish = $("btnFinish");
+
+    const summaryPanel = $("summaryPanel");
+    const summaryText = $("summaryText");
+
+    const kvWrap = $("kvWrap");
+
+    const resultBadge = $("resultBadge");
+    const passFailBadge = $("passFailBadge");
+
+    const btnRestart = $("btnRestart");
+    const btnShowSetup = $("btnShowSetup");
+    const btnShowSummary = $("btnShowSummary");
+
+    const detailSummaryWrap = $("detailSummaryWrap");
+    const correctList = $("correctList");
+    const wrongList = $("wrongList");
+
+    // ---------- Hide/Show Setup ----------
+    function hideSetup(){
+      setupCard.classList.add("hidden");
+      floatingSetupBtn.style.display = "inline-flex";
+    }
+    function showSetup(){
+      setupCard.classList.remove("hidden");
+      floatingSetupBtn.style.display = "none";
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+    floatingSetupBtn.addEventListener("click", showSetup);
+    btnShowSetup.addEventListener("click", showSetup);
+
+    // ---------- Top clock (real time) ----------
+    function startTopClock(){
+      const tick = () => {
+        const d = new Date();
+        const t = String(d.getHours()).padStart(2,"0") + ":" + String(d.getMinutes()).padStart(2,"0") + ":" + String(d.getSeconds()).padStart(2,"0");
+        topClockPill.textContent = t;
+      };
+      tick();
+      setInterval(tick, 1000);
+    }
+    startTopClock();
+
+    // ---------- Exam clock (duration) ----------
+    function startExamClock(){
+      stopExamClock();
+      clockTimer = setInterval(() => {
+        if(!examStartAt) return;
+        const now = new Date();
+        examClock.textContent = msToTime(now - examStartAt);
+      }, 1000);
+      examClock.textContent = "00:00:00";
+    }
+    function stopExamClock(){
+      if(clockTimer){ clearInterval(clockTimer); clockTimer = null; }
+    }
+
+    // ---------- Validate + set exam ----------
+    function validateAndSetExam(data, fileName){
+      if(!data || !Array.isArray(data.questions)){
+        throw new Error("Invalid JSON: missing questions[]");
+      }
+      const ok = data.questions.every(q =>
+        q && typeof q.question === "string" &&
+        q.options && typeof q.options === "object" &&
+        normalizeCorrectOption(q.correct_option)
+      );
+      if(!ok){
+        throw new Error("Invalid questions format. Ensure question/options/correct_option exist.");
+      }
+
+      rawExam = data;
+      currentFileName = fileName;
+      currentExamName = safeText(data.exam || fileName);
+
+      // Pills / labels
+      examPill.textContent = `Loaded: ${currentExamName}`;
+      topExamPill.textContent = `Exam: ${currentExamName}`;
+      examNameTop.textContent = `Exam: ${currentExamName}`;
+
+      menuLoadedPill.textContent = `Loaded file: ${fileName}`;
+      metaFile.textContent = fileName;
+
+      metaCount.textContent = data.questions.length;
+      metaPass.textContent = (Number($("passPercent").value)||80) + "%";
+
+      setupMsg.textContent = `✅ Loaded. Enter name and click Start Exam.`;
+      btnStart.disabled = false;
+      btnReset.disabled = false;
+    }
+
+    // ---------- Menu click: load JSON by file name (same directory) ----------
+    async function loadExamFromFile(fileName){
+      try{
+        setupMsg.textContent = `Loading: ${fileName} ...`;
+        const res = await fetch(fileName, { cache: "no-store" });
+        if(!res.ok){
+          throw new Error(`Cannot fetch "${fileName}". If you opened via file://, use Live Server / http server OR use Manual Upload.`);
+        }
+        const data = await res.json();
+        validateAndSetExam(data, fileName);
+      }catch(err){
+        setupMsg.textContent = "❌ " + (err?.message || err);
+        rawExam = null;
+        btnStart.disabled = true;
+      }
+    }
+
+    document.querySelectorAll(".menuItem").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const file = btn.getAttribute("data-file");
+        loadExamFromFile(file);
+      });
+    });
+
+    // ---------- Upload JSON fallback ----------
+    btnLoadUploaded.addEventListener("click", async () => {
+      const file = $("jsonFile").files?.[0];
+      if(!file){
+        setupMsg.textContent = "❌ Please upload a JSON file first.";
+        return;
+      }
+      try{
+        const text = await file.text();
+        const data = JSON.parse(text);
+        validateAndSetExam(data, file.name);
+      }catch(e){
+        setupMsg.textContent = "❌ Failed to load uploaded JSON: " + (e?.message || e);
+        rawExam = null;
+        btnStart.disabled = true;
+      }
+    });
+
+    // ---------- Start Exam ----------
+    btnStart.addEventListener("click", () => {
+      if(!rawExam) return;
+
+      const name = $("userName").value.trim();
+      if(!name){
+        setupMsg.textContent = "❌ Please enter your Name first.";
+        return;
+      }
+
+      const passPercent = Number($("passPercent").value) || 80;
+      metaPass.textContent = passPercent + "%";
+
+      // Filter
+      const filter = $("complexity").value;
+      filteredQuestions = rawExam.questions.filter(q => {
+        if(filter === "all") return true;
+        return (safeText(q.complexity).toLowerCase() === filter);
+      });
+
+      // Limit
+      const limitRaw = $("limit").value.trim();
+      let limit = null;
+      if(limitRaw){
+        const n = Number(limitRaw);
+        if(Number.isFinite(n) && n > 0) limit = Math.floor(n);
+      }
+      if(limit && filteredQuestions.length > limit){
+        filteredQuestions = filteredQuestions.slice(0, limit);
+      }
+
+      if(filteredQuestions.length === 0){
+        setupMsg.textContent = "❌ No questions found for this filter. Try All/another complexity.";
+        return;
+      }
+
+      // RANDOM order
+      queue = shuffle(filteredQuestions);
+      idx = 0;
+
+      answers = [];
+      currentSelected = null;
+      submitted = false;
+
+      examStartAt = new Date();
+      examEndAt = null;
+
+      // Start duration clock
+      startExamClock();
+
+      // Switch views
+      emptyView.style.display = "none";
+      resultView.style.display = "none";
+      examView.style.display = "block";
+
+      // Hide setup + floating option
+      hideSetup();
+
+      renderQuestion();
+    });
+
+    // ---------- Reset ----------
+    btnReset.addEventListener("click", () => {
+      queue = [];
+      idx = 0;
+      answers = [];
+      currentSelected = null;
+      submitted = false;
+
+      examStartAt = null;
+      examEndAt = null;
+      stopExamClock();
+      examClock.textContent = "00:00:00";
+
+      examView.style.display = "none";
+      resultView.style.display = "none";
+      emptyView.style.display = "block";
+
+      answerMsg.textContent = "";
+      optionsWrap.innerHTML = "";
+      qText.textContent = "—";
+
+      summaryPanel.open = false;
+      summaryPanel.style.display = "none";
+      summaryText.textContent = "";
+
+      detailSummaryWrap.style.display = "none";
+      correctList.innerHTML = "";
+      wrongList.innerHTML = "";
+
+      showSetup();
+    });
+
+    // ---------- Complexity pill color ----------
+    function setComplexityPill(complexityRaw){
+      const c = safeText(complexityRaw).toLowerCase();
+      complexPill.className = "pill"; // reset
+      if(c === "low") complexPill.classList.add("ok");
+      else if(c === "medium") complexPill.classList.add("mid");
+      else if(c === "high") complexPill.classList.add("bad");
+      complexPill.textContent = `Complexity: ${complexityRaw || "—"}`;
+    }
+
+    // ---------- Render Question ----------
+    function renderQuestion(){
+      const q = queue[idx];
+      if(!q){
+        finishExam();
+        return;
+      }
+
+      submitted = false;
+      currentSelected = null;
+      answerMsg.textContent = "";
+      answerMsg.className = "msg";
+      btnSubmit.disabled = true;
+      btnNext.disabled = true;
+
+      progressPill.textContent = `Q ${idx+1} / ${queue.length}`;
+      setComplexityPill(q.complexity || "—");
+      qText.textContent = safeText(q.question);
+
+      optionsWrap.innerHTML = "";
+      ["A","B","C","D"].forEach(letter => {
+        const text = q.options?.[letter];
+        const opt = document.createElement("label");
+        opt.className = "opt";
+        opt.innerHTML = `
+          <input type="radio" name="opt" value="${letter}" />
+          <div><div><b>${letter}.</b> ${escapeHtml(text)}</div></div>
+        `;
+        opt.querySelector("input").addEventListener("change", (e) => {
+          if(submitted) return;
+          currentSelected = e.target.value;
+          btnSubmit.disabled = !currentSelected;
+        });
+        optionsWrap.appendChild(opt);
+      });
+
+      // Summary panel
+      const s = safeText(q.summary || "").trim();
+      if(s){
+        summaryText.textContent = s;
+        summaryPanel.open = false;
+        summaryPanel.style.display = "block";
+      }else{
+        summaryPanel.open = false;
+        summaryPanel.style.display = "none";
+        summaryText.textContent = "";
+      }
+    }
+
+    // ---------- Submit ----------
+    btnSubmit.addEventListener("click", () => {
+      if(submitted) return;
+      const q = queue[idx];
+      if(!q) return;
+
+      const correct = normalizeCorrectOption(q.correct_option);
+      if(!currentSelected){
+        answerMsg.textContent = "❌ Please select one option.";
+        answerMsg.className = "msg bad";
+        return;
+      }
+
+      submitted = true;
+
+      const isCorrect = (currentSelected === correct);
+      answers.push({
+        id: q.id,
+        correct,
+        selected: currentSelected,
+        isCorrect,
+        qRef: q
+      });
+
+      if(isCorrect){
+        answerMsg.textContent = `✅ Correct! (${currentSelected})`;
+        answerMsg.className = "msg ok";
+      }else{
+        answerMsg.textContent = `❌ Wrong. You selected (${currentSelected}). Correct is (${correct}).`;
+        answerMsg.className = "msg bad";
+      }
+
+      btnNext.disabled = false;
+      document.querySelectorAll('input[name="opt"]').forEach(r => r.disabled = true);
+      btnSubmit.disabled = true;
+    });
+
+    // ---------- Next / Finish ----------
+    btnNext.addEventListener("click", () => {
+      if(!submitted) return;
+      idx++;
+      if(idx >= queue.length) finishExam();
+      else renderQuestion();
+    });
+    btnFinish.addEventListener("click", () => finishExam());
+
+    // ---------- Result page + summary panels ----------
+    function finishExam(){
+      examEndAt = new Date();
+      stopExamClock();
+
+      examView.style.display = "none";
+      emptyView.style.display = "none";
+      resultView.style.display = "block";
+
+      const passPercent = Number($("passPercent").value) || 80;
+
+      const correctCount = answers.filter(a => a.isCorrect).length;
+      const totalQuestions = queue.length;
+      const attempted = answers.length;
+
+      // % uses total questions (unattempted = wrong)
+      const percentage = totalQuestions > 0 ? (correctCount / totalQuestions) * 100 : 0;
+
+      const isPass = (percentage >= passPercent);
+      const passedCount = correctCount;
+      const failedCount = totalQuestions - correctCount;
+
+      const timeTaken = (examStartAt && examEndAt) ? msToTime(examEndAt - examStartAt) : "00:00:00";
+
+      // Result badges
+      resultBadge.textContent = `Result (True/False): ${isPass ? "True" : "False"}`;
+      resultBadge.className = "pill " + (isPass ? "ok" : "bad");
+
+      passFailBadge.textContent = isPass ? "PASS" : "FAIL";
+      passFailBadge.className = "pill " + (isPass ? "ok" : "bad");
+
+      // KV summary
+      kvWrap.innerHTML = "";
+      const name = $("userName").value.trim();
+
+      const rows = [
+        ["Name", name, "neutral"],
+        ["Exam name", currentExamName, "neutral"],
+        ["Number of questions attempted", String(attempted), "neutral"],
+        ["Pass/Fail", isPass ? "PASS" : "FAIL", isPass ? "ok" : "bad"],
+        ["Result (True/False)", isPass ? "True" : "False", isPass ? "ok" : "bad"],
+        ["Number of questions pass/fail", `${passedCount} / ${failedCount}`, isPass ? "ok" : "bad"],
+        ["Percentage", `${percentage.toFixed(2)}%`, isPass ? "ok" : "bad"],
+        ["Time taken", timeTaken, "neutral"]
+      ];
+
+      rows.forEach(([k,v,t]) => {
+        const div = document.createElement("div");
+        div.className = "kvrow";
+        const vClass = (t === "ok") ? "v ok" : (t === "bad") ? "v bad" : "v";
+        div.innerHTML = `<div class="k">${k}</div><div class="${vClass}">${escapeHtml(v)}</div>`;
+        kvWrap.appendChild(div);
+      });
+
+      // Hide detailed panel by default
+      detailSummaryWrap.style.display = "none";
+      correctList.innerHTML = "";
+      wrongList.innerHTML = "";
+
+      // Keep setup hidden but allow floating + show setup button
+      floatingSetupBtn.style.display = "inline-flex";
+    }
+
+    // ---------- Show Summary button ----------
+    btnShowSummary.addEventListener("click", () => {
+      // Build once each click (safe)
+      const correctItems = answers.filter(a => a.isCorrect);
+      const wrongItems = answers.filter(a => !a.isCorrect);
+
+      correctList.innerHTML = correctItems.length
+        ? correctItems.map((a, i) => renderAnswerBlock(a, i+1, true)).join("")
+        : `<div class="msg ok">No correct answers yet.</div>`;
+
+      wrongList.innerHTML = wrongItems.length
+        ? wrongItems.map((a, i) => renderAnswerBlock(a, i+1, false)).join("")
+        : `<div class="msg ok">No wrong answers 🎉</div>`;
+
+      detailSummaryWrap.style.display = "block";
+      // keep both CLOSED by default
+      $("correctPanel").open = false;
+      $("wrongPanel").open = false;
+
+      // Scroll into view
+      detailSummaryWrap.scrollIntoView({ behavior:"smooth", block:"start" });
+    });
+
+    function renderAnswerBlock(a, idxNum, isCorrect){
+      const q = a.qRef || {};
+      const correct = a.correct;
+      const selected = a.selected;
+
+      const selectedText = q.options?.[selected] ?? "";
+      const correctText = q.options?.[correct] ?? "";
+      const summary = safeText(q.summary || "").trim();
+
+      return `
+        <div style="border:1px solid var(--line); background:#fff; border-radius:12px; padding:10px 12px; margin-bottom:10px;">
+          <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center; justify-content:space-between;">
+            <div style="font-weight:1000; color:var(--primary2);">Q${idxNum}. ${escapeHtml(q.question || "")}</div>
+            <span class="pill ${isCorrect ? "ok" : "bad"}">${isCorrect ? "Correct" : "Wrong"}</span>
+          </div>
+          <div style="margin-top:8px; color:var(--muted); font-weight:900;">
+            Your Answer: <span style="color:${isCorrect ? "var(--ok)" : "var(--bad)"}; font-weight:1000">${escapeHtml(selected)}.</span>
+            ${escapeHtml(selectedText)}
+          </div>
+          ${isCorrect ? "" : `
+            <div style="margin-top:6px; color:var(--muted); font-weight:900;">
+              Correct Answer: <span style="color:var(--ok); font-weight:1000">${escapeHtml(correct)}.</span>
+              ${escapeHtml(correctText)}
+            </div>
+          `}
+          ${summary ? `
+            <details class="panel" style="margin-top:10px;">
+              <summary>Explanation <span class="caret"></span></summary>
+              <div class="panelBody" style="color:var(--muted); font-weight:800; line-height:1.45">${escapeHtml(summary)}</div>
+            </details>
+          ` : ""}
+        </div>
+      `;
+    }
+
+    // ---------- Restart ----------
+    btnRestart.addEventListener("click", () => {
+      if(!rawExam) return;
+
+      const filter = $("complexity").value;
+      filteredQuestions = rawExam.questions.filter(q => {
+        if(filter === "all") return true;
+        return (safeText(q.complexity).toLowerCase() === filter);
+      });
+
+      const limitRaw = $("limit").value.trim();
+      let limit = null;
+      if(limitRaw){
+        const n = Number(limitRaw);
+        if(Number.isFinite(n) && n > 0) limit = Math.floor(n);
+      }
+      if(limit && filteredQuestions.length > limit){
+        filteredQuestions = filteredQuestions.slice(0, limit);
+      }
+
+      queue = shuffle(filteredQuestions);
+      idx = 0;
+
+      answers = [];
+      currentSelected = null;
+      submitted = false;
+
+      examStartAt = new Date();
+      examEndAt = null;
+
+      // start duration clock
+      startExamClock();
+
+      resultView.style.display = "none";
+      examView.style.display = "block";
+      emptyView.style.display = "none";
+
+      hideSetup();
+
+      detailSummaryWrap.style.display = "none";
+      correctList.innerHTML = "";
+      wrongList.innerHTML = "";
+
+      renderQuestion();
+    });
+
+    // ---------- Initial meta ----------
+    metaPass.textContent = (Number($("passPercent").value)||80) + "%";
+  </script>
+</body>
+</html>

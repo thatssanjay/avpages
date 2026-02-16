@@ -1,0 +1,1311 @@
+{
+  "exam": "AZ-900 Practice (Practical & Popular)",
+  "count": 100,
+  "format": {
+    "options": ["A", "B", "C", "D"],
+    "correct_option": "One of A/B/C/D",
+    "complexity": ["low", "medium", "high"]
+  },
+  "questions": [
+    {
+      "id": 1,
+      "complexity": "low",
+      "question": "You want to host a simple marketing website with minimal admin and automatic scaling. Which Azure service fits best?",
+      "options": {
+        "A": "Azure App Service",
+        "B": "Azure SQL Database",
+        "C": "Azure Virtual Machines",
+        "D": "Azure Virtual Network"
+      },
+      "correct_option": "A",
+      "summary": "App Service is PaaS for web apps/sites: Microsoft manages the OS/runtime, and you get built-in scale features with minimal ops. VMs need patching/maintenance, SQL is a database, and VNet is networking—not web hosting."
+    },
+    {
+      "id": 2,
+      "complexity": "low",
+      "question": "You need object storage for images, videos, and backups. Which service should you use?",
+      "options": {
+        "A": "Azure Files",
+        "B": "Azure Blob Storage",
+        "C": "Azure Queue Storage",
+        "D": "Azure Table Storage"
+      },
+      "correct_option": "B",
+      "summary": "Blob Storage is Azure’s object store for unstructured data like images, video, and backups. Files is SMB file shares, Queue is messaging, and Table is key-value NoSQL—none are primary object storage."
+    },
+    {
+      "id": 3,
+      "complexity": "low",
+      "question": "You want to run a Windows or Linux server in the cloud that you manage (OS patches, apps). What should you use?",
+      "options": {
+        "A": "Azure Functions",
+        "B": "Azure Virtual Machines",
+        "C": "Azure Logic Apps",
+        "D": "Azure Cosmos DB"
+      },
+      "correct_option": "B",
+      "summary": "Virtual Machines give you full server control (OS, patches, installed software). Functions and Logic Apps are managed/serverless execution, and Cosmos DB is a database—none give you a full server you administer."
+    },
+    {
+      "id": 4,
+      "complexity": "low",
+      "question": "You need a managed relational database for an app without managing OS or database servers. Which service is best?",
+      "options": {
+        "A": "Azure SQL Database",
+        "B": "Azure Virtual Machines",
+        "C": "Azure Storage account",
+        "D": "Azure Kubernetes Service (AKS)"
+      },
+      "correct_option": "A",
+      "summary": "Azure SQL Database is a managed relational DB (PaaS): Microsoft handles patching, backups options, and platform maintenance. VMs require you to run/manage SQL yourself; Storage and AKS aren’t managed relational DB services."
+    },
+    {
+      "id": 5,
+      "complexity": "low",
+      "question": "Which cloud benefit lets you increase resources quickly during peak demand and reduce after?",
+      "options": {
+        "A": "High availability",
+        "B": "Elasticity",
+        "C": "Geographic distribution",
+        "D": "Governance"
+      },
+      "correct_option": "B",
+      "summary": "Elasticity is the ability to scale resources out/in (or up/down) to match demand—add capacity for peaks and remove it after. High availability is uptime design, geo distribution is location, and governance is control/compliance."
+    },
+    {
+      "id": 6,
+      "complexity": "low",
+      "question": "You want to pay only for compute time when your code runs, not for idle time. Which service is serverless compute?",
+      "options": {
+        "A": "Azure Virtual Machines",
+        "B": "Azure Functions",
+        "C": "Azure Virtual Network",
+        "D": "Azure Disk Storage"
+      },
+      "correct_option": "B",
+      "summary": "Azure Functions is serverless: you pay per execution and resources scale automatically; no cost for idle compute (beyond triggers/storage). VMs bill while running, VNet is networking, and disks are storage."
+    },
+    {
+      "id": 7,
+      "complexity": "low",
+      "question": "You need a private network connection from your on-premises environment to Azure over the internet using encryption. What do you use?",
+      "options": {
+        "A": "Azure VPN Gateway",
+        "B": "Azure ExpressRoute",
+        "C": "Azure Load Balancer",
+        "D": "Azure DNS"
+      },
+      "correct_option": "A",
+      "summary": "VPN Gateway supports site-to-site VPN over the public internet with encryption (IPsec/IKE). ExpressRoute is private dedicated connectivity (not internet). Load Balancer and DNS don’t provide encrypted site-to-site tunnels."
+    },
+    {
+      "id": 8,
+      "complexity": "medium",
+      "question": "You want a dedicated private connection from your datacenter to Azure that does not use the public internet. What should you use?",
+      "options": {
+        "A": "Azure VPN Gateway",
+        "B": "Azure ExpressRoute",
+        "C": "Azure Bastion",
+        "D": "Network Security Group (NSG)"
+      },
+      "correct_option": "B",
+      "summary": "ExpressRoute is a private, dedicated circuit to Microsoft’s network, avoiding public internet paths and often improving consistency and compliance. VPN uses the internet, Bastion is for VM access, and NSG is traffic filtering."
+    },
+    {
+      "id": 9,
+      "complexity": "low",
+      "question": "You need to control inbound/outbound traffic to Azure VM network interfaces or subnets. Which feature should you use?",
+      "options": {
+        "A": "Network Security Group (NSG)",
+        "B": "Azure Policy",
+        "C": "Azure Advisor",
+        "D": "Azure Cost Management"
+      },
+      "correct_option": "A",
+      "summary": "NSGs are stateful L3/L4 firewall rules applied to subnets or NICs to allow/deny inbound and outbound traffic. Policy enforces governance rules, Advisor gives recommendations, and Cost Management tracks spend."
+    },
+    {
+      "id": 10,
+      "complexity": "low",
+      "question": "You want to centrally manage identities (users, groups) and sign-in for Microsoft cloud services. What service is this?",
+      "options": {
+        "A": "Azure Key Vault",
+        "B": "Microsoft Entra ID (Azure Active Directory)",
+        "C": "Azure Monitor",
+        "D": "Azure Firewall"
+      },
+      "correct_option": "B",
+      "summary": "Microsoft Entra ID (Azure AD) is the identity provider for users/groups, SSO, and authentication across Microsoft cloud and many SaaS apps. Key Vault is secrets, Monitor is telemetry, and Firewall is network security."
+    },
+    {
+      "id": 11,
+      "complexity": "medium",
+      "question": "You want to enforce MFA for all users accessing Azure portal. Which feature should you use?",
+      "options": {
+        "A": "Azure Blueprints",
+        "B": "Conditional Access (Entra ID)",
+        "C": "Azure Storage lifecycle management",
+        "D": "Azure Load Balancer"
+      },
+      "correct_option": "B",
+      "summary": "Conditional Access in Entra ID enforces authentication policies like MFA based on app/resource (Azure portal), user, device, or risk. Blueprints is governance packaging, lifecycle is storage tiering, and Load Balancer is networking."
+    },
+    {
+      "id": 12,
+      "complexity": "low",
+      "question": "You need to store secrets like API keys and passwords securely with access policies and auditing. What should you use?",
+      "options": {
+        "A": "Azure Key Vault",
+        "B": "Azure Blob Storage",
+        "C": "Azure Advisor",
+        "D": "Azure DevTest Labs"
+      },
+      "correct_option": "A",
+      "summary": "Key Vault is designed for secrets/keys/certs with RBAC/policies, logging, and secure access patterns. Blob Storage can store data but isn’t a secrets manager. Advisor is recommendations and DevTest Labs is environment management."
+    },
+    {
+      "id": 13,
+      "complexity": "medium",
+      "question": "You want to grant a VM access to Azure resources without storing credentials in code. What should you use?",
+      "options": {
+        "A": "Shared Access Signature (SAS)",
+        "B": "Managed Identity",
+        "C": "Storage account keys",
+        "D": "Local admin account"
+      },
+      "correct_option": "B",
+      "summary": "Managed Identity provides an automatically managed identity for the VM to authenticate to Azure services (via Entra ID) without secrets in code. SAS and account keys are still credentials; local admin is unrelated to Azure resource auth."
+    },
+    {
+      "id": 14,
+      "complexity": "low",
+      "question": "You want to organize Azure resources by department and apply policies/budgets at that level. What should you use?",
+      "options": {
+        "A": "Resource group",
+        "B": "Subscription",
+        "C": "Management group",
+        "D": "Availability zone"
+      },
+      "correct_option": "C",
+      "summary": "Management groups sit above subscriptions and let you apply policy and access at scale across multiple subscriptions—great for org/department structure. Subscriptions are a billing/access boundary, resource groups are within a subscription, zones are resiliency."
+    },
+    {
+      "id": 15,
+      "complexity": "low",
+      "question": "What is the primary purpose of an Azure Resource Group?",
+      "options": {
+        "A": "A billing unit for Azure services",
+        "B": "A logical container to manage related resources",
+        "C": "A private network segment",
+        "D": "A physical datacenter building"
+      },
+      "correct_option": "B",
+      "summary": "A resource group is a logical container for related resources so you can deploy, manage, tag, and apply RBAC/policies together. Billing is typically at subscription level, VNets/subnets handle networking, and datacenters are physical infrastructure."
+    },
+    {
+      "id": 16,
+      "complexity": "medium",
+      "question": "You need to deploy the same resources repeatedly in a consistent way (IaC). Which service/template helps with this?",
+      "options": {
+        "A": "ARM templates / Bicep",
+        "B": "Azure Advisor",
+        "C": "Azure Marketplace",
+        "D": "Azure Cost Management"
+      },
+      "correct_option": "A",
+      "summary": "ARM templates/Bicep are Azure-native Infrastructure as Code for repeatable, consistent deployments. Advisor suggests improvements, Marketplace provides prebuilt solutions, and Cost Management tracks spending—none provide declarative deployment definitions."
+    },
+    {
+      "id": 17,
+      "complexity": "low",
+      "question": "Which Azure tool provides best-practice recommendations for reliability, security, and cost optimization?",
+      "options": {
+        "A": "Azure Advisor",
+        "B": "Azure Policy",
+        "C": "Azure Monitor",
+        "D": "Azure Service Health"
+      },
+      "correct_option": "A",
+      "summary": "Azure Advisor analyzes your resources and recommends improvements across cost, security, reliability, and performance. Policy enforces rules, Monitor collects metrics/logs, and Service Health reports outages/maintenance."
+    },
+    {
+      "id": 18,
+      "complexity": "medium",
+      "question": "You want to enforce that only certain VM sizes can be created in a subscription. Which service should you use?",
+      "options": {
+        "A": "Azure Monitor",
+        "B": "Azure Policy",
+        "C": "Azure Advisor",
+        "D": "Azure Firewall"
+      },
+      "correct_option": "B",
+      "summary": "Azure Policy can deny or audit resource creation that violates rules (like allowed VM SKUs). Monitor observes, Advisor recommends, and Firewall filters network traffic. Policy is the governance control point for enforcing standards."
+    },
+    {
+      "id": 19,
+      "complexity": "medium",
+      "question": "You want to ensure resources have required tags (like CostCenter) before they can be created. What should you use?",
+      "options": {
+        "A": "Azure Policy",
+        "B": "NSG",
+        "C": "Azure Load Balancer",
+        "D": "Azure Bastion"
+      },
+      "correct_option": "A",
+      "summary": "Azure Policy can require tags at creation time (deny) or audit noncompliance. NSG and Load Balancer are networking, and Bastion is secure VM access. Tag governance is a classic Policy use case."
+    },
+    {
+      "id": 20,
+      "complexity": "low",
+      "question": "You want to view current and historical performance metrics for a VM (CPU, disk, network). What service helps?",
+      "options": {
+        "A": "Azure Monitor",
+        "B": "Azure Key Vault",
+        "C": "Azure Blueprints",
+        "D": "Azure DNS"
+      },
+      "correct_option": "A",
+      "summary": "Azure Monitor is the platform for metrics and alerts, including VM CPU/disk/network graphs over time. Key Vault is secrets, Blueprints is governance packaging, and DNS is name resolution."
+    },
+    {
+      "id": 21,
+      "complexity": "medium",
+      "question": "You need centralized log analytics queries across multiple resources. Which Azure service provides this workspace-based log store?",
+      "options": {
+        "A": "Azure Storage account",
+        "B": "Log Analytics workspace",
+        "C": "Azure Policy",
+        "D": "Azure Front Door"
+      },
+      "correct_option": "B",
+      "summary": "Log Analytics workspace is the centralized store for logs and KQL queries across resources (VMs, apps, networking). A Storage account can store logs but doesn’t provide the same query/analytics experience. Policy and Front Door are unrelated."
+    },
+    {
+      "id": 22,
+      "complexity": "low",
+      "question": "You want to know about Azure outages, planned maintenance, and health advisories affecting your services. What should you use?",
+      "options": {
+        "A": "Azure Advisor",
+        "B": "Azure Service Health",
+        "C": "Azure Policy",
+        "D": "Azure DevOps"
+      },
+      "correct_option": "B",
+      "summary": "Azure Service Health provides personalized alerts and dashboards for outages, planned maintenance, and advisories that impact your subscriptions/regions. Advisor is recommendations, Policy is enforcement, and DevOps is CI/CD tooling."
+    },
+    {
+      "id": 23,
+      "complexity": "low",
+      "question": "Which pricing model is most aligned with cloud (pay for what you use)?",
+      "options": {
+        "A": "CapEx",
+        "B": "OpEx",
+        "C": "Fixed asset depreciation",
+        "D": "One-time license only"
+      },
+      "correct_option": "B",
+      "summary": "Cloud consumption typically maps to OpEx: ongoing operational spending based on usage. CapEx is upfront capital spend on hardware, depreciation is accounting treatment, and one-time licensing doesn’t reflect elastic consumption billing."
+    },
+    {
+      "id": 24,
+      "complexity": "medium",
+      "question": "You have steady VM workloads for 1–3 years and want lower cost than pay-as-you-go. What should you consider?",
+      "options": {
+        "A": "Spot VMs",
+        "B": "Reserved Instances",
+        "C": "Azure Free Account only",
+        "D": "Azure DevTest pricing"
+      },
+      "correct_option": "B",
+      "summary": "Reserved Instances (reservations) offer discounted pricing for predictable workloads in exchange for committing to a term. Spot is interruptible, Free account is limited/trial, and DevTest pricing is for non-production scenarios."
+    },
+    {
+      "id": 25,
+      "complexity": "medium",
+      "question": "You have fault-tolerant batch jobs and want to use unused Azure capacity at big discounts, but jobs may be interrupted. What should you use?",
+      "options": {
+        "A": "Reserved Instances",
+        "B": "Spot VMs",
+        "C": "Dedicated Hosts",
+        "D": "Premium SSD only"
+      },
+      "correct_option": "B",
+      "summary": "Spot VMs use spare capacity at steep discounts but can be evicted when Azure needs capacity—good for fault-tolerant batch work. Reserved is stable commitment, Dedicated Hosts are isolated and costly, and SSD is storage not compute pricing."
+    },
+    {
+      "id": 26,
+      "complexity": "low",
+      "question": "Which Azure service provides a content delivery network for caching content closer to users?",
+      "options": {
+        "A": "Azure CDN",
+        "B": "Azure Backup",
+        "C": "Azure SQL Database",
+        "D": "Azure Virtual Network"
+      },
+      "correct_option": "A",
+      "summary": "Azure CDN caches static content at edge locations to reduce latency and offload origin servers. Backup is for recovery, SQL is database, and VNet is networking; none provide global edge caching."
+    },
+    {
+      "id": 27,
+      "complexity": "medium",
+      "question": "You need global HTTP load balancing with SSL offload and WAF-like features at the edge. Which service fits best?",
+      "options": {
+        "A": "Azure Load Balancer",
+        "B": "Azure Application Gateway",
+        "C": "Azure Front Door",
+        "D": "Azure Traffic Manager"
+      },
+      "correct_option": "C",
+      "summary": "Azure Front Door is global Layer 7 routing at the edge with TLS termination and WAF integration. Load Balancer is L4 regional, Application Gateway is L7 regional, and Traffic Manager is DNS-based routing (no proxy/SSL offload)."
+    },
+    {
+      "id": 28,
+      "complexity": "medium",
+      "question": "You need DNS-based traffic routing to direct users to the nearest endpoint based on latency. Which service is best?",
+      "options": {
+        "A": "Azure Traffic Manager",
+        "B": "Azure Load Balancer",
+        "C": "Azure Bastion",
+        "D": "Azure Firewall"
+      },
+      "correct_option": "A",
+      "summary": "Traffic Manager routes via DNS responses using policies like performance (latency). It doesn’t proxy traffic; it points clients to the best endpoint. Load Balancer is regional L4, Bastion is VM access, Firewall is network security."
+    },
+    {
+      "id": 29,
+      "complexity": "low",
+      "question": "Which service provides Layer 4 (TCP/UDP) load balancing for VMs in a region?",
+      "options": {
+        "A": "Azure Front Door",
+        "B": "Azure Load Balancer",
+        "C": "Azure API Management",
+        "D": "Azure Logic Apps"
+      },
+      "correct_option": "B",
+      "summary": "Azure Load Balancer is regional Layer 4 (TCP/UDP) distribution across VMs/VMSS. Front Door is global L7, API Management is API gateway, and Logic Apps is workflow automation."
+    },
+    {
+      "id": 30,
+      "complexity": "medium",
+      "question": "You need Layer 7 (HTTP/HTTPS) load balancing for web apps inside a region and also want WAF capabilities. What should you use?",
+      "options": {
+        "A": "Azure Application Gateway",
+        "B": "Azure Load Balancer",
+        "C": "Azure VPN Gateway",
+        "D": "Azure DNS"
+      },
+      "correct_option": "A",
+      "summary": "Application Gateway is a regional Layer 7 reverse proxy with features like URL routing and WAF. Load Balancer is L4 only, VPN Gateway is connectivity, and DNS is name resolution."
+    },
+    {
+      "id": 31,
+      "complexity": "low",
+      "question": "You want to group multiple VMs to protect against datacenter-level failures within a region. Which feature helps?",
+      "options": {
+        "A": "Availability zones",
+        "B": "Resource tags",
+        "C": "Azure Policy",
+        "D": "Azure Arc"
+      },
+      "correct_option": "A",
+      "summary": "Availability Zones place resources in separate physical datacenters within a region to survive a datacenter outage. Tags and Policy are governance tools, and Arc is hybrid management, not datacenter fault isolation."
+    },
+    {
+      "id": 32,
+      "complexity": "medium",
+      "question": "You need high availability within a single datacenter using multiple VMs across racks/power/network. What should you use?",
+      "options": {
+        "A": "Availability set",
+        "B": "Azure Region Pair",
+        "C": "Azure ExpressRoute",
+        "D": "Azure Lighthouse"
+      },
+      "correct_option": "A",
+      "summary": "Availability Sets distribute VMs across fault and update domains (separate racks/power/network) to reduce impact of maintenance or local failures within a datacenter. Region pairs are cross-region DR, ExpressRoute is connectivity, Lighthouse is delegated management."
+    },
+    {
+      "id": 33,
+      "complexity": "medium",
+      "question": "Which statement best describes an Azure region pair?",
+      "options": {
+        "A": "Two datacenters in the same building",
+        "B": "Two regions within the same geography paired for disaster recovery and updates",
+        "C": "Two subscriptions under one tenant",
+        "D": "Two resource groups linked together"
+      },
+      "correct_option": "B",
+      "summary": "A region pair is two Azure regions in the same geography that are paired to support disaster recovery strategy and coordinated platform updates. It’s not about subscriptions or resource groups, and not just two datacenters in one building."
+    },
+    {
+      "id": 34,
+      "complexity": "low",
+      "question": "Which feature replicates Azure Storage data to a secondary region for disaster recovery?",
+      "options": {
+        "A": "LRS",
+        "B": "ZRS",
+        "C": "GRS",
+        "D": "Premium SSD"
+      },
+      "correct_option": "C",
+      "summary": "GRS (Geo-Redundant Storage) replicates data to a paired secondary region for regional disaster recovery. LRS is within one datacenter, ZRS is across zones in one region, and Premium SSD is a disk performance tier."
+    },
+    {
+      "id": 35,
+      "complexity": "medium",
+      "question": "You need replication across availability zones within a region for storage. Which redundancy option is best?",
+      "options": {
+        "A": "LRS",
+        "B": "ZRS",
+        "C": "GRS",
+        "D": "RA-GRS only"
+      },
+      "correct_option": "B",
+      "summary": "ZRS (Zone-Redundant Storage) replicates across multiple availability zones in the same region, providing resilience to a zone outage. LRS is single datacenter, GRS is cross-region, and RA-GRS is geo with read access."
+    },
+    {
+      "id": 36,
+      "complexity": "low",
+      "question": "Which storage option provides SMB-based shared file storage in Azure that can be mounted like a network drive?",
+      "options": {
+        "A": "Azure Files",
+        "B": "Azure Blob Storage",
+        "C": "Azure Queue Storage",
+        "D": "Azure Table Storage"
+      },
+      "correct_option": "A",
+      "summary": "Azure Files exposes SMB file shares you can mount like a network drive from Windows/Linux. Blob is object storage, Queue is messaging, and Table is NoSQL key-value storage."
+    },
+    {
+      "id": 37,
+      "complexity": "medium",
+      "question": "You need a globally distributed NoSQL database with low latency and multiple APIs. What should you use?",
+      "options": {
+        "A": "Azure SQL Database",
+        "B": "Azure Cosmos DB",
+        "C": "Azure Database for MySQL",
+        "D": "Azure Synapse Analytics"
+      },
+      "correct_option": "B",
+      "summary": "Cosmos DB is designed for global distribution, low-latency reads, and multiple APIs (SQL, MongoDB, Cassandra, etc.). SQL Database and MySQL are relational, and Synapse is analytics/warehouse—different problem space."
+    },
+    {
+      "id": 38,
+      "complexity": "low",
+      "question": "You need a message queue to decouple components and handle bursts. Which service should you use?",
+      "options": {
+        "A": "Azure Queue Storage",
+        "B": "Azure Files",
+        "C": "Azure DNS",
+        "D": "Azure Disk Storage"
+      },
+      "correct_option": "A",
+      "summary": "Azure Queue Storage provides simple message queues to buffer work, decouple services, and handle bursty loads. Files and disks store data, and DNS resolves names; none are queueing systems."
+    },
+    {
+      "id": 39,
+      "complexity": "medium",
+      "question": "You need enterprise messaging with topics, subscriptions, and advanced features like sessions and dead-lettering. What should you use?",
+      "options": {
+        "A": "Azure Queue Storage",
+        "B": "Azure Service Bus",
+        "C": "Azure Files",
+        "D": "Azure CDN"
+      },
+      "correct_option": "B",
+      "summary": "Azure Service Bus is enterprise messaging (queues + topics/subscriptions) with advanced features like dead-letter queues, sessions, and transactions. Queue Storage is simpler, Files is storage, and CDN is edge caching."
+    },
+    {
+      "id": 40,
+      "complexity": "medium",
+      "question": "You want event-based integration where many subscribers react to events (serverless eventing). Which service fits?",
+      "options": {
+        "A": "Azure Event Grid",
+        "B": "Azure Service Bus",
+        "C": "Azure Virtual Machines",
+        "D": "Azure SQL Database"
+      },
+      "correct_option": "A",
+      "summary": "Event Grid is event routing/pub-sub for reactive architectures (many subscribers reacting to events like blob created). Service Bus is messaging for commands/work queues, and VMs/SQL aren’t eventing backbones."
+    },
+    {
+      "id": 41,
+      "complexity": "low",
+      "question": "Which service is best for orchestrating workflow steps using a visual designer and connectors (no-code/low-code)?",
+      "options": {
+        "A": "Azure Logic Apps",
+        "B": "Azure Kubernetes Service (AKS)",
+        "C": "Azure Virtual Network",
+        "D": "Azure Disk Storage"
+      },
+      "correct_option": "A",
+      "summary": "Logic Apps is workflow orchestration with a visual designer and many connectors (SaaS + Azure services). AKS is container orchestration, VNet is networking, and disks are storage."
+    },
+    {
+      "id": 42,
+      "complexity": "medium",
+      "question": "You want to deploy and manage Kubernetes clusters in Azure with a managed control plane. What service is this?",
+      "options": {
+        "A": "Azure Container Instances (ACI)",
+        "B": "Azure Kubernetes Service (AKS)",
+        "C": "Azure Functions",
+        "D": "Azure App Service"
+      },
+      "correct_option": "B",
+      "summary": "AKS provides managed Kubernetes (control plane managed by Azure) so you focus on nodes and workloads. ACI runs single containers without a cluster, Functions is serverless code, and App Service is PaaS web hosting."
+    },
+    {
+      "id": 43,
+      "complexity": "low",
+      "question": "You want to run a container quickly without managing servers or clusters, ideal for simple jobs. What should you use?",
+      "options": {
+        "A": "Azure Kubernetes Service (AKS)",
+        "B": "Azure Container Instances (ACI)",
+        "C": "Azure Virtual Machines",
+        "D": "Azure Virtual Network"
+      },
+      "correct_option": "B",
+      "summary": "ACI runs containers on-demand without managing VMs or Kubernetes, great for simple tasks or batch jobs. AKS is for orchestrated clusters, VMs require OS management, and VNet is just networking."
+    },
+    {
+      "id": 44,
+      "complexity": "medium",
+      "question": "You need a fully managed platform for hosting web apps with built-in deployment slots and autoscale. What should you use?",
+      "options": {
+        "A": "Azure App Service",
+        "B": "Azure Virtual Machines",
+        "C": "Azure VPN Gateway",
+        "D": "Azure Data Factory"
+      },
+      "correct_option": "A",
+      "summary": "App Service is managed web hosting with deployment slots, CI/CD integrations, and autoscale. VMs require you to manage web server/OS. VPN Gateway is connectivity, and Data Factory is data integration/ETL."
+    },
+    {
+      "id": 45,
+      "complexity": "low",
+      "question": "Which tool helps estimate Azure costs before deploying resources?",
+      "options": {
+        "A": "Azure Pricing Calculator",
+        "B": "Azure Policy",
+        "C": "Azure Monitor",
+        "D": "Azure Service Health"
+      },
+      "correct_option": "A",
+      "summary": "Azure Pricing Calculator is used to estimate costs for planned resources before deployment. Policy enforces standards, Monitor tracks telemetry, and Service Health reports platform issues."
+    },
+    {
+      "id": 46,
+      "complexity": "medium",
+      "question": "You want to track spending, set budgets, and analyze costs by tags and resource groups. Which service helps?",
+      "options": {
+        "A": "Azure Cost Management + Billing",
+        "B": "Azure Advisor only",
+        "C": "Azure Key Vault",
+        "D": "Azure Bastion"
+      },
+      "correct_option": "A",
+      "summary": "Cost Management + Billing provides reporting, budgets, alerts, and cost allocation (tags/RGs/subscriptions). Advisor can recommend savings but isn’t the budgeting platform. Key Vault is secrets; Bastion is VM access."
+    },
+    {
+      "id": 47,
+      "complexity": "low",
+      "question": "Which service provides DDoS protection for Azure virtual networks (basic/standard)?",
+      "options": {
+        "A": "Azure DDoS Protection",
+        "B": "Azure Advisor",
+        "C": "Azure Resource Graph",
+        "D": "Azure CDN"
+      },
+      "correct_option": "A",
+      "summary": "Azure DDoS Protection (Basic/Standard) protects VNets from volumetric and protocol attacks. Advisor is recommendations, Resource Graph is inventory querying, and CDN is content caching."
+    },
+    {
+      "id": 48,
+      "complexity": "medium",
+      "question": "You need a managed firewall with central policy and threat intelligence filtering. What should you use?",
+      "options": {
+        "A": "Network Security Group (NSG)",
+        "B": "Azure Firewall",
+        "C": "Azure Load Balancer",
+        "D": "Azure DNS"
+      },
+      "correct_option": "B",
+      "summary": "Azure Firewall is a managed, centralized firewall with policy control and threat intelligence filtering. NSGs are simpler rule sets per subnet/NIC. Load Balancer distributes traffic; DNS resolves names."
+    },
+    {
+      "id": 49,
+      "complexity": "medium",
+      "question": "You want to securely access VMs over RDP/SSH via the Azure portal without exposing public IPs. What should you use?",
+      "options": {
+        "A": "Azure Bastion",
+        "B": "Azure ExpressRoute",
+        "C": "Azure Traffic Manager",
+        "D": "Azure DNS"
+      },
+      "correct_option": "A",
+      "summary": "Azure Bastion provides browser-based RDP/SSH through the Azure portal over private IP, avoiding public exposure. ExpressRoute is private WAN connectivity, Traffic Manager is DNS routing, and DNS is name resolution."
+    },
+    {
+      "id": 50,
+      "complexity": "low",
+      "question": "Which Azure service is designed for backup of Azure VMs and on-prem resources (via agents) with retention policies?",
+      "options": {
+        "A": "Azure Backup",
+        "B": "Azure Monitor",
+        "C": "Azure Advisor",
+        "D": "Azure CDN"
+      },
+      "correct_option": "A",
+      "summary": "Azure Backup provides managed backups, scheduling, and retention for Azure VMs and supported on-prem workloads (often via agents). Monitor is telemetry, Advisor is recommendations, and CDN is content caching."
+    },
+    {
+      "id": 51,
+      "complexity": "medium",
+      "question": "You need site recovery (DR) to replicate VMs and failover to Azure during an outage. What should you use?",
+      "options": {
+        "A": "Azure Backup",
+        "B": "Azure Site Recovery",
+        "C": "Azure Blob Storage",
+        "D": "Azure Files"
+      },
+      "correct_option": "B",
+      "summary": "Azure Site Recovery replicates workloads and orchestrates failover/failback for disaster recovery. Backup is for restore points, not live replication/failover. Blob/Files are storage services, not DR orchestration."
+    },
+    {
+      "id": 52,
+      "complexity": "low",
+      "question": "You want a single sign-on experience for many SaaS apps using your organization identity. Which service supports this?",
+      "options": {
+        "A": "Microsoft Entra ID (Azure AD)",
+        "B": "Azure Storage",
+        "C": "Azure Monitor",
+        "D": "Azure Virtual Network"
+      },
+      "correct_option": "A",
+      "summary": "Entra ID supports SSO to many SaaS apps via SAML/OIDC/OAuth and central identity lifecycle management. Storage stores data, Monitor tracks metrics/logs, and VNets provide network isolation."
+    },
+    {
+      "id": 53,
+      "complexity": "medium",
+      "question": "Which model is best described as 'you manage applications and data, provider manages runtime/OS/hardware'?",
+      "options": {
+        "A": "IaaS",
+        "B": "PaaS",
+        "C": "SaaS",
+        "D": "On-premises"
+      },
+      "correct_option": "B",
+      "summary": "PaaS means you manage your app and data while the provider manages OS, runtime, middleware, and infrastructure. IaaS leaves OS/runtime to you, SaaS is fully managed software, and on-prem is entirely your responsibility."
+    },
+    {
+      "id": 54,
+      "complexity": "low",
+      "question": "Which model provides complete software to users (like email service) where provider manages everything?",
+      "options": {
+        "A": "IaaS",
+        "B": "PaaS",
+        "C": "SaaS",
+        "D": "Serverless only"
+      },
+      "correct_option": "C",
+      "summary": "SaaS delivers a finished application (like email/CRM) where the provider runs and manages the full stack. IaaS/PaaS still require you to build/operate your app layer, and “serverless” is a compute style, not a delivery model."
+    },
+    {
+      "id": 55,
+      "complexity": "medium",
+      "question": "You need to ensure that only approved Azure regions are used for deployment due to compliance. What should you use?",
+      "options": {
+        "A": "Azure Policy",
+        "B": "Azure Monitor",
+        "C": "Azure Service Health",
+        "D": "Azure DNS"
+      },
+      "correct_option": "A",
+      "summary": "Azure Policy can restrict allowed locations (regions) and block deployments elsewhere to meet compliance requirements. Monitor and Service Health are observability/health tools, and DNS doesn’t control deployment locations."
+    },
+    {
+      "id": 56,
+      "complexity": "medium",
+      "question": "You want to apply the principle of least privilege by assigning permissions at a subscription/resource scope. What is this called in Azure?",
+      "options": {
+        "A": "RBAC",
+        "B": "SLA",
+        "C": "TCO",
+        "D": "CDN"
+      },
+      "correct_option": "A",
+      "summary": "RBAC (Role-Based Access Control) is how Azure assigns least-privilege permissions using roles at scopes (management group/subscription/resource group/resource). SLA is uptime commitment, TCO is cost analysis, CDN is content delivery."
+    },
+    {
+      "id": 57,
+      "complexity": "low",
+      "question": "Which feature in Azure defines 'who can do what' at a given scope using roles like Reader/Contributor/Owner?",
+      "options": {
+        "A": "Azure RBAC",
+        "B": "Azure Advisor",
+        "C": "Azure Monitor",
+        "D": "Azure Service Health"
+      },
+      "correct_option": "A",
+      "summary": "Azure RBAC assigns built-in/custom roles to users/groups/service principals at a scope, controlling actions (read, write, delete). Advisor recommends, Monitor observes, and Service Health reports platform incidents."
+    },
+    {
+      "id": 58,
+      "complexity": "medium",
+      "question": "You want to allow temporary, time-bound privileged access to Azure resources. Which service helps?",
+      "options": {
+        "A": "Privileged Identity Management (PIM)",
+        "B": "Azure DNS",
+        "C": "Azure Storage",
+        "D": "Azure Virtual Network"
+      },
+      "correct_option": "A",
+      "summary": "PIM (in Entra) enables just-in-time, time-bound role activation for privileged tasks, reducing standing admin access. DNS is naming, Storage is data, and VNet is networking—none manage privileged elevation workflows."
+    },
+    {
+      "id": 59,
+      "complexity": "low",
+      "question": "Which service helps you classify and label sensitive data and apply information protection?",
+      "options": {
+        "A": "Microsoft Purview Information Protection",
+        "B": "Azure Load Balancer",
+        "C": "Azure Virtual Machines",
+        "D": "Azure DNS"
+      },
+      "correct_option": "A",
+      "summary": "Microsoft Purview Information Protection supports labeling/classification and applying protection controls for sensitive info. Load Balancer routes traffic, VMs run compute, and DNS resolves names."
+    },
+    {
+      "id": 60,
+      "complexity": "medium",
+      "question": "You need to manage governance and compliance posture with secure score and recommendations. What should you use?",
+      "options": {
+        "A": "Microsoft Defender for Cloud",
+        "B": "Azure Bastion",
+        "C": "Azure CDN",
+        "D": "Azure Storage Explorer"
+      },
+      "correct_option": "A",
+      "summary": "Defender for Cloud provides security posture management (secure score), recommendations, and workload protections across Azure and sometimes hybrid. Bastion is VM access, CDN is caching, and Storage Explorer is a client tool."
+    },
+    {
+      "id": 61,
+      "complexity": "medium",
+      "question": "You want to store and manage certificates and integrate with applications securely. Which service is best?",
+      "options": {
+        "A": "Azure Key Vault",
+        "B": "Azure Files",
+        "C": "Azure Queue Storage",
+        "D": "Azure Monitor"
+      },
+      "correct_option": "A",
+      "summary": "Key Vault manages certificates/keys/secrets with controlled access, auditing, and integration patterns for apps. Files and Queue are storage/messaging, and Monitor is telemetry—none are certificate management services."
+    },
+    {
+      "id": 62,
+      "complexity": "low",
+      "question": "You need to create a private DNS zone for internal name resolution within a VNet. Which service helps?",
+      "options": {
+        "A": "Azure DNS (Private DNS zones)",
+        "B": "Azure CDN",
+        "C": "Azure Advisor",
+        "D": "Azure Marketplace"
+      },
+      "correct_option": "A",
+      "summary": "Azure Private DNS zones provide internal DNS resolution for VNets without exposing records publicly. CDN caches content, Advisor recommends, and Marketplace is a catalog—none provide private DNS zones."
+    },
+    {
+      "id": 63,
+      "complexity": "medium",
+      "question": "You need to connect two VNets in Azure to communicate privately. Which feature is used?",
+      "options": {
+        "A": "VNet Peering",
+        "B": "Azure CDN",
+        "C": "Azure Traffic Manager",
+        "D": "Azure DDoS Protection"
+      },
+      "correct_option": "A",
+      "summary": "VNet Peering connects VNets privately over Azure’s backbone for low-latency connectivity. CDN is content caching, Traffic Manager is DNS routing, and DDoS Protection mitigates attacks—none connect VNets together."
+    },
+    {
+      "id": 64,
+      "complexity": "low",
+      "question": "Which Azure service helps automate configuration and patching across multiple VMs using desired state and runbooks?",
+      "options": {
+        "A": "Azure Automation",
+        "B": "Azure Load Balancer",
+        "C": "Azure Front Door",
+        "D": "Azure DNS"
+      },
+      "correct_option": "A",
+      "summary": "Azure Automation supports runbooks, update management, and configuration management patterns (including DSC-style approaches) to standardize and patch fleets of VMs. The other options are networking/edge/DNS services."
+    },
+    {
+      "id": 65,
+      "complexity": "medium",
+      "question": "You want to run queries across your Azure resources (like 'list all VMs without tags') at scale. What should you use?",
+      "options": {
+        "A": "Azure Resource Graph",
+        "B": "Azure Policy",
+        "C": "Azure Advisor",
+        "D": "Azure Service Health"
+      },
+      "correct_option": "A",
+      "summary": "Azure Resource Graph is optimized for fast, large-scale querying across resources using a query language, great for inventory and compliance checks. Policy enforces, Advisor recommends, and Service Health reports platform status."
+    },
+    {
+      "id": 66,
+      "complexity": "low",
+      "question": "You need a web-based interactive console to manage Azure resources. What is it called?",
+      "options": {
+        "A": "Azure Portal",
+        "B": "Azure DevOps",
+        "C": "Azure Storage Explorer",
+        "D": "Azure Databricks"
+      },
+      "correct_option": "A",
+      "summary": "Azure Portal is the browser-based UI for creating and managing Azure resources. DevOps is CI/CD tooling, Storage Explorer manages storage data, and Databricks is an analytics/Spark platform."
+    },
+    {
+      "id": 67,
+      "complexity": "low",
+      "question": "Which tool is a command-line interface for managing Azure resources?",
+      "options": {
+        "A": "Azure CLI",
+        "B": "Azure Monitor",
+        "C": "Azure Advisor",
+        "D": "Azure Service Health"
+      },
+      "correct_option": "A",
+      "summary": "Azure CLI is the cross-platform command-line tool to create/manage Azure resources via scripts and commands. Monitor, Advisor, and Service Health are platform services for telemetry/recommendations/incidents."
+    },
+    {
+      "id": 68,
+      "complexity": "low",
+      "question": "Which PowerShell module is commonly used to manage Azure resources?",
+      "options": {
+        "A": "Az PowerShell",
+        "B": "Bash",
+        "C": "kubectl",
+        "D": "git"
+      },
+      "correct_option": "A",
+      "summary": "Az PowerShell is Microsoft’s PowerShell module for Azure resource management. Bash is a shell, kubectl is Kubernetes CLI, and git is version control—none are Azure PowerShell modules."
+    },
+    {
+      "id": 69,
+      "complexity": "medium",
+      "question": "You want to run cloud-based shell with pre-authenticated Azure CLI and common tools in a browser. Which service is this?",
+      "options": {
+        "A": "Azure Cloud Shell",
+        "B": "Azure Bastion",
+        "C": "Azure Service Bus",
+        "D": "Azure Functions"
+      },
+      "correct_option": "A",
+      "summary": "Azure Cloud Shell provides an in-browser shell with Azure CLI/PowerShell pre-installed and authenticated, backed by storage. Bastion is VM access, Service Bus is messaging, and Functions is serverless compute."
+    },
+    {
+      "id": 70,
+      "complexity": "medium",
+      "question": "You need to store frequently accessed data with very low latency in memory. Which service is best?",
+      "options": {
+        "A": "Azure Cache for Redis",
+        "B": "Azure Queue Storage",
+        "C": "Azure Blob Storage",
+        "D": "Azure Files"
+      },
+      "correct_option": "A",
+      "summary": "Azure Cache for Redis is an in-memory cache for sub-millisecond access to hot data and offloading databases. Queue is messaging, Blob is object storage, and Files is SMB shares—none are in-memory caches."
+    },
+    {
+      "id": 71,
+      "complexity": "low",
+      "question": "You want to store structured NoSQL key-value data with simple queries at low cost in Azure Storage. Which is best?",
+      "options": {
+        "A": "Azure Table Storage",
+        "B": "Azure SQL Database",
+        "C": "Azure Files",
+        "D": "Azure Disk Storage"
+      },
+      "correct_option": "A",
+      "summary": "Table Storage is a low-cost NoSQL key-value store in Azure Storage for simple query patterns. SQL Database is relational, Files is shared file storage, and Disk Storage is block storage for VMs."
+    },
+    {
+      "id": 72,
+      "complexity": "medium",
+      "question": "You want to run analytics on big data using a managed Apache Spark platform in Azure. What service is this?",
+      "options": {
+        "A": "Azure Databricks",
+        "B": "Azure Blob Storage",
+        "C": "Azure Files",
+        "D": "Azure DNS"
+      },
+      "correct_option": "A",
+      "summary": "Azure Databricks provides a managed Apache Spark environment for big data analytics and ML workflows. Blob/Files store data but don’t provide Spark compute, and DNS is unrelated."
+    },
+    {
+      "id": 73,
+      "complexity": "medium",
+      "question": "You need an ETL/ELT orchestration tool to move and transform data between sources and sinks. Which Azure service fits?",
+      "options": {
+        "A": "Azure Data Factory",
+        "B": "Azure CDN",
+        "C": "Azure DNS",
+        "D": "Azure Bastion"
+      },
+      "correct_option": "A",
+      "summary": "Azure Data Factory orchestrates data movement and transformation pipelines across sources/sinks (ETL/ELT). CDN caches content, DNS resolves names, and Bastion provides secure VM access."
+    },
+    {
+      "id": 74,
+      "complexity": "low",
+      "question": "You need a globally accessible, fully managed DNS hosting service for your public domain. Which service is this?",
+      "options": {
+        "A": "Azure DNS",
+        "B": "Azure Load Balancer",
+        "C": "Azure App Service",
+        "D": "Azure SQL Database"
+      },
+      "correct_option": "A",
+      "summary": "Azure DNS hosts public DNS zones with global Anycast-based name resolution. Load Balancer is traffic distribution, App Service hosts apps, and SQL Database stores relational data."
+    },
+    {
+      "id": 75,
+      "complexity": "high",
+      "question": "You must ensure data is not readable if disks are stolen, and you also want encryption in transit. Which two concepts match?",
+      "options": {
+        "A": "Encryption at rest and encryption in transit",
+        "B": "DDoS protection and NAT",
+        "C": "Autoscale and elasticity",
+        "D": "Tagging and resource groups"
+      },
+      "correct_option": "A",
+      "summary": "Encryption at rest protects stored data (e.g., disks) so it’s unreadable if stolen. Encryption in transit protects data over networks (TLS/IPsec). The other options are unrelated to confidentiality of stored/transported data."
+    },
+    {
+      "id": 76,
+      "complexity": "medium",
+      "question": "You want to centrally define and manage policy + role assignments and deploy repeatable environments for compliance. Which is most aligned?",
+      "options": {
+        "A": "Azure Blueprints",
+        "B": "Azure CDN",
+        "C": "Azure Files",
+        "D": "Azure Queue Storage"
+      },
+      "correct_option": "A",
+      "summary": "Azure Blueprints packages artifacts like ARM templates, policy assignments, and role assignments to deploy standardized, compliant environments repeatedly. CDN/Files/Queue are delivery/storage/messaging services, not governance packaging."
+    },
+    {
+      "id": 77,
+      "complexity": "low",
+      "question": "Which service provides a fully managed API gateway with policies, throttling, and developer portal?",
+      "options": {
+        "A": "Azure API Management",
+        "B": "Azure Front Door",
+        "C": "Azure VPN Gateway",
+        "D": "Azure Logic Apps"
+      },
+      "correct_option": "A",
+      "summary": "API Management is an API gateway with policies (auth, transformation, throttling), analytics, and a developer portal. Front Door is edge routing, VPN Gateway is connectivity, and Logic Apps is workflow automation."
+    },
+    {
+      "id": 78,
+      "complexity": "medium",
+      "question": "You want to protect web apps from common exploits like SQL injection and XSS at Layer 7. Which feature helps?",
+      "options": {
+        "A": "Web Application Firewall (WAF)",
+        "B": "Network Security Group (NSG)",
+        "C": "Azure Queue Storage",
+        "D": "Azure Table Storage"
+      },
+      "correct_option": "A",
+      "summary": "WAF protects HTTP/HTTPS apps (Layer 7) from common web attacks like SQL injection and XSS using rulesets. NSGs are L3/L4 filters, and Queue/Table are storage services, not web app protection."
+    },
+    {
+      "id": 79,
+      "complexity": "low",
+      "question": "You want to separate dev/test resources from production and apply different access controls. Which approach is most common?",
+      "options": {
+        "A": "Use different subscriptions",
+        "B": "Use a single VM for all environments",
+        "C": "Use only tags",
+        "D": "Use only availability zones"
+      },
+      "correct_option": "A",
+      "summary": "Separate subscriptions is a common boundary for isolating environments (billing, RBAC, policy). A single VM mixes risk, tags don’t enforce isolation by themselves, and availability zones are for resiliency—not environment separation."
+    },
+    {
+      "id": 80,
+      "complexity": "medium",
+      "question": "You want to ensure resources are deployed close to users to reduce latency. Which concept helps most?",
+      "options": {
+        "A": "Choose the nearest Azure region",
+        "B": "Use only LRS storage",
+        "C": "Use only a single resource group",
+        "D": "Disable scaling"
+      },
+      "correct_option": "A",
+      "summary": "Picking the nearest region reduces network round-trip time for users and services. LRS is storage durability, resource groups are management containers, and scaling settings don’t directly place workloads geographically."
+    },
+    {
+      "id": 81,
+      "complexity": "high",
+      "question": "A compliance rule says: 'Logs must be retained for 7 years and stored immutably.' Which Azure storage feature aligns best?",
+      "options": {
+        "A": "Azure Blob Storage immutable (WORM) policies",
+        "B": "Azure Queue Storage TTL",
+        "C": "Azure Files SMB",
+        "D": "Azure Disk snapshots only"
+      },
+      "correct_option": "A",
+      "summary": "Immutable blob storage (WORM) prevents modification/deletion for a defined retention period—ideal for compliance log retention. Queue TTL is message expiry, SMB shares aren’t immutable retention controls, and disk snapshots aren’t the standard for log archives."
+    },
+    {
+      "id": 82,
+      "complexity": "medium",
+      "question": "You need to control costs by automatically deleting blobs after 90 days and moving older data to cheaper tiers. What feature helps?",
+      "options": {
+        "A": "Blob lifecycle management",
+        "B": "Azure Advisor only",
+        "C": "NSG rules",
+        "D": "Azure DNS"
+      },
+      "correct_option": "A",
+      "summary": "Blob lifecycle management automates tiering (hot/cool/archive) and deletion based on age or access patterns, reducing storage cost. Advisor can suggest savings but doesn’t execute lifecycle actions; NSG/DNS are networking."
+    },
+    {
+      "id": 83,
+      "complexity": "medium",
+      "question": "You want to restrict public access to a storage account and allow access only from specific VNets. What should you use?",
+      "options": {
+        "A": "Storage account firewall and virtual network rules",
+        "B": "Traffic Manager",
+        "C": "Azure CDN",
+        "D": "Azure Advisor"
+      },
+      "correct_option": "A",
+      "summary": "Storage account firewall + VNet rules limit access to specific networks and block public endpoints, tightening the attack surface. Traffic Manager and CDN are traffic/edge services, and Advisor is recommendations, not access enforcement."
+    },
+    {
+      "id": 84,
+      "complexity": "high",
+      "question": "You need private connectivity to Azure PaaS services (like Storage/SQL) from a VNet without public IP exposure. What should you use?",
+      "options": {
+        "A": "Private Endpoint (Azure Private Link)",
+        "B": "Azure CDN",
+        "C": "Public IP + NSG",
+        "D": "Traffic Manager"
+      },
+      "correct_option": "A",
+      "summary": "Private Endpoint (Private Link) maps a PaaS service to a private IP in your VNet so traffic stays private and avoids public exposure. Public IP + NSG still uses public endpoints, and CDN/Traffic Manager don’t provide private PaaS access."
+    },
+    {
+      "id": 85,
+      "complexity": "medium",
+      "question": "You want to store container images and manage them privately in Azure. Which service is best?",
+      "options": {
+        "A": "Azure Container Registry (ACR)",
+        "B": "Azure Container Instances (ACI)",
+        "C": "Azure Files",
+        "D": "Azure API Management"
+      },
+      "correct_option": "A",
+      "summary": "ACR is a private registry for container images/OCI artifacts with Azure integration and access control. ACI runs containers, Files is SMB storage, and API Management is an API gateway—none are image registries."
+    },
+    {
+      "id": 86,
+      "complexity": "medium",
+      "question": "You want to scan for security vulnerabilities and get recommendations on your Azure workloads. Which service helps most?",
+      "options": {
+        "A": "Microsoft Defender for Cloud",
+        "B": "Azure DNS",
+        "C": "Azure CDN",
+        "D": "Azure Storage Explorer"
+      },
+      "correct_option": "A",
+      "summary": "Defender for Cloud provides security posture management, recommendations, and vulnerability assessment integrations for workloads. DNS/CDN are networking/edge services, and Storage Explorer is a client tool."
+    },
+    {
+      "id": 87,
+      "complexity": "low",
+      "question": "You want to deploy resources in Azure using a browser-based wizard with prebuilt solutions. Where do you commonly find these?",
+      "options": {
+        "A": "Azure Marketplace",
+        "B": "Azure Advisor",
+        "C": "Azure Monitor",
+        "D": "Azure Service Health"
+      },
+      "correct_option": "A",
+      "summary": "Azure Marketplace offers prebuilt solutions and deployment wizards (images, apps, templates). Advisor is recommendations, Monitor is telemetry, and Service Health is incident/maintenance visibility."
+    },
+    {
+      "id": 88,
+      "complexity": "medium",
+      "question": "You want to manage Azure resources from another cloud or on-prem using a unified approach. Which service helps?",
+      "options": {
+        "A": "Azure Arc",
+        "B": "Azure CDN",
+        "C": "Azure Traffic Manager",
+        "D": "Azure Files"
+      },
+      "correct_option": "A",
+      "summary": "Azure Arc extends Azure management (policy, monitoring, governance) to servers/Kubernetes/data services outside Azure, including other clouds and on-prem. CDN/Traffic Manager/Files don’t provide hybrid control planes."
+    },
+    {
+      "id": 89,
+      "complexity": "low",
+      "question": "You need to limit who can access a VM. Which is the best first step?",
+      "options": {
+        "A": "Open RDP/SSH to the internet for convenience",
+        "B": "Use NSG rules to restrict inbound access",
+        "C": "Disable encryption",
+        "D": "Move VM to a different resource group"
+      },
+      "correct_option": "B",
+      "summary": "Start by restricting inbound access with NSG rules (and ideally remove public exposure or limit to trusted IPs). Opening RDP/SSH widely increases risk, disabling encryption is worse, and moving resource groups doesn’t control network access."
+    },
+    {
+      "id": 90,
+      "complexity": "high",
+      "question": "You must ensure business continuity across a region outage for a web app. Which combination is most appropriate?",
+      "options": {
+        "A": "Single VM + local backup only",
+        "B": "Deploy in two regions and use Traffic Manager/Front Door for failover",
+        "C": "Use a single availability set only",
+        "D": "Use only tags and policies"
+      },
+      "correct_option": "B",
+      "summary": "Region outage requires multi-region architecture. Deploy in two regions and use global routing (Traffic Manager/Front Door) to fail over. Availability sets protect within a datacenter, backups don’t keep service running, and tags/policies don’t provide continuity."
+    },
+    {
+      "id": 91,
+      "complexity": "medium",
+      "question": "You want to see which Azure services are available in a specific region before deploying. Where do you check?",
+      "options": {
+        "A": "Products available by region (Azure global infrastructure pages)",
+        "B": "NSG rules",
+        "C": "Azure Queue Storage",
+        "D": "Azure Files share"
+      },
+      "correct_option": "A",
+      "summary": "Service availability varies by region, so you check Azure’s “products available by region” / global infrastructure listings. NSG rules don’t list services, and Queue/Files are specific services rather than a regional catalog."
+    },
+    {
+      "id": 92,
+      "complexity": "low",
+      "question": "Which concept describes using many small resources and combining them to meet demand (like scale-out)?",
+      "options": {
+        "A": "Vertical scaling",
+        "B": "Horizontal scaling",
+        "C": "Single point of failure",
+        "D": "Capital expense"
+      },
+      "correct_option": "B",
+      "summary": "Horizontal scaling (scale-out) adds more instances/nodes to increase capacity and redundancy. Vertical scaling increases size of one instance. Single point of failure is a risk pattern, and CapEx is a financial model."
+    },
+    {
+      "id": 93,
+      "complexity": "low",
+      "question": "Which concept describes increasing the size of a VM (more CPU/RAM) to meet demand (scale-up)?",
+      "options": {
+        "A": "Horizontal scaling",
+        "B": "Vertical scaling",
+        "C": "Geo-replication",
+        "D": "Tagging"
+      },
+      "correct_option": "B",
+      "summary": "Vertical scaling (scale-up) increases resources of a single VM (CPU/RAM). Horizontal scaling adds more instances. Geo-replication is multi-region data copies, and tagging is metadata for management/billing."
+    },
+    {
+      "id": 94,
+      "complexity": "medium",
+      "question": "You want to automatically increase App Service instances when CPU exceeds a threshold. What feature is this?",
+      "options": {
+        "A": "Autoscale",
+        "B": "Availability zones",
+        "C": "Resource locks",
+        "D": "ExpressRoute"
+      },
+      "correct_option": "A",
+      "summary": "Autoscale increases or decreases instance count based on metrics like CPU, requests, or schedules. Availability zones are resiliency placement, resource locks prevent changes/deletion, and ExpressRoute is private connectivity."
+    },
+    {
+      "id": 95,
+      "complexity": "medium",
+      "question": "You need to prevent accidental deletion of a critical resource group. What should you use?",
+      "options": {
+        "A": "Resource locks",
+        "B": "Availability zones",
+        "C": "Traffic Manager",
+        "D": "Azure CDN"
+      },
+      "correct_option": "A",
+      "summary": "Resource locks (Delete/ReadOnly) protect critical resources or resource groups from accidental deletion or changes. Availability zones are for availability, Traffic Manager is DNS routing, and CDN is caching."
+    },
+    {
+      "id": 96,
+      "complexity": "high",
+      "question": "A team needs read-only access to view resources but must not make changes. Which built-in role fits best?",
+      "options": {
+        "A": "Owner",
+        "B": "Contributor",
+        "C": "Reader",
+        "D": "User Access Administrator"
+      },
+      "correct_option": "C",
+      "summary": "Use the built-in **Reader** role: it allows viewing resources, configurations, and metrics, but blocks write/delete actions. Contributor can modify resources, Owner can modify + manage access, and User Access Administrator mainly manages role assignments."
+    },
+    {
+      "id": 97,
+      "complexity": "high",
+      "question": "You want to give a developer permission to manage a single resource group but not the whole subscription. What should you do?",
+      "options": {
+        "A": "Assign Owner at subscription scope",
+        "B": "Assign Contributor at resource group scope",
+        "C": "Assign Reader at tenant scope",
+        "D": "Disable RBAC and use shared passwords"
+      },
+      "correct_option": "B",
+      "summary": "Assign Contributor scoped to the specific resource group so the developer can manage resources there without broader subscription rights. Owner at subscription is too broad, Reader is read-only, and shared passwords bypass least privilege and auditability."
+    },
+    {
+      "id": 98,
+      "complexity": "medium",
+      "question": "You want a centralized place to track compliance requirements and understand how Azure meets standards (ISO, SOC, etc.). Where do you look?",
+      "options": {
+        "A": "Microsoft Trust Center / compliance documentation",
+        "B": "Azure Queue Storage",
+        "C": "Azure Files",
+        "D": "Azure CDN"
+      },
+      "correct_option": "A",
+      "summary": "Microsoft Trust Center and compliance documentation provide official details on certifications, attestations, and how Microsoft meets standards (ISO/SOC/etc.). Storage and CDN services don’t serve as the central compliance reference."
+    },
+    {
+      "id": 99,
+      "complexity": "high",
+      "question": "You need to store secrets and also automatically rotate them and control access using identities. Which combination best matches?",
+      "options": {
+        "A": "Key Vault + Managed Identity",
+        "B": "Blob Storage + SAS",
+        "C": "Azure CDN + WAF",
+        "D": "Traffic Manager + DNS"
+      },
+      "correct_option": "A",
+      "summary": "Key Vault stores and manages secrets/keys/certs and supports rotation patterns; Managed Identity provides credential-free authentication to retrieve them securely. Blob+SAS is still credential-based access, and the other pairs are networking/edge components."
+    },
+    {
+      "id": 100,
+      "complexity": "high",
+      "question": "You want centralized monitoring for apps and detect issues end-to-end (requests, dependencies, failures) with distributed tracing. What should you use?",
+      "options": {
+        "A": "Application Insights",
+        "B": "Azure DNS",
+        "C": "Azure Files",
+        "D": "Azure Queue Storage"
+      },
+      "correct_option": "A",
+      "summary": "Application Insights (part of Azure Monitor) provides APM: request traces, dependency mapping, failure rates, performance metrics, and distributed tracing to troubleshoot end-to-end. DNS/Files/Queue are core services but not application performance monitoring."
+    }
+  ]
+}
