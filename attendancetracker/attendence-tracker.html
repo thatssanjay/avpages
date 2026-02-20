@@ -1,0 +1,849 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Work Day Tracker (CSV)</title>
+
+  <style>
+    :root{
+      --bg: #f4f7ff;
+      --card: #ffffff;
+      --ink: #0d1b3d;
+      --muted: #5b6b91;
+      --line: #e6ecff;
+
+      --blue1:#2563eb;
+      --blue2:#1d4ed8;
+
+      --orange:#f59e0b;
+      --red:#ef4444;
+      --green:#22c55e;
+      --darkgreen:#166534;
+      --leave:#6b7280;
+
+      --shadow: 0 18px 40px rgba(13,27,61,.10);
+      --radius: 18px;
+    }
+
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+      color:var(--ink);
+      background:
+        radial-gradient(1200px 600px at 10% -10%, rgba(96,165,250,.35), transparent 60%),
+        radial-gradient(1000px 600px at 90% 0%, rgba(37,99,235,.25), transparent 55%),
+        var(--bg);
+    }
+
+    .wrap{max-width:1150px;margin:26px auto;padding:0 16px}
+
+    .hero{
+      border-radius: 22px;
+      padding:18px 18px;
+      color:white;
+      background: linear-gradient(135deg, var(--blue1), var(--blue2));
+      box-shadow: var(--shadow);
+      border:1px solid rgba(255,255,255,.25);
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
+      position:relative;
+      overflow:hidden;
+    }
+    .hero:before{
+      content:"";
+      position:absolute; inset:-40px -80px auto auto;
+      width:240px; height:240px;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.35), transparent 55%);
+      transform: rotate(18deg);
+      pointer-events:none;
+    }
+    .hero h1{margin:0;font-size:22px;font-weight:900;letter-spacing:.2px}
+    .hero .sub{margin-top:6px;font-size:13px;opacity:.92;max-width:900px;line-height:1.45}
+    .hero .chips{display:flex;gap:8px;flex-wrap:wrap}
+    .chip{
+      background: rgba(255,255,255,.18);
+      border: 1px solid rgba(255,255,255,.28);
+      padding:8px 10px;border-radius:999px;font-size:12px;font-weight:800;white-space:nowrap;
+    }
+
+    .grid{display:grid;grid-template-columns: 1fr; gap:14px; margin-top:14px}
+
+    .card{
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding:14px;
+    }
+
+    .row{display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end}
+    .field{flex:1;min-width:220px}
+    label{display:block;font-size:12px;color:var(--muted);margin-bottom:6px;font-weight:900}
+
+    input[type="file"], input[type="date"], input[type="text"]{
+      width:100%;
+      padding:10px 12px;
+      border-radius:14px;
+      border:1px solid var(--line);
+      background:#fbfcff;
+      color:var(--ink);
+      outline:none;
+      box-shadow: 0 8px 18px rgba(13,27,61,.05);
+    }
+    input[type="text"]{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    }
+
+    .btn{
+      border:0;
+      padding:10px 14px;
+      border-radius:14px;
+      cursor:pointer;
+      font-weight:950;
+      color:white;
+      background: linear-gradient(135deg, var(--blue1), var(--blue2));
+      box-shadow: 0 12px 26px rgba(37,99,235,.22);
+      white-space:nowrap;
+    }
+    .btn:hover{filter:brightness(1.03)}
+    .btn.secondary{
+      background:#fff;
+      color:var(--blue2);
+      border:1px solid var(--line);
+      box-shadow: 0 10px 22px rgba(13,27,61,.08);
+    }
+
+    .note{color:var(--muted);font-size:12px;line-height:1.45;margin-top:8px}
+    .mono{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;}
+
+    .dateFilterBox{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:10px;
+      padding:10px;
+      border:1px solid var(--line);
+      border-radius:16px;
+      background: #fbfcff;
+      box-shadow: 0 8px 18px rgba(13,27,61,.05);
+    }
+    @media (max-width: 700px){ .dateFilterBox{grid-template-columns:1fr} }
+    .dateMini label{margin:0 0 6px 0}
+
+    .kpis{
+      display:grid;
+      grid-template-columns: repeat(5, minmax(160px, 1fr));
+      gap:10px;
+      margin-top:12px;
+    }
+    @media (max-width: 980px){ .kpis{grid-template-columns: repeat(2, minmax(160px, 1fr));} }
+    @media (max-width: 520px){ .kpis{grid-template-columns: 1fr;} }
+
+    .kpiMini{
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:10px 12px;
+      background: linear-gradient(180deg, #ffffff, #f8faff);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      min-height:64px;
+    }
+    .kpiMini .left .t{font-size:12px;font-weight:950;color:var(--muted);margin:0}
+    .kpiMini .left .v{font-size:22px;font-weight:1100;margin-top:4px;line-height:1.1}
+    .kpiMini .badge{
+      font-size:11px;font-weight:1000;padding:6px 10px;border-radius:999px;border:1px solid var(--line);
+      background:#fff;white-space:nowrap;
+    }
+    .c-orange{color:var(--orange)}
+    .c-red{color:var(--red)}
+    .c-green{color:var(--green)}
+    .c-darkgreen{color:var(--darkgreen)}
+    .c-leave{color:var(--leave)}
+
+    .b-orange{border-color: rgba(245,158,11,.35); background: rgba(245,158,11,.10); color: #8a4a00;}
+    .b-red{border-color: rgba(239,68,68,.35); background: rgba(239,68,68,.10); color: #7a1414;}
+    .b-green{border-color: rgba(34,197,94,.35); background: rgba(34,197,94,.10); color: #0f5a2c;}
+    .b-darkgreen{border-color: rgba(22,101,52,.35); background: rgba(22,101,52,.10); color: #0b3b1e;}
+    .b-leave{border-color: rgba(107,114,128,.35); background: rgba(107,114,128,.10); color: #374151;}
+
+    .sectionTitle{
+      display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;
+      margin-top:6px;
+    }
+    .sectionTitle h2{margin:0;font-size:16px;font-weight:1100;letter-spacing:.1px}
+    .rightActions{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+
+    table{width:100%;border-collapse:separate;border-spacing:0}
+    th, td{padding:10px 10px;border-bottom:1px solid var(--line);text-align:left;font-size:13px;vertical-align:top}
+    th{color:var(--muted);font-weight:1100;background:#f7f9ff}
+    tr:hover td{background:#fbfcff}
+
+    .pillOffice{
+      display:inline-block;padding:6px 10px;border-radius:999px;
+      background: rgba(239,68,68,.10);
+      border:1px solid rgba(239,68,68,.25);
+      color:#7a1414;font-weight:1100;font-size:12px;
+    }
+    .pillWFH{
+      display:inline-block;padding:6px 10px;border-radius:999px;
+      background: rgba(34,197,94,.10);
+      border:1px solid rgba(34,197,94,.25);
+      color:#0f5a2c;font-weight:1100;font-size:12px;
+    }
+    .pillSSID{
+      display:inline-block;padding:6px 10px;border-radius:999px;
+      background: rgba(99,102,241,.10);
+      border:1px solid rgba(99,102,241,.20);
+      color:#2f3a8c;font-weight:1100;font-size:12px;
+    }
+
+    .hintHoliday{
+      display:inline-flex;align-items:center;gap:6px;margin-left:8px;
+      padding:4px 8px;border-radius:999px;
+      border:1px dashed rgba(245,158,11,.55);
+      background: rgba(245,158,11,.10);
+      color:#8a4a00;font-size:11px;font-weight:1000;white-space:nowrap;
+    }
+
+    .tableScroll{
+      margin-top:10px;
+      border:1px solid var(--line);
+      border-radius: 16px;
+      overflow: hidden;
+      background:#fff;
+    }
+    .tableScroll .inner{max-height: 340px; overflow:auto}
+    .tableScroll table{margin:0}
+    .tableScroll thead th{
+      position: sticky;
+      top: 0;
+      z-index: 2;
+      box-shadow: 0 2px 0 rgba(0,0,0,.02);
+    }
+
+    .status{margin-top:10px;font-size:12px;color:var(--muted);font-weight:900}
+
+    .acc{
+      border:1px solid var(--line);
+      border-radius: 18px;
+      overflow:hidden;
+      background: #fff;
+      margin-top: 8px;
+    }
+    .accHead{
+      display:flex;justify-content:space-between;align-items:center;gap:10px;
+      padding:12px 12px;cursor:pointer;
+      background: linear-gradient(180deg, #ffffff, #f8faff);
+    }
+    .accHead:hover{background:#fbfcff}
+    .accTitle{font-weight:1100;font-size:14px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+    .accMeta{color:var(--muted);font-size:12px;font-weight:900}
+    .chev{
+      width:30px;height:30px;border-radius:10px;display:grid;place-items:center;
+      border:1px solid var(--line);background:#fff;font-weight:1100;color:var(--blue2);flex:0 0 auto;
+    }
+    .accBody{display:none;padding:0 12px 12px 12px}
+    .accBody.open{display:block}
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <div class="hero">
+      <div>
+        <h1>Work Day Tracking — Office vs WFH (CSV Upload)</h1>
+        <div class="sub">
+          ✅ Fixed for your CSV: supports <b>YYYY-MM-DD</b> date format. Leaves are computed between <b>first & last day</b> in Daily Summary.
+        </div>
+      </div>
+      <div class="chips">
+        <span class="chip">ISO Date Support</span>
+        <span class="chip">BOM Header Fix</span>
+        <span class="chip">Accordions</span>
+      </div>
+    </div>
+
+    <div class="grid">
+      <div class="card">
+        <div class="row">
+          <div class="field" style="min-width:280px">
+            <label>Upload CSV</label>
+            <input id="fileInput" type="file" accept=".csv,text/csv" />
+          </div>
+
+          <div class="field">
+            <label>Date Filter</label>
+            <div class="dateFilterBox">
+              <div class="dateMini">
+                <label>From</label>
+                <input id="dateFrom" type="date" />
+              </div>
+              <div class="dateMini">
+                <label>To</label>
+                <input id="dateTo" type="date" />
+              </div>
+            </div>
+          </div>
+
+          <div class="field" style="min-width:160px;flex:0">
+            <button class="btn" id="btnApply">Search</button>
+          </div>
+
+          <div class="field" style="min-width:200px;flex:0">
+            <button class="btn secondary" id="btnLoadSample">Load sample</button>
+          </div>
+        </div>
+
+        <div class="row" style="margin-top:12px">
+          <div class="field" style="min-width:320px">
+            <label>Office SSID Keyword (match contains)</label>
+            <input id="officeKeyword" type="text" value="medline-wifi" />
+          </div>
+          <div class="field" style="min-width:320px">
+            <label>Leave Logic</label>
+            <div class="note">
+              Leaves are computed using the <b>first and last date</b> in the Daily Summary (after de-dup).
+              Missing weekdays are counted as leave <span class="hintHoliday">Check public holiday</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="kpis" id="kpis"></div>
+        <div class="status" id="statusText">Upload a CSV to begin.</div>
+      </div>
+
+      <!-- Accordion: Daily -->
+      <div class="acc" id="accDaily">
+        <div class="accHead" role="button" tabindex="0" aria-expanded="false">
+          <div class="accTitle">
+            Daily Summary (one record per day — Office priority)
+            <span class="accMeta" id="dailyMeta">0 day(s)</span>
+          </div>
+          <div class="rightActions">
+            <button class="btn secondary" id="btnExportDaily" type="button">Export Daily Summary CSV</button>
+            <div class="chev" id="chevDaily">+</div>
+          </div>
+        </div>
+        <div class="accBody" id="dailyBody">
+          <div class="note">
+            For the same date, if any record has SSID matching office keyword, that record is chosen; otherwise first record is chosen.
+          </div>
+
+          <div class="tableScroll" style="margin-top:12px">
+            <div class="inner">
+              <table id="dailyTable">
+                <thead>
+                  <tr>
+                    <th style="width:60px">SN</th>
+                    <th style="width:130px">Date</th>
+                    <th style="width:140px">Work Location</th>
+                    <th>SSID</th>
+                    <th style="width:110px">VPN</th>
+                    <th style="width:160px">Machine</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td colspan="6" class="note">No data yet.</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Accordion: Raw -->
+      <div class="acc" id="accRaw">
+        <div class="accHead" role="button" tabindex="0" aria-expanded="false">
+          <div class="accTitle">
+            Filtered CSV Data (raw rows)
+            <span class="accMeta" id="rawMeta">0 row(s)</span>
+          </div>
+          <div class="rightActions">
+            <button class="btn secondary" id="btnExportRaw" type="button">Export Filtered Raw CSV</button>
+            <div class="chev" id="chevRaw">+</div>
+          </div>
+        </div>
+        <div class="accBody" id="rawBody">
+          <div class="note">Raw CSV rows after date filter (duplicates included).</div>
+
+          <div class="tableScroll">
+            <div class="inner">
+              <table id="rawTable">
+                <thead>
+                  <tr>
+                    <th style="width:60px">SN</th>
+                    <th style="width:130px">Date</th>
+                    <th style="width:110px">Time</th>
+                    <th style="width:140px">Work Location</th>
+                    <th>SSID</th>
+                    <th style="width:110px">VPN</th>
+                    <th style="width:160px">Machine</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td colspan="7" class="note">No data yet.</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+<script>
+  const $ = (id) => document.getElementById(id);
+  const safeTrim = (s) => (s ?? "").toString().trim();
+
+  // ✅ NEW: parse ISO (YYYY-MM-DD) + US (M/D/YYYY) + Indian (D/M/YYYY)
+  function parseAnyDate(dateStr){
+    const s = safeTrim(dateStr);
+    if(!s) return null;
+
+    // ISO: 2026-02-18
+    const iso = s.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+    if(iso){
+      const y = parseInt(iso[1],10), m = parseInt(iso[2],10), d = parseInt(iso[3],10);
+      return new Date(y, m-1, d, 12,0,0,0);
+    }
+
+    // Slash or dash: 2/18/2026 or 18/2/2026
+    const parts = s.split(/[\/\-]/).map(x => x.trim());
+    if(parts.length >= 3){
+      const a = parseInt(parts[0],10);
+      const b = parseInt(parts[1],10);
+      const y = parseInt(parts[2],10);
+      if(!a || !b || !y) return null;
+
+      // heuristic:
+      // if first part > 12 => dd/mm
+      // else assume mm/dd
+      let dd, mm;
+      if(a > 12){ dd = a; mm = b; }
+      else { mm = a; dd = b; }
+
+      return new Date(y, mm-1, dd, 12,0,0,0);
+    }
+
+    return null;
+  }
+
+  function toISODateKey(d){
+    const y = d.getFullYear();
+    const m = String(d.getMonth()+1).padStart(2,'0');
+    const day = String(d.getDate()).padStart(2,'0');
+    return `${y}-${m}-${day}`;
+  }
+
+  function withinRange(d, start, end){
+    if(start && d < start) return false;
+    if(end && d > end) return false;
+    return true;
+  }
+
+  function splitCSVLine(line){
+    const out = [];
+    let cur = '';
+    let inQ = false;
+    for(let i=0;i<line.length;i++){
+      const ch = line[i];
+      if(ch === '"'){
+        if(inQ && line[i+1] === '"'){ cur += '"'; i++; }
+        else inQ = !inQ;
+      } else if(ch === ',' && !inQ){
+        out.push(cur); cur='';
+      } else cur += ch;
+    }
+    out.push(cur);
+    return out.map(v => v.trim());
+  }
+
+  function parseCSV(text){
+    const lines = text.replace(/\r/g,'').split('\n').filter(l => l.trim().length);
+    if(lines.length < 2) return [];
+
+    // ✅ Fix BOM on first header cell
+    const rawHeader = splitCSVLine(lines[0]).map(h => h.replace(/^\uFEFF/, '').trim());
+    const header = rawHeader;
+
+    const idx = (name) => header.findIndex(h => h.toLowerCase() === name.toLowerCase());
+
+    const iDate = idx('Date');
+    const iTime = idx('Time');
+    const iWorkMode = idx('WorkMode');
+    const iSSID = idx('SSID');
+    const iVPN = idx('VPNDetected');
+    const iMachine = idx('Machine');
+
+    const rows = [];
+    for(let r=1;r<lines.length;r++){
+      const cols = splitCSVLine(lines[r]);
+
+      const dt = parseAnyDate(cols[iDate] ?? '');
+      if(!dt) continue;
+
+      const vpnRaw = safeTrim(cols[iVPN]);
+      const vpnDetected = (vpnRaw.toLowerCase() === 'true');
+
+      rows.push({
+        date: dt,
+        dateKey: toISODateKey(dt),
+        time: safeTrim(cols[iTime]),
+        workMode: safeTrim(cols[iWorkMode]),
+        ssid: safeTrim(cols[iSSID]),
+        vpnDetected,
+        machine: safeTrim(cols[iMachine]),
+      });
+    }
+
+    rows.sort((a,b) => a.date - b.date || (a.time||'').localeCompare(b.time||''));
+    return rows;
+  }
+
+  function isOfficeSSID(ssid, officeKeyword){
+    const s = safeTrim(ssid).toLowerCase();
+    const k = safeTrim(officeKeyword).toLowerCase();
+    if(!s || !k) return false;
+    return s.includes(k);
+  }
+
+  function mapLocation(ssid, officeKeyword){
+    const s = safeTrim(ssid);
+    if(!s) return "SSID";
+    return isOfficeSSID(s, officeKeyword) ? "Office" : "WFH";
+  }
+
+  function locationPillHtml(loc){
+    if(loc === "Office") return `<span class="pillOffice">Office</span>`;
+    if(loc === "WFH") return `<span class="pillWFH">WFH</span>`;
+    return `<span class="pillSSID">SSID</span>`;
+  }
+
+  function escapeHtml(s){
+    return (s ?? '').toString()
+      .replaceAll('&','&amp;')
+      .replaceAll('<','&lt;')
+      .replaceAll('>','&gt;')
+      .replaceAll('"','&quot;')
+      .replaceAll("'","&#039;");
+  }
+
+  function setDefaultMonthRange(){
+    const now = new Date();
+    const first = new Date(now.getFullYear(), now.getMonth(), 1, 12, 0, 0, 0);
+    const last = new Date(now.getFullYear(), now.getMonth() + 1, 0, 12, 0, 0, 0);
+    $('dateFrom').value = toISODateKey(first);
+    $('dateTo').value = toISODateKey(last);
+  }
+
+  function getRangeFromInputs(){
+    const s = $('dateFrom').value ? new Date($('dateFrom').value + 'T12:00:00') : null;
+    const e = $('dateTo').value ? new Date($('dateTo').value + 'T12:00:00') : null;
+    return { start:s, end:e };
+  }
+
+  function buildDailySummary(rowsFiltered, officeKeyword){
+    const byDay = new Map();
+    for(const r of rowsFiltered){
+      if(!byDay.has(r.dateKey)) byDay.set(r.dateKey, []);
+      byDay.get(r.dateKey).push(r);
+    }
+
+    const daily = [];
+    for(const [dateKey, arr] of byDay.entries()){
+      let pick = arr.find(x => isOfficeSSID(x.ssid, officeKeyword));
+      if(!pick) pick = arr[0];
+      daily.push({ ...pick, location: mapLocation(pick.ssid, officeKeyword) });
+    }
+    daily.sort((a,b) => a.date - b.date);
+    return daily;
+  }
+
+  function calculateLeavesFromDaily(dailySummary){
+    if(!dailySummary.length) return { leaveCount: 0, totalWeekdays: 0, rangeStart: null, rangeEnd: null };
+
+    const rangeStart = new Date(dailySummary[0].date.getTime());
+    const rangeEnd = new Date(dailySummary[dailySummary.length - 1].date.getTime());
+    rangeStart.setHours(12,0,0,0);
+    rangeEnd.setHours(12,0,0,0);
+
+    const present = new Set(dailySummary.map(d => d.dateKey));
+    let leaveCount = 0;
+    let totalWeekdays = 0;
+
+    const cur = new Date(rangeStart.getTime());
+    while(cur <= rangeEnd){
+      const dow = cur.getDay();
+      const isWeekend = (dow === 0 || dow === 6);
+      if(!isWeekend){
+        totalWeekdays++;
+        const key = toISODateKey(cur);
+        if(!present.has(key)) leaveCount++;
+      }
+      cur.setDate(cur.getDate()+1);
+    }
+    return { leaveCount, totalWeekdays, rangeStart, rangeEnd };
+  }
+
+  function fmtPercent(x){
+    if(!isFinite(x)) return "0%";
+    return `${Math.round(x * 1000)/10}%`;
+  }
+
+  function renderKPIs(dailySummary, officeKeyword){
+    const workDays = dailySummary.length;
+    const officeDays = dailySummary.filter(d => mapLocation(d.ssid, officeKeyword) === "Office").length;
+    const homeDays = dailySummary.filter(d => mapLocation(d.ssid, officeKeyword) === "WFH").length;
+
+    const officePct = workDays > 0 ? officeDays / workDays : 0;
+    const { leaveCount } = calculateLeavesFromDaily(dailySummary);
+
+    $('kpis').innerHTML = `
+      <div class="kpiMini">
+        <div class="left"><div class="t">Work day</div><div class="v c-orange">${workDays}</div></div>
+        <div class="badge b-orange">${workDays} day(s)</div>
+      </div>
+
+      <div class="kpiMini">
+        <div class="left"><div class="t">Work from Office</div><div class="v c-red">${officeDays}</div></div>
+        <div class="badge b-red">${officeDays} day(s)</div>
+      </div>
+
+      <div class="kpiMini">
+        <div class="left"><div class="t">Work from Home</div><div class="v c-green">${homeDays}</div></div>
+        <div class="badge b-green">${homeDays} day(s)</div>
+      </div>
+
+      <div class="kpiMini">
+        <div class="left"><div class="t">Percent of work from office</div><div class="v c-darkgreen">${fmtPercent(officePct)}</div></div>
+        <div class="badge b-darkgreen">${fmtPercent(officePct)}</div>
+      </div>
+
+      <div class="kpiMini">
+        <div class="left"><div class="t">Leaves <span class="hintHoliday">Check public holiday</span></div><div class="v c-leave">${leaveCount}</div></div>
+        <div class="badge b-leave">${leaveCount} day(s)</div>
+      </div>
+    `;
+  }
+
+  function renderDailyTable(dailySummary, officeKeyword){
+    const tbody = $('dailyTable').querySelector('tbody');
+    tbody.innerHTML = '';
+
+    if(!dailySummary.length){
+      tbody.innerHTML = `<tr><td colspan="6" class="note">No data for selected filter.</td></tr>`;
+      return;
+    }
+
+    dailySummary.forEach((r, i) => {
+      const loc = mapLocation(r.ssid, officeKeyword);
+      const humanDate = r.date.toLocaleDateString(undefined, { day:'2-digit', month:'2-digit', year:'numeric' });
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td>${i+1}</td>
+        <td class="mono">${humanDate}</td>
+        <td>${locationPillHtml(loc)}</td>
+        <td class="mono">${escapeHtml(r.ssid || '')}</td>
+        <td>${r.vpnDetected ? 'TRUE' : 'FALSE'}</td>
+        <td class="mono">${escapeHtml(r.machine || '')}</td>
+      `;
+      tbody.appendChild(tr);
+    });
+  }
+
+  function renderRawTable(rowsFiltered, officeKeyword){
+    const tbody = $('rawTable').querySelector('tbody');
+    tbody.innerHTML = '';
+
+    if(!rowsFiltered.length){
+      tbody.innerHTML = `<tr><td colspan="7" class="note">No data for selected filter.</td></tr>`;
+      return;
+    }
+
+    rowsFiltered.forEach((r, i) => {
+      const loc = mapLocation(r.ssid, officeKeyword);
+      const humanDate = r.date.toLocaleDateString(undefined, { day:'2-digit', month:'2-digit', year:'numeric' });
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td>${i+1}</td>
+        <td class="mono">${humanDate}</td>
+        <td class="mono">${escapeHtml(r.time || '')}</td>
+        <td>${locationPillHtml(loc)}</td>
+        <td class="mono">${escapeHtml(r.ssid || '')}</td>
+        <td>${r.vpnDetected ? 'TRUE' : 'FALSE'}</td>
+        <td class="mono">${escapeHtml(r.machine || '')}</td>
+      `;
+      tbody.appendChild(tr);
+    });
+  }
+
+  function exportCSV(filename, headerCols, rows){
+    const lines = [];
+    lines.push(headerCols.join(','));
+    for(const r of rows){
+      const line = headerCols.map((h) => {
+        const v = (r[h] ?? "").toString();
+        const esc = v.replaceAll('"','""');
+        return `"${esc}"`;
+      }).join(',');
+      lines.push(line);
+    }
+    const blob = new Blob([lines.join('\n')], { type:'text/csv;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+  }
+
+  function setupAccordion(headEl, bodyEl, chevEl){
+    const toggle = () => {
+      const open = bodyEl.classList.toggle('open');
+      headEl.setAttribute('aria-expanded', open ? 'true' : 'false');
+      chevEl.textContent = open ? '–' : '+';
+    };
+    headEl.addEventListener('click', (e) => {
+      const t = e.target;
+      if(t && (t.id === 'btnExportDaily' || t.id === 'btnExportRaw')) return;
+      toggle();
+    });
+    headEl.addEventListener('keydown', (e) => {
+      if(e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
+    });
+  }
+
+  let rawRows = [];
+  let filteredRows = [];
+  let dailySummary = [];
+
+  function rebuild(){
+    if(!rawRows.length){
+      $('statusText').textContent = "Upload a CSV to begin.";
+      $('kpis').innerHTML = "";
+      $('dailyMeta').textContent = "0 day(s)";
+      $('rawMeta').textContent = "0 row(s)";
+      return;
+    }
+
+    const officeKeyword = $('officeKeyword').value || 'medline-wifi';
+    const { start, end } = getRangeFromInputs();
+
+    if(!start || !end){
+      $('statusText').textContent = "Select From and To dates.";
+      return;
+    }
+    if(start > end){
+      $('statusText').textContent = "Invalid range: From date is after To date.";
+      return;
+    }
+
+    filteredRows = rawRows.filter(r => withinRange(r.date, start, end));
+    dailySummary = buildDailySummary(filteredRows, officeKeyword);
+
+    renderKPIs(dailySummary, officeKeyword);
+    renderDailyTable(dailySummary, officeKeyword);
+    renderRawTable(filteredRows, officeKeyword);
+
+    $('dailyMeta').textContent = `${dailySummary.length} day(s)`;
+    $('rawMeta').textContent = `${filteredRows.length} row(s)`;
+
+    const { leaveCount, totalWeekdays, rangeStart, rangeEnd } = calculateLeavesFromDaily(dailySummary);
+    let leaveRangeText = "";
+    if(rangeStart && rangeEnd){
+      const a = rangeStart.toLocaleDateString(undefined, { day:'2-digit', month:'2-digit', year:'numeric' });
+      const b = rangeEnd.toLocaleDateString(undefined, { day:'2-digit', month:'2-digit', year:'numeric' });
+      leaveRangeText = ` Leave range: ${a} → ${b}.`;
+    }
+
+    $('statusText').textContent =
+      `Loaded ${rawRows.length} row(s). Filtered ${filteredRows.length} row(s). Days (dedup): ${dailySummary.length}. ` +
+      `Weekdays in leave-range: ${totalWeekdays}. Leaves: ${leaveCount}.` + leaveRangeText;
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    setDefaultMonthRange();
+    setupAccordion($('accDaily').querySelector('.accHead'), $('dailyBody'), $('chevDaily'));
+    setupAccordion($('accRaw').querySelector('.accHead'), $('rawBody'), $('chevRaw'));
+  });
+
+  $('fileInput').addEventListener('change', async (e) => {
+    const f = e.target.files?.[0];
+    if(!f) return;
+    const text = await f.text();
+    rawRows = parseCSV(text);
+
+    if(!rawRows.length){
+      $('statusText').textContent =
+        "Could not parse rows. Ensure CSV headers: Date, Time, WorkMode, SSID, VPNDetected, Machine.";
+      $('kpis').innerHTML = "";
+      return;
+    }
+    rebuild();
+  });
+
+  $('btnApply').addEventListener('click', rebuild);
+  $('officeKeyword').addEventListener('change', rebuild);
+  $('dateFrom').addEventListener('change', rebuild);
+  $('dateTo').addEventListener('change', rebuild);
+
+  $('btnLoadSample').addEventListener('click', () => {
+    const sample =
+`Date,Time,WorkMode,SSID,VPNDetected,Machine
+2026-02-18,14:48:48,Unknown,"Medline-WiFi",False,PUNLT0103212
+2026-02-18,17:17:40,Unknown,"Airtel_sanj_6777_5G",False,PUNLT0103212
+2026-02-19,12:16:06,Unknown,"Airtel_sanj_6777_5G",False,PUNLT0103212
+2026-02-20,12:00:54,Unknown,"Airtel_sanj_6777_5G",False,PUNLT0103212
+2026-02-20,12:50:01,Unknown,"Airtel_sanj_6777_5G",False,PUNLT0103212`;
+
+    rawRows = parseCSV(sample);
+    $('officeKeyword').value = 'medline-wifi';
+    rebuild();
+  });
+
+  $('btnExportDaily').addEventListener('click', (e) => {
+    e.stopPropagation();
+    if(!dailySummary.length) return alert("No daily summary to export.");
+    const officeKeyword = $('officeKeyword').value || 'medline-wifi';
+
+    const rows = dailySummary.map(r => ({
+      Date: toISODateKey(r.date),
+      Time: r.time || "",
+      WorkLocation: mapLocation(r.ssid, officeKeyword),
+      SSID: r.ssid || "",
+      VPNDetected: r.vpnDetected ? "TRUE" : "FALSE",
+      Machine: r.machine || ""
+    }));
+
+    exportCSV("daily_summary.csv", ["Date","Time","WorkLocation","SSID","VPNDetected","Machine"], rows);
+  });
+
+  $('btnExportRaw').addEventListener('click', (e) => {
+    e.stopPropagation();
+    if(!filteredRows.length) return alert("No filtered raw data to export.");
+    const officeKeyword = $('officeKeyword').value || 'medline-wifi';
+
+    const rows = filteredRows.map(r => ({
+      Date: toISODateKey(r.date),
+      Time: r.time || "",
+      WorkLocation: mapLocation(r.ssid, officeKeyword),
+      SSID: r.ssid || "",
+      VPNDetected: r.vpnDetected ? "TRUE" : "FALSE",
+      Machine: r.machine || ""
+    }));
+
+    exportCSV("filtered_raw.csv", ["Date","Time","WorkLocation","SSID","VPNDetected","Machine"], rows);
+  });
+</script>
+
+</body>
+</html>
