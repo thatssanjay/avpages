@@ -64,6 +64,7 @@
       border:1px solid var(--border); background:#fff; padding:10px 12px; border-radius:14px;
       font-weight:900; font-size:14px; cursor:pointer;
       box-shadow: 0 10px 25px rgba(2,6,23,.06);
+      display:inline-flex; align-items:center; gap:8px;
     }
     .btnPrimary{background: linear-gradient(135deg,var(--blue-1),var(--blue-2)); border:none; color:white}
     .hamburger{
@@ -88,7 +89,7 @@
       background: linear-gradient(90deg, rgba(2,6,23,.82) 0%, rgba(2,6,23,.46) 46%, rgba(2,6,23,.16) 100%);
     }
     .heroContent{position:absolute; inset:0; display:flex; align-items:flex-end}
-    .heroCard{width:min(660px, 92%); margin: 0 0 26px 22px; color:#fff}
+    .heroCard{width:min(720px, 92%); margin: 0 0 26px 22px; color:#fff}
     .eyebrow{
       display:inline-flex; gap:8px; align-items:center;
       padding:7px 10px; border-radius:999px;
@@ -119,6 +120,7 @@
     .sectionTitle p{margin:0; color:var(--muted); font-size:13px}
     .grid{display:grid; grid-template-columns:1fr; gap:14px}
     @media(min-width:900px){ .grid.two{grid-template-columns:1.1fr .9fr;} .grid.three{grid-template-columns:repeat(3,1fr);} }
+
     .card{
       background:var(--card); border:1px solid var(--border);
       border-radius:var(--radius);
@@ -157,10 +159,6 @@
     .routeRow h4{margin:0 0 4px;font-size:14px}
     .routeRow p{margin:0;color:var(--muted);font-size:13px;line-height:1.5}
 
-    /* MAPS */
-    .mapImg{border-radius:18px; overflow:hidden; border:1px solid var(--border); background:#fff}
-    .mapCaption{margin-top:8px;color:var(--muted);font-size:12px}
-
     /* ACCORDION */
     details{
       border:1px solid var(--border);
@@ -185,39 +183,47 @@
     .accHint{color:var(--muted);font-size:13px;margin-top:2px}
     .accRight{display:flex;gap:10px;align-items:center;color:var(--muted);font-size:12px}
 
-    /* GALLERIES */
-    .galleryTop{
-      display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap;
-      margin: 8px 0 10px;
-    }
-    .pill{
-      display:inline-flex; gap:8px; align-items:center;
-      padding:7px 10px; border-radius:999px;
+    /* PLACE CARDS */
+    .placeHero{
       border:1px solid var(--border);
-      background: rgba(2,6,23,.03);
-      font-weight:900; font-size:12px; color:var(--muted);
+      border-radius: 18px;
+      overflow:hidden;
+      background:#000;
+      position:relative;
+      margin: 6px 0 12px;
     }
-    .gallery{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap:10px;
-    }
-    @media(min-width:800px){ .gallery{grid-template-columns: repeat(5, 1fr);} }
-    .gItem{
-      border-radius: 16px; overflow:hidden; border:1px solid var(--border);
-      background:#fff; position:relative;
-      cursor:pointer;
-    }
-    .gItem img{width:100%;height:140px;object-fit:cover}
-    .gItem .cap{
-      position:absolute; left:10px; bottom:10px;
-      font-size:12px; font-weight:900;
+    .placeHero img{width:100%; height:220px; object-fit:cover; opacity:.92}
+    .placeHero .label{
+      position:absolute; left:14px; bottom:14px;
       color:#fff;
       background: rgba(2,6,23,.55);
       border:1px solid rgba(255,255,255,.18);
-      padding:6px 8px; border-radius: 999px;
-      max-width: calc(100% - 20px);
-      overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
+      padding:8px 10px; border-radius: 999px;
+      font-weight:900; font-size:12px;
+      display:inline-flex; align-items:center; gap:8px;
+    }
+
+    .placeList{display:grid; gap:10px}
+    .placeItem{
+      border:1px solid var(--border);
+      border-radius: 16px;
+      background: rgba(2,6,23,.02);
+      padding:12px;
+    }
+    .placeItemTop{
+      display:flex; align-items:flex-start; justify-content:space-between; gap:10px;
+    }
+    .placeItem b{display:block; font-size:14px}
+    .placeItem p{margin:6px 0 0; color:var(--muted); font-size:13px; line-height:1.55}
+    .placeActions{display:flex; gap:10px; flex-wrap:wrap; margin-top:10px}
+    .btnLink{
+      border:1px solid var(--border);
+      background:#fff;
+      padding:9px 11px;
+      border-radius: 14px;
+      font-weight:900;
+      font-size:13px;
+      display:inline-flex; align-items:center; gap:8px;
     }
 
     /* PACKAGE COST */
@@ -226,10 +232,6 @@
     th{background: rgba(2,6,23,.03); text-align:left; font-weight:900}
     tr:last-child td{border-bottom:none}
     .muted{color:var(--muted)}
-    .money{
-      display:inline-flex; align-items:center; gap:8px;
-      font-weight:900;
-    }
     .moneyLow{color:var(--ok); font-weight:900}
     .moneyHigh{color:var(--bad); font-weight:900}
 
@@ -258,15 +260,9 @@
       box-shadow: 0 14px 30px rgba(2,6,23,.08);
       cursor:pointer;
     }
-    .videoThumb{
-      position:relative;
-      background:#000;
-    }
+    .videoThumb{position:relative;background:#000;}
     .videoThumb img{width:100%;height:180px;object-fit:cover;opacity:.92}
-    .playBtn{
-      position:absolute; inset:0;
-      display:grid; place-items:center;
-    }
+    .playBtn{position:absolute; inset:0; display:grid; place-items:center;}
     .playBtn span{
       width:56px;height:56px;border-radius:999px;
       background: rgba(255,255,255,.92);
@@ -279,7 +275,7 @@
     .videoMeta b{display:block; font-size:14px}
     .videoMeta small{color:var(--muted); font-weight:700}
 
-    /* MODALS (Image + Video) */
+    /* MODALS (Video) */
     .modal{
       position:fixed; inset:0;
       background: rgba(2,6,23,.72);
@@ -314,44 +310,14 @@
       color:#fff; cursor:pointer;
       display:grid;place-items:center;
     }
-    .modalBody{
-      position:relative;
-      background:#000;
-    }
-    .modalBody img{
-      width:100%;
-      max-height: 76vh;
-      object-fit:contain;
-      background:#000;
-    }
-    .navArrow{
-      position:absolute;
-      top:50%;
-      transform: translateY(-50%);
-      width:46px;height:46px;border-radius:16px;
-      border:1px solid rgba(255,255,255,.16);
-      background: rgba(255,255,255,.10);
-      color:#fff; cursor:pointer;
-      display:grid;place-items:center;
-      font-size:18px;
-    }
-    .navArrow.left{left:12px}
-    .navArrow.right{right:12px}
+    .modalBody{position:relative;background:#000;}
+    .videoFrame{width:100%; aspect-ratio: 16 / 9; border:0; display:block; background:#000;}
     .modalFooter{
       padding:10px 12px;
       color: rgba(255,255,255,.78);
       font-size:12px;
       background: rgba(255,255,255,.04);
       border-top:1px solid rgba(255,255,255,.10);
-    }
-
-    /* Video modal */
-    .videoFrame{
-      width:100%;
-      aspect-ratio: 16 / 9;
-      border:0;
-      display:block;
-      background:#000;
     }
 
     footer{
@@ -376,7 +342,6 @@
       .hamburger{display:inline-grid;place-items:center}
       .cta .btn{display:none}
       .heroCard{margin-left:16px}
-      .navArrow{width:44px;height:44px}
     }
   </style>
 </head>
@@ -397,14 +362,14 @@
         <nav class="navLinks" id="navLinks">
           <a href="#travel">Travel Plan</a>
           <a href="#train">Train Option</a>
-          <a href="#maps">Maps</a>
-          <a href="#galleries">Galleries</a>
-          <a href="#package">Package Cost</a>
+          <a href="#places">Places to Visit</a>
+          <a href="#besttime">Best Time</a>
+          <a href="#package">Budget</a>
           <a href="#videos">YouTube</a>
         </nav>
 
         <div class="cta">
-          <a class="btn btnPrimary" href="#travel"><i class="fa-solid fa-route"></i>&nbsp;Plan Now</a>
+          <a class="btn btnPrimary" href="#places"><i class="fa-solid fa-map-location-dot"></i>&nbsp;Places</a>
           <button class="hamburger" aria-label="Open menu" onclick="toggleNav()">
             <i class="fa-solid fa-bars"></i>
           </button>
@@ -416,8 +381,7 @@
   <!-- HERO -->
   <div class="container" id="top">
     <div class="hero">
-      <img alt="Himalayas travel"
-           src="https://source.unsplash.com/1600x900/?himalayas,mountains,travel&sig=11">
+      <img alt="Himalayas travel" src="https://picsum.photos/seed/himalayas-hero/1600/900">
       <div class="heroContent">
         <div class="heroCard">
           <span class="eyebrow"><i class="fa-solid fa-location-dot"></i> Dharamshala • Manali • March End</span>
@@ -427,8 +391,8 @@
             <b>Pune</b> and <b>Indore</b>.
           </p>
           <div class="heroActions">
-            <a class="btn btnPrimary" href="#galleries"><i class="fa-solid fa-images"></i>&nbsp;View Galleries</a>
-            <a class="btn ghost" href="#package"><i class="fa-solid fa-wallet"></i>&nbsp;Budget</a>
+            <a class="btn btnPrimary" href="#places"><i class="fa-solid fa-mountain-sun"></i>&nbsp;Best Places</a>
+            <a class="btn ghost" href="#besttime"><i class="fa-solid fa-calendar-days"></i>&nbsp;Best Time</a>
           </div>
 
           <div class="palette" aria-label="Theme palette">
@@ -603,114 +567,105 @@
     </div>
   </section>
 
-  <!-- MAPS -->
-  <section id="maps">
+  <!-- PLACES -->
+  <section id="places">
     <div class="container">
       <div class="sectionTitle">
         <div>
-          <h2>Maps (quick visual)</h2>
-          <p>Static OpenStreetMap previews (good for hosting).</p>
+          <h2>Best Places to Visit</h2>
+          <p>Accordion is OPEN by default • Each place includes a quick Wikipedia link.</p>
         </div>
-        <span class="badge"><i class="fa-solid fa-map"></i> Route View</span>
+        <span class="badge green"><i class="fa-solid fa-map-location-dot"></i> Must-see</span>
       </div>
 
-      <div class="grid two">
-        <div class="card">
-          <div class="cardHeader">
-            <b>Map: Pune + Indore → Dharamshala (overview)</b>
-            <span class="badge"><i class="fa-solid fa-location-dot"></i> Start points</span>
-          </div>
-          <div class="mapImg">
-            <img alt="Map Pune Indore Dharamshala"
-              src="https://staticmap.openstreetmap.de/staticmap.php?center=28.8,76.6&zoom=5&size=900x460&maptype=mapnik&markers=18.5204,73.8567,lightblue1&markers=22.7196,75.8577,orange1&markers=32.2190,76.3234,green1">
-          </div>
-          <div class="mapCaption">
-            <i class="fa-solid fa-circle" style="color:var(--blue-2)"></i> Pune &nbsp;&nbsp;
-            <i class="fa-solid fa-circle" style="color:var(--orange)"></i> Indore &nbsp;&nbsp;
-            <i class="fa-solid fa-circle" style="color:var(--green)"></i> Dharamshala/McLeod
-          </div>
-        </div>
-
-        <div class="card">
-          <div class="cardHeader">
-            <b>Map: Dharamshala → Manali</b>
-            <span class="badge orange"><i class="fa-solid fa-mountain"></i> Hill leg</span>
-          </div>
-          <div class="mapImg">
-            <img alt="Map Dharamshala Manali"
-              src="https://staticmap.openstreetmap.de/staticmap.php?center=32.25,76.65&zoom=8&size=900x460&maptype=mapnik&markers=32.2190,76.3234,green1&markers=32.2432,77.1892,orange1">
-          </div>
-          <div class="mapCaption">
-            <i class="fa-solid fa-circle" style="color:var(--green)"></i> Dharamshala &nbsp;&nbsp;
-            <i class="fa-solid fa-circle" style="color:var(--orange)"></i> Manali
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- GALLERIES (ACCORDION OPEN) -->
-  <section id="galleries">
-    <div class="container">
-      <div class="sectionTitle">
-        <div>
-          <h2>Image Galleries (50+ each)</h2>
-          <p>Click any photo → opens popup viewer with next/prev arrows.</p>
-        </div>
-        <span class="badge green"><i class="fa-solid fa-images"></i> Lightbox</span>
-      </div>
-
-      <!-- Dharamshala accordion (open) -->
+      <!-- Dharamshala - OPEN -->
       <details open>
         <summary>
           <div>
-            Dharamshala / McLeod Ganj — Image Gallery (50+)
-            <div class="accHint">Source: public image providers (Unsplash Source) • fast + reliable</div>
+            List of Places to Visit in Dharamshala / McLeod Ganj
+            <div class="accHint">Short + family-friendly descriptions • open Wikipedia link for details</div>
           </div>
           <div class="accRight">
-            <span class="badge green"><i class="fa-solid fa-layer-group"></i> 60 images</span>
+            <span class="badge green"><i class="fa-solid fa-layer-group"></i> 12 places</span>
             <i class="fa-solid fa-chevron-down"></i>
           </div>
         </summary>
         <div class="accBody">
-          <div class="galleryTop">
-            <div class="pill"><i class="fa-solid fa-wand-magic-sparkles"></i> Tap photos to preview</div>
-            <div style="display:flex;gap:10px;flex-wrap:wrap">
-              <button class="btn" onclick="reloadGallery('dharamshala')"><i class="fa-solid fa-rotate"></i> Reload</button>
-              <button class="btn btnPrimary" onclick="loadMore('dharamshala', 20)"><i class="fa-solid fa-plus"></i> Load More</button>
-            </div>
+
+          <div class="placeHero">
+            <img alt="Dharamshala" src="https://picsum.photos/seed/dharamshala-cover/1400/600">
+            <div class="label"><i class="fa-solid fa-mountain-sun"></i> Dharamshala Highlights</div>
           </div>
-          <div class="gallery" id="gal-dharamshala"></div>
-          <div class="tiny" id="gal-dharamshala-status" style="margin-top:10px"></div>
+
+          <div class="placeList" id="dharamshalaList"></div>
         </div>
       </details>
 
       <div style="height:12px"></div>
 
-      <!-- Manali accordion (open) -->
+      <!-- Manali - OPEN -->
       <details open>
         <summary>
           <div>
-            Manali — Image Gallery (50+)
-            <div class="accHint">Source: public image providers (Unsplash Source) • great travel vibes</div>
+            List of Places to Visit in Manali
+            <div class="accHint">Mix of temples, viewpoints, snow spots, and calm walks • open Wikipedia link for details</div>
           </div>
           <div class="accRight">
-            <span class="badge orange"><i class="fa-solid fa-layer-group"></i> 60 images</span>
+            <span class="badge orange"><i class="fa-solid fa-layer-group"></i> 12 places</span>
             <i class="fa-solid fa-chevron-down"></i>
           </div>
         </summary>
         <div class="accBody">
-          <div class="galleryTop">
-            <div class="pill"><i class="fa-solid fa-wand-magic-sparkles"></i> Tap photos to preview</div>
-            <div style="display:flex;gap:10px;flex-wrap:wrap">
-              <button class="btn" onclick="reloadGallery('manali')"><i class="fa-solid fa-rotate"></i> Reload</button>
-              <button class="btn btnPrimary" onclick="loadMore('manali', 20)"><i class="fa-solid fa-plus"></i> Load More</button>
-            </div>
+
+          <div class="placeHero">
+            <img alt="Manali" src="https://picsum.photos/seed/manali-cover/1400/600">
+            <div class="label"><i class="fa-solid fa-snowflake"></i> Manali Highlights</div>
           </div>
-          <div class="gallery" id="gal-manali"></div>
-          <div class="tiny" id="gal-manali-status" style="margin-top:10px"></div>
+
+          <div class="placeList" id="manaliList"></div>
         </div>
       </details>
+    </div>
+  </section>
+
+  <!-- BEST TIME -->
+  <section id="besttime">
+    <div class="container">
+      <div class="sectionTitle">
+        <div>
+          <h2>Best Time to Travel (Months + Temperature)</h2>
+          <p>Simple month windows so planning is easy.</p>
+        </div>
+        <span class="badge"><i class="fa-solid fa-calendar-days"></i> Seasonal guide</span>
+      </div>
+
+      <div class="grid two">
+        <div class="card">
+          <div class="cardHeader">
+            <b>Dharamshala / McLeod Ganj</b>
+            <span class="badge green"><i class="fa-solid fa-cloud-sun"></i> Pleasant</span>
+          </div>
+          <ul class="list">
+            <li><b>Best overall:</b> <span class="moneyLow">March to June</span> (daytime ~20°C to ~35°C)</li>
+            <li><b>Monsoon:</b> July to September (cooler + lush, but rain/landslide risk)</li>
+            <li><b>Winter:</b> October to February (cold nights; pack layers)</li>
+          </ul>
+          <div class="tiny">Tip: With kids, prefer <b>March–June</b> for comfortable day sightseeing.</div>
+        </div>
+
+        <div class="card">
+          <div class="cardHeader">
+            <b>Manali</b>
+            <span class="badge orange"><i class="fa-solid fa-snowflake"></i> Snow season</span>
+          </div>
+          <ul class="list">
+            <li><b>Best for sightseeing:</b> <span class="moneyLow">March to June</span> (~10°C to ~25°C)</li>
+            <li><b>Best for snowfall:</b> <span class="moneyHigh">December to February</span> (cold; roads can get blocked)</li>
+            <li><b>Monsoon:</b> July to August (avoid if possible due to heavy rain + road risk)</li>
+          </ul>
+          <div class="tiny">Tip: If you go in peak snow months, keep a buffer day for traffic/road closures.</div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -756,7 +711,7 @@
                 <th>Hotels (2 rooms × 6 nights)</th>
                 <th>Flights (round trip est.)</th>
                 <th>Transfers + local</th>
-                <th><span class="money"><i class="fa-solid fa-money-bill-wave"></i> Total (X–Y)</span></th>
+                <th>Total (X–Y)</th>
               </tr>
             </thead>
             <tbody>
@@ -798,7 +753,7 @@
                 <th>Hotels (2 rooms × 6 nights)</th>
                 <th>Train (round trip est.)</th>
                 <th>Transfers + local</th>
-                <th><span class="money"><i class="fa-solid fa-money-bill-wave"></i> Total (X–Y)</span></th>
+                <th>Total (X–Y)</th>
               </tr>
             </thead>
             <tbody>
@@ -847,13 +802,16 @@
     <div class="container">
       <div class="sectionTitle">
         <div>
-          <h2>Top YouTube Videos (Dharamshala + Manali vlogs)</h2>
-          <p>Click any thumbnail → video plays in popup inside this website.</p>
+          <h2>YouTube (Hindi + English only)</h2>
+          <p>Click any thumbnail → plays inside this site (popup).</p>
         </div>
         <span class="badge"><i class="fa-brands fa-youtube"></i> 10 videos</span>
       </div>
 
       <div class="videoGrid" id="videoGrid"></div>
+      <div class="tiny" style="margin-top:10px">
+        Note: Titles are kept in Hindi/English only (no other languages).
+      </div>
     </div>
   </section>
 
@@ -864,26 +822,10 @@
         <div><b>All rights reserved © sanjayvishwakarma@2026</b></div>
       </div>
       <div class="tiny" style="margin-top:8px">
-        Galleries use public image endpoints (Unsplash Source). Maps use OpenStreetMap static tiles.
+        Places include Wikipedia links. Video thumbnails load from YouTube.
       </div>
     </div>
   </footer>
-
-  <!-- IMAGE MODAL -->
-  <div class="modal" id="imgModal" role="dialog" aria-modal="true" aria-label="Image Viewer">
-    <div class="modalBox">
-      <div class="modalTop">
-        <b id="imgTitle">Photo</b>
-        <button class="x" onclick="closeImageModal()" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
-      </div>
-      <div class="modalBody">
-        <button class="navArrow left" onclick="prevImage()" aria-label="Previous"><i class="fa-solid fa-chevron-left"></i></button>
-        <img id="imgView" alt="Preview" src="" />
-        <button class="navArrow right" onclick="nextImage()" aria-label="Next"><i class="fa-solid fa-chevron-right"></i></button>
-      </div>
-      <div class="modalFooter" id="imgFooter">Use ← → keys to navigate.</div>
-    </div>
-  </div>
 
   <!-- VIDEO MODAL -->
   <div class="modal" id="vidModal" role="dialog" aria-modal="true" aria-label="Video Player">
@@ -921,129 +863,103 @@
       else nav.style.display = 'none';
     });
 
-    /* ---------- Galleries (Unsplash Source) ---------- */
-    // Note: Unsplash Source does not require an API key.
-    const galleryState = {
-      dharamshala: { count: 60, seed: 100, items: [], keywords: ["dharamshala","mcleodganj","himachal","mountains","monastery","himalayas","india"] },
-      manali:      { count: 60, seed: 200, items: [], keywords: ["manali","himachal","solang","atal tunnel","snow","mountains","himalayas","india"] }
+    /* ---------- Places data (with Wikipedia links) ---------- */
+    const places = {
+      dharamshala: [
+        { name:"McLeod Ganj", wiki:"https://en.wikipedia.org/wiki/McLeod_Ganj",
+          desc:"Often called “Little Lhasa.” Home of the Tibetan government-in-exile and the residence of the 14th Dalai Lama. Great cafés, monastery visits, and Tibetan culture." },
+        { name:"Bhagsunath Temple & Bhagsu Waterfall", wiki:"https://en.wikipedia.org/wiki/Bhagsunag_Temple",
+          desc:"A popular spiritual spot with a nearby waterfall—easy, scenic, and perfect for family photos." },
+        { name:"Dharamshala Cricket Stadium (HPCA)", wiki:"https://en.wikipedia.org/wiki/Himachal_Pradesh_Cricket_Association_Stadium",
+          desc:"One of India’s most scenic stadiums with mountain views—quick visit and great backdrop." },
+        { name:"Dal Lake (near Dharamshala)", wiki:"https://en.wikipedia.org/wiki/Dal_Lake_(Himachal_Pradesh)",
+          desc:"Small, peaceful lake surrounded by deodar trees—good for a calm evening walk." },
+        { name:"St. John in the Wilderness Church", wiki:"https://en.wikipedia.org/wiki/Church_of_St_John_in_the_Wilderness",
+          desc:"Neo-Gothic church set in a forest—quiet, beautiful, and ideal for a slow morning." },
+        { name:"Tibetan Institute of Performing Arts (TIPA)", wiki:"https://en.wikipedia.org/wiki/Tibetan_Institute_of_Performing_Arts",
+          desc:"If you get a show day, it’s a great way to experience Tibetan music, dance, and theatre." },
+        { name:"Kangra Fort", wiki:"https://en.wikipedia.org/wiki/Kangra_Fort",
+          desc:"Historic fort with valley views—best done as a half-day trip from Dharamshala." },
+        { name:"Norbulingka Institute", wiki:"https://en.wikipedia.org/wiki/Norbulingka_Institute",
+          desc:"Beautiful campus preserving Tibetan arts—thangkas, woodwork, gardens, and calm vibes." },
+        { name:"Chamunda Devi Temple", wiki:"https://en.wikipedia.org/wiki/Chamunda_Devi_Temple",
+          desc:"Important pilgrimage site by the Baner river—spiritual + scenic." },
+        { name:"Triund Trek", wiki:"https://en.wikipedia.org/wiki/Triund",
+          desc:"Most famous nearby trek with Dhauladhar views. Choose only if group is comfortable with moderate trekking." },
+        { name:"Dharamkot", wiki:"https://en.wikipedia.org/wiki/Dharamkot",
+          desc:"Quieter village near McLeod Ganj—great for sunsets, cafés, and a slower pace." },
+        { name:"Masroor Rock Cut Temples", wiki:"https://en.wikipedia.org/wiki/Masroor_Rock_Cut_Temples",
+          desc:"Archaeological marvel (8th century) with rock-cut temples—nice day trip for history lovers." }
+      ],
+      manali: [
+        { name:"Hadimba Devi Temple", wiki:"https://en.wikipedia.org/wiki/Hidimba_Devi_Temple",
+          desc:"Iconic temple inside a cedar forest—easy visit and great photos." },
+        { name:"Solang Valley", wiki:"https://en.wikipedia.org/wiki/Solang_Valley",
+          desc:"Adventure hub (snow activities in winter, paragliding/ropeway in season)." },
+        { name:"Atal Tunnel", wiki:"https://en.wikipedia.org/wiki/Atal_Tunnel",
+          desc:"World-famous tunnel experience—usually paired with Sissu for a day trip." },
+        { name:"Rohtang Pass", wiki:"https://en.wikipedia.org/wiki/Rohtang_Pass",
+          desc:"High mountain pass known for snow views (permits/weather dependent)." },
+        { name:"Old Manali", wiki:"https://en.wikipedia.org/wiki/Old_Manali",
+          desc:"Cafés, riverside walks, laid-back vibe—good evening stroll spot." },
+        { name:"Vashisht Hot Springs", wiki:"https://en.wikipedia.org/wiki/Vashisht",
+          desc:"Natural hot water springs + temple area—relaxing break for adults." },
+        { name:"Mall Road (Manali)", wiki:"https://en.wikipedia.org/wiki/Manali,_Himachal_Pradesh",
+          desc:"Shopping + snacks + souvenirs—best in evening (crowds expected)." },
+        { name:"Manu Temple", wiki:"https://en.wikipedia.org/wiki/Manu_Temple,_Manali",
+          desc:"Quiet temple with local mythological connection—short walk and peaceful." },
+        { name:"Jogini Waterfall", wiki:"https://en.wikipedia.org/wiki/Jogini_Falls",
+          desc:"Scenic waterfall with a moderate walk—go early for fewer crowds." },
+        { name:"Naggar Castle", wiki:"https://en.wikipedia.org/wiki/Naggar_Castle",
+          desc:"Beautiful heritage structure near Manali—great view point and photos." },
+        { name:"Sissu", wiki:"https://en.wikipedia.org/wiki/Sissu",
+          desc:"Lovely valley stop after Atal Tunnel—river views and a calm vibe." },
+        { name:"Beas River Viewpoints", wiki:"https://en.wikipedia.org/wiki/Beas_River",
+          desc:"Simple, beautiful river-side stops—perfect for kids to relax and families to click photos." }
+      ]
     };
 
-    function buildUnsplashUrl(keywords, sig){
-      // Mix keywords for variety
-      const q = encodeURIComponent(keywords.join(","));
-      return `https://source.unsplash.com/600x450/?${q}&sig=${sig}`;
+    function placeItemHtml(p){
+      return `
+        <div class="placeItem">
+          <div class="placeItemTop">
+            <div>
+              <b>${escapeHtml(p.name)}</b>
+              <p>${escapeHtml(p.desc)}</p>
+            </div>
+            <span class="badge"><i class="fa-solid fa-location-dot"></i> Spot</span>
+          </div>
+          <div class="placeActions">
+            <a class="btnLink" href="${p.wiki}" target="_blank" rel="noopener noreferrer">
+              <i class="fa-brands fa-wikipedia-w"></i> Wikipedia
+            </a>
+          </div>
+        </div>
+      `;
     }
 
-    function renderGallery(kind){
-      const grid = document.getElementById(`gal-${kind}`);
-      grid.innerHTML = "";
-      const st = galleryState[kind];
-      st.items.forEach((it, idx) => {
-        const div = document.createElement("div");
-        div.className = "gItem";
-        div.dataset.kind = kind;
-        div.dataset.index = String(idx);
-        div.innerHTML = `
-          <img loading="lazy" alt="${escapeHtml(it.title)}" src="${it.thumb}">
-          <div class="cap">${escapeHtml(it.title)}</div>
-        `;
-        div.addEventListener("click", () => openImageModal(kind, idx));
-        grid.appendChild(div);
-      });
-
-      const status = document.getElementById(`gal-${kind}-status`);
-      status.textContent = `Loaded ${st.items.length}+ images. Click “Load More” to add more.`;
+    function renderPlaces(){
+      const d = document.getElementById("dharamshalaList");
+      const m = document.getElementById("manaliList");
+      d.innerHTML = places.dharamshala.map(placeItemHtml).join("");
+      m.innerHTML = places.manali.map(placeItemHtml).join("");
     }
 
-    function generateImages(kind, howMany){
-      const st = galleryState[kind];
-      const start = st.items.length;
-      for(let i=0;i<howMany;i++){
-        const sig = st.seed + start + i + 1;
-        const title = (kind === "dharamshala")
-          ? `Dharamshala Photo ${start + i + 1}`
-          : `Manali Photo ${start + i + 1}`;
-        const thumb = buildUnsplashUrl(st.keywords, sig);
-        st.items.push({ thumb, full: thumb.replace("600x450","1600x900"), title });
-      }
-    }
-
-    function reloadGallery(kind){
-      const st = galleryState[kind];
-      st.items = [];
-      st.seed = st.seed + Math.floor(Math.random()*5000);
-      generateImages(kind, st.count);
-      renderGallery(kind);
-    }
-
-    function loadMore(kind, howMany){
-      generateImages(kind, howMany);
-      renderGallery(kind);
-    }
-
-    /* ---------- Lightbox (image modal) ---------- */
-    let currentGalleryKind = null;
-    let currentIndex = 0;
-
-    function openImageModal(kind, idx){
-      currentGalleryKind = kind;
-      currentIndex = idx;
-      const modal = document.getElementById("imgModal");
-      modal.classList.add("open");
-      paintImage();
-    }
-
-    function closeImageModal(){
-      document.getElementById("imgModal").classList.remove("open");
-      currentGalleryKind = null;
-      currentIndex = 0;
-    }
-
-    function paintImage(){
-      const st = galleryState[currentGalleryKind];
-      if(!st || !st.items[currentIndex]) return;
-      const item = st.items[currentIndex];
-
-      document.getElementById("imgTitle").textContent = item.title;
-      document.getElementById("imgView").src = item.full;
-      document.getElementById("imgFooter").textContent =
-        `${item.title} • ${currentIndex+1} / ${st.items.length} • Use ← → keys`;
-
-      // If you're at ends, still allow wrap (infinite loop)
-    }
-
-    function nextImage(){
-      const st = galleryState[currentGalleryKind];
-      if(!st) return;
-      currentIndex = (currentIndex + 1) % st.items.length;
-      paintImage();
-    }
-
-    function prevImage(){
-      const st = galleryState[currentGalleryKind];
-      if(!st) return;
-      currentIndex = (currentIndex - 1 + st.items.length) % st.items.length;
-      paintImage();
-    }
-
-    /* close modal on outside click */
-    document.getElementById("imgModal").addEventListener("click", (e)=>{
-      if(e.target.id === "imgModal") closeImageModal();
-    });
-
-    /* ---------- YouTube videos (play in modal) ---------- */
-    // Picked 10 relevant IDs
+    /* ---------- YouTube videos (Hindi + English only) ---------- */
     const videos = [
-      { id:"BLq30J56GiY", title:"First Time in Dharamshala & McLeod Ganj (Travel Vlog)" },
-      { id:"z116WqSgM9Y", title:"Exploring McLeod Ganj & Dharamshala (3-Day Plan)" },
-      { id:"QPVrH3aP4L0", title:"Top Places in Dharamshala & McLeodGanj (Travel Guide)" },
-      { id:"ZF2QBTdEPug", title:"McLeod Ganj & Dharamshala Itinerary + Food (Travel Plan)" },
-      { id:"i2_Ndnsyr8g", title:"McLeod Ganj + Bhagsu Falls + Dalai Lama Temple (Vlog)" },
-      { id:"V0Emh2jB10A", title:"Manali Tour Budget & Itinerary (Solang, Atal Tunnel)" },
-      { id:"b7x8GP-Ma40", title:"Solang Valley + Atal Tunnel + Sissu (Complete Tour Guide)" },
-      { id:"gEhFaw4CeGM", title:"Manali to Rohtang / Snowfall Points (Atal Tunnel + Solang)" },
-      { id:"N5Ra16BK0rU", title:"Manali Budget Tour Plan (Group Tour Itinerary)" },
-      { id:"q5MhOwLaphw", title:"Dharamshala to Manali Road Trip (Vlog)" }
+      // Dharamshala (Hindi / English)
+      { id:"Bhei3pzNRKI", title:"धर्मशाला व्लॉग (Hindi) | Budget • Food • घूमने की जगह" },                 // Hindi :contentReference[oaicite:1]{index=1}
+      { id:"et68m_4zpdQ", title:"Dharamshala Tour Video (Hindi) | Tourist Places + Guide" },                 // Hindi :contentReference[oaicite:2]{index=2}
+      { id:"z116WqSgM9Y", title:"McLeod Ganj & Dharamshala (English) | 3-Day Travel Plan" },                 // English :contentReference[oaicite:3]{index=3}
+      { id:"n9439y3PB4A", title:"Dharamshala Travel Guide (English) | Monasteries, Mountains & More" },      // English :contentReference[oaicite:4]{index=4}
+      { id:"_vHf9b9qsQg", title:"Dharamshala Vlog (Hindi) | War Memorial + City Tour" },                     // Hindi :contentReference[oaicite:5]{index=5}
+
+      // Manali (Hindi / English)
+      { id:"RiWLpzIT708", title:"Manali Travel Guide (Hindi) | Itinerary + Budget + Tourist Places" },       // Hindi :contentReference[oaicite:6]{index=6}
+      { id:"V0Emh2jB10A", title:"Manali Tour Budget 2026 (Hindi) | Solang • Atal Tunnel • Sissu" },          // Hindi :contentReference[oaicite:7]{index=7}
+      { id:"jjIg8qwLiBc", title:"4 Days in Manali (English) | Ultimate Travel Guide + Places" },             // English :contentReference[oaicite:8]{index=8}
+      { id:"1WNN-uVCHSg", title:"MANALI Travel Vlog (English) | Old Manali vs New Manali" },                  // English :contentReference[oaicite:9]{index=9}
+      { id:"tLKnCmQFOw0", title:"MANALI (English) | Himalayas Views + Town Walkthrough" }                    // English :contentReference[oaicite:10]{index=10}
     ];
 
     function renderVideos(){
@@ -1070,7 +986,6 @@
 
     function openVideoModal(id, title){
       document.getElementById("vidTitle").textContent = title;
-      // autoplay + modest branding
       document.getElementById("vidFrame").src = `https://www.youtube.com/embed/${id}?autoplay=1&rel=0&modestbranding=1`;
       document.getElementById("vidModal").classList.add("open");
     }
@@ -1086,16 +1001,9 @@
 
     /* ---------- Keyboard controls ---------- */
     document.addEventListener("keydown", (e)=>{
-      const imgOpen = document.getElementById("imgModal").classList.contains("open");
       const vidOpen = document.getElementById("vidModal").classList.contains("open");
-
       if(e.key === "Escape"){
-        if(imgOpen) closeImageModal();
         if(vidOpen) closeVideoModal();
-      }
-      if(imgOpen){
-        if(e.key === "ArrowRight") nextImage();
-        if(e.key === "ArrowLeft") prevImage();
       }
     });
 
@@ -1107,9 +1015,7 @@
 
     /* ---------- init ---------- */
     (function init(){
-      // Load 60+ each by default
-      reloadGallery("dharamshala");
-      reloadGallery("manali");
+      renderPlaces();
       renderVideos();
     })();
   </script>
