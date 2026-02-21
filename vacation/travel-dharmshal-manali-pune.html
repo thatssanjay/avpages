@@ -9,20 +9,18 @@
   <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 
-  <!-- Font (simple + modern) -->
+  <!-- Font -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
 
   <style>
     :root{
-      /* Theme palette inspired by your reference */
-      --blue-1:#0B5ED7;     /* deep blue */
-      --blue-2:#16A1FF;     /* bright sky */
-      --orange:#FF4B2B;     /* pop orange */
-      --green:#9DBB24;      /* olive green */
-      --gray:#E9EEF5;       /* light gray */
-      --ink:#0b1220;
+      --blue-1:#0B5ED7;
+      --blue-2:#16A1FF;
+      --orange:#FF4B2B;
+      --green:#9DBB24;
+      --gray:#E9EEF5;
       --text:#0f172a;
       --muted:#475569;
       --card:#ffffff;
@@ -30,7 +28,6 @@
       --shadow: 0 18px 45px rgba(2,6,23,.12);
       --radius: 18px;
     }
-
     *{box-sizing:border-box}
     html,body{margin:0;padding:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial}
     body{background:linear-gradient(180deg,#ffffff, var(--gray)); color:var(--text)}
@@ -42,56 +39,31 @@
     .navWrap{
       position:sticky; top:0; z-index:50;
       backdrop-filter: blur(12px);
-      background: rgba(255,255,255,.75);
+      background: rgba(255,255,255,.78);
       border-bottom: 1px solid var(--border);
     }
-    .nav{
-      display:flex; align-items:center; justify-content:space-between;
-      padding:14px 0;
-      gap:12px;
-    }
-    .brand{
-      display:flex; align-items:center; gap:10px;
-      font-weight:800; letter-spacing:.2px;
-    }
+    .nav{display:flex; align-items:center; justify-content:space-between; padding:14px 0; gap:12px}
+    .brand{display:flex; align-items:center; gap:10px; font-weight:800; letter-spacing:.2px}
     .brand .logo{
       width:38px;height:38px;border-radius:12px;
       background: linear-gradient(135deg,var(--blue-1),var(--blue-2));
       display:grid;place-items:center; color:white;
       box-shadow: 0 10px 25px rgba(11,94,215,.25);
     }
-    .brand small{
-      display:block; font-weight:600; color:var(--muted); margin-top:2px;
-      letter-spacing:0;
-    }
+    .brand small{display:block; font-weight:600; color:var(--muted); margin-top:2px}
     .navLinks{display:flex; gap:18px; align-items:center}
-    .navLinks a{
-      color:var(--muted); font-weight:600; font-size:14px;
-      padding:8px 10px; border-radius:12px;
-    }
+    .navLinks a{color:var(--muted); font-weight:700; font-size:14px; padding:8px 10px; border-radius:12px}
     .navLinks a:hover{background:rgba(2,6,23,.05); color:var(--text)}
-    .cta{
-      display:flex; gap:10px; align-items:center;
-    }
+    .cta{display:flex; gap:10px; align-items:center}
     .btn{
-      border:1px solid var(--border);
-      background:#fff;
-      padding:10px 12px;
-      border-radius:14px;
-      font-weight:700; font-size:14px;
-      cursor:pointer;
+      border:1px solid var(--border); background:#fff; padding:10px 12px; border-radius:14px;
+      font-weight:800; font-size:14px; cursor:pointer;
       box-shadow: 0 10px 25px rgba(2,6,23,.06);
     }
-    .btnPrimary{
-      background: linear-gradient(135deg,var(--blue-1),var(--blue-2));
-      border: none; color:white;
-    }
-    .btnPrimary:hover{filter:brightness(1.02)}
+    .btnPrimary{background: linear-gradient(135deg,var(--blue-1),var(--blue-2)); border:none; color:white}
     .hamburger{
-      display:none;
-      width:42px;height:42px;border-radius:14px;
-      border:1px solid var(--border);
-      background:#fff; cursor:pointer;
+      display:none; width:42px;height:42px;border-radius:14px;
+      border:1px solid var(--border); background:#fff; cursor:pointer;
     }
 
     /* HERO */
@@ -105,131 +77,67 @@
       position:relative;
       min-height: 430px;
     }
-    .hero img{
-      width:100%; height:100%;
-      object-fit:cover;
-      opacity:.92;
-      transform: scale(1.03);
-    }
+    .hero img{width:100%;height:100%;object-fit:cover;opacity:.93;transform:scale(1.03)}
     .hero::after{
-      content:"";
-      position:absolute; inset:0;
-      background: linear-gradient(90deg,
-        rgba(2,6,23,.78) 0%,
-        rgba(2,6,23,.45) 42%,
-        rgba(2,6,23,.15) 100%);
+      content:""; position:absolute; inset:0;
+      background: linear-gradient(90deg, rgba(2,6,23,.80) 0%, rgba(2,6,23,.46) 44%, rgba(2,6,23,.16) 100%);
     }
-    .heroContent{
-      position:absolute; inset:0;
-      display:flex; align-items:flex-end;
-    }
-    .heroCard{
-      width:min(620px, 92%);
-      margin: 0 0 26px 22px;
-      color:#fff;
-    }
+    .heroContent{position:absolute; inset:0; display:flex; align-items:flex-end}
+    .heroCard{width:min(640px, 92%); margin: 0 0 26px 22px; color:#fff}
     .eyebrow{
       display:inline-flex; gap:8px; align-items:center;
       padding:7px 10px; border-radius:999px;
       background: rgba(255,255,255,.10);
       border: 1px solid rgba(255,255,255,.18);
-      font-weight:700; font-size:12px;
+      font-weight:800; font-size:12px;
     }
-    .heroCard h1{
-      margin:12px 0 8px;
-      font-size: clamp(28px, 4vw, 44px);
-      line-height:1.08;
-      letter-spacing:-.6px;
-    }
-    .heroCard p{
-      margin:0 0 14px;
-      color: rgba(255,255,255,.82);
-      font-size:15px;
-      line-height:1.55;
-    }
+    .heroCard h1{margin:12px 0 8px; font-size:clamp(28px,4vw,44px); line-height:1.08; letter-spacing:-.6px}
+    .heroCard p{margin:0 0 14px; color:rgba(255,255,255,.84); font-size:15px; line-height:1.55}
     .heroActions{display:flex;gap:10px;flex-wrap:wrap}
-    .ghost{
-      background: rgba(255,255,255,.10);
-      border: 1px solid rgba(255,255,255,.22);
-      color:#fff;
-    }
+    .ghost{background: rgba(255,255,255,.10); border: 1px solid rgba(255,255,255,.22); color:#fff}
 
     /* PALETTE */
-    .palette{
-      display:flex; gap:10px; flex-wrap:wrap; margin:14px 0 0;
-    }
+    .palette{display:flex; gap:10px; flex-wrap:wrap; margin:14px 0 0}
     .chip{
       display:flex; align-items:center; gap:8px;
-      padding:8px 10px;
-      border-radius: 999px;
-      border:1px solid var(--border);
-      background:#fff;
-      font-weight:700; font-size:12px;
-      box-shadow: 0 10px 22px rgba(2,6,23,.06);
+      padding:8px 10px; border-radius:999px;
+      border:1px solid rgba(255,255,255,.25);
+      background: rgba(255,255,255,.10);
+      font-weight:800; font-size:12px;
     }
     .dot{width:14px;height:14px;border-radius:999px}
 
     /* SECTIONS */
     section{padding:18px 0}
-    .sectionTitle{
-      display:flex; align-items:flex-end; justify-content:space-between; gap:10px;
-      margin: 16px 0 10px;
-    }
-    .sectionTitle h2{
-      margin:0; font-size:20px; letter-spacing:-.2px;
-    }
-    .sectionTitle p{
-      margin:0; color:var(--muted); font-size:13px;
-    }
-
-    .grid{
-      display:grid;
-      grid-template-columns: 1fr;
-      gap:14px;
-    }
-    @media(min-width:900px){
-      .grid.two{grid-template-columns: 1.1fr .9fr;}
-      .grid.three{grid-template-columns: repeat(3, 1fr);}
-    }
-
+    .sectionTitle{display:flex; align-items:flex-end; justify-content:space-between; gap:10px; margin:16px 0 10px}
+    .sectionTitle h2{margin:0; font-size:20px; letter-spacing:-.2px}
+    .sectionTitle p{margin:0; color:var(--muted); font-size:13px}
+    .grid{display:grid; grid-template-columns:1fr; gap:14px}
+    @media(min-width:900px){ .grid.two{grid-template-columns:1.1fr .9fr;} .grid.three{grid-template-columns:repeat(3,1fr);} }
     .card{
-      background:var(--card);
-      border:1px solid var(--border);
-      border-radius: var(--radius);
+      background:var(--card); border:1px solid var(--border);
+      border-radius:var(--radius);
       box-shadow: 0 14px 30px rgba(2,6,23,.08);
       padding:14px;
     }
-    .cardHeader{
-      display:flex; align-items:center; justify-content:space-between; gap:10px;
-      margin-bottom:10px;
-    }
+    .cardHeader{display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:10px}
     .badge{
       display:inline-flex; align-items:center; gap:8px;
       padding:7px 10px; border-radius:999px;
       background: rgba(22,161,255,.10);
       border: 1px solid rgba(22,161,255,.18);
       color: #075985;
-      font-weight:800; font-size:12px;
-      white-space:nowrap;
+      font-weight:900; font-size:12px; white-space:nowrap;
     }
-    .badge.orange{
-      background: rgba(255,75,43,.10);
-      border: 1px solid rgba(255,75,43,.18);
-      color:#9a3412;
-    }
-    .badge.green{
-      background: rgba(157,187,36,.16);
-      border: 1px solid rgba(157,187,36,.22);
-      color:#3f6212;
-    }
-
+    .badge.orange{background: rgba(255,75,43,.10); border: 1px solid rgba(255,75,43,.18); color:#9a3412}
+    .badge.green{background: rgba(157,187,36,.16); border: 1px solid rgba(157,187,36,.22); color:#3f6212}
     .list{margin:0;padding-left:18px;color:var(--muted)}
     .list li{margin:8px 0}
 
+    /* ROUTES */
     .routeRow{
       display:flex; gap:12px; align-items:flex-start;
-      padding:10px 10px;
-      border:1px solid var(--border);
+      padding:10px; border:1px solid var(--border);
       border-radius: 16px;
       background: rgba(2,6,23,.02);
       margin-bottom:10px;
@@ -245,54 +153,15 @@
     .routeRow p{margin:0;color:var(--muted);font-size:13px;line-height:1.5}
 
     /* MAPS */
-    .mapImg{
-      border-radius: 18px;
-      overflow:hidden;
-      border:1px solid var(--border);
-      background:#fff;
-    }
+    .mapImg{border-radius:18px; overflow:hidden; border:1px solid var(--border); background:#fff}
     .mapCaption{margin-top:8px;color:var(--muted);font-size:12px}
 
-    /* GALLERIES */
-    .gallery{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap:10px;
-    }
-    @media(min-width:800px){
-      .gallery{grid-template-columns: repeat(5, 1fr);}
-    }
-    .gItem{
-      border-radius: 16px;
-      overflow:hidden;
-      border:1px solid var(--border);
-      background:#fff;
-      position:relative;
-    }
-    .gItem img{width:100%;height:140px;object-fit:cover}
-    .gItem span{
-      position:absolute; left:10px; bottom:10px;
-      font-size:12px; font-weight:800;
-      color:#fff;
-      background: rgba(2,6,23,.55);
-      border:1px solid rgba(255,255,255,.18);
-      padding:6px 8px; border-radius: 999px;
-    }
-
     /* HOTEL cards */
-    .hotelGrid{
-      display:grid; gap:12px;
-      grid-template-columns: 1fr;
-    }
-    @media(min-width:860px){
-      .hotelGrid{grid-template-columns: repeat(3, 1fr);}
-    }
+    .hotelGrid{display:grid; gap:12px; grid-template-columns:1fr}
+    @media(min-width:860px){ .hotelGrid{grid-template-columns:repeat(3,1fr);} }
     .hotel{
-      border-radius: 18px;
-      overflow:hidden;
-      border:1px solid var(--border);
-      background:#fff;
-      box-shadow: 0 14px 30px rgba(2,6,23,.08);
+      border-radius: 18px; overflow:hidden; border:1px solid var(--border);
+      background:#fff; box-shadow: 0 14px 30px rgba(2,6,23,.08);
     }
     .hotel img{width:100%;height:160px;object-fit:cover}
     .hotel .p{padding:12px}
@@ -304,17 +173,61 @@
       display:inline-flex;gap:8px;align-items:center;
       border:1px solid var(--border);
       padding:9px 10px;border-radius:14px;
-      font-weight:800;font-size:12px;background:#fff;
+      font-weight:900;font-size:12px;background:#fff;
     }
-    .linkBtn.primary{
-      background: linear-gradient(135deg,var(--blue-1),var(--blue-2));
-      border:none;color:#fff;
+    .linkBtn.primary{background: linear-gradient(135deg,var(--blue-1),var(--blue-2)); border:none; color:#fff}
+
+    /* GALLERIES (50+) */
+    .galleryTop{
+      display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap;
+      margin: 6px 0 10px;
+    }
+    .pill{
+      display:inline-flex; gap:8px; align-items:center;
+      padding:7px 10px; border-radius:999px;
+      border:1px solid var(--border);
+      background: rgba(2,6,23,.03);
+      font-weight:900; font-size:12px; color:var(--muted);
+    }
+    .gallery{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:10px;
+    }
+    @media(min-width:800px){ .gallery{grid-template-columns: repeat(5, 1fr);} }
+    .gItem{
+      border-radius: 16px; overflow:hidden; border:1px solid var(--border);
+      background:#fff; position:relative;
+      min-height: 120px;
+    }
+    .gItem img{width:100%;height:140px;object-fit:cover}
+    .gItem .cap{
+      position:absolute; left:10px; bottom:10px;
+      font-size:12px; font-weight:900;
+      color:#fff;
+      background: rgba(2,6,23,.55);
+      border:1px solid rgba(255,255,255,.18);
+      padding:6px 8px; border-radius: 999px;
+      max-width: calc(100% - 20px);
+      overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
     }
 
-    /* FOOTER */
+    /* COST TABLE */
+    table{width:100%; border-collapse:separate; border-spacing:0; overflow:hidden; border-radius:16px; border:1px solid var(--border); background:#fff}
+    th,td{padding:10px; border-bottom:1px solid var(--border); vertical-align:top; font-size:13px}
+    th{background: rgba(2,6,23,.03); text-align:left; font-weight:900}
+    tr:last-child td{border-bottom:none}
+    .muted{color:var(--muted)}
+    .kpiGrid{display:grid; gap:12px; grid-template-columns:1fr}
+    @media(min-width:900px){ .kpiGrid{grid-template-columns:repeat(3,1fr);} }
+    .kpi{
+      border:1px solid var(--border); border-radius:16px; padding:12px; background:#fff;
+      box-shadow: 0 14px 30px rgba(2,6,23,.08);
+    }
+    .kpi b{display:block}
+    .kpi span{color:var(--muted); font-size:12px; line-height:1.5; display:block; margin-top:6px}
+
     footer{padding:26px 0 34px; color:var(--muted); font-size:12px}
-    .footGrid{display:grid;gap:14px;grid-template-columns:1fr}
-    @media(min-width:900px){.footGrid{grid-template-columns: 1.2fr .8fr;}}
     .tiny{font-size:12px;color:var(--muted);line-height:1.55}
 
     /* Mobile nav */
@@ -327,12 +240,12 @@
       .navLinks a{padding:12px 12px}
       .hamburger{display:inline-grid;place-items:center}
       .cta .btn{display:none}
+      .heroCard{margin-left:16px}
     }
   </style>
 </head>
 
 <body>
-
   <!-- NAV -->
   <div class="navWrap">
     <div class="container">
@@ -347,11 +260,12 @@
 
         <nav class="navLinks" id="navLinks">
           <a href="#travel">Travel Plan</a>
+          <a href="#train">Train Option</a>
           <a href="#hotels">Hotels</a>
           <a href="#dharamshala">Dharamshala</a>
           <a href="#manali">Manali</a>
           <a href="#maps">Maps</a>
-          <a href="#cost">Approx Cost</a>
+          <a href="#package">Package Cost</a>
         </nav>
 
         <div class="cta">
@@ -367,20 +281,18 @@
   <!-- HERO -->
   <div class="container" id="top">
     <div class="hero">
-      <!-- Hero image (Dhauladhar / Dharamshala vibe) -->
-      <img alt="Dharamshala mountains view"
-           src="https://commons.wikimedia.org/wiki/Special:FilePath/HPCA%20Stadium%20Dharamshala.jpg">
+      <img alt="Dharamshala mountains view" src="https://commons.wikimedia.org/wiki/Special:FilePath/HPCA%20Stadium%20Dharamshala.jpg">
       <div class="heroContent">
         <div class="heroCard">
           <span class="eyebrow"><i class="fa-solid fa-location-dot"></i> Dharamshala • Manali • March End</span>
           <h1>Explore the Himalayas with a smart, family-friendly plan.</h1>
           <p>
-            Two couples + two kids — one week, relaxed pace, scenic spots, great stays, and practical routes
-            from <b>Pune</b> and <b>Indore</b>.
+            Two couples + two kids — one week, relaxed pace, scenic spots, great stays, and practical routes from
+            <b>Pune</b> and <b>Indore</b>.
           </p>
           <div class="heroActions">
             <a class="btn btnPrimary" href="#travel"><i class="fa-solid fa-plane"></i>&nbsp;See Routes</a>
-            <a class="btn ghost" href="#hotels"><i class="fa-solid fa-hotel"></i>&nbsp;Hotel Options</a>
+            <a class="btn ghost" href="#package"><i class="fa-solid fa-wallet"></i>&nbsp;Budget</a>
           </div>
 
           <div class="palette" aria-label="Theme palette">
@@ -416,11 +328,11 @@
           <div class="routeRow">
             <div class="routeIcon"><i class="fa-solid fa-plane"></i></div>
             <div>
-              <h4>Fly in (closest): to Kangra / Gaggal (DHM) → taxi to McLeod Ganj</h4>
+              <h4>Fly in: to Kangra / Gaggal (DHM) → taxi to McLeod Ganj</h4>
               <p>
-                • Pune → (transit) → Kangra (DHM) <br/>
-                • Indore → (transit) → Kangra (DHM) <br/>
-                Then taxi to McLeod Ganj (Dharamshala base). One easy base for 3 nights.
+                • Pune → (transit) → Kangra (DHM)<br/>
+                • Indore → (transit) → Kangra (DHM)<br/>
+                Then taxi to McLeod Ganj (Dharamshala base) for 3 nights.
               </p>
             </div>
           </div>
@@ -429,9 +341,7 @@
             <div class="routeIcon"><i class="fa-solid fa-bus"></i></div>
             <div>
               <h4>Hill transfer: Dharamshala → Manali (day drive)</h4>
-              <p>
-                Private cab is most comfortable for kids. Plan a daylight drive + snack stops.
-              </p>
+              <p>Private cab is most comfortable for kids. Plan daylight drive + snack breaks.</p>
             </div>
           </div>
 
@@ -439,9 +349,7 @@
             <div class="routeIcon"><i class="fa-solid fa-plane-arrival"></i></div>
             <div>
               <h4>Return: Manali → Bhuntar (Kullu) Airport → Pune / Indore</h4>
-              <p>
-                Bhuntar is the nearest airport for Manali side. Return via connecting flights.
-              </p>
+              <p>Bhuntar is the closest airport for Manali side. Return via connecting flights.</p>
             </div>
           </div>
 
@@ -462,8 +370,8 @@
             <div>
               <h4>Fly to Bhuntar (Kullu) → road to Manali</h4>
               <p>
-                • Pune → (transit) → Bhuntar <br/>
-                • Indore → (transit) → Bhuntar <br/>
+                • Pune → (transit) → Bhuntar<br/>
+                • Indore → (transit) → Bhuntar<br/>
                 Then 3 nights Manali.
               </p>
             </div>
@@ -480,11 +388,8 @@
           <div class="routeRow">
             <div class="routeIcon"><i class="fa-solid fa-train"></i></div>
             <div>
-              <h4>Train alternative (budget): via Pathankot</h4>
-              <p>
-                Pune/Indore → (major hub) → Pathankot → Dharamshala by bus/taxi.
-                Good for budget, but longer with kids.
-              </p>
+              <h4>Budget alternative: train-based plan (details below)</h4>
+              <p>Use train for long distance + cab for hills (less costly than flights).</p>
             </div>
           </div>
 
@@ -494,33 +399,114 @@
     </div>
   </section>
 
+  <!-- TRAIN OPTION (NEW) -->
+  <section id="train">
+    <div class="container">
+      <div class="sectionTitle">
+        <div>
+          <h2>Train Travel Option (with <i class="fa-solid fa-train"></i> icon)</h2>
+          <p>Best for budget. Takes longer, but works well if you prefer train comfort + scenic road leg.</p>
+        </div>
+        <span class="badge orange"><i class="fa-solid fa-train"></i> Train + Cab</span>
+      </div>
+
+      <div class="grid two">
+        <div class="card">
+          <div class="cardHeader">
+            <b>Train Plan 1: Pune / Indore → Pathankot → Dharamshala</b>
+            <span class="badge"><i class="fa-solid fa-indian-rupee-sign"></i> Budget</span>
+          </div>
+
+          <div class="routeRow">
+            <div class="routeIcon"><i class="fa-solid fa-train"></i></div>
+            <div>
+              <h4>Step 1: Train to Pathankot (major gateway)</h4>
+              <p>
+                Pune → Pathankot (overnight / long-distance). Indore → Pathankot (route varies).<br/>
+                Ticket ranges depend on class & dates.
+              </p>
+            </div>
+          </div>
+
+          <div class="routeRow">
+            <div class="routeIcon"><i class="fa-solid fa-taxi"></i></div>
+            <div>
+              <h4>Step 2: Pathankot → Dharamshala by cab</h4>
+              <p>One-way cab prices online start ~₹1,687–₹3,483 (varies by car). (MMT reference)</p>
+            </div>
+          </div>
+
+          <div class="routeRow">
+            <div class="routeIcon"><i class="fa-solid fa-car-side"></i></div>
+            <div>
+              <h4>Step 3: Dharamshala → Manali by cab (day drive)</h4>
+              <p>One-way taxi fare online shown ~₹7,017 (MMT reference). Great for 6-seater.</p>
+            </div>
+          </div>
+
+          <div class="muted">
+            Sources (for quick planning):<br/>
+            • Pune→Pathankot ticket range example: ₹835–₹3,055 shown on ixigo.<br/>
+            • Pathankot→Dharamshala cab: MMT start ₹1,687.<br/>
+            • Dharamshala→Manali cab: MMT ₹7,017 one-way.
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="cardHeader">
+            <b>Train Plan 2: Return from hills</b>
+            <span class="badge green"><i class="fa-solid fa-check"></i> Flexible</span>
+          </div>
+
+          <ul class="list">
+            <li><b>Return via Pathankot:</b> Manali → Dharamshala → Pathankot → train back</li>
+            <li><b>Mixed return:</b> Train one-way, flight one-way (save money + reduce time)</li>
+            <li><b>Kids tip:</b> Prefer 3AC/2AC for long rides + carry snacks & small pillows</li>
+          </ul>
+
+          <div class="card" style="margin-top:12px; background:rgba(2,6,23,.02)">
+            <b><i class="fa-solid fa-lightbulb"></i> When Train Option is best</b>
+            <ul class="list">
+              <li>If flights are expensive for your exact dates</li>
+              <li>If you want predictable travel (no flight cancellations)</li>
+              <li>If you prefer budget control (cab + train combo)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="tiny" style="margin-top:10px">
+        Reference links used for the above planning ranges:
+        <a target="_blank" href="https://www.ixigo.com/by-train-rail/pune-to-pathankot-by-train">ixigo train ticket range</a> •
+        <a target="_blank" href="https://www.makemytrip.com/car-rental/pathankot-dharamshala-cab-services.html">MMT Pathankot→Dharamshala cab</a> •
+        <a target="_blank" href="https://www.makemytrip.com/car-rental/dharamshala-manali-cab-services.html">MMT Dharamshala→Manali cab</a>
+      </div>
+    </div>
+  </section>
+
   <!-- HOTELS -->
   <section id="hotels">
     <div class="container">
       <div class="sectionTitle">
         <div>
-          <h2>Hotel Options (with photos + links)</h2>
-          <p>We use “sample hotel photos” for design + official/booking links for actual property galleries.</p>
+          <h2>Hotel Options (with photo links)</h2>
+          <p>Click “View Photos & Rates” for official gallery & live prices on your dates.</p>
         </div>
         <span class="badge"><i class="fa-solid fa-hotel"></i> Family-ready stays</span>
       </div>
 
       <div class="hotelGrid">
-
-        <!-- Dharamshala (Sample images) -->
         <div class="hotel">
-          <img alt="Hotel room view (sample)"
-               src="https://commons.wikimedia.org/wiki/Special:FilePath/Hotel%20National%2C%20Moscow.%20View%20from%20the%20upper%20floor%20room%20(Unsplash).jpg">
+          <img alt="Hotel style sample" src="https://commons.wikimedia.org/wiki/Special:FilePath/Hotel%20bedroom%20windows%20(Unsplash).jpg">
           <div class="p">
-            <h3><i class="fa-solid fa-hotel"></i> Hyatt Regency Dharamshala Resort</h3>
+            <h3><i class="fa-solid fa-hotel"></i> Hyatt Regency Dharamshala Resort (5-Star)</h3>
             <div class="meta">
-              <span><i class="fa-solid fa-tag"></i> Premium</span>
-              <span><i class="fa-solid fa-indian-rupee-sign"></i> ~₹20,000+ / night</span>
+              <span><i class="fa-solid fa-tag"></i> 5-Star</span>
+              <span><i class="fa-solid fa-indian-rupee-sign"></i> ~₹18k–₹25k+ / night</span>
               <span><i class="fa-solid fa-location-dot"></i> Dharamshala</span>
             </div>
             <div class="actions">
-              <a class="linkBtn primary" target="_blank"
-                 href="https://www.makemytrip.com/hotels/hyatt_regency_dharamshala_resort-details-dharamshala.html">
+              <a class="linkBtn primary" target="_blank" href="https://www.makemytrip.com/hotels/hyatt_regency_dharamshala_resort-details-dharamshala.html">
                 <i class="fa-solid fa-images"></i> View Photos & Rates
               </a>
             </div>
@@ -528,18 +514,16 @@
         </div>
 
         <div class="hotel">
-          <img alt="Resort pool (sample)"
-               src="https://commons.wikimedia.org/wiki/Special:FilePath/Negombo%20Beach%20resort%20pool%20(Unsplash).jpg">
+          <img alt="Hotel style sample" src="https://commons.wikimedia.org/wiki/Special:FilePath/Negombo%20Beach%20resort%20pool%20(Unsplash).jpg">
           <div class="p">
-            <h3><i class="fa-solid fa-hotel"></i> Fortune Park Moksha (McLeod Ganj)</h3>
+            <h3><i class="fa-solid fa-hotel"></i> Fortune Park Moksha (3-Star/Comfort)</h3>
             <div class="meta">
-              <span><i class="fa-solid fa-tag"></i> Comfort</span>
-              <span><i class="fa-solid fa-indian-rupee-sign"></i> ~₹9,000–₹14,000 / night</span>
+              <span><i class="fa-solid fa-tag"></i> 3-Star+</span>
+              <span><i class="fa-solid fa-indian-rupee-sign"></i> ~₹6k–₹12k / night</span>
               <span><i class="fa-solid fa-location-dot"></i> McLeod Ganj</span>
             </div>
             <div class="actions">
-              <a class="linkBtn primary" target="_blank"
-                 href="https://www.goibibo.com/hotels/fortune-park-moksha-mcleodganj-member-itc-hotels-group-hotel-in-dharamshala-4363933842788598295/">
+              <a class="linkBtn primary" target="_blank" href="https://www.goibibo.com/hotels/fortune-park-moksha-mcleodganj-member-itc-hotels-group-hotel-in-dharamshala-4363933842788598295/">
                 <i class="fa-solid fa-images"></i> View Photos & Rates
               </a>
             </div>
@@ -547,57 +531,37 @@
         </div>
 
         <div class="hotel">
-          <img alt="Mountain resort (sample)"
-               src="https://commons.wikimedia.org/wiki/Special:FilePath/Mexican%20mountain%20resort%20(Unsplash).jpg">
+          <img alt="Hotel style sample" src="https://commons.wikimedia.org/wiki/Special:FilePath/Mexican%20mountain%20resort%20(Unsplash).jpg">
           <div class="p">
-            <h3><i class="fa-solid fa-hotel"></i> Chonor House (Boutique)</h3>
+            <h3><i class="fa-solid fa-hotel"></i> Chonor House (Average/Boutique)</h3>
             <div class="meta">
-              <span><i class="fa-solid fa-tag"></i> Boutique</span>
-              <span><i class="fa-solid fa-indian-rupee-sign"></i> ~₹5,500–₹9,500 / night</span>
+              <span><i class="fa-solid fa-tag"></i> Average+</span>
+              <span><i class="fa-solid fa-indian-rupee-sign"></i> ~₹5.5k–₹10k / night</span>
               <span><i class="fa-solid fa-location-dot"></i> McLeod Ganj</span>
             </div>
             <div class="actions">
-              <a class="linkBtn primary" target="_blank"
-                 href="https://www.expedia.co.in/Dharamshala-Hotels-Chonor-House.h100582448.Hotel-Information">
+              <a class="linkBtn primary" target="_blank" href="https://www.expedia.co.in/Dharamshala-Hotels-Chonor-House.h100582448.Hotel-Information">
                 <i class="fa-solid fa-images"></i> View Photos & Rates
               </a>
             </div>
           </div>
         </div>
-
       </div>
 
       <div style="height:12px"></div>
 
       <div class="hotelGrid">
-        <!-- Manali -->
         <div class="hotel">
-          <img alt="Hotel bedroom windows (sample)"
-               src="https://commons.wikimedia.org/wiki/Special:FilePath/Hotel%20bedroom%20windows%20(Unsplash).jpg">
+          <img alt="Resort vibe sample" src="https://commons.wikimedia.org/wiki/Special:FilePath/Middle-Eastern%20resort%20(Unsplash).jpg">
           <div class="p">
-            <h3><i class="fa-solid fa-hotel"></i> Manali (Recommended Area: Old Manali / Log Hut)</h3>
+            <h3><i class="fa-solid fa-hotel"></i> Span Resort & Spa (Manali side)</h3>
             <div class="meta">
-              <span><i class="fa-solid fa-tag"></i> Green & calm</span>
-              <span><i class="fa-solid fa-car-side"></i> Easy day trips</span>
+              <span><i class="fa-solid fa-tag"></i> 5-Star/Resort</span>
+              <span><i class="fa-solid fa-indian-rupee-sign"></i> ~₹12k+ / night (varies)</span>
+              <span><i class="fa-solid fa-location-dot"></i> Kullu-Manali</span>
             </div>
             <div class="actions">
-              <a class="linkBtn" href="#manali"><i class="fa-solid fa-camera"></i> See Manali Spots</a>
-            </div>
-          </div>
-        </div>
-
-        <div class="hotel">
-          <img alt="Resort vibe (sample)"
-               src="https://commons.wikimedia.org/wiki/Special:FilePath/Middle-Eastern%20resort%20(Unsplash).jpg">
-          <div class="p">
-            <h3><i class="fa-solid fa-hotel"></i> Span Resort & Spa (Manali/Kullu)</h3>
-            <div class="meta">
-              <span><i class="fa-solid fa-tag"></i> Premium</span>
-              <span><i class="fa-solid fa-indian-rupee-sign"></i> ~₹12,000+ / night</span>
-            </div>
-            <div class="actions">
-              <a class="linkBtn primary" target="_blank"
-                 href="https://www.makemytrip.com/hotels/span_resort_and_spa-details-manali.html">
+              <a class="linkBtn primary" target="_blank" href="https://www.makemytrip.com/hotels/span_resort_and_spa-details-manali.html">
                 <i class="fa-solid fa-images"></i> View Photos & Rates
               </a>
             </div>
@@ -605,105 +569,85 @@
         </div>
 
         <div class="hotel">
-          <img alt="Pool sample"
-               src="https://commons.wikimedia.org/wiki/Special:FilePath/Pineapples%20in%20the%20Pool%20(Unsplash).jpg">
+          <img alt="Hotel style sample" src="https://commons.wikimedia.org/wiki/Special:FilePath/Pineapples%20in%20the%20Pool%20(Unsplash).jpg">
           <div class="p">
-            <h3><i class="fa-solid fa-hotel"></i> Manali (Recommended Area: Mall Road side)</h3>
+            <h3><i class="fa-solid fa-hotel"></i> Manali (3-Star Area Pick)</h3>
             <div class="meta">
-              <span><i class="fa-solid fa-tag"></i> Convenience</span>
-              <span><i class="fa-solid fa-bag-shopping"></i> Walkable markets</span>
+              <span><i class="fa-solid fa-tag"></i> 3-Star</span>
+              <span><i class="fa-solid fa-location-dot"></i> Near Mall Road (convenience)</span>
             </div>
             <div class="actions">
-              <a class="linkBtn" href="#manali"><i class="fa-solid fa-camera"></i> See Manali Spots</a>
+              <a class="linkBtn" href="#package"><i class="fa-solid fa-wallet"></i> Budget tiers below</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="hotel">
+          <img alt="Hotel style sample" src="https://commons.wikimedia.org/wiki/Special:FilePath/Hotel%20National%2C%20Moscow.%20View%20from%20the%20upper%20floor%20room%20(Unsplash).jpg">
+          <div class="p">
+            <h3><i class="fa-solid fa-hotel"></i> Manali (Average Area Pick)</h3>
+            <div class="meta">
+              <span><i class="fa-solid fa-tag"></i> Average</span>
+              <span><i class="fa-solid fa-location-dot"></i> Old Manali / Log Hut (green & calm)</span>
+            </div>
+            <div class="actions">
+              <a class="linkBtn" href="#package"><i class="fa-solid fa-wallet"></i> Budget tiers below</a>
             </div>
           </div>
         </div>
       </div>
 
       <p class="tiny" style="margin-top:10px">
-        Note: The images shown above under hotels are sample “hotel-style” visuals to keep the website legal & clean for hosting.
-        Use the “View Photos & Rates” buttons to see official property photos.
+        Hotel images above are “sample visuals” for clean hosting. For real hotel photos, use the “View Photos & Rates” links.
       </p>
     </div>
   </section>
 
-  <!-- DHARAMSHALA -->
+  <!-- DHARAMSHALA GALLERY (50+) -->
   <section id="dharamshala">
     <div class="container">
       <div class="sectionTitle">
         <div>
-          <h2>Dharamshala / McLeod Ganj — Top Places (5 Photos)</h2>
-          <p>Relaxed sightseeing + culture + easy walks (kid-friendly).</p>
+          <h2>Dharamshala / McLeod Ganj — Image Gallery (50+)</h2>
+          <p>Auto-loaded from Wikimedia Commons category (fast + legal to embed).</p>
         </div>
-        <span class="badge"><i class="fa-solid fa-mountain"></i> Scenic + Calm</span>
+        <span class="badge green"><i class="fa-solid fa-images"></i> 50+ photos</span>
       </div>
 
-      <div class="gallery">
-        <a class="gItem" target="_blank" href="https://commons.wikimedia.org/wiki/File:Bhagsu_Waterfall,_Mcleodganj,_Himachal_Pradesh.jpg">
-          <img alt="Bhagsu Waterfall" src="https://commons.wikimedia.org/wiki/Special:FilePath/Bhagsu%20Waterfall%2C%20Mcleodganj%2C%20Himachal%20Pradesh.jpg">
-          <span>Bhagsu Waterfall</span>
-        </a>
-
-        <a class="gItem" target="_blank" href="https://commons.wikimedia.org/wiki/File:Interior_of_Tsuglagkhang_Complex_-_McLeod_Ganj_-_Himachal_Pradesh_-_India_(26775198045).jpg">
-          <img alt="Tsuglagkhang Complex" src="https://commons.wikimedia.org/wiki/Special:FilePath/Interior%20of%20Tsuglagkhang%20Complex%20-%20McLeod%20Ganj%20-%20Himachal%20Pradesh%20-%20India%20(26775198045).jpg">
-          <span>Tsuglagkhang</span>
-        </a>
-
-        <a class="gItem" target="_blank" href="https://commons.wikimedia.org/wiki/File:View_over_Town_from_Tsuglagkhang_Complex_-_McLeod_Ganj_-_Himachal_Pradesh_-_India_(26170719984).jpg">
-          <img alt="View from Tsuglagkhang" src="https://commons.wikimedia.org/wiki/Special:FilePath/View%20over%20Town%20from%20Tsuglagkhang%20Complex%20-%20McLeod%20Ganj%20-%20Himachal%20Pradesh%20-%20India%20(26170719984).jpg">
-          <span>Town View</span>
-        </a>
-
-        <a class="gItem" target="_blank" href="https://commons.wikimedia.org/wiki/File:Dhauladhar_Range_from_Naddi_viewpoint_2.jpg">
-          <img alt="Naddi viewpoint Dhauladhar" src="https://commons.wikimedia.org/wiki/Special:FilePath/Dhauladhar%20Range%20from%20Naddi%20viewpoint%202.jpg">
-          <span>Naddi Viewpoint</span>
-        </a>
-
-        <a class="gItem" target="_blank" href="https://commons.wikimedia.org/wiki/File:Dal_Lake_McLeodgunj.jpg">
-          <img alt="Dal Lake McLeod Ganj" src="https://commons.wikimedia.org/wiki/Special:FilePath/Dal%20Lake%20McLeodgunj.jpg">
-          <span>Dal Lake</span>
-        </a>
+      <div class="galleryTop">
+        <div class="pill"><i class="fa-solid fa-layer-group"></i> Source: Wikimedia category</div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <button class="btn" onclick="reloadGallery('dharamshala')"><i class="fa-solid fa-rotate"></i> Reload</button>
+          <button class="btn btnPrimary" onclick="loadMore('dharamshala')"><i class="fa-solid fa-plus"></i> Load More</button>
+        </div>
       </div>
+
+      <div class="gallery" id="gal-dharamshala"></div>
+      <div class="tiny" id="gal-dharamshala-status" style="margin-top:10px"></div>
     </div>
   </section>
 
-  <!-- MANALI -->
+  <!-- MANALI GALLERY (50+) -->
   <section id="manali">
     <div class="container">
       <div class="sectionTitle">
         <div>
-          <h2>Manali — Top Places (5 Photos)</h2>
-          <p>Forest temple + valley activities + iconic mountain drives.</p>
+          <h2>Manali — Image Gallery (50+)</h2>
+          <p>Auto-loaded from Wikimedia Commons category (good quality variety).</p>
         </div>
-        <span class="badge orange"><i class="fa-solid fa-snowflake"></i> Adventure + Views</span>
+        <span class="badge orange"><i class="fa-solid fa-images"></i> 50+ photos</span>
       </div>
 
-      <div class="gallery">
-        <a class="gItem" target="_blank" href="https://commons.wikimedia.org/wiki/File:Hidimba_Devi_Temple,_Manali.jpg">
-          <img alt="Hidimba Devi Temple" src="https://commons.wikimedia.org/wiki/Special:FilePath/Hidimba%20Devi%20Temple%2C%20Manali.jpg">
-          <span>Hidimba Temple</span>
-        </a>
-
-        <a class="gItem" target="_blank" href="https://commons.wikimedia.org/wiki/File:Solang_Valley_,Manali,_Himachal_Pardes,_India.JPG">
-          <img alt="Solang Valley" src="https://commons.wikimedia.org/wiki/Special:FilePath/Solang%20Valley%20%2CManali%2C%20Himachal%20Pardes%2C%20India.JPG">
-          <span>Solang Valley</span>
-        </a>
-
-        <a class="gItem" target="_blank" href="https://commons.wikimedia.org/wiki/File:Beas_river_and_mountains_as_seen_from_Van_Vihar,_Manali.jpg">
-          <img alt="Beas River Van Vihar" src="https://commons.wikimedia.org/wiki/Special:FilePath/Beas%20river%20and%20mountains%20as%20seen%20from%20Van%20Vihar%2C%20Manali.jpg">
-          <span>Beas River</span>
-        </a>
-
-        <a class="gItem" target="_blank" href="https://commons.wikimedia.org/wiki/File:Old_Manali,_Manali,_India_(Unsplash_MSK-2kuYJDE).jpg">
-          <img alt="Old Manali" src="https://commons.wikimedia.org/wiki/Special:FilePath/Old%20Manali%2C%20Manali%2C%20India%20(Unsplash%20MSK-2kuYJDE).jpg">
-          <span>Old Manali</span>
-        </a>
-
-        <a class="gItem" target="_blank" href="https://commons.wikimedia.org/wiki/File:Rohtang_Atal_Tunnel.jpg">
-          <img alt="Atal Tunnel" src="https://commons.wikimedia.org/wiki/Special:FilePath/Rohtang%20Atal%20Tunnel.jpg">
-          <span>Atal Tunnel</span>
-        </a>
+      <div class="galleryTop">
+        <div class="pill"><i class="fa-solid fa-layer-group"></i> Source: Wikimedia category</div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <button class="btn" onclick="reloadGallery('manali')"><i class="fa-solid fa-rotate"></i> Reload</button>
+          <button class="btn btnPrimary" onclick="loadMore('manali')"><i class="fa-solid fa-plus"></i> Load More</button>
+        </div>
       </div>
+
+      <div class="gallery" id="gal-manali"></div>
+      <div class="tiny" id="gal-manali-status" style="margin-top:10px"></div>
     </div>
   </section>
 
@@ -713,7 +657,7 @@
       <div class="sectionTitle">
         <div>
           <h2>Maps (quick visual)</h2>
-          <p>Static OpenStreetMap previews (great for website hosting).</p>
+          <p>Static OpenStreetMap previews (good for hosting).</p>
         </div>
         <span class="badge"><i class="fa-solid fa-map"></i> Route View</span>
       </div>
@@ -724,14 +668,9 @@
             <b>Map 1: Pune + Indore → Dharamshala zone (overview)</b>
             <span class="badge"><i class="fa-solid fa-location-dot"></i> Start points</span>
           </div>
-
           <div class="mapImg">
-            <!-- OpenStreetMap static map (public endpoint). Markers: Pune, Indore, Dharamshala -->
             <img alt="Map Pune Indore Dharamshala"
-              src="https://staticmap.openstreetmap.de/staticmap.php?center=28.8,76.6&zoom=5&size=900x460&maptype=mapnik
-              &markers=18.5204,73.8567,lightblue1
-              &markers=22.7196,75.8577,orange1
-              &markers=32.2190,76.3234,green1">
+              src="https://staticmap.openstreetmap.de/staticmap.php?center=28.8,76.6&zoom=5&size=900x460&maptype=mapnik&markers=18.5204,73.8567,lightblue1&markers=22.7196,75.8577,orange1&markers=32.2190,76.3234,green1">
           </div>
           <div class="mapCaption">
             <i class="fa-solid fa-circle" style="color:var(--blue-2)"></i> Pune &nbsp;&nbsp;
@@ -745,13 +684,9 @@
             <b>Map 2: Dharamshala → Manali (mountain corridor)</b>
             <span class="badge orange"><i class="fa-solid fa-mountain"></i> Hill leg</span>
           </div>
-
           <div class="mapImg">
-            <!-- Markers: Dharamshala + Manali -->
             <img alt="Map Dharamshala Manali"
-              src="https://staticmap.openstreetmap.de/staticmap.php?center=32.25,76.65&zoom=8&size=900x460&maptype=mapnik
-              &markers=32.2190,76.3234,green1
-              &markers=32.2432,77.1892,orange1">
+              src="https://staticmap.openstreetmap.de/staticmap.php?center=32.25,76.65&zoom=8&size=900x460&maptype=mapnik&markers=32.2190,76.3234,green1&markers=32.2432,77.1892,orange1">
           </div>
           <div class="mapCaption">
             <i class="fa-solid fa-circle" style="color:var(--green)"></i> Dharamshala &nbsp;&nbsp;
@@ -762,51 +697,158 @@
     </div>
   </section>
 
-  <!-- COST -->
-  <section id="cost">
+  <!-- PACKAGE COST (NEW) -->
+  <section id="package">
     <div class="container">
       <div class="sectionTitle">
         <div>
-          <h2>Approx Cost (quick planning ranges)</h2>
-          <p>Final cost depends on dates, flight availability, and hotel category.</p>
+          <h2>Approx Package Cost (X–Y) — Flight vs Train</h2>
+          <p>3 tiers (5-Star / 3-Star / Average). Totals shown for <b>2 couples (4 adults)</b>. Add kids as noted.</p>
         </div>
-        <span class="badge green"><i class="fa-solid fa-wallet"></i> Budget View</span>
+        <span class="badge green"><i class="fa-solid fa-wallet"></i> Total Budget</span>
       </div>
 
-      <div class="grid three">
+      <div class="kpiGrid">
+        <div class="kpi">
+          <b><i class="fa-solid fa-plane"></i> Flight reference</b>
+          <span>
+            Pune → Kangra (Gaggal) flight estimate shown ~₹10,000–₹24,000 one-way (sample planning range).<br/>
+            (Used as a baseline for “flight package” calculations.)
+          </span>
+          <span class="tiny">
+            Ref: https://www.rome2rio.com/s/Pune/Gaggal
+          </span>
+        </div>
+
+        <div class="kpi">
+          <b><i class="fa-solid fa-train"></i> Train reference</b>
+          <span>
+            Pune → Pathankot ticket range example shown ~₹835–₹3,055 (varies by class & dates).<br/>
+            (Used as baseline for “train package” calculations.)
+          </span>
+          <span class="tiny">
+            Ref: https://www.ixigo.com/by-train-rail/pune-to-pathankot-by-train
+          </span>
+        </div>
+
+        <div class="kpi">
+          <b><i class="fa-solid fa-taxi"></i> Cab reference</b>
+          <span>
+            Pathankot → Dharamshala cab starts ~₹1,687+ and Dharamshala → Manali one-way ~₹7,017 (online examples).<br/>
+            (Used for hill-transfer baseline.)
+          </span>
+          <span class="tiny">
+            Refs: MMT cab pages linked in Train section.
+          </span>
+        </div>
+      </div>
+
+      <div style="height:14px"></div>
+
+      <div class="grid two">
         <div class="card">
           <div class="cardHeader">
-            <b><i class="fa-solid fa-hotel"></i> Hotels (2 rooms)</b>
-            <span class="badge"><i class="fa-solid fa-bed"></i> 6 nights</span>
+            <b><i class="fa-solid fa-plane"></i> Flight Package (4 adults)</b>
+            <span class="badge"><i class="fa-solid fa-layer-group"></i> 3 tiers</span>
           </div>
-          <ul class="list">
-            <li><b>Comfort:</b> ₹7k–₹14k / room / night</li>
-            <li><b>Premium:</b> ₹18k–₹25k+ / room / night</li>
-            <li><b>Tip:</b> book early for March end</li>
-          </ul>
+
+          <table>
+            <thead>
+              <tr>
+                <th>Hotel Tier</th>
+                <th>Hotels (2 rooms × 6 nights)</th>
+                <th>Flights (round trip est.)</th>
+                <th>Transfers + local</th>
+                <th><b>Total (X–Y)</b></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><b>5-Star</b></td>
+                <td class="muted">₹2,16,000 – ₹3,00,000</td>
+                <td class="muted">₹80,000 – ₹1,92,000</td>
+                <td class="muted">₹18,000 – ₹35,000</td>
+                <td><b>₹3,14,000 – ₹5,27,000</b></td>
+              </tr>
+              <tr>
+                <td><b>3-Star</b></td>
+                <td class="muted">₹72,000 – ₹1,44,000</td>
+                <td class="muted">₹80,000 – ₹1,92,000</td>
+                <td class="muted">₹18,000 – ₹35,000</td>
+                <td><b>₹1,70,000 – ₹3,71,000</b></td>
+              </tr>
+              <tr>
+                <td><b>Average</b></td>
+                <td class="muted">₹96,000 – ₹2,16,000</td>
+                <td class="muted">₹80,000 – ₹1,92,000</td>
+                <td class="muted">₹18,000 – ₹35,000</td>
+                <td><b>₹1,94,000 – ₹4,43,000</b></td>
+              </tr>
+            </tbody>
+          </table>
+
+          <p class="tiny" style="margin-top:10px">
+            Notes: Hotels assume 2 rooms. Transfers include: Pathankot→Dharamshala (if used), Dharamshala→Manali, local taxis, and small buffers.
+            Flights are highly date-dependent; ranges reflect “plan-level” estimates.
+          </p>
         </div>
 
         <div class="card">
           <div class="cardHeader">
-            <b><i class="fa-solid fa-car-side"></i> Local travel</b>
-            <span class="badge orange"><i class="fa-solid fa-road"></i> Hills</span>
+            <b><i class="fa-solid fa-train"></i> Train Package (4 adults)</b>
+            <span class="badge orange"><i class="fa-solid fa-layer-group"></i> 3 tiers</span>
           </div>
-          <ul class="list">
-            <li>Private cab for Dharamshala ↔ Manali is best with kids</li>
-            <li>Keep 1 buffer half-day for weather / traffic</li>
-          </ul>
-        </div>
 
-        <div class="card">
-          <div class="cardHeader">
-            <b><i class="fa-solid fa-plane"></i> Flights</b>
-            <span class="badge"><i class="fa-solid fa-calendar-days"></i> Date-based</span>
-          </div>
-          <ul class="list">
-            <li>Most routes connect via a major hub (transit only)</li>
-            <li>Compare: DHM (Kangra) vs Bhuntar (Kullu)</li>
-            <li>Cheapest when booked 4–6 weeks early</li>
-          </ul>
+          <table>
+            <thead>
+              <tr>
+                <th>Hotel Tier</th>
+                <th>Hotels (2 rooms × 6 nights)</th>
+                <th>Train (round trip est.)</th>
+                <th>Transfers + local</th>
+                <th><b>Total (X–Y)</b></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><b>5-Star</b></td>
+                <td class="muted">₹2,16,000 – ₹3,00,000</td>
+                <td class="muted">₹14,000 – ₹32,000</td>
+                <td class="muted">₹22,000 – ₹45,000</td>
+                <td><b>₹2,52,000 – ₹3,77,000</b></td>
+              </tr>
+              <tr>
+                <td><b>3-Star</b></td>
+                <td class="muted">₹72,000 – ₹1,44,000</td>
+                <td class="muted">₹14,000 – ₹32,000</td>
+                <td class="muted">₹22,000 – ₹45,000</td>
+                <td><b>₹1,08,000 – ₹2,21,000</b></td>
+              </tr>
+              <tr>
+                <td><b>Average</b></td>
+                <td class="muted">₹96,000 – ₹2,16,000</td>
+                <td class="muted">₹14,000 – ₹32,000</td>
+                <td class="muted">₹22,000 – ₹45,000</td>
+                <td><b>₹1,32,000 – ₹2,93,000</b></td>
+              </tr>
+            </tbody>
+          </table>
+
+          <p class="tiny" style="margin-top:10px">
+            Notes: Train ranges use a wide band (class & quota vary). Transfers are slightly higher vs flight package because you’ll rely more on cabs for end-to-end movement.
+          </p>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:14px;background:rgba(2,6,23,.02)">
+        <b><i class="fa-solid fa-people-group"></i> Final “Total Approx Budget” for 2 Couples (4 Adults)</b>
+        <ul class="list">
+          <li><b>Best value (Train + 3-Star):</b> ~₹1.08L – ₹2.21L</li>
+          <li><b>Balanced (Flight + Average):</b> ~₹1.94L – ₹4.43L</li>
+          <li><b>Premium (Flight + 5-Star):</b> ~₹3.14L – ₹5.27L</li>
+        </ul>
+        <div class="tiny">
+          Kids note: add roughly <b>+10% to +30%</b> depending on flight tickets (age), extra meals, activities, and room bedding policy.
         </div>
       </div>
     </div>
@@ -814,29 +856,21 @@
 
   <footer>
     <div class="container">
-      <div class="footGrid">
-        <div>
-          <b>WeekWander</b> — 1-Week Smart Travel Plan<br/>
-          <span class="tiny">
-            Designed for hosting. All destination photos are from Wikimedia Commons (open licenses).
-            Maps use OpenStreetMap static tiles.
-          </span>
-        </div>
-        <div class="tiny">
-          <b>Quick note:</b> If you want, I can also add:
-          • day-by-day itinerary cards • “food to try” section • packing checklist • contact/booking page.
-        </div>
-      </div>
+      <b>WeekWander</b> — 1-Week Smart Travel Plan<br/>
+      <span class="tiny">
+        Galleries load via Wikimedia Commons API (public). Maps use OpenStreetMap static tiles.
+        If you want, I can also add day-by-day itinerary cards, packing checklist, and a booking links page.
+      </span>
     </div>
   </footer>
 
   <script>
+    // Mobile nav
     function toggleNav(){
       const nav = document.getElementById('navLinks');
       const isOpen = nav.style.display === 'flex';
       nav.style.display = isOpen ? 'none' : 'flex';
     }
-    // close menu after click (mobile)
     document.addEventListener('click', (e)=>{
       const nav = document.getElementById('navLinks');
       const btn = document.querySelector('.hamburger');
@@ -846,13 +880,139 @@
         nav.style.display = 'none';
       }
     });
-    // reset on resize
     window.addEventListener('resize', ()=>{
       const nav = document.getElementById('navLinks');
       if(window.innerWidth > 860) nav.style.display = 'flex';
       else nav.style.display = 'none';
     });
-  </script>
 
+    // Wikimedia Gallery Loader (50+)
+    const galState = {
+      dharamshala: { cont: null, loaded: 0, target: 60, category: "Category:Dharamsala" },
+      manali:      { cont: null, loaded: 0, target: 60, category: "Category:Manali" }
+    };
+
+    async function fetchCommonsCategoryImages(category, cont=null, limit=50){
+      const base = "https://commons.wikimedia.org/w/api.php";
+      const params = new URLSearchParams({
+        action: "query",
+        format: "json",
+        origin: "*",
+        generator: "categorymembers",
+        gcmtitle: category,
+        gcmtype: "file",
+        gcmlimit: String(limit),
+        prop: "imageinfo",
+        iiprop: "url|extmetadata",
+        iiurlwidth: "700"
+      });
+      if(cont){
+        params.set("gcmcontinue", cont);
+      }
+      const url = `${base}?${params.toString()}`;
+      const res = await fetch(url);
+      if(!res.ok) throw new Error("Failed to load images");
+      const json = await res.json();
+      const pages = json?.query?.pages ? Object.values(json.query.pages) : [];
+      const images = pages
+        .filter(p => p.imageinfo && p.imageinfo[0] && p.imageinfo[0].thumburl)
+        .map(p => {
+          const info = p.imageinfo[0];
+          const meta = info.extmetadata || {};
+          const title = (meta.ObjectName && meta.ObjectName.value) ? stripHtml(meta.ObjectName.value) : (p.title || "Photo");
+          return {
+            thumb: info.thumburl,
+            full: info.url,
+            title: stripHtml(title).replace(/_/g," ").slice(0,60)
+          };
+        });
+
+      const next = json?.continue?.gcmcontinue || null;
+      return { images, next };
+    }
+
+    function stripHtml(s){
+      const div = document.createElement("div");
+      div.innerHTML = s || "";
+      return (div.textContent || div.innerText || "").trim();
+    }
+
+    function renderImages(kind, images){
+      const grid = document.getElementById(`gal-${kind}`);
+      images.forEach(img => {
+        const a = document.createElement("a");
+        a.className = "gItem";
+        a.href = img.full;
+        a.target = "_blank";
+        a.rel = "noopener";
+        a.innerHTML = `
+          <img loading="lazy" alt="${escapeHtml(img.title)}" src="${img.thumb}">
+          <div class="cap">${escapeHtml(img.title)}</div>
+        `;
+        grid.appendChild(a);
+      });
+    }
+
+    function setStatus(kind, text){
+      const el = document.getElementById(`gal-${kind}-status`);
+      if(el) el.textContent = text;
+    }
+
+    function escapeHtml(str){
+      return (str || "").replace(/[&<>"']/g, function(m){
+        return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]);
+      });
+    }
+
+    async function loadMore(kind){
+      const st = galState[kind];
+      if(!st) return;
+      setStatus(kind, `Loading more ${kind} photos...`);
+      try{
+        const { images, next } = await fetchCommonsCategoryImages(st.category, st.cont, 50);
+        renderImages(kind, images);
+        st.cont = next;
+        st.loaded += images.length;
+        setStatus(kind, `Loaded ${st.loaded}+ images. Click “Load More” for more.`);
+      }catch(err){
+        setStatus(kind, `Could not load more images right now. Try Reload.`);
+      }
+    }
+
+    async function reloadGallery(kind){
+      const st = galState[kind];
+      if(!st) return;
+      document.getElementById(`gal-${kind}`).innerHTML = "";
+      st.cont = null;
+      st.loaded = 0;
+      setStatus(kind, `Loading ${kind} gallery...`);
+      await ensureMin(kind, st.target);
+    }
+
+    async function ensureMin(kind, minCount){
+      const st = galState[kind];
+      while(st.loaded < minCount){
+        const { images, next } = await fetchCommonsCategoryImages(st.category, st.cont, 50);
+        renderImages(kind, images);
+        st.cont = next;
+        st.loaded += images.length;
+        if(!next) break; // no more pages
+      }
+      setStatus(kind, `Loaded ${st.loaded}+ images (auto). Click “Load More” if you want even more.`);
+    }
+
+    // Initial load: 60+ each
+    (async function init(){
+      try{
+        setStatus("dharamshala", "Loading dharamshala gallery...");
+        setStatus("manali", "Loading manali gallery...");
+        await ensureMin("dharamshala", galState.dharamshala.target);
+        await ensureMin("manali", galState.manali.target);
+      }catch(e){
+        setStatus("dharamshala", "Gallery load failed. Please refresh.");
+        setStatus("manali", "Gallery load failed. Please refresh.");
+      }
+    })();
+  </script>
 </body>
 </html>
