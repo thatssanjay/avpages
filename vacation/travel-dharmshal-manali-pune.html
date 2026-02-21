@@ -101,11 +101,65 @@
     .heroActions{display:flex;gap:10px;flex-wrap:wrap}
     .ghost{background: rgba(255,255,255,.10); border: 1px solid rgba(255,255,255,.22); color:#fff}
 
+    /* PALETTE */
+    .palette{display:flex; gap:10px; flex-wrap:wrap; margin:14px 0 0}
+    .chip{
+      display:flex; align-items:center; gap:8px;
+      padding:8px 10px; border-radius:999px;
+      border:1px solid rgba(255,255,255,.25);
+      background: rgba(255,255,255,.10);
+      font-weight:900; font-size:12px;
+    }
+    .dot{width:14px;height:14px;border-radius:999px}
+
     /* SECTIONS */
     section{padding:18px 0}
     .sectionTitle{display:flex; align-items:flex-end; justify-content:space-between; gap:10px; margin:16px 0 10px}
     .sectionTitle h2{margin:0; font-size:20px; letter-spacing:-.2px}
     .sectionTitle p{margin:0; color:var(--muted); font-size:13px}
+    .grid{display:grid; grid-template-columns:1fr; gap:14px}
+    @media(min-width:900px){ .grid.two{grid-template-columns:1.1fr .9fr;} .grid.three{grid-template-columns:repeat(3,1fr);} }
+    .card{
+      background:var(--card); border:1px solid var(--border);
+      border-radius:var(--radius);
+      box-shadow: 0 14px 30px rgba(2,6,23,.08);
+      padding:14px;
+    }
+    .cardHeader{display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:10px}
+    .badge{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:7px 10px; border-radius:999px;
+      background: rgba(22,161,255,.10);
+      border: 1px solid rgba(22,161,255,.18);
+      color: #075985;
+      font-weight:900; font-size:12px; white-space:nowrap;
+    }
+    .badge.orange{background: rgba(255,75,43,.10); border: 1px solid rgba(255,75,43,.18); color:#9a3412}
+    .badge.green{background: rgba(157,187,36,.16); border: 1px solid rgba(157,187,36,.22); color:#3f6212}
+    .list{margin:0;padding-left:18px;color:var(--muted)}
+    .list li{margin:8px 0}
+
+    /* ROUTES */
+    .routeRow{
+      display:flex; gap:12px; align-items:flex-start;
+      padding:10px; border:1px solid var(--border);
+      border-radius: 16px;
+      background: rgba(2,6,23,.02);
+      margin-bottom:10px;
+    }
+    .routeIcon{
+      width:40px;height:40px;border-radius:14px;
+      display:grid;place-items:center;
+      color:#fff;
+      background: linear-gradient(135deg,var(--blue-1),var(--blue-2));
+      flex:0 0 auto;
+    }
+    .routeRow h4{margin:0 0 4px;font-size:14px}
+    .routeRow p{margin:0;color:var(--muted);font-size:13px;line-height:1.5}
+
+    /* MAPS */
+    .mapImg{border-radius:18px; overflow:hidden; border:1px solid var(--border); background:#fff}
+    .mapCaption{margin-top:8px;color:var(--muted);font-size:12px}
 
     /* ACCORDION */
     details{
@@ -131,7 +185,7 @@
     .accHint{color:var(--muted);font-size:13px;margin-top:2px}
     .accRight{display:flex;gap:10px;align-items:center;color:var(--muted);font-size:12px}
 
-    /* GALLERY UI */
+    /* GALLERIES */
     .galleryTop{
       display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap;
       margin: 8px 0 10px;
@@ -143,52 +197,89 @@
       background: rgba(2,6,23,.03);
       font-weight:900; font-size:12px; color:var(--muted);
     }
-
-    /* ✅ Mobile-friendly fixed tile size */
     .gallery{
       display:grid;
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: 1fr 1fr;
       gap:10px;
     }
-    @media(min-width:640px){ .gallery{grid-template-columns: repeat(3, 1fr);} }
-    @media(min-width:900px){ .gallery{grid-template-columns: repeat(5, 1fr);} }
-
+    @media(min-width:800px){ .gallery{grid-template-columns: repeat(5, 1fr);} }
     .gItem{
-      border-radius: 16px;
-      overflow:hidden;
-      border:1px solid var(--border);
-      background:#fff;
+      border-radius: 16px; overflow:hidden; border:1px solid var(--border);
+      background:#fff; position:relative;
       cursor:pointer;
-      position:relative;
     }
-
-    /* ✅ Force consistent height + width using aspect-ratio */
-    .gItem .frame{
-      width:100%;
-      aspect-ratio: 4 / 3;
-      background: rgba(2,6,23,.04);
-      display:block;
-      overflow:hidden;
-    }
-    .gItem img{
-      width:100%;
-      height:100%;
-      object-fit:cover;
-      display:block;
-    }
-
+    .gItem img{width:100%;height:140px;object-fit:cover}
     .gItem .cap{
       position:absolute; left:10px; bottom:10px;
       font-size:12px; font-weight:900;
       color:#fff;
-      background: rgba(2,6,23,.58);
+      background: rgba(2,6,23,.55);
       border:1px solid rgba(255,255,255,.18);
       padding:6px 8px; border-radius: 999px;
       max-width: calc(100% - 20px);
       overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
     }
 
-    /* MODAL (Lightbox) */
+    /* PACKAGE COST */
+    table{width:100%; border-collapse:separate; border-spacing:0; overflow:hidden; border-radius:16px; border:1px solid var(--border); background:#fff}
+    th,td{padding:10px; border-bottom:1px solid var(--border); vertical-align:top; font-size:13px}
+    th{background: rgba(2,6,23,.03); text-align:left; font-weight:900}
+    tr:last-child td{border-bottom:none}
+    .muted{color:var(--muted)}
+    .money{
+      display:inline-flex; align-items:center; gap:8px;
+      font-weight:900;
+    }
+    .moneyLow{color:var(--ok); font-weight:900}
+    .moneyHigh{color:var(--bad); font-weight:900}
+
+    /* KPI */
+    .kpiGrid{display:grid; gap:12px; grid-template-columns:1fr}
+    @media(min-width:900px){ .kpiGrid{grid-template-columns:repeat(3,1fr);} }
+    .kpi{
+      border:1px solid var(--border); border-radius:16px; padding:12px; background:#fff;
+      box-shadow: 0 14px 30px rgba(2,6,23,.08);
+    }
+    .kpi b{display:block}
+    .kpi span{color:var(--muted); font-size:12px; line-height:1.5; display:block; margin-top:6px}
+
+    /* VIDEO GRID */
+    .videoGrid{
+      display:grid;
+      grid-template-columns:1fr;
+      gap:12px;
+    }
+    @media(min-width:900px){ .videoGrid{grid-template-columns: repeat(3, 1fr);} }
+    .videoCard{
+      border-radius: 18px;
+      overflow:hidden;
+      border:1px solid var(--border);
+      background:#fff;
+      box-shadow: 0 14px 30px rgba(2,6,23,.08);
+      cursor:pointer;
+    }
+    .videoThumb{
+      position:relative;
+      background:#000;
+    }
+    .videoThumb img{width:100%;height:180px;object-fit:cover;opacity:.92}
+    .playBtn{
+      position:absolute; inset:0;
+      display:grid; place-items:center;
+    }
+    .playBtn span{
+      width:56px;height:56px;border-radius:999px;
+      background: rgba(255,255,255,.92);
+      display:grid;place-items:center;
+      box-shadow: 0 18px 45px rgba(2,6,23,.25);
+      color: var(--blue-1);
+      font-size:20px;
+    }
+    .videoMeta{padding:12px}
+    .videoMeta b{display:block; font-size:14px}
+    .videoMeta small{color:var(--muted); font-weight:700}
+
+    /* MODALS (Image + Video) */
     .modal{
       position:fixed; inset:0;
       background: rgba(2,6,23,.72);
@@ -223,17 +314,20 @@
       color:#fff; cursor:pointer;
       display:grid;place-items:center;
     }
-
-    /* ✅ Better modal sizing (mobile + desktop) */
-    .modalBody{position:relative; background:#000;}
+    .modalBody{
+      position:relative;
+      background:#000;
+    }
     .modalBody img{
       width:100%;
-      height: min(76vh, 760px);
+      max-height: 76vh;
       object-fit:contain;
       background:#000;
     }
     .navArrow{
-      position:absolute; top:50%; transform: translateY(-50%);
+      position:absolute;
+      top:50%;
+      transform: translateY(-50%);
       width:46px;height:46px;border-radius:16px;
       border:1px solid rgba(255,255,255,.16);
       background: rgba(255,255,255,.10);
@@ -251,6 +345,15 @@
       border-top:1px solid rgba(255,255,255,.10);
     }
 
+    /* Video modal */
+    .videoFrame{
+      width:100%;
+      aspect-ratio: 16 / 9;
+      border:0;
+      display:block;
+      background:#000;
+    }
+
     footer{
       padding:26px 0 34px;
       color:var(--muted);
@@ -260,6 +363,7 @@
       margin-top: 14px;
     }
     .footRow{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+    .tiny{font-size:12px;color:var(--muted);line-height:1.55}
 
     /* Mobile nav */
     @media(max-width:860px){
@@ -278,7 +382,6 @@
 </head>
 
 <body>
-
   <!-- NAV -->
   <div class="navWrap">
     <div class="container">
@@ -292,11 +395,16 @@
         </a>
 
         <nav class="navLinks" id="navLinks">
+          <a href="#travel">Travel Plan</a>
+          <a href="#train">Train Option</a>
+          <a href="#maps">Maps</a>
           <a href="#galleries">Galleries</a>
+          <a href="#package">Package Cost</a>
+          <a href="#videos">YouTube</a>
         </nav>
 
         <div class="cta">
-          <a class="btn btnPrimary" href="#galleries"><i class="fa-solid fa-images"></i>&nbsp;Galleries</a>
+          <a class="btn btnPrimary" href="#travel"><i class="fa-solid fa-route"></i>&nbsp;Plan Now</a>
           <button class="hamburger" aria-label="Open menu" onclick="toggleNav()">
             <i class="fa-solid fa-bars"></i>
           </button>
@@ -308,30 +416,248 @@
   <!-- HERO -->
   <div class="container" id="top">
     <div class="hero">
-      <img alt="Himalayas travel" src="https://picsum.photos/seed/himalaya-hero/1600/900">
+      <img alt="Himalayas travel"
+           src="https://source.unsplash.com/1600x900/?himalayas,mountains,travel&sig=11">
       <div class="heroContent">
         <div class="heroCard">
           <span class="eyebrow"><i class="fa-solid fa-location-dot"></i> Dharamshala • Manali • March End</span>
-          <h1>Galleries fixed (loads 100% reliably).</h1>
-          <p>We replaced blocked image source with a reliable provider + fixed tile sizes for mobile.</p>
+          <h1>Explore the Himalayas with a smart, family-friendly plan.</h1>
+          <p>
+            Two couples + two kids — one week, relaxed pace, scenic spots, and practical routes from
+            <b>Pune</b> and <b>Indore</b>.
+          </p>
           <div class="heroActions">
-            <a class="btn btnPrimary" href="#galleries"><i class="fa-solid fa-images"></i>&nbsp;Open Galleries</a>
-            <a class="btn ghost" href="#galleries"><i class="fa-solid fa-arrow-down"></i>&nbsp;Scroll</a>
+            <a class="btn btnPrimary" href="#galleries"><i class="fa-solid fa-images"></i>&nbsp;View Galleries</a>
+            <a class="btn ghost" href="#package"><i class="fa-solid fa-wallet"></i>&nbsp;Budget</a>
+          </div>
+
+          <div class="palette" aria-label="Theme palette">
+            <div class="chip"><span class="dot" style="background:var(--blue-1)"></span>#0B5ED7</div>
+            <div class="chip"><span class="dot" style="background:var(--blue-2)"></span>#16A1FF</div>
+            <div class="chip"><span class="dot" style="background:var(--orange)"></span>#FF4B2B</div>
+            <div class="chip"><span class="dot" style="background:var(--green)"></span>#9DBB24</div>
+            <div class="chip"><span class="dot" style="background:var(--gray)"></span>#E9EEF5</div>
           </div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- GALLERIES -->
+  <!-- TRAVEL -->
+  <section id="travel">
+    <div class="container">
+      <div class="sectionTitle">
+        <div>
+          <h2>Travel Plan (Route Options)</h2>
+          <p>Pune couple + Indore couple — meet in the hills (or at a transit hub) and continue together.</p>
+        </div>
+        <span class="badge"><i class="fa-solid fa-child"></i> Kid-friendly</span>
+      </div>
+
+      <div class="grid two">
+        <div class="card">
+          <div class="cardHeader">
+            <b>Option A (Recommended): Pune → Dharamshala → Manali → Return</b>
+            <span class="badge green"><i class="fa-solid fa-star"></i> Best balance</span>
+          </div>
+
+          <div class="routeRow">
+            <div class="routeIcon"><i class="fa-solid fa-plane"></i></div>
+            <div>
+              <h4>Fly in: to Kangra (Gaggal/DHM) → taxi to McLeod Ganj</h4>
+              <p>
+                • Pune → (transit) → Kangra (DHM) <br/>
+                • Indore → (transit) → Kangra (DHM) <br/>
+                Stay 3 nights in McLeod Ganj.
+              </p>
+            </div>
+          </div>
+
+          <div class="routeRow">
+            <div class="routeIcon"><i class="fa-solid fa-car-side"></i></div>
+            <div>
+              <h4>Hill transfer: Dharamshala → Manali (day drive)</h4>
+              <p>Private cab is most comfortable for kids. Keep snack + restroom stops.</p>
+            </div>
+          </div>
+
+          <div class="routeRow">
+            <div class="routeIcon"><i class="fa-solid fa-plane-arrival"></i></div>
+            <div>
+              <h4>Return: Manali → Bhuntar (Kullu) Airport → Pune / Indore</h4>
+              <p>Return via connecting flights. (Or do train-plan return.)</p>
+            </div>
+          </div>
+
+          <ul class="list">
+            <li><b>Stay split:</b> 3 nights Dharamshala + 3 nights Manali + 1 buffer day</li>
+            <li><b>Best for kids:</b> fewer hotel changes + daytime hill rides</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <div class="cardHeader">
+            <b>Option B: Pune → Manali → Dharamshala → Return</b>
+            <span class="badge orange"><i class="fa-solid fa-road"></i> More road early</span>
+          </div>
+
+          <div class="routeRow">
+            <div class="routeIcon"><i class="fa-solid fa-plane"></i></div>
+            <div>
+              <h4>Fly to Bhuntar (Kullu) → road to Manali</h4>
+              <p>• Pune/Indore → (transit) → Bhuntar → Manali (3 nights)</p>
+            </div>
+          </div>
+
+          <div class="routeRow">
+            <div class="routeIcon"><i class="fa-solid fa-car-side"></i></div>
+            <div>
+              <h4>Manali → Dharamshala (day drive)</h4>
+              <p>Then 3 nights Dharamshala. Return via Kangra (DHM) airport or train plan.</p>
+            </div>
+          </div>
+
+          <div class="routeRow">
+            <div class="routeIcon"><i class="fa-solid fa-train"></i></div>
+            <div>
+              <h4>Budget alternative: train-based plan (details below)</h4>
+              <p>Use train for long leg + cab in hills (cheaper than flights).</p>
+            </div>
+          </div>
+
+          <span class="badge"><i class="fa-solid fa-circle-info"></i> Tip: Keep a buffer half-day for weather/traffic</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRAIN OPTION -->
+  <section id="train">
+    <div class="container">
+      <div class="sectionTitle">
+        <div>
+          <h2>Train Travel Option <i class="fa-solid fa-train"></i></h2>
+          <p>Best for budget control. Longer journey, but comfortable if you choose 3AC/2AC.</p>
+        </div>
+        <span class="badge orange"><i class="fa-solid fa-train"></i> Train + Cab</span>
+      </div>
+
+      <div class="grid two">
+        <div class="card">
+          <div class="cardHeader">
+            <b>Train Plan: Pune / Indore → Pathankot → Dharamshala → Manali</b>
+            <span class="badge"><i class="fa-solid fa-indian-rupee-sign"></i> Budget</span>
+          </div>
+
+          <div class="routeRow">
+            <div class="routeIcon"><i class="fa-solid fa-train"></i></div>
+            <div>
+              <h4>Step 1: Train to Pathankot</h4>
+              <p>Pune/Indore → Pathankot (long-distance). Choose 3AC/2AC for kids comfort.</p>
+            </div>
+          </div>
+
+          <div class="routeRow">
+            <div class="routeIcon"><i class="fa-solid fa-taxi"></i></div>
+            <div>
+              <h4>Step 2: Pathankot → Dharamshala (cab)</h4>
+              <p>After train arrival, take cab/bus up to Dharamshala / McLeod Ganj.</p>
+            </div>
+          </div>
+
+          <div class="routeRow">
+            <div class="routeIcon"><i class="fa-solid fa-car-side"></i></div>
+            <div>
+              <h4>Step 3: Dharamshala → Manali (cab day drive)</h4>
+              <p>Most family-friendly: daytime drive with snack + break stops.</p>
+            </div>
+          </div>
+
+          <ul class="list">
+            <li><b>Return:</b> Manali → (cab) → Pathankot → Train back</li>
+            <li><b>Or mixed:</b> Train one-way, flight one-way (time + budget balanced)</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <div class="cardHeader">
+            <b>When train option is best</b>
+            <span class="badge green"><i class="fa-solid fa-check"></i> Practical</span>
+          </div>
+
+          <ul class="list">
+            <li>When flights are too expensive for your dates</li>
+            <li>When you want predictable travel (less flight disruption)</li>
+            <li>When you can add 1 buffer day for long travel</li>
+          </ul>
+
+          <div class="routeRow" style="margin-top:12px">
+            <div class="routeIcon"><i class="fa-solid fa-lightbulb"></i></div>
+            <div>
+              <h4>Family tip</h4>
+              <p>Carry: motion-sickness meds, snacks, light blanket, small pillow for kids.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAPS -->
+  <section id="maps">
+    <div class="container">
+      <div class="sectionTitle">
+        <div>
+          <h2>Maps (quick visual)</h2>
+          <p>Static OpenStreetMap previews (good for hosting).</p>
+        </div>
+        <span class="badge"><i class="fa-solid fa-map"></i> Route View</span>
+      </div>
+
+      <div class="grid two">
+        <div class="card">
+          <div class="cardHeader">
+            <b>Map: Pune + Indore → Dharamshala (overview)</b>
+            <span class="badge"><i class="fa-solid fa-location-dot"></i> Start points</span>
+          </div>
+          <div class="mapImg">
+            <img alt="Map Pune Indore Dharamshala"
+              src="https://staticmap.openstreetmap.de/staticmap.php?center=28.8,76.6&zoom=5&size=900x460&maptype=mapnik&markers=18.5204,73.8567,lightblue1&markers=22.7196,75.8577,orange1&markers=32.2190,76.3234,green1">
+          </div>
+          <div class="mapCaption">
+            <i class="fa-solid fa-circle" style="color:var(--blue-2)"></i> Pune &nbsp;&nbsp;
+            <i class="fa-solid fa-circle" style="color:var(--orange)"></i> Indore &nbsp;&nbsp;
+            <i class="fa-solid fa-circle" style="color:var(--green)"></i> Dharamshala/McLeod
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="cardHeader">
+            <b>Map: Dharamshala → Manali</b>
+            <span class="badge orange"><i class="fa-solid fa-mountain"></i> Hill leg</span>
+          </div>
+          <div class="mapImg">
+            <img alt="Map Dharamshala Manali"
+              src="https://staticmap.openstreetmap.de/staticmap.php?center=32.25,76.65&zoom=8&size=900x460&maptype=mapnik&markers=32.2190,76.3234,green1&markers=32.2432,77.1892,orange1">
+          </div>
+          <div class="mapCaption">
+            <i class="fa-solid fa-circle" style="color:var(--green)"></i> Dharamshala &nbsp;&nbsp;
+            <i class="fa-solid fa-circle" style="color:var(--orange)"></i> Manali
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALLERIES (ACCORDION OPEN) -->
   <section id="galleries">
     <div class="container">
       <div class="sectionTitle">
         <div>
-          <h2>Image Galleries (50+ each) — Fixed</h2>
-          <p>Click any photo → popup viewer + next/prev arrows + keyboard support.</p>
+          <h2>Image Galleries (50+ each)</h2>
+          <p>Click any photo → opens popup viewer with next/prev arrows.</p>
         </div>
-        <span class="badge"><i class="fa-solid fa-images"></i> Lightbox</span>
+        <span class="badge green"><i class="fa-solid fa-images"></i> Lightbox</span>
       </div>
 
       <!-- Dharamshala accordion (open) -->
@@ -339,25 +665,23 @@
         <summary>
           <div>
             Dharamshala / McLeod Ganj — Image Gallery (50+)
-            <div class="accHint">Reliable images (no hotlink blocking) • mobile-friendly tiles</div>
+            <div class="accHint">Source: public image providers (Unsplash Source) • fast + reliable</div>
           </div>
           <div class="accRight">
-            <span class="badge" style="background: rgba(157,187,36,.16); border-color: rgba(157,187,36,.22); color:#3f6212;">
-              <i class="fa-solid fa-layer-group"></i> 60 images
-            </span>
+            <span class="badge green"><i class="fa-solid fa-layer-group"></i> 60 images</span>
             <i class="fa-solid fa-chevron-down"></i>
           </div>
         </summary>
         <div class="accBody">
           <div class="galleryTop">
-            <div class="pill"><i class="fa-solid fa-hand-pointer"></i> Tap photos to preview</div>
+            <div class="pill"><i class="fa-solid fa-wand-magic-sparkles"></i> Tap photos to preview</div>
             <div style="display:flex;gap:10px;flex-wrap:wrap">
               <button class="btn" onclick="reloadGallery('dharamshala')"><i class="fa-solid fa-rotate"></i> Reload</button>
               <button class="btn btnPrimary" onclick="loadMore('dharamshala', 20)"><i class="fa-solid fa-plus"></i> Load More</button>
             </div>
           </div>
           <div class="gallery" id="gal-dharamshala"></div>
-          <div class="tiny" id="gal-dharamshala-status" style="margin-top:10px;color:var(--muted)"></div>
+          <div class="tiny" id="gal-dharamshala-status" style="margin-top:10px"></div>
         </div>
       </details>
 
@@ -368,7 +692,7 @@
         <summary>
           <div>
             Manali — Image Gallery (50+)
-            <div class="accHint">Reliable images (no hotlink blocking) • smooth popup viewer</div>
+            <div class="accHint">Source: public image providers (Unsplash Source) • great travel vibes</div>
           </div>
           <div class="accRight">
             <span class="badge orange"><i class="fa-solid fa-layer-group"></i> 60 images</span>
@@ -377,16 +701,159 @@
         </summary>
         <div class="accBody">
           <div class="galleryTop">
-            <div class="pill"><i class="fa-solid fa-hand-pointer"></i> Tap photos to preview</div>
+            <div class="pill"><i class="fa-solid fa-wand-magic-sparkles"></i> Tap photos to preview</div>
             <div style="display:flex;gap:10px;flex-wrap:wrap">
               <button class="btn" onclick="reloadGallery('manali')"><i class="fa-solid fa-rotate"></i> Reload</button>
               <button class="btn btnPrimary" onclick="loadMore('manali', 20)"><i class="fa-solid fa-plus"></i> Load More</button>
             </div>
           </div>
           <div class="gallery" id="gal-manali"></div>
-          <div class="tiny" id="gal-manali-status" style="margin-top:10px;color:var(--muted)"></div>
+          <div class="tiny" id="gal-manali-status" style="margin-top:10px"></div>
         </div>
       </details>
+    </div>
+  </section>
+
+  <!-- PACKAGE COST -->
+  <section id="package">
+    <div class="container">
+      <div class="sectionTitle">
+        <div>
+          <h2><i class="fa-solid fa-sack-dollar"></i> Approx Package Cost (Flight vs Train)</h2>
+          <p>3 tiers (5-Star / 3-Star / Average). Totals shown for <b>2 couples (4 adults)</b>. Kids extra depends on tickets & meals.</p>
+        </div>
+        <span class="badge green"><i class="fa-solid fa-wallet"></i> Total Budget</span>
+      </div>
+
+      <div class="kpiGrid">
+        <div class="kpi">
+          <b><i class="fa-solid fa-plane"></i> Flight package note</b>
+          <span>Flights are date-based. This section gives planning ranges (X–Y), not exact quotes.</span>
+        </div>
+        <div class="kpi">
+          <b><i class="fa-solid fa-train"></i> Train package note</b>
+          <span>Train is cheaper but longer. Add cab costs for hills + local travel.</span>
+        </div>
+        <div class="kpi">
+          <b><i class="fa-solid fa-car-side"></i> Transfers note</b>
+          <span>Includes Dharamshala ↔ Manali cab + local taxis + small buffers.</span>
+        </div>
+      </div>
+
+      <div style="height:14px"></div>
+
+      <div class="grid two">
+        <div class="card">
+          <div class="cardHeader">
+            <b><i class="fa-solid fa-plane"></i> Flight Package (4 adults)</b>
+            <span class="badge"><i class="fa-solid fa-layer-group"></i> 3 tiers</span>
+          </div>
+
+          <table>
+            <thead>
+              <tr>
+                <th>Hotel Tier</th>
+                <th>Hotels (2 rooms × 6 nights)</th>
+                <th>Flights (round trip est.)</th>
+                <th>Transfers + local</th>
+                <th><span class="money"><i class="fa-solid fa-money-bill-wave"></i> Total (X–Y)</span></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><b>5-Star</b></td>
+                <td class="muted">₹2,16,000 – ₹3,00,000</td>
+                <td class="muted">₹80,000 – ₹1,92,000</td>
+                <td class="muted">₹18,000 – ₹35,000</td>
+                <td><span class="moneyHigh">₹3,14,000 – ₹5,27,000</span></td>
+              </tr>
+              <tr>
+                <td><b>3-Star</b></td>
+                <td class="muted">₹72,000 – ₹1,44,000</td>
+                <td class="muted">₹80,000 – ₹1,92,000</td>
+                <td class="muted">₹18,000 – ₹35,000</td>
+                <td><span class="moneyLow">₹1,70,000 – ₹3,71,000</span></td>
+              </tr>
+              <tr>
+                <td><b>Average</b></td>
+                <td class="muted">₹96,000 – ₹2,16,000</td>
+                <td class="muted">₹80,000 – ₹1,92,000</td>
+                <td class="muted">₹18,000 – ₹35,000</td>
+                <td><span class="moneyHigh">₹1,94,000 – ₹4,43,000</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="card">
+          <div class="cardHeader">
+            <b><i class="fa-solid fa-train"></i> Train Package (4 adults)</b>
+            <span class="badge orange"><i class="fa-solid fa-layer-group"></i> 3 tiers</span>
+          </div>
+
+          <table>
+            <thead>
+              <tr>
+                <th>Hotel Tier</th>
+                <th>Hotels (2 rooms × 6 nights)</th>
+                <th>Train (round trip est.)</th>
+                <th>Transfers + local</th>
+                <th><span class="money"><i class="fa-solid fa-money-bill-wave"></i> Total (X–Y)</span></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><b>5-Star</b></td>
+                <td class="muted">₹2,16,000 – ₹3,00,000</td>
+                <td class="muted">₹14,000 – ₹32,000</td>
+                <td class="muted">₹22,000 – ₹45,000</td>
+                <td><span class="moneyHigh">₹2,52,000 – ₹3,77,000</span></td>
+              </tr>
+              <tr>
+                <td><b>3-Star</b></td>
+                <td class="muted">₹72,000 – ₹1,44,000</td>
+                <td class="muted">₹14,000 – ₹32,000</td>
+                <td class="muted">₹22,000 – ₹45,000</td>
+                <td><span class="moneyLow">₹1,08,000 – ₹2,21,000</span></td>
+              </tr>
+              <tr>
+                <td><b>Average</b></td>
+                <td class="muted">₹96,000 – ₹2,16,000</td>
+                <td class="muted">₹14,000 – ₹32,000</td>
+                <td class="muted">₹22,000 – ₹45,000</td>
+                <td><span class="moneyHigh">₹1,32,000 – ₹2,93,000</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:14px;background:rgba(2,6,23,.02)">
+        <b><i class="fa-solid fa-people-group"></i> Total Approx Budget for 2 Couples (4 Adults)</b>
+        <ul class="list">
+          <li><b class="moneyLow"><i class="fa-solid fa-money-bill-wave"></i> Best value (Train + 3-Star):</b> ~₹1.08L – ₹2.21L</li>
+          <li><b class="moneyHigh"><i class="fa-solid fa-money-bill-wave"></i> Balanced (Flight + Average):</b> ~₹1.94L – ₹4.43L</li>
+          <li><b class="moneyHigh"><i class="fa-solid fa-money-bill-wave"></i> Premium (Flight + 5-Star):</b> ~₹3.14L – ₹5.27L</li>
+        </ul>
+        <div class="tiny">
+          Kids note: add roughly <b>+10% to +30%</b> depending on flight tickets (age), extra meals, activities, and room bedding policy.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- YOUTUBE -->
+  <section id="videos">
+    <div class="container">
+      <div class="sectionTitle">
+        <div>
+          <h2>Top YouTube Videos (Dharamshala + Manali vlogs)</h2>
+          <p>Click any thumbnail → video plays in popup inside this website.</p>
+        </div>
+        <span class="badge"><i class="fa-brands fa-youtube"></i> 10 videos</span>
+      </div>
+
+      <div class="videoGrid" id="videoGrid"></div>
     </div>
   </section>
 
@@ -395,6 +862,9 @@
       <div class="footRow">
         <div><b>WeekWander</b> — 1-Week Smart Travel Plan</div>
         <div><b>All rights reserved © sanjayvishwakarma@2026</b></div>
+      </div>
+      <div class="tiny" style="margin-top:8px">
+        Galleries use public image endpoints (Unsplash Source). Maps use OpenStreetMap static tiles.
       </div>
     </div>
   </footer>
@@ -411,69 +881,97 @@
         <img id="imgView" alt="Preview" src="" />
         <button class="navArrow right" onclick="nextImage()" aria-label="Next"><i class="fa-solid fa-chevron-right"></i></button>
       </div>
-      <div class="modalFooter" id="imgFooter">Use ← → keys to navigate. ESC to close.</div>
+      <div class="modalFooter" id="imgFooter">Use ← → keys to navigate.</div>
+    </div>
+  </div>
+
+  <!-- VIDEO MODAL -->
+  <div class="modal" id="vidModal" role="dialog" aria-modal="true" aria-label="Video Player">
+    <div class="modalBox">
+      <div class="modalTop">
+        <b id="vidTitle">YouTube Video</b>
+        <button class="x" onclick="closeVideoModal()" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="modalBody">
+        <iframe id="vidFrame" class="videoFrame" src="" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
+      </div>
+      <div class="modalFooter">Tip: Press ESC to close.</div>
     </div>
   </div>
 
   <script>
-    /* Mobile nav */
+    /* ---------- Mobile nav ---------- */
     function toggleNav(){
       const nav = document.getElementById('navLinks');
       const isOpen = nav.style.display === 'flex';
       nav.style.display = isOpen ? 'none' : 'flex';
     }
+    document.addEventListener('click', (e)=>{
+      const nav = document.getElementById('navLinks');
+      const btn = document.querySelector('.hamburger');
+      if(!nav || !btn) return;
+      const clickedInside = nav.contains(e.target) || btn.contains(e.target);
+      if(!clickedInside && window.innerWidth <= 860){
+        nav.style.display = 'none';
+      }
+    });
+    window.addEventListener('resize', ()=>{
+      const nav = document.getElementById('navLinks');
+      if(window.innerWidth > 860) nav.style.display = 'flex';
+      else nav.style.display = 'none';
+    });
 
-    /* ✅ Gallery source FIX:
-       Use Picsum (reliable, no blocking). */
+    /* ---------- Galleries (Unsplash Source) ---------- */
+    // Note: Unsplash Source does not require an API key.
     const galleryState = {
-      dharamshala: { baseSeed: 1200, items: [], count: 60, label: "Dharamshala Photo" },
-      manali:      { baseSeed: 2400, items: [], count: 60, label: "Manali Photo" }
+      dharamshala: { count: 60, seed: 100, items: [], keywords: ["dharamshala","mcleodganj","himachal","mountains","monastery","himalayas","india"] },
+      manali:      { count: 60, seed: 200, items: [], keywords: ["manali","himachal","solang","atal tunnel","snow","mountains","himalayas","india"] }
     };
 
-    function picsumUrl(seed, w, h){
-      return `https://picsum.photos/seed/${seed}/${w}/${h}`;
+    function buildUnsplashUrl(keywords, sig){
+      // Mix keywords for variety
+      const q = encodeURIComponent(keywords.join(","));
+      return `https://source.unsplash.com/600x450/?${q}&sig=${sig}`;
+    }
+
+    function renderGallery(kind){
+      const grid = document.getElementById(`gal-${kind}`);
+      grid.innerHTML = "";
+      const st = galleryState[kind];
+      st.items.forEach((it, idx) => {
+        const div = document.createElement("div");
+        div.className = "gItem";
+        div.dataset.kind = kind;
+        div.dataset.index = String(idx);
+        div.innerHTML = `
+          <img loading="lazy" alt="${escapeHtml(it.title)}" src="${it.thumb}">
+          <div class="cap">${escapeHtml(it.title)}</div>
+        `;
+        div.addEventListener("click", () => openImageModal(kind, idx));
+        grid.appendChild(div);
+      });
+
+      const status = document.getElementById(`gal-${kind}-status`);
+      status.textContent = `Loaded ${st.items.length}+ images. Click “Load More” to add more.`;
     }
 
     function generateImages(kind, howMany){
       const st = galleryState[kind];
       const start = st.items.length;
       for(let i=0;i<howMany;i++){
-        const idx = start + i + 1;
-        const seed = `${kind}-${st.baseSeed + idx}`;
-        st.items.push({
-          title: `${st.label} ${idx}`,
-          thumb: picsumUrl(seed, 800, 600),
-          full:  picsumUrl(seed, 2000, 1400)
-        });
+        const sig = st.seed + start + i + 1;
+        const title = (kind === "dharamshala")
+          ? `Dharamshala Photo ${start + i + 1}`
+          : `Manali Photo ${start + i + 1}`;
+        const thumb = buildUnsplashUrl(st.keywords, sig);
+        st.items.push({ thumb, full: thumb.replace("600x450","1600x900"), title });
       }
-    }
-
-    function renderGallery(kind){
-      const grid = document.getElementById(`gal-${kind}`);
-      const st = galleryState[kind];
-      grid.innerHTML = "";
-
-      st.items.forEach((it, idx) => {
-        const card = document.createElement("div");
-        card.className = "gItem";
-        card.innerHTML = `
-          <span class="frame">
-            <img loading="lazy" alt="${escapeHtml(it.title)}" src="${it.thumb}">
-          </span>
-          <div class="cap">${escapeHtml(it.title)}</div>
-        `;
-        card.addEventListener("click", () => openImageModal(kind, idx));
-        grid.appendChild(card);
-      });
-
-      document.getElementById(`gal-${kind}-status`).textContent =
-        `Loaded ${st.items.length}+ images.`;
     }
 
     function reloadGallery(kind){
       const st = galleryState[kind];
       st.items = [];
-      st.baseSeed = st.baseSeed + Math.floor(Math.random() * 9999);
+      st.seed = st.seed + Math.floor(Math.random()*5000);
       generateImages(kind, st.count);
       renderGallery(kind);
     }
@@ -483,72 +981,136 @@
       renderGallery(kind);
     }
 
-    /* Lightbox */
-    let currentKind = null;
+    /* ---------- Lightbox (image modal) ---------- */
+    let currentGalleryKind = null;
     let currentIndex = 0;
 
     function openImageModal(kind, idx){
-      currentKind = kind;
+      currentGalleryKind = kind;
       currentIndex = idx;
-      document.getElementById("imgModal").classList.add("open");
+      const modal = document.getElementById("imgModal");
+      modal.classList.add("open");
       paintImage();
     }
 
     function closeImageModal(){
       document.getElementById("imgModal").classList.remove("open");
-      currentKind = null;
+      currentGalleryKind = null;
       currentIndex = 0;
     }
 
     function paintImage(){
-      const st = galleryState[currentKind];
+      const st = galleryState[currentGalleryKind];
       if(!st || !st.items[currentIndex]) return;
-      const it = st.items[currentIndex];
-      document.getElementById("imgTitle").textContent = it.title;
-      document.getElementById("imgView").src = it.full;
+      const item = st.items[currentIndex];
+
+      document.getElementById("imgTitle").textContent = item.title;
+      document.getElementById("imgView").src = item.full;
       document.getElementById("imgFooter").textContent =
-        `${it.title} • ${currentIndex+1} / ${st.items.length} • Use ← → keys • ESC to close`;
+        `${item.title} • ${currentIndex+1} / ${st.items.length} • Use ← → keys`;
+
+      // If you're at ends, still allow wrap (infinite loop)
     }
 
     function nextImage(){
-      const st = galleryState[currentKind];
+      const st = galleryState[currentGalleryKind];
       if(!st) return;
       currentIndex = (currentIndex + 1) % st.items.length;
       paintImage();
     }
 
     function prevImage(){
-      const st = galleryState[currentKind];
+      const st = galleryState[currentGalleryKind];
       if(!st) return;
       currentIndex = (currentIndex - 1 + st.items.length) % st.items.length;
       paintImage();
     }
 
-    /* Close modal on outside click */
+    /* close modal on outside click */
     document.getElementById("imgModal").addEventListener("click", (e)=>{
       if(e.target.id === "imgModal") closeImageModal();
     });
 
-    /* Keyboard */
+    /* ---------- YouTube videos (play in modal) ---------- */
+    // Picked 10 relevant IDs
+    const videos = [
+      { id:"BLq30J56GiY", title:"First Time in Dharamshala & McLeod Ganj (Travel Vlog)" },
+      { id:"z116WqSgM9Y", title:"Exploring McLeod Ganj & Dharamshala (3-Day Plan)" },
+      { id:"QPVrH3aP4L0", title:"Top Places in Dharamshala & McLeodGanj (Travel Guide)" },
+      { id:"ZF2QBTdEPug", title:"McLeod Ganj & Dharamshala Itinerary + Food (Travel Plan)" },
+      { id:"i2_Ndnsyr8g", title:"McLeod Ganj + Bhagsu Falls + Dalai Lama Temple (Vlog)" },
+      { id:"V0Emh2jB10A", title:"Manali Tour Budget & Itinerary (Solang, Atal Tunnel)" },
+      { id:"b7x8GP-Ma40", title:"Solang Valley + Atal Tunnel + Sissu (Complete Tour Guide)" },
+      { id:"gEhFaw4CeGM", title:"Manali to Rohtang / Snowfall Points (Atal Tunnel + Solang)" },
+      { id:"N5Ra16BK0rU", title:"Manali Budget Tour Plan (Group Tour Itinerary)" },
+      { id:"q5MhOwLaphw", title:"Dharamshala to Manali Road Trip (Vlog)" }
+    ];
+
+    function renderVideos(){
+      const grid = document.getElementById("videoGrid");
+      grid.innerHTML = "";
+      videos.forEach(v => {
+        const card = document.createElement("div");
+        card.className = "videoCard";
+        const thumb = `https://i.ytimg.com/vi/${v.id}/hqdefault.jpg`;
+        card.innerHTML = `
+          <div class="videoThumb">
+            <img loading="lazy" alt="${escapeHtml(v.title)}" src="${thumb}">
+            <div class="playBtn"><span><i class="fa-solid fa-play"></i></span></div>
+          </div>
+          <div class="videoMeta">
+            <b>${escapeHtml(v.title)}</b>
+            <small><i class="fa-brands fa-youtube"></i> Tap to play</small>
+          </div>
+        `;
+        card.addEventListener("click", ()=> openVideoModal(v.id, v.title));
+        grid.appendChild(card);
+      });
+    }
+
+    function openVideoModal(id, title){
+      document.getElementById("vidTitle").textContent = title;
+      // autoplay + modest branding
+      document.getElementById("vidFrame").src = `https://www.youtube.com/embed/${id}?autoplay=1&rel=0&modestbranding=1`;
+      document.getElementById("vidModal").classList.add("open");
+    }
+
+    function closeVideoModal(){
+      document.getElementById("vidModal").classList.remove("open");
+      document.getElementById("vidFrame").src = "";
+    }
+
+    document.getElementById("vidModal").addEventListener("click", (e)=>{
+      if(e.target.id === "vidModal") closeVideoModal();
+    });
+
+    /* ---------- Keyboard controls ---------- */
     document.addEventListener("keydown", (e)=>{
       const imgOpen = document.getElementById("imgModal").classList.contains("open");
-      if(!imgOpen) return;
+      const vidOpen = document.getElementById("vidModal").classList.contains("open");
 
-      if(e.key === "Escape") closeImageModal();
-      if(e.key === "ArrowRight") nextImage();
-      if(e.key === "ArrowLeft") prevImage();
+      if(e.key === "Escape"){
+        if(imgOpen) closeImageModal();
+        if(vidOpen) closeVideoModal();
+      }
+      if(imgOpen){
+        if(e.key === "ArrowRight") nextImage();
+        if(e.key === "ArrowLeft") prevImage();
+      }
     });
 
     function escapeHtml(str){
-      return (str || "").replace(/[&<>"']/g, m =>
-        ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])
-      );
+      return (str || "").replace(/[&<>"']/g, function(m){
+        return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]);
+      });
     }
 
-    /* init */
+    /* ---------- init ---------- */
     (function init(){
+      // Load 60+ each by default
       reloadGallery("dharamshala");
       reloadGallery("manali");
+      renderVideos();
     })();
   </script>
 </body>
