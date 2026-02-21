@@ -12,7 +12,7 @@
   <!-- Font -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 
   <style>
     :root{
@@ -21,13 +21,18 @@
       --orange:#FF4B2B;
       --green:#9DBB24;
       --gray:#E9EEF5;
+
       --text:#0f172a;
       --muted:#475569;
       --card:#ffffff;
       --border:rgba(15,23,42,.10);
       --shadow: 0 18px 45px rgba(2,6,23,.12);
       --radius: 18px;
+
+      --ok:#16a34a;
+      --bad:#dc2626;
     }
+
     *{box-sizing:border-box}
     html,body{margin:0;padding:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial}
     body{background:linear-gradient(180deg,#ffffff, var(--gray)); color:var(--text)}
@@ -43,21 +48,21 @@
       border-bottom: 1px solid var(--border);
     }
     .nav{display:flex; align-items:center; justify-content:space-between; padding:14px 0; gap:12px}
-    .brand{display:flex; align-items:center; gap:10px; font-weight:800; letter-spacing:.2px}
+    .brand{display:flex; align-items:center; gap:10px; font-weight:900; letter-spacing:.2px}
     .brand .logo{
       width:38px;height:38px;border-radius:12px;
       background: linear-gradient(135deg,var(--blue-1),var(--blue-2));
       display:grid;place-items:center; color:white;
       box-shadow: 0 10px 25px rgba(11,94,215,.25);
     }
-    .brand small{display:block; font-weight:600; color:var(--muted); margin-top:2px}
+    .brand small{display:block; font-weight:700; color:var(--muted); margin-top:2px}
     .navLinks{display:flex; gap:18px; align-items:center}
-    .navLinks a{color:var(--muted); font-weight:700; font-size:14px; padding:8px 10px; border-radius:12px}
+    .navLinks a{color:var(--muted); font-weight:800; font-size:14px; padding:8px 10px; border-radius:12px}
     .navLinks a:hover{background:rgba(2,6,23,.05); color:var(--text)}
     .cta{display:flex; gap:10px; align-items:center}
     .btn{
       border:1px solid var(--border); background:#fff; padding:10px 12px; border-radius:14px;
-      font-weight:800; font-size:14px; cursor:pointer;
+      font-weight:900; font-size:14px; cursor:pointer;
       box-shadow: 0 10px 25px rgba(2,6,23,.06);
     }
     .btnPrimary{background: linear-gradient(135deg,var(--blue-1),var(--blue-2)); border:none; color:white}
@@ -80,16 +85,16 @@
     .hero img{width:100%;height:100%;object-fit:cover;opacity:.93;transform:scale(1.03)}
     .hero::after{
       content:""; position:absolute; inset:0;
-      background: linear-gradient(90deg, rgba(2,6,23,.80) 0%, rgba(2,6,23,.46) 44%, rgba(2,6,23,.16) 100%);
+      background: linear-gradient(90deg, rgba(2,6,23,.82) 0%, rgba(2,6,23,.46) 46%, rgba(2,6,23,.16) 100%);
     }
     .heroContent{position:absolute; inset:0; display:flex; align-items:flex-end}
-    .heroCard{width:min(640px, 92%); margin: 0 0 26px 22px; color:#fff}
+    .heroCard{width:min(660px, 92%); margin: 0 0 26px 22px; color:#fff}
     .eyebrow{
       display:inline-flex; gap:8px; align-items:center;
       padding:7px 10px; border-radius:999px;
       background: rgba(255,255,255,.10);
       border: 1px solid rgba(255,255,255,.18);
-      font-weight:800; font-size:12px;
+      font-weight:900; font-size:12px;
     }
     .heroCard h1{margin:12px 0 8px; font-size:clamp(28px,4vw,44px); line-height:1.08; letter-spacing:-.6px}
     .heroCard p{margin:0 0 14px; color:rgba(255,255,255,.84); font-size:15px; line-height:1.55}
@@ -103,7 +108,7 @@
       padding:8px 10px; border-radius:999px;
       border:1px solid rgba(255,255,255,.25);
       background: rgba(255,255,255,.10);
-      font-weight:800; font-size:12px;
+      font-weight:900; font-size:12px;
     }
     .dot{width:14px;height:14px;border-radius:999px}
 
@@ -156,31 +161,34 @@
     .mapImg{border-radius:18px; overflow:hidden; border:1px solid var(--border); background:#fff}
     .mapCaption{margin-top:8px;color:var(--muted);font-size:12px}
 
-    /* HOTEL cards */
-    .hotelGrid{display:grid; gap:12px; grid-template-columns:1fr}
-    @media(min-width:860px){ .hotelGrid{grid-template-columns:repeat(3,1fr);} }
-    .hotel{
-      border-radius: 18px; overflow:hidden; border:1px solid var(--border);
-      background:#fff; box-shadow: 0 14px 30px rgba(2,6,23,.08);
-    }
-    .hotel img{width:100%;height:160px;object-fit:cover}
-    .hotel .p{padding:12px}
-    .hotel h3{margin:0 0 6px;font-size:14px}
-    .hotel .meta{display:flex;gap:10px;flex-wrap:wrap;color:var(--muted);font-size:12px}
-    .hotel .meta i{color:var(--blue-1)}
-    .hotel .actions{margin-top:10px;display:flex;gap:8px;flex-wrap:wrap}
-    .linkBtn{
-      display:inline-flex;gap:8px;align-items:center;
+    /* ACCORDION */
+    details{
       border:1px solid var(--border);
-      padding:9px 10px;border-radius:14px;
-      font-weight:900;font-size:12px;background:#fff;
+      background:#fff;
+      border-radius: 18px;
+      box-shadow: 0 14px 30px rgba(2,6,23,.08);
+      overflow:hidden;
     }
-    .linkBtn.primary{background: linear-gradient(135deg,var(--blue-1),var(--blue-2)); border:none; color:#fff}
+    summary{
+      list-style:none;
+      cursor:pointer;
+      padding:14px 14px;
+      font-weight:900;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      background: linear-gradient(180deg, rgba(22,161,255,.08), rgba(2,6,23,.00));
+    }
+    summary::-webkit-details-marker{display:none}
+    .accBody{padding:12px 14px 14px}
+    .accHint{color:var(--muted);font-size:13px;margin-top:2px}
+    .accRight{display:flex;gap:10px;align-items:center;color:var(--muted);font-size:12px}
 
-    /* GALLERIES (50+) */
+    /* GALLERIES */
     .galleryTop{
       display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap;
-      margin: 6px 0 10px;
+      margin: 8px 0 10px;
     }
     .pill{
       display:inline-flex; gap:8px; align-items:center;
@@ -198,7 +206,7 @@
     .gItem{
       border-radius: 16px; overflow:hidden; border:1px solid var(--border);
       background:#fff; position:relative;
-      min-height: 120px;
+      cursor:pointer;
     }
     .gItem img{width:100%;height:140px;object-fit:cover}
     .gItem .cap{
@@ -212,12 +220,20 @@
       overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
     }
 
-    /* COST TABLE */
+    /* PACKAGE COST */
     table{width:100%; border-collapse:separate; border-spacing:0; overflow:hidden; border-radius:16px; border:1px solid var(--border); background:#fff}
     th,td{padding:10px; border-bottom:1px solid var(--border); vertical-align:top; font-size:13px}
     th{background: rgba(2,6,23,.03); text-align:left; font-weight:900}
     tr:last-child td{border-bottom:none}
     .muted{color:var(--muted)}
+    .money{
+      display:inline-flex; align-items:center; gap:8px;
+      font-weight:900;
+    }
+    .moneyLow{color:var(--ok); font-weight:900}
+    .moneyHigh{color:var(--bad); font-weight:900}
+
+    /* KPI */
     .kpiGrid{display:grid; gap:12px; grid-template-columns:1fr}
     @media(min-width:900px){ .kpiGrid{grid-template-columns:repeat(3,1fr);} }
     .kpi{
@@ -227,7 +243,126 @@
     .kpi b{display:block}
     .kpi span{color:var(--muted); font-size:12px; line-height:1.5; display:block; margin-top:6px}
 
-    footer{padding:26px 0 34px; color:var(--muted); font-size:12px}
+    /* VIDEO GRID */
+    .videoGrid{
+      display:grid;
+      grid-template-columns:1fr;
+      gap:12px;
+    }
+    @media(min-width:900px){ .videoGrid{grid-template-columns: repeat(3, 1fr);} }
+    .videoCard{
+      border-radius: 18px;
+      overflow:hidden;
+      border:1px solid var(--border);
+      background:#fff;
+      box-shadow: 0 14px 30px rgba(2,6,23,.08);
+      cursor:pointer;
+    }
+    .videoThumb{
+      position:relative;
+      background:#000;
+    }
+    .videoThumb img{width:100%;height:180px;object-fit:cover;opacity:.92}
+    .playBtn{
+      position:absolute; inset:0;
+      display:grid; place-items:center;
+    }
+    .playBtn span{
+      width:56px;height:56px;border-radius:999px;
+      background: rgba(255,255,255,.92);
+      display:grid;place-items:center;
+      box-shadow: 0 18px 45px rgba(2,6,23,.25);
+      color: var(--blue-1);
+      font-size:20px;
+    }
+    .videoMeta{padding:12px}
+    .videoMeta b{display:block; font-size:14px}
+    .videoMeta small{color:var(--muted); font-weight:700}
+
+    /* MODALS (Image + Video) */
+    .modal{
+      position:fixed; inset:0;
+      background: rgba(2,6,23,.72);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding:16px;
+      z-index:999;
+    }
+    .modal.open{display:flex}
+    .modalBox{
+      width: min(980px, 100%);
+      background:#0b1220;
+      border:1px solid rgba(255,255,255,.12);
+      border-radius: 18px;
+      overflow:hidden;
+      box-shadow: 0 25px 70px rgba(0,0,0,.35);
+      position:relative;
+    }
+    .modalTop{
+      display:flex; align-items:center; justify-content:space-between; gap:10px;
+      padding:10px 12px;
+      color:#fff;
+      background: rgba(255,255,255,.06);
+      border-bottom:1px solid rgba(255,255,255,.10);
+    }
+    .modalTop b{font-size:13px}
+    .modalTop .x{
+      width:40px;height:40px;border-radius:14px;
+      border:1px solid rgba(255,255,255,.16);
+      background: rgba(255,255,255,.08);
+      color:#fff; cursor:pointer;
+      display:grid;place-items:center;
+    }
+    .modalBody{
+      position:relative;
+      background:#000;
+    }
+    .modalBody img{
+      width:100%;
+      max-height: 76vh;
+      object-fit:contain;
+      background:#000;
+    }
+    .navArrow{
+      position:absolute;
+      top:50%;
+      transform: translateY(-50%);
+      width:46px;height:46px;border-radius:16px;
+      border:1px solid rgba(255,255,255,.16);
+      background: rgba(255,255,255,.10);
+      color:#fff; cursor:pointer;
+      display:grid;place-items:center;
+      font-size:18px;
+    }
+    .navArrow.left{left:12px}
+    .navArrow.right{right:12px}
+    .modalFooter{
+      padding:10px 12px;
+      color: rgba(255,255,255,.78);
+      font-size:12px;
+      background: rgba(255,255,255,.04);
+      border-top:1px solid rgba(255,255,255,.10);
+    }
+
+    /* Video modal */
+    .videoFrame{
+      width:100%;
+      aspect-ratio: 16 / 9;
+      border:0;
+      display:block;
+      background:#000;
+    }
+
+    footer{
+      padding:26px 0 34px;
+      color:var(--muted);
+      font-size:12px;
+      border-top: 1px solid var(--border);
+      background: rgba(255,255,255,.60);
+      margin-top: 14px;
+    }
+    .footRow{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
     .tiny{font-size:12px;color:var(--muted);line-height:1.55}
 
     /* Mobile nav */
@@ -241,6 +376,7 @@
       .hamburger{display:inline-grid;place-items:center}
       .cta .btn{display:none}
       .heroCard{margin-left:16px}
+      .navArrow{width:44px;height:44px}
     }
   </style>
 </head>
@@ -261,11 +397,10 @@
         <nav class="navLinks" id="navLinks">
           <a href="#travel">Travel Plan</a>
           <a href="#train">Train Option</a>
-          <a href="#hotels">Hotels</a>
-          <a href="#dharamshala">Dharamshala</a>
-          <a href="#manali">Manali</a>
           <a href="#maps">Maps</a>
+          <a href="#galleries">Galleries</a>
           <a href="#package">Package Cost</a>
+          <a href="#videos">YouTube</a>
         </nav>
 
         <div class="cta">
@@ -281,17 +416,18 @@
   <!-- HERO -->
   <div class="container" id="top">
     <div class="hero">
-      <img alt="Dharamshala mountains view" src="https://commons.wikimedia.org/wiki/Special:FilePath/HPCA%20Stadium%20Dharamshala.jpg">
+      <img alt="Himalayas travel"
+           src="https://source.unsplash.com/1600x900/?himalayas,mountains,travel&sig=11">
       <div class="heroContent">
         <div class="heroCard">
           <span class="eyebrow"><i class="fa-solid fa-location-dot"></i> Dharamshala • Manali • March End</span>
           <h1>Explore the Himalayas with a smart, family-friendly plan.</h1>
           <p>
-            Two couples + two kids — one week, relaxed pace, scenic spots, great stays, and practical routes from
+            Two couples + two kids — one week, relaxed pace, scenic spots, and practical routes from
             <b>Pune</b> and <b>Indore</b>.
           </p>
           <div class="heroActions">
-            <a class="btn btnPrimary" href="#travel"><i class="fa-solid fa-plane"></i>&nbsp;See Routes</a>
+            <a class="btn btnPrimary" href="#galleries"><i class="fa-solid fa-images"></i>&nbsp;View Galleries</a>
             <a class="btn ghost" href="#package"><i class="fa-solid fa-wallet"></i>&nbsp;Budget</a>
           </div>
 
@@ -315,7 +451,7 @@
           <h2>Travel Plan (Route Options)</h2>
           <p>Pune couple + Indore couple — meet in the hills (or at a transit hub) and continue together.</p>
         </div>
-        <span class="badge"><i class="fa-solid fa-child"></i> Kid-friendly routes</span>
+        <span class="badge"><i class="fa-solid fa-child"></i> Kid-friendly</span>
       </div>
 
       <div class="grid two">
@@ -328,20 +464,20 @@
           <div class="routeRow">
             <div class="routeIcon"><i class="fa-solid fa-plane"></i></div>
             <div>
-              <h4>Fly in: to Kangra / Gaggal (DHM) → taxi to McLeod Ganj</h4>
+              <h4>Fly in: to Kangra (Gaggal/DHM) → taxi to McLeod Ganj</h4>
               <p>
-                • Pune → (transit) → Kangra (DHM)<br/>
-                • Indore → (transit) → Kangra (DHM)<br/>
-                Then taxi to McLeod Ganj (Dharamshala base) for 3 nights.
+                • Pune → (transit) → Kangra (DHM) <br/>
+                • Indore → (transit) → Kangra (DHM) <br/>
+                Stay 3 nights in McLeod Ganj.
               </p>
             </div>
           </div>
 
           <div class="routeRow">
-            <div class="routeIcon"><i class="fa-solid fa-bus"></i></div>
+            <div class="routeIcon"><i class="fa-solid fa-car-side"></i></div>
             <div>
               <h4>Hill transfer: Dharamshala → Manali (day drive)</h4>
-              <p>Private cab is most comfortable for kids. Plan daylight drive + snack breaks.</p>
+              <p>Private cab is most comfortable for kids. Keep snack + restroom stops.</p>
             </div>
           </div>
 
@@ -349,12 +485,12 @@
             <div class="routeIcon"><i class="fa-solid fa-plane-arrival"></i></div>
             <div>
               <h4>Return: Manali → Bhuntar (Kullu) Airport → Pune / Indore</h4>
-              <p>Bhuntar is the closest airport for Manali side. Return via connecting flights.</p>
+              <p>Return via connecting flights. (Or do train-plan return.)</p>
             </div>
           </div>
 
           <ul class="list">
-            <li><b>Stay split:</b> 3 nights Dharamshala + 3 nights Manali + 1 travel buffer day</li>
+            <li><b>Stay split:</b> 3 nights Dharamshala + 3 nights Manali + 1 buffer day</li>
             <li><b>Best for kids:</b> fewer hotel changes + daytime hill rides</li>
           </ul>
         </div>
@@ -369,11 +505,7 @@
             <div class="routeIcon"><i class="fa-solid fa-plane"></i></div>
             <div>
               <h4>Fly to Bhuntar (Kullu) → road to Manali</h4>
-              <p>
-                • Pune → (transit) → Bhuntar<br/>
-                • Indore → (transit) → Bhuntar<br/>
-                Then 3 nights Manali.
-              </p>
+              <p>• Pune/Indore → (transit) → Bhuntar → Manali (3 nights)</p>
             </div>
           </div>
 
@@ -381,7 +513,7 @@
             <div class="routeIcon"><i class="fa-solid fa-car-side"></i></div>
             <div>
               <h4>Manali → Dharamshala (day drive)</h4>
-              <p>Then 3 nights Dharamshala. Return via Kangra (DHM) airport.</p>
+              <p>Then 3 nights Dharamshala. Return via Kangra (DHM) airport or train plan.</p>
             </div>
           </div>
 
@@ -389,7 +521,7 @@
             <div class="routeIcon"><i class="fa-solid fa-train"></i></div>
             <div>
               <h4>Budget alternative: train-based plan (details below)</h4>
-              <p>Use train for long distance + cab for hills (less costly than flights).</p>
+              <p>Use train for long leg + cab in hills (cheaper than flights).</p>
             </div>
           </div>
 
@@ -399,13 +531,13 @@
     </div>
   </section>
 
-  <!-- TRAIN OPTION (NEW) -->
+  <!-- TRAIN OPTION -->
   <section id="train">
     <div class="container">
       <div class="sectionTitle">
         <div>
-          <h2>Train Travel Option (with <i class="fa-solid fa-train"></i> icon)</h2>
-          <p>Best for budget. Takes longer, but works well if you prefer train comfort + scenic road leg.</p>
+          <h2>Train Travel Option <i class="fa-solid fa-train"></i></h2>
+          <p>Best for budget control. Longer journey, but comfortable if you choose 3AC/2AC.</p>
         </div>
         <span class="badge orange"><i class="fa-solid fa-train"></i> Train + Cab</span>
       </div>
@@ -413,241 +545,61 @@
       <div class="grid two">
         <div class="card">
           <div class="cardHeader">
-            <b>Train Plan 1: Pune / Indore → Pathankot → Dharamshala</b>
+            <b>Train Plan: Pune / Indore → Pathankot → Dharamshala → Manali</b>
             <span class="badge"><i class="fa-solid fa-indian-rupee-sign"></i> Budget</span>
           </div>
 
           <div class="routeRow">
             <div class="routeIcon"><i class="fa-solid fa-train"></i></div>
             <div>
-              <h4>Step 1: Train to Pathankot (major gateway)</h4>
-              <p>
-                Pune → Pathankot (overnight / long-distance). Indore → Pathankot (route varies).<br/>
-                Ticket ranges depend on class & dates.
-              </p>
+              <h4>Step 1: Train to Pathankot</h4>
+              <p>Pune/Indore → Pathankot (long-distance). Choose 3AC/2AC for kids comfort.</p>
             </div>
           </div>
 
           <div class="routeRow">
             <div class="routeIcon"><i class="fa-solid fa-taxi"></i></div>
             <div>
-              <h4>Step 2: Pathankot → Dharamshala by cab</h4>
-              <p>One-way cab prices online start ~₹1,687–₹3,483 (varies by car). (MMT reference)</p>
+              <h4>Step 2: Pathankot → Dharamshala (cab)</h4>
+              <p>After train arrival, take cab/bus up to Dharamshala / McLeod Ganj.</p>
             </div>
           </div>
 
           <div class="routeRow">
             <div class="routeIcon"><i class="fa-solid fa-car-side"></i></div>
             <div>
-              <h4>Step 3: Dharamshala → Manali by cab (day drive)</h4>
-              <p>One-way taxi fare online shown ~₹7,017 (MMT reference). Great for 6-seater.</p>
+              <h4>Step 3: Dharamshala → Manali (cab day drive)</h4>
+              <p>Most family-friendly: daytime drive with snack + break stops.</p>
             </div>
           </div>
 
-          <div class="muted">
-            Sources (for quick planning):<br/>
-            • Pune→Pathankot ticket range example: ₹835–₹3,055 shown on ixigo.<br/>
-            • Pathankot→Dharamshala cab: MMT start ₹1,687.<br/>
-            • Dharamshala→Manali cab: MMT ₹7,017 one-way.
-          </div>
+          <ul class="list">
+            <li><b>Return:</b> Manali → (cab) → Pathankot → Train back</li>
+            <li><b>Or mixed:</b> Train one-way, flight one-way (time + budget balanced)</li>
+          </ul>
         </div>
 
         <div class="card">
           <div class="cardHeader">
-            <b>Train Plan 2: Return from hills</b>
-            <span class="badge green"><i class="fa-solid fa-check"></i> Flexible</span>
+            <b>When train option is best</b>
+            <span class="badge green"><i class="fa-solid fa-check"></i> Practical</span>
           </div>
 
           <ul class="list">
-            <li><b>Return via Pathankot:</b> Manali → Dharamshala → Pathankot → train back</li>
-            <li><b>Mixed return:</b> Train one-way, flight one-way (save money + reduce time)</li>
-            <li><b>Kids tip:</b> Prefer 3AC/2AC for long rides + carry snacks & small pillows</li>
+            <li>When flights are too expensive for your dates</li>
+            <li>When you want predictable travel (less flight disruption)</li>
+            <li>When you can add 1 buffer day for long travel</li>
           </ul>
 
-          <div class="card" style="margin-top:12px; background:rgba(2,6,23,.02)">
-            <b><i class="fa-solid fa-lightbulb"></i> When Train Option is best</b>
-            <ul class="list">
-              <li>If flights are expensive for your exact dates</li>
-              <li>If you want predictable travel (no flight cancellations)</li>
-              <li>If you prefer budget control (cab + train combo)</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
-      <div class="tiny" style="margin-top:10px">
-        Reference links used for the above planning ranges:
-        <a target="_blank" href="https://www.ixigo.com/by-train-rail/pune-to-pathankot-by-train">ixigo train ticket range</a> •
-        <a target="_blank" href="https://www.makemytrip.com/car-rental/pathankot-dharamshala-cab-services.html">MMT Pathankot→Dharamshala cab</a> •
-        <a target="_blank" href="https://www.makemytrip.com/car-rental/dharamshala-manali-cab-services.html">MMT Dharamshala→Manali cab</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- HOTELS -->
-  <section id="hotels">
-    <div class="container">
-      <div class="sectionTitle">
-        <div>
-          <h2>Hotel Options (with photo links)</h2>
-          <p>Click “View Photos & Rates” for official gallery & live prices on your dates.</p>
-        </div>
-        <span class="badge"><i class="fa-solid fa-hotel"></i> Family-ready stays</span>
-      </div>
-
-      <div class="hotelGrid">
-        <div class="hotel">
-          <img alt="Hotel style sample" src="https://commons.wikimedia.org/wiki/Special:FilePath/Hotel%20bedroom%20windows%20(Unsplash).jpg">
-          <div class="p">
-            <h3><i class="fa-solid fa-hotel"></i> Hyatt Regency Dharamshala Resort (5-Star)</h3>
-            <div class="meta">
-              <span><i class="fa-solid fa-tag"></i> 5-Star</span>
-              <span><i class="fa-solid fa-indian-rupee-sign"></i> ~₹18k–₹25k+ / night</span>
-              <span><i class="fa-solid fa-location-dot"></i> Dharamshala</span>
-            </div>
-            <div class="actions">
-              <a class="linkBtn primary" target="_blank" href="https://www.makemytrip.com/hotels/hyatt_regency_dharamshala_resort-details-dharamshala.html">
-                <i class="fa-solid fa-images"></i> View Photos & Rates
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <div class="hotel">
-          <img alt="Hotel style sample" src="https://commons.wikimedia.org/wiki/Special:FilePath/Negombo%20Beach%20resort%20pool%20(Unsplash).jpg">
-          <div class="p">
-            <h3><i class="fa-solid fa-hotel"></i> Fortune Park Moksha (3-Star/Comfort)</h3>
-            <div class="meta">
-              <span><i class="fa-solid fa-tag"></i> 3-Star+</span>
-              <span><i class="fa-solid fa-indian-rupee-sign"></i> ~₹6k–₹12k / night</span>
-              <span><i class="fa-solid fa-location-dot"></i> McLeod Ganj</span>
-            </div>
-            <div class="actions">
-              <a class="linkBtn primary" target="_blank" href="https://www.goibibo.com/hotels/fortune-park-moksha-mcleodganj-member-itc-hotels-group-hotel-in-dharamshala-4363933842788598295/">
-                <i class="fa-solid fa-images"></i> View Photos & Rates
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <div class="hotel">
-          <img alt="Hotel style sample" src="https://commons.wikimedia.org/wiki/Special:FilePath/Mexican%20mountain%20resort%20(Unsplash).jpg">
-          <div class="p">
-            <h3><i class="fa-solid fa-hotel"></i> Chonor House (Average/Boutique)</h3>
-            <div class="meta">
-              <span><i class="fa-solid fa-tag"></i> Average+</span>
-              <span><i class="fa-solid fa-indian-rupee-sign"></i> ~₹5.5k–₹10k / night</span>
-              <span><i class="fa-solid fa-location-dot"></i> McLeod Ganj</span>
-            </div>
-            <div class="actions">
-              <a class="linkBtn primary" target="_blank" href="https://www.expedia.co.in/Dharamshala-Hotels-Chonor-House.h100582448.Hotel-Information">
-                <i class="fa-solid fa-images"></i> View Photos & Rates
-              </a>
+          <div class="routeRow" style="margin-top:12px">
+            <div class="routeIcon"><i class="fa-solid fa-lightbulb"></i></div>
+            <div>
+              <h4>Family tip</h4>
+              <p>Carry: motion-sickness meds, snacks, light blanket, small pillow for kids.</p>
             </div>
           </div>
         </div>
       </div>
-
-      <div style="height:12px"></div>
-
-      <div class="hotelGrid">
-        <div class="hotel">
-          <img alt="Resort vibe sample" src="https://commons.wikimedia.org/wiki/Special:FilePath/Middle-Eastern%20resort%20(Unsplash).jpg">
-          <div class="p">
-            <h3><i class="fa-solid fa-hotel"></i> Span Resort & Spa (Manali side)</h3>
-            <div class="meta">
-              <span><i class="fa-solid fa-tag"></i> 5-Star/Resort</span>
-              <span><i class="fa-solid fa-indian-rupee-sign"></i> ~₹12k+ / night (varies)</span>
-              <span><i class="fa-solid fa-location-dot"></i> Kullu-Manali</span>
-            </div>
-            <div class="actions">
-              <a class="linkBtn primary" target="_blank" href="https://www.makemytrip.com/hotels/span_resort_and_spa-details-manali.html">
-                <i class="fa-solid fa-images"></i> View Photos & Rates
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <div class="hotel">
-          <img alt="Hotel style sample" src="https://commons.wikimedia.org/wiki/Special:FilePath/Pineapples%20in%20the%20Pool%20(Unsplash).jpg">
-          <div class="p">
-            <h3><i class="fa-solid fa-hotel"></i> Manali (3-Star Area Pick)</h3>
-            <div class="meta">
-              <span><i class="fa-solid fa-tag"></i> 3-Star</span>
-              <span><i class="fa-solid fa-location-dot"></i> Near Mall Road (convenience)</span>
-            </div>
-            <div class="actions">
-              <a class="linkBtn" href="#package"><i class="fa-solid fa-wallet"></i> Budget tiers below</a>
-            </div>
-          </div>
-        </div>
-
-        <div class="hotel">
-          <img alt="Hotel style sample" src="https://commons.wikimedia.org/wiki/Special:FilePath/Hotel%20National%2C%20Moscow.%20View%20from%20the%20upper%20floor%20room%20(Unsplash).jpg">
-          <div class="p">
-            <h3><i class="fa-solid fa-hotel"></i> Manali (Average Area Pick)</h3>
-            <div class="meta">
-              <span><i class="fa-solid fa-tag"></i> Average</span>
-              <span><i class="fa-solid fa-location-dot"></i> Old Manali / Log Hut (green & calm)</span>
-            </div>
-            <div class="actions">
-              <a class="linkBtn" href="#package"><i class="fa-solid fa-wallet"></i> Budget tiers below</a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <p class="tiny" style="margin-top:10px">
-        Hotel images above are “sample visuals” for clean hosting. For real hotel photos, use the “View Photos & Rates” links.
-      </p>
-    </div>
-  </section>
-
-  <!-- DHARAMSHALA GALLERY (50+) -->
-  <section id="dharamshala">
-    <div class="container">
-      <div class="sectionTitle">
-        <div>
-          <h2>Dharamshala / McLeod Ganj — Image Gallery (50+)</h2>
-          <p>Auto-loaded from Wikimedia Commons category (fast + legal to embed).</p>
-        </div>
-        <span class="badge green"><i class="fa-solid fa-images"></i> 50+ photos</span>
-      </div>
-
-      <div class="galleryTop">
-        <div class="pill"><i class="fa-solid fa-layer-group"></i> Source: Wikimedia category</div>
-        <div style="display:flex;gap:10px;flex-wrap:wrap">
-          <button class="btn" onclick="reloadGallery('dharamshala')"><i class="fa-solid fa-rotate"></i> Reload</button>
-          <button class="btn btnPrimary" onclick="loadMore('dharamshala')"><i class="fa-solid fa-plus"></i> Load More</button>
-        </div>
-      </div>
-
-      <div class="gallery" id="gal-dharamshala"></div>
-      <div class="tiny" id="gal-dharamshala-status" style="margin-top:10px"></div>
-    </div>
-  </section>
-
-  <!-- MANALI GALLERY (50+) -->
-  <section id="manali">
-    <div class="container">
-      <div class="sectionTitle">
-        <div>
-          <h2>Manali — Image Gallery (50+)</h2>
-          <p>Auto-loaded from Wikimedia Commons category (good quality variety).</p>
-        </div>
-        <span class="badge orange"><i class="fa-solid fa-images"></i> 50+ photos</span>
-      </div>
-
-      <div class="galleryTop">
-        <div class="pill"><i class="fa-solid fa-layer-group"></i> Source: Wikimedia category</div>
-        <div style="display:flex;gap:10px;flex-wrap:wrap">
-          <button class="btn" onclick="reloadGallery('manali')"><i class="fa-solid fa-rotate"></i> Reload</button>
-          <button class="btn btnPrimary" onclick="loadMore('manali')"><i class="fa-solid fa-plus"></i> Load More</button>
-        </div>
-      </div>
-
-      <div class="gallery" id="gal-manali"></div>
-      <div class="tiny" id="gal-manali-status" style="margin-top:10px"></div>
     </div>
   </section>
 
@@ -665,7 +617,7 @@
       <div class="grid two">
         <div class="card">
           <div class="cardHeader">
-            <b>Map 1: Pune + Indore → Dharamshala zone (overview)</b>
+            <b>Map: Pune + Indore → Dharamshala (overview)</b>
             <span class="badge"><i class="fa-solid fa-location-dot"></i> Start points</span>
           </div>
           <div class="mapImg">
@@ -681,7 +633,7 @@
 
         <div class="card">
           <div class="cardHeader">
-            <b>Map 2: Dharamshala → Manali (mountain corridor)</b>
+            <b>Map: Dharamshala → Manali</b>
             <span class="badge orange"><i class="fa-solid fa-mountain"></i> Hill leg</span>
           </div>
           <div class="mapImg">
@@ -697,49 +649,94 @@
     </div>
   </section>
 
-  <!-- PACKAGE COST (NEW) -->
+  <!-- GALLERIES (ACCORDION OPEN) -->
+  <section id="galleries">
+    <div class="container">
+      <div class="sectionTitle">
+        <div>
+          <h2>Image Galleries (50+ each)</h2>
+          <p>Click any photo → opens popup viewer with next/prev arrows.</p>
+        </div>
+        <span class="badge green"><i class="fa-solid fa-images"></i> Lightbox</span>
+      </div>
+
+      <!-- Dharamshala accordion (open) -->
+      <details open>
+        <summary>
+          <div>
+            Dharamshala / McLeod Ganj — Image Gallery (50+)
+            <div class="accHint">Source: public image providers (Unsplash Source) • fast + reliable</div>
+          </div>
+          <div class="accRight">
+            <span class="badge green"><i class="fa-solid fa-layer-group"></i> 60 images</span>
+            <i class="fa-solid fa-chevron-down"></i>
+          </div>
+        </summary>
+        <div class="accBody">
+          <div class="galleryTop">
+            <div class="pill"><i class="fa-solid fa-wand-magic-sparkles"></i> Tap photos to preview</div>
+            <div style="display:flex;gap:10px;flex-wrap:wrap">
+              <button class="btn" onclick="reloadGallery('dharamshala')"><i class="fa-solid fa-rotate"></i> Reload</button>
+              <button class="btn btnPrimary" onclick="loadMore('dharamshala', 20)"><i class="fa-solid fa-plus"></i> Load More</button>
+            </div>
+          </div>
+          <div class="gallery" id="gal-dharamshala"></div>
+          <div class="tiny" id="gal-dharamshala-status" style="margin-top:10px"></div>
+        </div>
+      </details>
+
+      <div style="height:12px"></div>
+
+      <!-- Manali accordion (open) -->
+      <details open>
+        <summary>
+          <div>
+            Manali — Image Gallery (50+)
+            <div class="accHint">Source: public image providers (Unsplash Source) • great travel vibes</div>
+          </div>
+          <div class="accRight">
+            <span class="badge orange"><i class="fa-solid fa-layer-group"></i> 60 images</span>
+            <i class="fa-solid fa-chevron-down"></i>
+          </div>
+        </summary>
+        <div class="accBody">
+          <div class="galleryTop">
+            <div class="pill"><i class="fa-solid fa-wand-magic-sparkles"></i> Tap photos to preview</div>
+            <div style="display:flex;gap:10px;flex-wrap:wrap">
+              <button class="btn" onclick="reloadGallery('manali')"><i class="fa-solid fa-rotate"></i> Reload</button>
+              <button class="btn btnPrimary" onclick="loadMore('manali', 20)"><i class="fa-solid fa-plus"></i> Load More</button>
+            </div>
+          </div>
+          <div class="gallery" id="gal-manali"></div>
+          <div class="tiny" id="gal-manali-status" style="margin-top:10px"></div>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <!-- PACKAGE COST -->
   <section id="package">
     <div class="container">
       <div class="sectionTitle">
         <div>
-          <h2>Approx Package Cost (X–Y) — Flight vs Train</h2>
-          <p>3 tiers (5-Star / 3-Star / Average). Totals shown for <b>2 couples (4 adults)</b>. Add kids as noted.</p>
+          <h2><i class="fa-solid fa-sack-dollar"></i> Approx Package Cost (Flight vs Train)</h2>
+          <p>3 tiers (5-Star / 3-Star / Average). Totals shown for <b>2 couples (4 adults)</b>. Kids extra depends on tickets & meals.</p>
         </div>
         <span class="badge green"><i class="fa-solid fa-wallet"></i> Total Budget</span>
       </div>
 
       <div class="kpiGrid">
         <div class="kpi">
-          <b><i class="fa-solid fa-plane"></i> Flight reference</b>
-          <span>
-            Pune → Kangra (Gaggal) flight estimate shown ~₹10,000–₹24,000 one-way (sample planning range).<br/>
-            (Used as a baseline for “flight package” calculations.)
-          </span>
-          <span class="tiny">
-            Ref: https://www.rome2rio.com/s/Pune/Gaggal
-          </span>
+          <b><i class="fa-solid fa-plane"></i> Flight package note</b>
+          <span>Flights are date-based. This section gives planning ranges (X–Y), not exact quotes.</span>
         </div>
-
         <div class="kpi">
-          <b><i class="fa-solid fa-train"></i> Train reference</b>
-          <span>
-            Pune → Pathankot ticket range example shown ~₹835–₹3,055 (varies by class & dates).<br/>
-            (Used as baseline for “train package” calculations.)
-          </span>
-          <span class="tiny">
-            Ref: https://www.ixigo.com/by-train-rail/pune-to-pathankot-by-train
-          </span>
+          <b><i class="fa-solid fa-train"></i> Train package note</b>
+          <span>Train is cheaper but longer. Add cab costs for hills + local travel.</span>
         </div>
-
         <div class="kpi">
-          <b><i class="fa-solid fa-taxi"></i> Cab reference</b>
-          <span>
-            Pathankot → Dharamshala cab starts ~₹1,687+ and Dharamshala → Manali one-way ~₹7,017 (online examples).<br/>
-            (Used for hill-transfer baseline.)
-          </span>
-          <span class="tiny">
-            Refs: MMT cab pages linked in Train section.
-          </span>
+          <b><i class="fa-solid fa-car-side"></i> Transfers note</b>
+          <span>Includes Dharamshala ↔ Manali cab + local taxis + small buffers.</span>
         </div>
       </div>
 
@@ -759,7 +756,7 @@
                 <th>Hotels (2 rooms × 6 nights)</th>
                 <th>Flights (round trip est.)</th>
                 <th>Transfers + local</th>
-                <th><b>Total (X–Y)</b></th>
+                <th><span class="money"><i class="fa-solid fa-money-bill-wave"></i> Total (X–Y)</span></th>
               </tr>
             </thead>
             <tbody>
@@ -768,29 +765,24 @@
                 <td class="muted">₹2,16,000 – ₹3,00,000</td>
                 <td class="muted">₹80,000 – ₹1,92,000</td>
                 <td class="muted">₹18,000 – ₹35,000</td>
-                <td><b>₹3,14,000 – ₹5,27,000</b></td>
+                <td><span class="moneyHigh">₹3,14,000 – ₹5,27,000</span></td>
               </tr>
               <tr>
                 <td><b>3-Star</b></td>
                 <td class="muted">₹72,000 – ₹1,44,000</td>
                 <td class="muted">₹80,000 – ₹1,92,000</td>
                 <td class="muted">₹18,000 – ₹35,000</td>
-                <td><b>₹1,70,000 – ₹3,71,000</b></td>
+                <td><span class="moneyLow">₹1,70,000 – ₹3,71,000</span></td>
               </tr>
               <tr>
                 <td><b>Average</b></td>
                 <td class="muted">₹96,000 – ₹2,16,000</td>
                 <td class="muted">₹80,000 – ₹1,92,000</td>
                 <td class="muted">₹18,000 – ₹35,000</td>
-                <td><b>₹1,94,000 – ₹4,43,000</b></td>
+                <td><span class="moneyHigh">₹1,94,000 – ₹4,43,000</span></td>
               </tr>
             </tbody>
           </table>
-
-          <p class="tiny" style="margin-top:10px">
-            Notes: Hotels assume 2 rooms. Transfers include: Pathankot→Dharamshala (if used), Dharamshala→Manali, local taxis, and small buffers.
-            Flights are highly date-dependent; ranges reflect “plan-level” estimates.
-          </p>
         </div>
 
         <div class="card">
@@ -806,7 +798,7 @@
                 <th>Hotels (2 rooms × 6 nights)</th>
                 <th>Train (round trip est.)</th>
                 <th>Transfers + local</th>
-                <th><b>Total (X–Y)</b></th>
+                <th><span class="money"><i class="fa-solid fa-money-bill-wave"></i> Total (X–Y)</span></th>
               </tr>
             </thead>
             <tbody>
@@ -815,37 +807,33 @@
                 <td class="muted">₹2,16,000 – ₹3,00,000</td>
                 <td class="muted">₹14,000 – ₹32,000</td>
                 <td class="muted">₹22,000 – ₹45,000</td>
-                <td><b>₹2,52,000 – ₹3,77,000</b></td>
+                <td><span class="moneyHigh">₹2,52,000 – ₹3,77,000</span></td>
               </tr>
               <tr>
                 <td><b>3-Star</b></td>
                 <td class="muted">₹72,000 – ₹1,44,000</td>
                 <td class="muted">₹14,000 – ₹32,000</td>
                 <td class="muted">₹22,000 – ₹45,000</td>
-                <td><b>₹1,08,000 – ₹2,21,000</b></td>
+                <td><span class="moneyLow">₹1,08,000 – ₹2,21,000</span></td>
               </tr>
               <tr>
                 <td><b>Average</b></td>
                 <td class="muted">₹96,000 – ₹2,16,000</td>
                 <td class="muted">₹14,000 – ₹32,000</td>
                 <td class="muted">₹22,000 – ₹45,000</td>
-                <td><b>₹1,32,000 – ₹2,93,000</b></td>
+                <td><span class="moneyHigh">₹1,32,000 – ₹2,93,000</span></td>
               </tr>
             </tbody>
           </table>
-
-          <p class="tiny" style="margin-top:10px">
-            Notes: Train ranges use a wide band (class & quota vary). Transfers are slightly higher vs flight package because you’ll rely more on cabs for end-to-end movement.
-          </p>
         </div>
       </div>
 
       <div class="card" style="margin-top:14px;background:rgba(2,6,23,.02)">
-        <b><i class="fa-solid fa-people-group"></i> Final “Total Approx Budget” for 2 Couples (4 Adults)</b>
+        <b><i class="fa-solid fa-people-group"></i> Total Approx Budget for 2 Couples (4 Adults)</b>
         <ul class="list">
-          <li><b>Best value (Train + 3-Star):</b> ~₹1.08L – ₹2.21L</li>
-          <li><b>Balanced (Flight + Average):</b> ~₹1.94L – ₹4.43L</li>
-          <li><b>Premium (Flight + 5-Star):</b> ~₹3.14L – ₹5.27L</li>
+          <li><b class="moneyLow"><i class="fa-solid fa-money-bill-wave"></i> Best value (Train + 3-Star):</b> ~₹1.08L – ₹2.21L</li>
+          <li><b class="moneyHigh"><i class="fa-solid fa-money-bill-wave"></i> Balanced (Flight + Average):</b> ~₹1.94L – ₹4.43L</li>
+          <li><b class="moneyHigh"><i class="fa-solid fa-money-bill-wave"></i> Premium (Flight + 5-Star):</b> ~₹3.14L – ₹5.27L</li>
         </ul>
         <div class="tiny">
           Kids note: add roughly <b>+10% to +30%</b> depending on flight tickets (age), extra meals, activities, and room bedding policy.
@@ -854,18 +842,65 @@
     </div>
   </section>
 
+  <!-- YOUTUBE -->
+  <section id="videos">
+    <div class="container">
+      <div class="sectionTitle">
+        <div>
+          <h2>Top YouTube Videos (Dharamshala + Manali vlogs)</h2>
+          <p>Click any thumbnail → video plays in popup inside this website.</p>
+        </div>
+        <span class="badge"><i class="fa-brands fa-youtube"></i> 10 videos</span>
+      </div>
+
+      <div class="videoGrid" id="videoGrid"></div>
+    </div>
+  </section>
+
   <footer>
     <div class="container">
-      <b>WeekWander</b> — 1-Week Smart Travel Plan<br/>
-      <span class="tiny">
-        Galleries load via Wikimedia Commons API (public). Maps use OpenStreetMap static tiles.
-        If you want, I can also add day-by-day itinerary cards, packing checklist, and a booking links page.
-      </span>
+      <div class="footRow">
+        <div><b>WeekWander</b> — 1-Week Smart Travel Plan</div>
+        <div><b>All rights reserved © sanjayvishwakarma@2026</b></div>
+      </div>
+      <div class="tiny" style="margin-top:8px">
+        Galleries use public image endpoints (Unsplash Source). Maps use OpenStreetMap static tiles.
+      </div>
     </div>
   </footer>
 
+  <!-- IMAGE MODAL -->
+  <div class="modal" id="imgModal" role="dialog" aria-modal="true" aria-label="Image Viewer">
+    <div class="modalBox">
+      <div class="modalTop">
+        <b id="imgTitle">Photo</b>
+        <button class="x" onclick="closeImageModal()" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="modalBody">
+        <button class="navArrow left" onclick="prevImage()" aria-label="Previous"><i class="fa-solid fa-chevron-left"></i></button>
+        <img id="imgView" alt="Preview" src="" />
+        <button class="navArrow right" onclick="nextImage()" aria-label="Next"><i class="fa-solid fa-chevron-right"></i></button>
+      </div>
+      <div class="modalFooter" id="imgFooter">Use ← → keys to navigate.</div>
+    </div>
+  </div>
+
+  <!-- VIDEO MODAL -->
+  <div class="modal" id="vidModal" role="dialog" aria-modal="true" aria-label="Video Player">
+    <div class="modalBox">
+      <div class="modalTop">
+        <b id="vidTitle">YouTube Video</b>
+        <button class="x" onclick="closeVideoModal()" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="modalBody">
+        <iframe id="vidFrame" class="videoFrame" src="" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
+      </div>
+      <div class="modalFooter">Tip: Press ESC to close.</div>
+    </div>
+  </div>
+
   <script>
-    // Mobile nav
+    /* ---------- Mobile nav ---------- */
     function toggleNav(){
       const nav = document.getElementById('navLinks');
       const isOpen = nav.style.display === 'flex';
@@ -886,77 +921,183 @@
       else nav.style.display = 'none';
     });
 
-    // Wikimedia Gallery Loader (50+)
-    const galState = {
-      dharamshala: { cont: null, loaded: 0, target: 60, category: "Category:Dharamsala" },
-      manali:      { cont: null, loaded: 0, target: 60, category: "Category:Manali" }
+    /* ---------- Galleries (Unsplash Source) ---------- */
+    // Note: Unsplash Source does not require an API key.
+    const galleryState = {
+      dharamshala: { count: 60, seed: 100, items: [], keywords: ["dharamshala","mcleodganj","himachal","mountains","monastery","himalayas","india"] },
+      manali:      { count: 60, seed: 200, items: [], keywords: ["manali","himachal","solang","atal tunnel","snow","mountains","himalayas","india"] }
     };
 
-    async function fetchCommonsCategoryImages(category, cont=null, limit=50){
-      const base = "https://commons.wikimedia.org/w/api.php";
-      const params = new URLSearchParams({
-        action: "query",
-        format: "json",
-        origin: "*",
-        generator: "categorymembers",
-        gcmtitle: category,
-        gcmtype: "file",
-        gcmlimit: String(limit),
-        prop: "imageinfo",
-        iiprop: "url|extmetadata",
-        iiurlwidth: "700"
-      });
-      if(cont){
-        params.set("gcmcontinue", cont);
-      }
-      const url = `${base}?${params.toString()}`;
-      const res = await fetch(url);
-      if(!res.ok) throw new Error("Failed to load images");
-      const json = await res.json();
-      const pages = json?.query?.pages ? Object.values(json.query.pages) : [];
-      const images = pages
-        .filter(p => p.imageinfo && p.imageinfo[0] && p.imageinfo[0].thumburl)
-        .map(p => {
-          const info = p.imageinfo[0];
-          const meta = info.extmetadata || {};
-          const title = (meta.ObjectName && meta.ObjectName.value) ? stripHtml(meta.ObjectName.value) : (p.title || "Photo");
-          return {
-            thumb: info.thumburl,
-            full: info.url,
-            title: stripHtml(title).replace(/_/g," ").slice(0,60)
-          };
-        });
-
-      const next = json?.continue?.gcmcontinue || null;
-      return { images, next };
+    function buildUnsplashUrl(keywords, sig){
+      // Mix keywords for variety
+      const q = encodeURIComponent(keywords.join(","));
+      return `https://source.unsplash.com/600x450/?${q}&sig=${sig}`;
     }
 
-    function stripHtml(s){
-      const div = document.createElement("div");
-      div.innerHTML = s || "";
-      return (div.textContent || div.innerText || "").trim();
-    }
-
-    function renderImages(kind, images){
+    function renderGallery(kind){
       const grid = document.getElementById(`gal-${kind}`);
-      images.forEach(img => {
-        const a = document.createElement("a");
-        a.className = "gItem";
-        a.href = img.full;
-        a.target = "_blank";
-        a.rel = "noopener";
-        a.innerHTML = `
-          <img loading="lazy" alt="${escapeHtml(img.title)}" src="${img.thumb}">
-          <div class="cap">${escapeHtml(img.title)}</div>
+      grid.innerHTML = "";
+      const st = galleryState[kind];
+      st.items.forEach((it, idx) => {
+        const div = document.createElement("div");
+        div.className = "gItem";
+        div.dataset.kind = kind;
+        div.dataset.index = String(idx);
+        div.innerHTML = `
+          <img loading="lazy" alt="${escapeHtml(it.title)}" src="${it.thumb}">
+          <div class="cap">${escapeHtml(it.title)}</div>
         `;
-        grid.appendChild(a);
+        div.addEventListener("click", () => openImageModal(kind, idx));
+        grid.appendChild(div);
+      });
+
+      const status = document.getElementById(`gal-${kind}-status`);
+      status.textContent = `Loaded ${st.items.length}+ images. Click “Load More” to add more.`;
+    }
+
+    function generateImages(kind, howMany){
+      const st = galleryState[kind];
+      const start = st.items.length;
+      for(let i=0;i<howMany;i++){
+        const sig = st.seed + start + i + 1;
+        const title = (kind === "dharamshala")
+          ? `Dharamshala Photo ${start + i + 1}`
+          : `Manali Photo ${start + i + 1}`;
+        const thumb = buildUnsplashUrl(st.keywords, sig);
+        st.items.push({ thumb, full: thumb.replace("600x450","1600x900"), title });
+      }
+    }
+
+    function reloadGallery(kind){
+      const st = galleryState[kind];
+      st.items = [];
+      st.seed = st.seed + Math.floor(Math.random()*5000);
+      generateImages(kind, st.count);
+      renderGallery(kind);
+    }
+
+    function loadMore(kind, howMany){
+      generateImages(kind, howMany);
+      renderGallery(kind);
+    }
+
+    /* ---------- Lightbox (image modal) ---------- */
+    let currentGalleryKind = null;
+    let currentIndex = 0;
+
+    function openImageModal(kind, idx){
+      currentGalleryKind = kind;
+      currentIndex = idx;
+      const modal = document.getElementById("imgModal");
+      modal.classList.add("open");
+      paintImage();
+    }
+
+    function closeImageModal(){
+      document.getElementById("imgModal").classList.remove("open");
+      currentGalleryKind = null;
+      currentIndex = 0;
+    }
+
+    function paintImage(){
+      const st = galleryState[currentGalleryKind];
+      if(!st || !st.items[currentIndex]) return;
+      const item = st.items[currentIndex];
+
+      document.getElementById("imgTitle").textContent = item.title;
+      document.getElementById("imgView").src = item.full;
+      document.getElementById("imgFooter").textContent =
+        `${item.title} • ${currentIndex+1} / ${st.items.length} • Use ← → keys`;
+
+      // If you're at ends, still allow wrap (infinite loop)
+    }
+
+    function nextImage(){
+      const st = galleryState[currentGalleryKind];
+      if(!st) return;
+      currentIndex = (currentIndex + 1) % st.items.length;
+      paintImage();
+    }
+
+    function prevImage(){
+      const st = galleryState[currentGalleryKind];
+      if(!st) return;
+      currentIndex = (currentIndex - 1 + st.items.length) % st.items.length;
+      paintImage();
+    }
+
+    /* close modal on outside click */
+    document.getElementById("imgModal").addEventListener("click", (e)=>{
+      if(e.target.id === "imgModal") closeImageModal();
+    });
+
+    /* ---------- YouTube videos (play in modal) ---------- */
+    // Picked 10 relevant IDs
+    const videos = [
+      { id:"BLq30J56GiY", title:"First Time in Dharamshala & McLeod Ganj (Travel Vlog)" },
+      { id:"z116WqSgM9Y", title:"Exploring McLeod Ganj & Dharamshala (3-Day Plan)" },
+      { id:"QPVrH3aP4L0", title:"Top Places in Dharamshala & McLeodGanj (Travel Guide)" },
+      { id:"ZF2QBTdEPug", title:"McLeod Ganj & Dharamshala Itinerary + Food (Travel Plan)" },
+      { id:"i2_Ndnsyr8g", title:"McLeod Ganj + Bhagsu Falls + Dalai Lama Temple (Vlog)" },
+      { id:"V0Emh2jB10A", title:"Manali Tour Budget & Itinerary (Solang, Atal Tunnel)" },
+      { id:"b7x8GP-Ma40", title:"Solang Valley + Atal Tunnel + Sissu (Complete Tour Guide)" },
+      { id:"gEhFaw4CeGM", title:"Manali to Rohtang / Snowfall Points (Atal Tunnel + Solang)" },
+      { id:"N5Ra16BK0rU", title:"Manali Budget Tour Plan (Group Tour Itinerary)" },
+      { id:"q5MhOwLaphw", title:"Dharamshala to Manali Road Trip (Vlog)" }
+    ];
+
+    function renderVideos(){
+      const grid = document.getElementById("videoGrid");
+      grid.innerHTML = "";
+      videos.forEach(v => {
+        const card = document.createElement("div");
+        card.className = "videoCard";
+        const thumb = `https://i.ytimg.com/vi/${v.id}/hqdefault.jpg`;
+        card.innerHTML = `
+          <div class="videoThumb">
+            <img loading="lazy" alt="${escapeHtml(v.title)}" src="${thumb}">
+            <div class="playBtn"><span><i class="fa-solid fa-play"></i></span></div>
+          </div>
+          <div class="videoMeta">
+            <b>${escapeHtml(v.title)}</b>
+            <small><i class="fa-brands fa-youtube"></i> Tap to play</small>
+          </div>
+        `;
+        card.addEventListener("click", ()=> openVideoModal(v.id, v.title));
+        grid.appendChild(card);
       });
     }
 
-    function setStatus(kind, text){
-      const el = document.getElementById(`gal-${kind}-status`);
-      if(el) el.textContent = text;
+    function openVideoModal(id, title){
+      document.getElementById("vidTitle").textContent = title;
+      // autoplay + modest branding
+      document.getElementById("vidFrame").src = `https://www.youtube.com/embed/${id}?autoplay=1&rel=0&modestbranding=1`;
+      document.getElementById("vidModal").classList.add("open");
     }
+
+    function closeVideoModal(){
+      document.getElementById("vidModal").classList.remove("open");
+      document.getElementById("vidFrame").src = "";
+    }
+
+    document.getElementById("vidModal").addEventListener("click", (e)=>{
+      if(e.target.id === "vidModal") closeVideoModal();
+    });
+
+    /* ---------- Keyboard controls ---------- */
+    document.addEventListener("keydown", (e)=>{
+      const imgOpen = document.getElementById("imgModal").classList.contains("open");
+      const vidOpen = document.getElementById("vidModal").classList.contains("open");
+
+      if(e.key === "Escape"){
+        if(imgOpen) closeImageModal();
+        if(vidOpen) closeVideoModal();
+      }
+      if(imgOpen){
+        if(e.key === "ArrowRight") nextImage();
+        if(e.key === "ArrowLeft") prevImage();
+      }
+    });
 
     function escapeHtml(str){
       return (str || "").replace(/[&<>"']/g, function(m){
@@ -964,54 +1105,12 @@
       });
     }
 
-    async function loadMore(kind){
-      const st = galState[kind];
-      if(!st) return;
-      setStatus(kind, `Loading more ${kind} photos...`);
-      try{
-        const { images, next } = await fetchCommonsCategoryImages(st.category, st.cont, 50);
-        renderImages(kind, images);
-        st.cont = next;
-        st.loaded += images.length;
-        setStatus(kind, `Loaded ${st.loaded}+ images. Click “Load More” for more.`);
-      }catch(err){
-        setStatus(kind, `Could not load more images right now. Try Reload.`);
-      }
-    }
-
-    async function reloadGallery(kind){
-      const st = galState[kind];
-      if(!st) return;
-      document.getElementById(`gal-${kind}`).innerHTML = "";
-      st.cont = null;
-      st.loaded = 0;
-      setStatus(kind, `Loading ${kind} gallery...`);
-      await ensureMin(kind, st.target);
-    }
-
-    async function ensureMin(kind, minCount){
-      const st = galState[kind];
-      while(st.loaded < minCount){
-        const { images, next } = await fetchCommonsCategoryImages(st.category, st.cont, 50);
-        renderImages(kind, images);
-        st.cont = next;
-        st.loaded += images.length;
-        if(!next) break; // no more pages
-      }
-      setStatus(kind, `Loaded ${st.loaded}+ images (auto). Click “Load More” if you want even more.`);
-    }
-
-    // Initial load: 60+ each
-    (async function init(){
-      try{
-        setStatus("dharamshala", "Loading dharamshala gallery...");
-        setStatus("manali", "Loading manali gallery...");
-        await ensureMin("dharamshala", galState.dharamshala.target);
-        await ensureMin("manali", galState.manali.target);
-      }catch(e){
-        setStatus("dharamshala", "Gallery load failed. Please refresh.");
-        setStatus("manali", "Gallery load failed. Please refresh.");
-      }
+    /* ---------- init ---------- */
+    (function init(){
+      // Load 60+ each by default
+      reloadGallery("dharamshala");
+      reloadGallery("manali");
+      renderVideos();
     })();
   </script>
 </body>
