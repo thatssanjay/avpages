@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Goa Family Trip Plan</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #f4d6c2, #d8b4a0);
+      min-height: 100vh;
+      padding: 30px 15px;
+      color: #333;
+    }
+
+    .page-title {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #fff;
+      text-shadow: 0 2px 6px rgba(0,0,0,0.25);
+    }
+
+    .page-title h1 {
+      font-size: 32px;
+      margin-bottom: 8px;
+    }
+
+    .page-title p {
+      font-size: 16px;
+      opacity: 0.95;
+    }
+
+    .container {
+      max-width: 980px;
+      margin: 0 auto;
+    }
+
+    .trip-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: stretch;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-top: 30px;
+    }
+
+    .trip-card {
+      width: 100%;
+      max-width: 720px;
+      background: #fff;
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 16px 35px rgba(0, 0, 0, 0.18);
+      display: none;
+      animation: fadeIn 0.4s ease;
+    }
+
+    .trip-card.active {
+      display: block;
+    }
+
+    .card-image {
+      height: 250px;
+      background-size: cover;
+      background-position: center;
+      position: relative;
+    }
+
+    .badge {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      background: rgba(255,255,255,0.92);
+      color: #111;
+      padding: 8px 14px;
+      border-radius: 30px;
+      font-size: 14px;
+      font-weight: bold;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    .card-content {
+      padding: 24px;
+    }
+
+    .date-label {
+      font-size: 14px;
+      font-weight: bold;
+      margin-bottom: 10px;
+      color: #d63384;
+    }
+
+    .card-title {
+      font-size: 30px;
+      margin-bottom: 12px;
+      color: #1e1e1e;
+    }
+
+    .subtitle {
+      font-size: 16px;
+      color: #666;
+      margin-bottom: 18px;
+      line-height: 1.6;
+    }
+
+    .info-box {
+      background: #f8f8f8;
+      border-left: 5px solid #ff5a5f;
+      padding: 14px 16px;
+      border-radius: 10px;
+      margin-bottom: 18px;
+    }
+
+    .section {
+      margin-bottom: 18px;
+    }
+
+    .section h3 {
+      font-size: 17px;
+      margin-bottom: 8px;
+      color: #222;
+    }
+
+    .section ul {
+      padding-left: 18px;
+      line-height: 1.7;
+      color: #555;
+    }
+
+    .hotel-box {
+      background: #fff5ef;
+      border: 1px solid #ffd8c2;
+      padding: 14px;
+      border-radius: 10px;
+      margin-bottom: 18px;
+    }
+
+    .hotel-box strong {
+      display: block;
+      margin-bottom: 6px;
+      color: #c2410c;
+    }
+
+    .links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .links a {
+      text-decoration: none;
+      background: #ff6a00;
+      color: white;
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-size: 14px;
+      transition: 0.25s ease;
+    }
+
+    .links a:hover {
+      background: #e75b00;
+    }
+
+    .card-footer {
+      display: flex;
+      justify-content: space-between;
+      text-align: center;
+      color: white;
+      font-weight: bold;
+      font-size: 13px;
+    }
+
+    .footer-box {
+      flex: 1;
+      padding: 15px 10px;
+    }
+
+    .pink { background: #ff007a; }
+    .orange { background: #ff5a00; }
+    .green { background: #00b140; }
+    .blue { background: #0077ff; }
+
+    .footer-box span {
+      display: block;
+      font-size: 22px;
+      margin-bottom: 3px;
+    }
+
+    .nav-buttons {
+      text-align: center;
+      margin-top: 25px;
+    }
+
+    .nav-buttons button {
+      border: none;
+      background: #222;
+      color: white;
+      padding: 12px 20px;
+      margin: 0 8px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 15px;
+      transition: 0.25s ease;
+    }
+
+    .nav-buttons button:hover {
+      background: #444;
+    }
+
+    .nav-buttons button:disabled {
+      background: #999;
+      cursor: not-allowed;
+    }
+
+    .trip-progress {
+      text-align: center;
+      margin-top: 15px;
+      color: #fff;
+      font-weight: bold;
+      font-size: 15px;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 768px) {
+      .card-title {
+        font-size: 24px;
+      }
+
+      .card-image {
+        height: 220px;
+      }
+
+      .page-title h1 {
+        font-size: 26px;
+      }
+
+      .links a {
+        width: 100%;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="page-title">
+      <h1>Goa Family Trip Plan</h1>
+      <p>Family of 6 • 2 Couples • 2 Kids • March 2026</p>
+    </div>
+
+    <div class="trip-wrapper">
+
+      <!-- Day 1 -->
+      <div class="trip-card active">
+        <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=1200&q=80');">
+          <div class="badge">Arrival Day</div>
+        </div>
+        <div class="card-content">
+          <div class="date-label">Day 1 • Arrival at Goa International Airport</div>
+          <h2 class="card-title">Check-in + Relaxed Beach Evening</h2>
+          <p class="subtitle">
+            Arrive in Goa, transfer to your peaceful stay area, freshen up, and spend the evening with a light beach walk and family dinner.
+          </p>
+
+          <div class="info-box">
+            <strong>Suggested Stay Area:</strong> Benaulim / Colva / South Goa for peaceful family stay, beach access, and relaxed vibe.
+          </div>
+
+          <div class="section">
+            <h3>Plan for the Day</h3>
+            <ul>
+              <li>Pick up from airport by pre-booked cab or rental car.</li>
+              <li>Check-in and rest after travel.</li>
+              <li>Evening visit to nearby beach.</li>
+              <li>Keep first day very light for kids and elders.</li>
+            </ul>
+          </div>
+
+          <div class="section">
+            <h3>Best Timing</h3>
+            <ul>
+              <li>Airport to hotel: based on arrival time</li>
+              <li>Beach walk: 5:00 PM to sunset</li>
+              <li>Dinner: 7:30 PM to 9:00 PM</li>
+            </ul>
+          </div>
+
+          <div class="hotel-box">
+            <strong>Hotel Recommendation</strong>
+            Budget target: Under ₹5K per room/night or a 2BHK family stay if available.<br>
+            Focus on South Goa family hotels, apartments, or homestays near Benaulim / Colva.
+          </div>
+
+          <div class="links">
+            <a href="https://www.tripadvisor.in/Attraction_Review-g2523894-Reviews-Benaulim_Beach-Benaulim_Salcette_South_Goa_District_Goa.html" target="_blank">Benaulim Beach</a>
+            <a href="https://www.tripadvisor.in/Attraction_Review-g1064392-d2306590-Reviews-Colva_Beach-Colva_South_Goa_District_Goa.html" target="_blank">Colva Beach</a>
+          </div>
+        </div>
+        <div class="card-footer">
+          <div class="footer-box pink"><span>1</span>DAY</div>
+          <div class="footer-box orange"><span>Easy</span>PLAN</div>
+          <div class="footer-box green"><span>South</span>STAY</div>
+        </div>
+      </div>
+
+      <!-- Day 2 -->
+      <div class="trip-card">
+        <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80');">
+          <div class="badge">Beach Day</div>
+        </div>
+        <div class="card-content">
+          <div class="date-label">Day 2 • South Goa</div>
+          <h2 class="card-title">Benaulim + Colva + Peaceful Family Time</h2>
+          <p class="subtitle">
+            Enjoy a calm beach day in South Goa. Perfect for kids, photography, and relaxed family time without long travel.
+          </p>
+
+          <div class="section">
+            <h3>Plan for the Day</h3>
+            <ul>
+              <li>Morning at Benaulim Beach for peaceful vibe.</li>
+              <li>Return to hotel for breakfast or brunch.</li>
+              <li>Rest during afternoon heat.</li>
+              <li>Evening visit to Colva Beach for family outing and food.</li>
+            </ul>
+          </div>
+
+          <div class="section">
+            <h3>Best Timing</h3>
+            <ul>
+              <li>Benaulim Beach: 7:30 AM to 10:00 AM</li>
+              <li>Hotel rest: 12:00 PM to 4:00 PM</li>
+              <li>Colva Beach: 5:00 PM to 7:30 PM</li>
+            </ul>
+          </div>
+
+          <div class="section">
+            <h3>Food Suggestion</h3>
+            <ul>
+              <li>Simple breakfast at hotel.</li>
+              <li>Lunch near hotel or indoor family restaurant.</li>
+              <li>Evening snacks near Colva beach.</li>
+            </ul>
+          </div>
+
+          <div class="links">
+            <a href="https://www.tripadvisor.in/Attraction_Review-g306994-d2523894-Reviews-Benaulim_Beach-Benaulim_Salcette_South_Goa_District_Goa.html" target="_blank">Benaulim Beach</a>
+            <a href="https://www.tripadvisor.in/Attraction_Review-g1064392-d2306590-Reviews-Colva_Beach-Colva_Beach-Colva_South_Goa_District_Goa.html" target="_blank">Colva Beach</a>
+          </div>
+        </div>
+        <div class="card-footer">
+          <div class="footer-box pink"><span>2</span>DAY</div>
+          <div class="footer-box orange"><span>Beach</span>FUN</div>
+          <div class="footer-box green"><span>Family</span>TIME</div>
+        </div>
+      </div>
+
+      <!-- Day 3 -->
+      <div class="trip-card">
+        <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1527631746610-bca00a040d60?auto=format&fit=crop&w=1200&q=80');">
+          <div class="badge">Heritage Day</div>
+        </div>
+        <div class="card-content">
+          <div class="date-label">Day 3 • Panjim + Fontainhas</div>
+          <h2 class="card-title">Fontainhas Heritage Walk + Panjim Sights</h2>
+          <p class="subtitle">
+            Explore the colorful Latin quarter of Goa, old Portuguese charm, local stories, and optional church visit.
+          </p>
+
+          <div class="section">
+            <h3>Plan for the Day</h3>
+            <ul>
+              <li>Start early and drive to Panjim.</li>
+              <li>Take guided Fontainhas walk.</li>
+              <li>Visit Church of Our Lady of the Immaculate Conception.</li>
+              <li>Optional visit to Basilica of Bom Jesus if time allows.</li>
+            </ul>
+          </div>
+
+          <div class="section">
+            <h3>Best Timing</h3>
+            <ul>
+              <li>Leave hotel: 8:00 AM</li>
+              <li>Heritage walk: 9:30 AM to 11:30 AM</li>
+              <li>Lunch in Panjim: 12:30 PM</li>
+              <li>Optional church visits: 2:00 PM to 4:00 PM</li>
+            </ul>
+          </div>
+
+          <div class="hotel-box">
+            <strong>Commute Tip</strong>
+            Use a full-day private cab for this day. It is the easiest with family and kids.
+          </div>
+
+          <div class="links">
+            <a href="https://www.tripadvisor.in/AttractionProductReview-g303877-d17823193-Fontainhas_Heritage_Walk_by_Make_It_Happen-Panjim_North_Goa_District_Goa.html" target="_blank">Fontainhas Walk by Make It Happen</a>
+            <a href="https://www.tripadvisor.in/AttractionProductReview-g303877-d25267040-Fontainhas_Heritage_Walk_With_Guide_Mario-Panjim_North_Goa_District_Goa.html" target="_blank">Fontainhas Walk with Mario</a>
+            <a href="https://www.tripadvisor.in/Attraction_Review-g303877-d320658-Reviews-Fontainhas-Panjim_North_Goa_District_Goa.html" target="_blank">Fontainhas</a>
+            <a href="https://www.tripadvisor.in/Attraction_Review-g303877-d320654-Reviews-Church_Of_Our_Lady_Of_The_Immaculate_Conception-Panjim_North_Goa_District_Goa.html" target="_blank">Immaculate Conception Church</a>
+            <a href="https://www.tripadvisor.in/Attraction_Review-g6109760-d320663-Reviews-Basilica_of_Bom_Jesus-Goa_Velha_Goa.html" target="_blank">Basilica of Bom Jesus</a>
+          </div>
+        </div>
+        <div class="card-footer">
+          <div class="footer-box pink"><span>3</span>DAY</div>
+          <div class="footer-box orange"><span>Walk</span>TOUR</div>
+          <div class="footer-box green"><span>Panjim</span>VISIT</div>
+        </div>
+      </div>
+
+      <!-- Day 4 -->
+      <div class="trip-card">
+        <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=80');">
+          <div class="badge">North Goa Day</div>
+        </div>
+        <div class="card-content">
+          <div class="date-label">Day 4 • North Goa Sightseeing</div>
+          <h2 class="card-title">Candolim + Fort Aguada + Scenic Drive</h2>
+          <p class="subtitle">
+            A balanced North Goa day with famous beaches, fort views, and a family-friendly pace.
+          </p>
+
+          <div class="section">
+            <h3>Plan for the Day</h3>
+            <ul>
+              <li>Leave early from hotel.</li>
+              <li>Visit Fort Aguada first to avoid crowd and heat.</li>
+              <li>Head to Candolim Beach for relaxed time.</li>
+              <li>Optional short scenic stop at Parra Road if you want photos.</li>
+            </ul>
+          </div>
+
+          <div class="section">
+            <h3>Best Timing</h3>
+            <ul>
+              <li>Start from hotel: 7:30 AM</li>
+              <li>Fort Aguada: 9:00 AM</li>
+              <li>Candolim Beach / lunch: 11:30 AM to 2:00 PM</li>
+              <li>Return before late evening traffic</li>
+            </ul>
+          </div>
+
+          <div class="section">
+            <h3>Family Tip</h3>
+            <ul>
+              <li>Do not overpack too many North Goa spots in one day.</li>
+              <li>Keep extra water, caps, sunscreen, and snacks for kids.</li>
+            </ul>
+          </div>
+
+          <div class="links">
+            <a href="https://www.tripadvisor.in/Attraction_Review-g306993-d951184-Reviews-Candolim_Beach-Bardez_North_Goa_District_Goa.html" target="_blank">Candolim Beach</a>
+            <a href="https://www.tripadvisor.in/Attraction_Review-g1165042-d1471459-Reviews-Taj_Fort_Aguada_Resort_Spa-Sinquerim_North_Goa_District_Goa.html" target="_blank">Fort Aguada</a>
+            <a href="https://www.tripadvisor.in/Attraction_Review-g2307943-d482978-Reviews-Arambol_Beach-Arambol_North_Goa_District_Goa.html" target="_blank">Arambol Beach</a>
+          </div>
+        </div>
+        <div class="card-footer">
+          <div class="footer-box pink"><span>4</span>DAY</div>
+          <div class="footer-box orange"><span>North</span>GOA</div>
+          <div class="footer-box green"><span>Views</span>FORT</div>
+        </div>
+      </div>
+
+      <!-- Day 5 -->
+      <div class="trip-card">
+        <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1519046904884-53103b34b206?auto=format&fit=crop&w=1200&q=80');">
+          <div class="badge">Scenic South Goa</div>
+        </div>
+        <div class="card-content">
+          <div class="date-label">Day 5 • Palolem + Butterfly Beach</div>
+          <h2 class="card-title">Palolem Beach + Optional Butterfly Beach</h2>
+          <p class="subtitle">
+            A scenic South Goa day with one of the most beautiful beaches in Goa and optional boat trip if family is comfortable.
+          </p>
+
+          <div class="section">
+            <h3>Plan for the Day</h3>
+            <ul>
+              <li>Start early and reach Palolem by morning.</li>
+              <li>Spend time at the beach and enjoy photography.</li>
+              <li>Optional boat ride to Butterfly Beach, depending on weather and kids’ comfort.</li>
+              <li>Keep evening relaxed and return early.</li>
+            </ul>
+          </div>
+
+          <div class="section">
+            <h3>Best Timing</h3>
+            <ul>
+              <li>Leave hotel: 8:00 AM</li>
+              <li>Palolem Beach: 10:00 AM to 1:00 PM</li>
+              <li>Lunch nearby: 1:00 PM to 2:00 PM</li>
+              <li>Optional Butterfly Beach boat trip: 2:30 PM</li>
+            </ul>
+          </div>
+
+          <div class="hotel-box">
+            <strong>Important Note</strong>
+            Butterfly Beach may need a boat or trek. With kids, keep it optional and decide on the same day.
+          </div>
+
+          <div class="links">
+            <a href="https://www.tripadvisor.in/Attraction_Review-g306996-d482982-Reviews-Palolem_Beach-Canacona_South_Goa_District_Goa.html" target="_blank">Palolem Beach</a>
+            <a href="https://www.tripadvisor.in/Attraction_Review-g2334950-d2721507-Reviews-Butterfly_Beach-Palolem_Canacona_South_Goa_District_Goa.html" target="_blank">Butterfly Beach</a>
+            <a href="https://www.tripadvisor.in/Attraction_Review-g816969-d1751637-Reviews-Agonda_Beach-Agonda_South_Goa_District_Goa.html" target="_blank">Agonda Beach</a>
+          </div>
+        </div>
+        <div class="card-footer">
+          <div class="footer-box pink"><span>5</span>DAY</div>
+          <div class="footer-box orange"><span>Palolem</span>BEACH</div>
+          <div class="footer-box green"><span>Optional</span>BOAT</div>
+        </div>
+      </div>
+
+      <!-- Day 6 -->
+      <div class="trip-card">
+        <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&fit=crop&w=1200&q=80');">
+          <div class="badge">Departure Day</div>
+        </div>
+        <div class="card-content">
+          <div class="date-label">Day 6 • Return</div>
+          <h2 class="card-title">Breakfast + Checkout + Airport Departure</h2>
+          <p class="subtitle">
+            Keep the last day stress-free. Pack early, have breakfast, and leave with enough travel buffer for airport.
+          </p>
+
+          <div class="section">
+            <h3>Plan for the Day</h3>
+            <ul>
+              <li>Morning breakfast and final packing.</li>
+              <li>Keep 3 to 4 hours buffer before flight.</li>
+              <li>Leave hotel on time depending on airport location and traffic.</li>
+              <li>Carry water, snacks, and kids essentials separately.</li>
+            </ul>
+          </div>
+
+          <div class="section">
+            <h3>Checklist Before Leaving</h3>
+            <ul>
+              <li>ID cards, tickets, hotel bills, medicines</li>
+              <li>Phone chargers, kids’ items, sunglasses, hats</li>
+              <li>Any local shopping packed separately</li>
+            </ul>
+          </div>
+
+          <div class="hotel-box">
+            <strong>Final Travel Advice</strong>
+            March end in Goa can be hot. Keep light cotton clothes, sunscreen, hats, slippers, and hydration ready throughout the trip.
+          </div>
+
+          <div class="links">
+            <a href="https://www.tripadvisor.in/Attraction_Review-g303877-d320658-Reviews-Fontainhas-Panjim_North_Goa_District_Goa.html" target="_blank">Revisit Fontainhas</a>
+            <a href="https://www.tripadvisor.in/Attraction_Review-g306996-d482982-Reviews-Palolem_Beach-Canacona_South_Goa_District_Goa.html" target="_blank">Trip Memories</a>
+          </div>
+        </div>
+        <div class="card-footer">
+          <div class="footer-box pink"><span>6</span>DAY</div>
+          <div class="footer-box orange"><span>Return</span>HOME</div>
+          <div class="footer-box green"><span>Safe</span>TRAVEL</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="nav-buttons">
+      <button id="prevBtn" onclick="changeCard(-1)">Previous</button>
+      <button id="nextBtn" onclick="changeCard(1)">Next</button>
+    </div>
+
+    <div class="trip-progress" id="progressText">Day 1 of 6</div>
+  </div>
+
+  <script>
+    const cards = document.querySelectorAll('.trip-card');
+    const progressText = document.getElementById('progressText');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+
+    let currentCard = 0;
+
+    function showCard(index) {
+      cards.forEach((card, i) => {
+        card.classList.toggle('active', i === index);
+      });
+
+      progressText.textContent = `Day ${index + 1} of ${cards.length}`;
+      prevBtn.disabled = index === 0;
+      nextBtn.disabled = index === cards.length - 1;
+    }
+
+    function changeCard(step) {
+      currentCard += step;
+
+      if (currentCard < 0) currentCard = 0;
+      if (currentCard >= cards.length) currentCard = cards.length - 1;
+
+      showCard(currentCard);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    showCard(currentCard);
+  </script>
+</body>
+</html>
