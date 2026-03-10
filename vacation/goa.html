@@ -52,7 +52,7 @@
 
     .trip-card {
       width: 100%;
-      max-width: 720px;
+      max-width: 760px;
       background: #fff;
       border-radius: 18px;
       overflow: hidden;
@@ -83,6 +83,19 @@
       font-size: 14px;
       font-weight: bold;
       box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    .temp-badge {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      background: rgba(255, 106, 0, 0.95);
+      color: white;
+      padding: 8px 14px;
+      border-radius: 30px;
+      font-size: 14px;
+      font-weight: bold;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
     }
 
     .card-content {
@@ -145,6 +158,85 @@
       display: block;
       margin-bottom: 6px;
       color: #c2410c;
+    }
+
+    .hotel-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 18px;
+    }
+
+    .hotel-card {
+      background: #fff;
+      border: 1px solid #eee;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 8px 18px rgba(0,0,0,0.08);
+    }
+
+    .hotel-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .hotel-card-content {
+      padding: 14px;
+    }
+
+    .hotel-card-content h4 {
+      font-size: 18px;
+      margin-bottom: 8px;
+      color: #222;
+    }
+
+    .hotel-card-content p {
+      font-size: 14px;
+      color: #555;
+      line-height: 1.6;
+      margin-bottom: 10px;
+    }
+
+    .route-box {
+      background: #f6faff;
+      border: 1px solid #d8ebff;
+      border-radius: 12px;
+      padding: 14px;
+      margin-bottom: 18px;
+    }
+
+    .route-box h3 {
+      font-size: 17px;
+      margin-bottom: 10px;
+      color: #0b5394;
+    }
+
+    .route-meta {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .route-meta div {
+      background: #fff;
+      border-radius: 10px;
+      padding: 10px 12px;
+      border: 1px solid #e6f2ff;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .route-map {
+      width: 100%;
+      border-radius: 10px;
+      border: 1px solid #d8ebff;
+      display: block;
+      max-height: 380px;
+      object-fit: contain;
+      background: #fff;
     }
 
     .links {
@@ -227,6 +319,15 @@
       font-size: 15px;
     }
 
+    .note-box {
+      background: #fffef4;
+      border-left: 5px solid #f4b400;
+      padding: 14px 16px;
+      border-radius: 10px;
+      margin-bottom: 18px;
+      color: #5a4a00;
+    }
+
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(8px); }
       to { opacity: 1; transform: translateY(0); }
@@ -249,6 +350,15 @@
         width: 100%;
         text-align: center;
       }
+
+      .hotel-grid,
+      .route-meta {
+        grid-template-columns: 1fr;
+      }
+
+      .hotel-card img {
+        height: 160px;
+      }
     }
   </style>
 </head>
@@ -256,7 +366,7 @@
   <div class="container">
     <div class="page-title">
       <h1>Goa Family Trip Plan</h1>
-      <p>Family of 6 • 2 Couples • 2 Kids • March 2026</p>
+      <p>Family of 6 • 2 Couples • 2 Kids • 25–29 March 2026 • Morjim Stay</p>
     </div>
 
     <div class="trip-wrapper">
@@ -264,143 +374,223 @@
       <!-- Day 1 -->
       <div class="trip-card active">
         <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=1200&q=80');">
-          <div class="badge">Arrival Day</div>
+          <div class="badge">25 March • Arrival Day</div>
+          <div class="temp-badge">Approx 24°C–32°C</div>
         </div>
         <div class="card-content">
-          <div class="date-label">Day 1 • Arrival at Goa International Airport</div>
-          <h2 class="card-title">Check-in + Relaxed Beach Evening</h2>
+          <div class="date-label">Day 1 • Goa Airport → Morjim</div>
+          <h2 class="card-title">Arrival + Check-in + Morjim Beach Evening</h2>
           <p class="subtitle">
-            Arrive in Goa, transfer to your peaceful stay area, freshen up, and spend the evening with a light beach walk and family dinner.
+            Arrive in Goa, transfer to Morjim, check in, relax, and enjoy a peaceful evening by the beach.
           </p>
 
           <div class="info-box">
-            <strong>Suggested Stay Area:</strong> Benaulim / Colva / South Goa for peaceful family stay, beach access, and relaxed vibe.
+            <strong>Stay for 25–27 March:</strong> Living Room Beach Resort – Morjim
+          </div>
+
+          <div class="hotel-grid">
+            <div class="hotel-card">
+              <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=900&q=80" alt="Living Room Beach Resort visual placeholder">
+              <div class="hotel-card-content">
+                <h4>Living Room Beach Resort – Morjim</h4>
+                <p>
+                  Beach distance: ~5 min walk<br>
+                  Recommended Room: Premium Chalet<br>
+                  Good for first half of the stay with family comfort and easy beach access.
+                </p>
+                <div class="links">
+                  <a href="https://www.agoda.com/living-room-beach-resort_2/hotel/goa-in.html" target="_blank">Open on Agoda</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="hotel-card">
+              <img src="https://images.unsplash.com/photo-1522798514-97ceb8c4f1c8?auto=format&fit=crop&w=900&q=80" alt="Morjim resort visual placeholder">
+              <div class="hotel-card-content">
+                <h4>Stay Snapshot</h4>
+                <p>
+                  Area: Morjim<br>
+                  Family-friendly and calmer than many party-heavy Goa zones.<br>
+                  Good base for beach time, Parra Road, Fort Aguada, and Panjim day trip.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="route-box">
+            <h3>Route Overview</h3>
+            <div class="route-meta">
+              <div><strong>Start:</strong><br>Goa International Airport</div>
+              <div><strong>End:</strong><br>Living Room Beach Resort, Morjim</div>
+            </div>
+            <img class="route-map" src="route-map.png" alt="Trip route map">
           </div>
 
           <div class="section">
             <h3>Plan for the Day</h3>
             <ul>
-              <li>Pick up from airport by pre-booked cab or rental car.</li>
-              <li>Check-in and rest after travel.</li>
-              <li>Evening visit to nearby beach.</li>
-              <li>Keep first day very light for kids and elders.</li>
+              <li>Arrive at airport and leave by pre-booked cab.</li>
+              <li>Check in and freshen up.</li>
+              <li>Evening walk at Morjim Beach.</li>
+              <li>Simple dinner near hotel and early rest.</li>
             </ul>
           </div>
 
           <div class="section">
             <h3>Best Timing</h3>
             <ul>
-              <li>Airport to hotel: based on arrival time</li>
-              <li>Beach walk: 5:00 PM to sunset</li>
-              <li>Dinner: 7:30 PM to 9:00 PM</li>
+              <li>Hotel check-in: as per arrival</li>
+              <li>Morjim Beach walk: 5:00 PM to sunset</li>
+              <li>Dinner: 7:30 PM onward</li>
             </ul>
           </div>
 
-          <div class="hotel-box">
-            <strong>Hotel Recommendation</strong>
-            Budget target: Under ₹5K per room/night or a 2BHK family stay if available.<br>
-            Focus on South Goa family hotels, apartments, or homestays near Benaulim / Colva.
-          </div>
-
           <div class="links">
-            <a href="https://www.tripadvisor.in/Attraction_Review-g2523894-Reviews-Benaulim_Beach-Benaulim_Salcette_South_Goa_District_Goa.html" target="_blank">Benaulim Beach</a>
-            <a href="https://www.tripadvisor.in/Attraction_Review-g1064392-d2306590-Reviews-Colva_Beach-Colva_South_Goa_District_Goa.html" target="_blank">Colva Beach</a>
+            <a href="https://www.tripadvisor.in/Attraction_Review-g306993-d951184-Reviews-Candolim_Beach-Bardez_North_Goa_District_Goa.html" target="_blank">Candolim Beach</a>
+            <a href="https://www.tripadvisor.in/Attraction_Review-g2307943-d482978-Reviews-Arambol_Beach-Arambol_North_Goa_District_Goa.html" target="_blank">Arambol Beach</a>
           </div>
         </div>
         <div class="card-footer">
           <div class="footer-box pink"><span>1</span>DAY</div>
-          <div class="footer-box orange"><span>Easy</span>PLAN</div>
-          <div class="footer-box green"><span>South</span>STAY</div>
+          <div class="footer-box orange"><span>Morjim</span>STAY</div>
+          <div class="footer-box green"><span>Relax</span>EVENING</div>
         </div>
       </div>
 
       <!-- Day 2 -->
       <div class="trip-card">
         <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80');">
-          <div class="badge">Beach Day</div>
+          <div class="badge">26 March • North Goa Easy Day</div>
+          <div class="temp-badge">Approx 24°C–33°C</div>
         </div>
         <div class="card-content">
-          <div class="date-label">Day 2 • South Goa</div>
-          <h2 class="card-title">Benaulim + Colva + Peaceful Family Time</h2>
+          <div class="date-label">Day 2 • Morjim → Parra Road → Candolim → Fort Aguada → Morjim</div>
+          <h2 class="card-title">Parra Road + Candolim + Fort Aguada</h2>
           <p class="subtitle">
-            Enjoy a calm beach day in South Goa. Perfect for kids, photography, and relaxed family time without long travel.
+            This day combines the famous coconut-tree Parra Road, a relaxed beach stop, and the classic Fort Aguada view.
           </p>
+
+          <div class="route-box">
+            <h3>Route Overview</h3>
+            <div class="route-meta">
+              <div><strong>Start:</strong><br>Living Room Beach Resort, Morjim</div>
+              <div><strong>End:</strong><br>Back to Morjim hotel</div>
+            </div>
+            <img class="route-map" src="route-map.png" alt="Trip route map">
+          </div>
 
           <div class="section">
             <h3>Plan for the Day</h3>
             <ul>
-              <li>Morning at Benaulim Beach for peaceful vibe.</li>
-              <li>Return to hotel for breakfast or brunch.</li>
-              <li>Rest during afternoon heat.</li>
-              <li>Evening visit to Colva Beach for family outing and food.</li>
+              <li>Leave after breakfast.</li>
+              <li>Short photo stop at Parra Road.</li>
+              <li>Continue to Candolim Beach.</li>
+              <li>Lunch nearby.</li>
+              <li>Visit Fort Aguada in the later afternoon.</li>
+              <li>Return to Morjim by evening.</li>
             </ul>
           </div>
 
           <div class="section">
             <h3>Best Timing</h3>
             <ul>
-              <li>Benaulim Beach: 7:30 AM to 10:00 AM</li>
-              <li>Hotel rest: 12:00 PM to 4:00 PM</li>
-              <li>Colva Beach: 5:00 PM to 7:30 PM</li>
+              <li>Start: 8:00 AM</li>
+              <li>Parra Road: 9:00 AM to 9:30 AM</li>
+              <li>Candolim Beach: 10:30 AM to 12:30 PM</li>
+              <li>Lunch: 1:00 PM</li>
+              <li>Fort Aguada: 3:30 PM to 5:00 PM</li>
             </ul>
           </div>
 
-          <div class="section">
-            <h3>Food Suggestion</h3>
-            <ul>
-              <li>Simple breakfast at hotel.</li>
-              <li>Lunch near hotel or indoor family restaurant.</li>
-              <li>Evening snacks near Colva beach.</li>
-            </ul>
+          <div class="note-box">
+            Keep Parra Road as a quick stop only. It is best for photos, not a long visit.
           </div>
 
           <div class="links">
-            <a href="https://www.tripadvisor.in/Attraction_Review-g306994-d2523894-Reviews-Benaulim_Beach-Benaulim_Salcette_South_Goa_District_Goa.html" target="_blank">Benaulim Beach</a>
-            <a href="https://www.tripadvisor.in/Attraction_Review-g1064392-d2306590-Reviews-Colva_Beach-Colva_Beach-Colva_South_Goa_District_Goa.html" target="_blank">Colva Beach</a>
+            <a href="https://www.tripadvisor.in/Attraction_Review-g306993-d951184-Reviews-Candolim_Beach-Bardez_North_Goa_District_Goa.html" target="_blank">Candolim Beach</a>
+            <a href="https://www.tripadvisor.in/Attraction_Review-g1165042-d1471459-Reviews-Taj_Fort_Aguada_Resort_Spa-Sinquerim_North_Goa_District_Goa.html" target="_blank">Fort Aguada</a>
           </div>
         </div>
         <div class="card-footer">
           <div class="footer-box pink"><span>2</span>DAY</div>
-          <div class="footer-box orange"><span>Beach</span>FUN</div>
-          <div class="footer-box green"><span>Family</span>TIME</div>
+          <div class="footer-box orange"><span>Parra</span>ROAD</div>
+          <div class="footer-box green"><span>Fort</span>VIEW</div>
         </div>
       </div>
 
       <!-- Day 3 -->
       <div class="trip-card">
         <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1527631746610-bca00a040d60?auto=format&fit=crop&w=1200&q=80');">
-          <div class="badge">Heritage Day</div>
+          <div class="badge">27 March • Hotel Shift + Panjim</div>
+          <div class="temp-badge">Approx 24°C–33°C</div>
         </div>
         <div class="card-content">
-          <div class="date-label">Day 3 • Panjim + Fontainhas</div>
-          <h2 class="card-title">Fontainhas Heritage Walk + Panjim Sights</h2>
+          <div class="date-label">Day 3 • Checkout → Morjimbay Resort → Fontainhas → Church</div>
+          <h2 class="card-title">Hotel Change + Fontainhas Heritage Walk</h2>
           <p class="subtitle">
-            Explore the colorful Latin quarter of Goa, old Portuguese charm, local stories, and optional church visit.
+            Shift to your second Morjim stay, then enjoy a guided heritage day in Panjim with colorful streets and classic Goa character.
           </p>
+
+          <div class="info-box">
+            <strong>Stay for 27–29 March:</strong> Morjimbay Resort – Morjim
+          </div>
+
+          <div class="hotel-grid">
+            <div class="hotel-card">
+              <img src="https://images.unsplash.com/photo-1445019980597-93fa8acb246c?auto=format&fit=crop&w=900&q=80" alt="Morjimbay Resort visual placeholder">
+              <div class="hotel-card-content">
+                <h4>Morjimbay Resort – Morjim</h4>
+                <p>
+                  Beach distance: ~5–10 min walk<br>
+                  Family-friendly boutique resort<br>
+                  Good for the second half of your trip with easy North Goa access.
+                </p>
+                <div class="links">
+                  <a href="https://www.agoda.com/morjim-bay-beach-resort/hotel/goa-in.html" target="_blank">Open on Agoda</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="hotel-card">
+              <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=900&q=80" alt="Goa heritage visual">
+              <div class="hotel-card-content">
+                <h4>Day Theme</h4>
+                <p>
+                  Morning hotel shift, then Panjim heritage lane exploration, local architecture, photos, and a lighter cultural day.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="route-box">
+            <h3>Route Overview</h3>
+            <div class="route-meta">
+              <div><strong>Start:</strong><br>Living Room Beach Resort, Morjim</div>
+              <div><strong>End:</strong><br>Morjimbay Resort, Morjim</div>
+            </div>
+            <img class="route-map" src="route-map.png" alt="Trip route map">
+          </div>
 
           <div class="section">
             <h3>Plan for the Day</h3>
             <ul>
-              <li>Start early and drive to Panjim.</li>
-              <li>Take guided Fontainhas walk.</li>
+              <li>Check out from Hotel 1 and check in to Hotel 2.</li>
+              <li>Leave for Panjim after settling luggage.</li>
+              <li>Take Fontainhas Heritage Walk.</li>
               <li>Visit Church of Our Lady of the Immaculate Conception.</li>
-              <li>Optional visit to Basilica of Bom Jesus if time allows.</li>
+              <li>Return to Morjim in the evening.</li>
             </ul>
           </div>
 
           <div class="section">
             <h3>Best Timing</h3>
             <ul>
-              <li>Leave hotel: 8:00 AM</li>
-              <li>Heritage walk: 9:30 AM to 11:30 AM</li>
-              <li>Lunch in Panjim: 12:30 PM</li>
-              <li>Optional church visits: 2:00 PM to 4:00 PM</li>
+              <li>Checkout / shift: morning</li>
+              <li>Leave for Panjim: 10:00 AM</li>
+              <li>Heritage Walk: 11:30 AM to 1:00 PM</li>
+              <li>Church / Panjim: 1:30 PM to 3:30 PM</li>
+              <li>Return: evening</li>
             </ul>
-          </div>
-
-          <div class="hotel-box">
-            <strong>Commute Tip</strong>
-            Use a full-day private cab for this day. It is the easiest with family and kids.
           </div>
 
           <div class="links">
@@ -408,104 +598,61 @@
             <a href="https://www.tripadvisor.in/AttractionProductReview-g303877-d25267040-Fontainhas_Heritage_Walk_With_Guide_Mario-Panjim_North_Goa_District_Goa.html" target="_blank">Fontainhas Walk with Mario</a>
             <a href="https://www.tripadvisor.in/Attraction_Review-g303877-d320658-Reviews-Fontainhas-Panjim_North_Goa_District_Goa.html" target="_blank">Fontainhas</a>
             <a href="https://www.tripadvisor.in/Attraction_Review-g303877-d320654-Reviews-Church_Of_Our_Lady_Of_The_Immaculate_Conception-Panjim_North_Goa_District_Goa.html" target="_blank">Immaculate Conception Church</a>
-            <a href="https://www.tripadvisor.in/Attraction_Review-g6109760-d320663-Reviews-Basilica_of_Bom_Jesus-Goa_Velha_Goa.html" target="_blank">Basilica of Bom Jesus</a>
           </div>
         </div>
         <div class="card-footer">
           <div class="footer-box pink"><span>3</span>DAY</div>
-          <div class="footer-box orange"><span>Walk</span>TOUR</div>
-          <div class="footer-box green"><span>Panjim</span>VISIT</div>
+          <div class="footer-box orange"><span>Hotel</span>SHIFT</div>
+          <div class="footer-box green"><span>Walk</span>TOUR</div>
         </div>
       </div>
 
       <!-- Day 4 -->
       <div class="trip-card">
-        <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=80');">
-          <div class="badge">North Goa Day</div>
+        <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1518509562904-e7ef99cdcc86?auto=format&fit=crop&w=1200&q=80');">
+          <div class="badge">28 March • South Goa Long Day</div>
+          <div class="temp-badge">Approx 25°C–33°C</div>
         </div>
         <div class="card-content">
-          <div class="date-label">Day 4 • North Goa Sightseeing</div>
-          <h2 class="card-title">Candolim + Fort Aguada + Scenic Drive</h2>
-          <p class="subtitle">
-            A balanced North Goa day with famous beaches, fort views, and a family-friendly pace.
-          </p>
-
-          <div class="section">
-            <h3>Plan for the Day</h3>
-            <ul>
-              <li>Leave early from hotel.</li>
-              <li>Visit Fort Aguada first to avoid crowd and heat.</li>
-              <li>Head to Candolim Beach for relaxed time.</li>
-              <li>Optional short scenic stop at Parra Road if you want photos.</li>
-            </ul>
-          </div>
-
-          <div class="section">
-            <h3>Best Timing</h3>
-            <ul>
-              <li>Start from hotel: 7:30 AM</li>
-              <li>Fort Aguada: 9:00 AM</li>
-              <li>Candolim Beach / lunch: 11:30 AM to 2:00 PM</li>
-              <li>Return before late evening traffic</li>
-            </ul>
-          </div>
-
-          <div class="section">
-            <h3>Family Tip</h3>
-            <ul>
-              <li>Do not overpack too many North Goa spots in one day.</li>
-              <li>Keep extra water, caps, sunscreen, and snacks for kids.</li>
-            </ul>
-          </div>
-
-          <div class="links">
-            <a href="https://www.tripadvisor.in/Attraction_Review-g306993-d951184-Reviews-Candolim_Beach-Bardez_North_Goa_District_Goa.html" target="_blank">Candolim Beach</a>
-            <a href="https://www.tripadvisor.in/Attraction_Review-g1165042-d1471459-Reviews-Taj_Fort_Aguada_Resort_Spa-Sinquerim_North_Goa_District_Goa.html" target="_blank">Fort Aguada</a>
-            <a href="https://www.tripadvisor.in/Attraction_Review-g2307943-d482978-Reviews-Arambol_Beach-Arambol_North_Goa_District_Goa.html" target="_blank">Arambol Beach</a>
-          </div>
-        </div>
-        <div class="card-footer">
-          <div class="footer-box pink"><span>4</span>DAY</div>
-          <div class="footer-box orange"><span>North</span>GOA</div>
-          <div class="footer-box green"><span>Views</span>FORT</div>
-        </div>
-      </div>
-
-      <!-- Day 5 -->
-      <div class="trip-card">
-        <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1519046904884-53103b34b206?auto=format&fit=crop&w=1200&q=80');">
-          <div class="badge">Scenic South Goa</div>
-        </div>
-        <div class="card-content">
-          <div class="date-label">Day 5 • Palolem + Butterfly Beach</div>
+          <div class="date-label">Day 4 • Morjim → Palolem → Butterfly Beach / Agonda → Morjim</div>
           <h2 class="card-title">Palolem Beach + Optional Butterfly Beach</h2>
           <p class="subtitle">
-            A scenic South Goa day with one of the most beautiful beaches in Goa and optional boat trip if family is comfortable.
+            A scenic South Goa day. Prioritize Palolem, and keep Butterfly Beach optional depending on weather, energy, and kids’ comfort.
           </p>
+
+          <div class="route-box">
+            <h3>Route Overview</h3>
+            <div class="route-meta">
+              <div><strong>Start:</strong><br>Morjimbay Resort, Morjim</div>
+              <div><strong>End:</strong><br>Back to Morjimbay Resort, Morjim</div>
+            </div>
+            <img class="route-map" src="route-map.png" alt="Trip route map">
+          </div>
 
           <div class="section">
             <h3>Plan for the Day</h3>
             <ul>
-              <li>Start early and reach Palolem by morning.</li>
-              <li>Spend time at the beach and enjoy photography.</li>
-              <li>Optional boat ride to Butterfly Beach, depending on weather and kids’ comfort.</li>
-              <li>Keep evening relaxed and return early.</li>
+              <li>Start early because travel is long.</li>
+              <li>Main stop: Palolem Beach.</li>
+              <li>Optional boat trip to Butterfly Beach.</li>
+              <li>Alternative quieter stop: Agonda Beach.</li>
+              <li>Return before it gets too late for kids.</li>
             </ul>
           </div>
 
           <div class="section">
             <h3>Best Timing</h3>
             <ul>
-              <li>Leave hotel: 8:00 AM</li>
-              <li>Palolem Beach: 10:00 AM to 1:00 PM</li>
-              <li>Lunch nearby: 1:00 PM to 2:00 PM</li>
-              <li>Optional Butterfly Beach boat trip: 2:30 PM</li>
+              <li>Leave Morjim: 7:00 AM</li>
+              <li>Reach Palolem: around late morning</li>
+              <li>Beach time + lunch: till 2:00 PM</li>
+              <li>Optional Butterfly / Agonda stop: 2:30 PM to 4:00 PM</li>
+              <li>Return journey: early evening</li>
             </ul>
           </div>
 
-          <div class="hotel-box">
-            <strong>Important Note</strong>
-            Butterfly Beach may need a boat or trek. With kids, keep it optional and decide on the same day.
+          <div class="note-box">
+            This is the longest day. Keep snacks, water, extra clothes, and sun protection ready for kids.
           </div>
 
           <div class="links">
@@ -515,57 +662,62 @@
           </div>
         </div>
         <div class="card-footer">
-          <div class="footer-box pink"><span>5</span>DAY</div>
-          <div class="footer-box orange"><span>Palolem</span>BEACH</div>
+          <div class="footer-box pink"><span>4</span>DAY</div>
+          <div class="footer-box orange"><span>Palolem</span>TRIP</div>
           <div class="footer-box green"><span>Optional</span>BOAT</div>
         </div>
       </div>
 
-      <!-- Day 6 -->
+      <!-- Day 5 -->
       <div class="trip-card">
         <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&fit=crop&w=1200&q=80');">
-          <div class="badge">Departure Day</div>
+          <div class="badge">29 March • Departure Day</div>
+          <div class="temp-badge">Approx 25°C–33°C</div>
         </div>
         <div class="card-content">
-          <div class="date-label">Day 6 • Return</div>
-          <h2 class="card-title">Breakfast + Checkout + Airport Departure</h2>
+          <div class="date-label">Day 5 • Morjim → optional church stop → airport</div>
+          <h2 class="card-title">Checkout + Optional Bom Jesus + Departure</h2>
           <p class="subtitle">
-            Keep the last day stress-free. Pack early, have breakfast, and leave with enough travel buffer for airport.
+            Keep the last day stress-free. If flight timing allows, add Basilica of Bom Jesus as an optional stop; otherwise go directly to the airport.
           </p>
+
+          <div class="route-box">
+            <h3>Route Overview</h3>
+            <div class="route-meta">
+              <div><strong>Start:</strong><br>Morjimbay Resort, Morjim</div>
+              <div><strong>End:</strong><br>Goa Airport</div>
+            </div>
+            <img class="route-map" src="route-map.png" alt="Trip route map">
+          </div>
 
           <div class="section">
             <h3>Plan for the Day</h3>
             <ul>
-              <li>Morning breakfast and final packing.</li>
-              <li>Keep 3 to 4 hours buffer before flight.</li>
-              <li>Leave hotel on time depending on airport location and traffic.</li>
-              <li>Carry water, snacks, and kids essentials separately.</li>
+              <li>Breakfast and final packing.</li>
+              <li>Checkout on time.</li>
+              <li>Optional Basilica of Bom Jesus stop if flight timing is comfortable.</li>
+              <li>Leave enough buffer for airport travel.</li>
             </ul>
           </div>
 
           <div class="section">
             <h3>Checklist Before Leaving</h3>
             <ul>
-              <li>ID cards, tickets, hotel bills, medicines</li>
-              <li>Phone chargers, kids’ items, sunglasses, hats</li>
-              <li>Any local shopping packed separately</li>
+              <li>ID cards, tickets, medicines, chargers</li>
+              <li>Kids items, hats, sunglasses, water</li>
+              <li>Hotel bill and any shopping packed separately</li>
             </ul>
           </div>
 
-          <div class="hotel-box">
-            <strong>Final Travel Advice</strong>
-            March end in Goa can be hot. Keep light cotton clothes, sunscreen, hats, slippers, and hydration ready throughout the trip.
-          </div>
-
           <div class="links">
-            <a href="https://www.tripadvisor.in/Attraction_Review-g303877-d320658-Reviews-Fontainhas-Panjim_North_Goa_District_Goa.html" target="_blank">Revisit Fontainhas</a>
-            <a href="https://www.tripadvisor.in/Attraction_Review-g306996-d482982-Reviews-Palolem_Beach-Canacona_South_Goa_District_Goa.html" target="_blank">Trip Memories</a>
+            <a href="https://www.tripadvisor.in/Attraction_Review-g6109760-d320663-Reviews-Basilica_of_Bom_Jesus-Goa_Velha_Goa.html" target="_blank">Basilica of Bom Jesus</a>
+            <a href="https://www.agoda.com/morjim-bay-beach-resort/hotel/goa-in.html" target="_blank">Hotel 2 on Agoda</a>
           </div>
         </div>
         <div class="card-footer">
-          <div class="footer-box pink"><span>6</span>DAY</div>
-          <div class="footer-box orange"><span>Return</span>HOME</div>
-          <div class="footer-box green"><span>Safe</span>TRAVEL</div>
+          <div class="footer-box pink"><span>5</span>DAY</div>
+          <div class="footer-box orange"><span>Return</span>TRAVEL</div>
+          <div class="footer-box green"><span>Buffer</span>TIME</div>
         </div>
       </div>
 
@@ -576,7 +728,7 @@
       <button id="nextBtn" onclick="changeCard(1)">Next</button>
     </div>
 
-    <div class="trip-progress" id="progressText">Day 1 of 6</div>
+    <div class="trip-progress" id="progressText">Day 1 of 5</div>
   </div>
 
   <script>
