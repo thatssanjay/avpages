@@ -1,765 +1,1906 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Goa Family Trip Plan</title>
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Goa Family Trip 2026 – 25–29 March</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&family=Satisfy&display=swap" rel="stylesheet">
+<style>
+:root{
+  --sand:#f5e6c8;--ocean:#0077b6;--deep:#023e8a;--coral:#e76f51;--palm:#2d6a4f;
+  --gold:#d4a017;--cream:#fdf6e3;--dark:#1a1a2e;--glass:rgba(255,255,255,0.12);
+  --shadow:0 20px 60px rgba(0,0,0,0.15);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--dark);overflow-x:hidden}
 
-    body {
-      font-family: Arial, sans-serif;
-      background: linear-gradient(135deg, #f4d6c2, #d8b4a0);
-      min-height: 100vh;
-      padding: 30px 15px;
-      color: #333;
-    }
+/* NAV */
+nav{position:fixed;top:0;width:100%;z-index:1000;background:rgba(2,62,138,0.95);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,0.1)}
+.nav-inner{max-width:1400px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:10px 20px;flex-wrap:wrap;gap:8px}
+.nav-logo{font-family:'Satisfy',cursive;font-size:1.5rem;color:#fff;text-decoration:none}
+.nav-links{display:flex;gap:4px;flex-wrap:wrap}
+.nav-links a{color:rgba(255,255,255,0.85);text-decoration:none;padding:6px 10px;border-radius:20px;font-size:0.78rem;font-weight:500;transition:all 0.2s;white-space:nowrap}
+.nav-links a:hover{background:var(--coral);color:#fff}
 
-    .page-title {
-      text-align: center;
-      margin-bottom: 20px;
-      color: #fff;
-      text-shadow: 0 2px 6px rgba(0,0,0,0.25);
-    }
+/* HERO */
+.hero{height:100vh;min-height:600px;background:linear-gradient(135deg,#023e8a 0%,#0077b6 40%,#00b4d8 70%,#90e0ef 100%);display:flex;align-items:center;justify-content:center;text-align:center;position:relative;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?w=1600&q=80') center/cover;opacity:0.35}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(2,62,138,0.7) 0%,rgba(0,119,182,0.5) 50%,rgba(0,0,0,0.3) 100%)}
+.hero-content{position:relative;z-index:2;max-width:900px;padding:20px;animation:fadeUp 1s ease}
+.hero-badge{display:inline-block;background:var(--coral);color:#fff;padding:6px 20px;border-radius:30px;font-size:0.8rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;margin-bottom:20px}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(2.5rem,7vw,5rem);color:#fff;line-height:1.1;margin-bottom:16px;text-shadow:0 2px 20px rgba(0,0,0,0.3)}
+.hero-sub{font-size:clamp(1rem,2.5vw,1.3rem);color:rgba(255,255,255,0.9);margin-bottom:30px;font-weight:300}
+.hero-pills{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:30px}
+.pill{background:rgba(255,255,255,0.2);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.3);color:#fff;padding:8px 18px;border-radius:30px;font-size:0.85rem;font-weight:500}
+.hero-scroll{color:rgba(255,255,255,0.7);font-size:0.8rem;animation:bounce 2s infinite}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(8px)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
 
-    .page-title h1 {
-      font-size: 32px;
-      margin-bottom: 8px;
-    }
+/* SECTIONS */
+.section{padding:80px 20px;max-width:1400px;margin:0 auto}
+.section-title{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,4vw,2.8rem);color:var(--deep);margin-bottom:8px}
+.section-sub{color:#666;font-size:1rem;margin-bottom:40px;font-weight:300}
+.section-header{margin-bottom:40px}
+.divider{width:60px;height:4px;background:linear-gradient(90deg,var(--coral),var(--gold));border-radius:2px;margin:10px 0 20px}
 
-    .page-title p {
-      font-size: 16px;
-      opacity: 0.95;
-    }
+/* HOTEL CARDS */
+.hotel-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:24px;margin-bottom:40px}
+.hotel-card{background:#fff;border-radius:20px;overflow:hidden;box-shadow:var(--shadow);transition:transform 0.3s}
+.hotel-card:hover{transform:translateY(-6px)}
+.hotel-img{width:100%;height:220px;object-fit:cover}
+.hotel-body{padding:24px}
+.hotel-tag{display:inline-block;padding:4px 12px;border-radius:20px;font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:10px}
+.tag-blue{background:#e3f2fd;color:#0277bd}
+.tag-amber{background:#fff8e1;color:#f57c00}
+.hotel-name{font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--deep);margin-bottom:6px}
+.hotel-detail{font-size:0.85rem;color:#666;margin-bottom:4px}
+.hotel-detail strong{color:var(--dark)}
 
-    .container {
-      max-width: 980px;
-      margin: 0 auto;
-    }
+/* DAY PLANNER */
+.days-nav{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:32px}
+.day-btn{padding:10px 20px;border:2px solid var(--ocean);border-radius:30px;background:transparent;color:var(--ocean);cursor:pointer;font-size:0.85rem;font-weight:600;transition:all 0.2s;font-family:'DM Sans',sans-serif}
+.day-btn.active,.day-btn:hover{background:var(--ocean);color:#fff}
 
-    .trip-wrapper {
-      display: flex;
-      justify-content: center;
-      align-items: stretch;
-      gap: 20px;
-      flex-wrap: wrap;
-      margin-top: 30px;
-    }
+.day-panel{display:none}
+.day-panel.active{display:block;animation:fadeUp 0.4s ease}
 
-    .trip-card {
-      width: 100%;
-      max-width: 760px;
-      background: #fff;
-      border-radius: 18px;
-      overflow: hidden;
-      box-shadow: 0 16px 35px rgba(0, 0, 0, 0.18);
-      display: none;
-      animation: fadeIn 0.4s ease;
-    }
+.day-header{background:linear-gradient(135deg,var(--deep),var(--ocean));color:#fff;border-radius:16px;padding:24px 28px;margin-bottom:28px}
+.day-header h2{font-family:'Playfair Display',serif;font-size:1.8rem;margin-bottom:4px}
+.day-header p{opacity:0.85;font-size:0.9rem}
+.day-weather{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,0.2);padding:6px 14px;border-radius:20px;font-size:0.8rem;margin-top:10px}
 
-    .trip-card.active {
-      display: block;
-    }
+/* TIMELINE */
+.timeline{position:relative;padding-left:30px}
+.timeline::before{content:'';position:absolute;left:14px;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,var(--ocean),var(--coral))}
+.tl-item{position:relative;margin-bottom:20px}
+.tl-dot{position:absolute;left:-22px;width:16px;height:16px;border-radius:50%;border:2px solid #fff;top:14px;z-index:1}
+.dot-must{background:var(--coral)}
+.dot-food{background:var(--gold)}
+.dot-opt{background:#aaa}
+.dot-rest{background:var(--palm)}
 
-    .card-image {
-      height: 250px;
-      background-size: cover;
-      background-position: center;
-      position: relative;
-    }
+.tl-card{background:#fff;border-radius:14px;padding:16px 20px;box-shadow:0 4px 20px rgba(0,0,0,0.08);border-left:3px solid transparent;transition:all 0.2s}
+.tl-card:hover{transform:translateX(4px);box-shadow:0 8px 30px rgba(0,0,0,0.12)}
+.tl-card.must{border-left-color:var(--coral)}
+.tl-card.food{border-left-color:var(--gold)}
+.tl-card.optional{border-left-color:#aaa;opacity:0.85}
+.tl-card.rest{border-left-color:var(--palm)}
 
-    .badge {
-      position: absolute;
-      top: 16px;
-      left: 16px;
-      background: rgba(255,255,255,0.92);
-      color: #111;
-      padding: 8px 14px;
-      border-radius: 30px;
-      font-size: 14px;
-      font-weight: bold;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    }
+.tl-time{font-size:0.75rem;font-weight:700;color:var(--ocean);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:4px}
+.tl-title{font-weight:600;font-size:0.95rem;margin-bottom:4px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.badge{display:inline-block;padding:2px 8px;border-radius:10px;font-size:0.65rem;font-weight:700;text-transform:uppercase}
+.badge-must{background:#fde8e4;color:var(--coral)}
+.badge-food{background:#fef9e7;color:#d4a017}
+.badge-opt{background:#f0f0f0;color:#777}
+.badge-rest{background:#e8f5e9;color:var(--palm)}
+.badge-casino{background:#1a1a2e;color:#ffd700}
+.tl-desc{font-size:0.82rem;color:#666;margin-bottom:6px;line-height:1.5}
+.tl-tip{font-size:0.78rem;background:#f8f9fa;padding:6px 10px;border-radius:8px;color:#555;border-left:2px solid var(--gold)}
+.tl-links{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.tl-link{display:inline-flex;align-items:center;gap:4px;font-size:0.72rem;color:var(--ocean);text-decoration:none;padding:3px 10px;border:1px solid var(--ocean);border-radius:12px;transition:all 0.2s}
+.tl-link:hover{background:var(--ocean);color:#fff}
 
-    .temp-badge {
-      position: absolute;
-      top: 16px;
-      right: 16px;
-      background: rgba(255, 106, 0, 0.95);
-      color: white;
-      padding: 8px 14px;
-      border-radius: 30px;
-      font-size: 14px;
-      font-weight: bold;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-    }
+/* PLACES GALLERY */
+.places-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px}
+.place-card{background:#fff;border-radius:16px;overflow:hidden;box-shadow:var(--shadow);transition:transform 0.3s,box-shadow 0.3s}
+.place-card:hover{transform:translateY(-8px);box-shadow:0 30px 60px rgba(0,0,0,0.2)}
+.place-img-wrap{position:relative;height:200px;overflow:hidden}
+.place-img-wrap img{width:100%;height:100%;object-fit:cover;transition:transform 0.4s}
+.place-card:hover .place-img-wrap img{transform:scale(1.08)}
+.place-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.7) 0%,transparent 60%);display:flex;align-items:flex-end;padding:14px}
+.place-day-tag{position:absolute;top:10px;right:10px;background:var(--coral);color:#fff;padding:4px 10px;border-radius:12px;font-size:0.7rem;font-weight:700}
+.place-name-overlay{color:#fff;font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700}
+.place-body{padding:16px}
+.place-rating{display:flex;align-items:center;gap:4px;margin-bottom:8px}
+.stars{color:#f59e0b;font-size:0.85rem}
+.place-desc{font-size:0.82rem;color:#666;line-height:1.5;margin-bottom:10px}
+.place-links{display:flex;gap:8px;flex-wrap:wrap}
+.btn-sm{display:inline-flex;align-items:center;gap:4px;padding:5px 12px;border-radius:12px;font-size:0.72rem;font-weight:600;text-decoration:none;transition:all 0.2s;border:none;cursor:pointer}
+.btn-blue{background:var(--ocean);color:#fff}
+.btn-blue:hover{background:var(--deep)}
+.btn-green{background:var(--palm);color:#fff}
+.btn-green:hover{background:#1b4332}
+.btn-red{background:#e53e3e;color:#fff}
+.btn-red:hover{background:#c53030}
+.btn-outline{background:transparent;border:1px solid var(--ocean);color:var(--ocean)}
+.btn-outline:hover{background:var(--ocean);color:#fff}
 
-    .card-content {
-      padding: 24px;
-    }
+/* VIDEO SECTION */
+.videos-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px}
+.video-card{background:#fff;border-radius:16px;overflow:hidden;box-shadow:var(--shadow);transition:transform 0.2s}
+.video-card:hover{transform:translateY(-4px)}
+.yt-thumb-link{display:block;text-decoration:none}
+.yt-thumb-wrap{position:relative;height:190px;overflow:hidden;background:#000}
+.yt-thumb{width:100%;height:100%;object-fit:cover;transition:transform 0.4s;opacity:0.85}
+.video-card:hover .yt-thumb{transform:scale(1.05);opacity:1}
+.yt-play-btn{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
+.yt-play-btn span{width:56px;height:56px;background:rgba(255,0,0,0.9);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.3rem;padding-left:4px;box-shadow:0 4px 20px rgba(255,0,0,0.4);transition:transform 0.2s}
+.video-card:hover .yt-play-btn span{transform:scale(1.15)}
+.yt-badge{position:absolute;top:10px;right:10px;background:#ff0000;color:#fff;font-size:0.68rem;font-weight:700;padding:3px 10px;border-radius:10px;letter-spacing:0.3px}
+.video-info{padding:14px 16px}
+.video-title{font-weight:700;font-size:0.9rem;color:var(--dark);margin-bottom:4px}
+.video-sub{font-size:0.78rem;color:#888;margin-bottom:10px}
+.yt-search-btn{display:inline-block;background:#ff0000;color:#fff;padding:6px 14px;border-radius:20px;font-size:0.75rem;font-weight:700;text-decoration:none;transition:background 0.2s}
+.yt-search-btn:hover{background:#cc0000}
 
-    .date-label {
-      font-size: 14px;
-      font-weight: bold;
-      margin-bottom: 10px;
-      color: #d63384;
-    }
+/* FOOD GOOGLE LINK */
+.food-glink{display:inline-block;margin-top:6px;font-size:0.72rem;color:var(--ocean);text-decoration:none;padding:3px 10px;border:1px solid #ddd;border-radius:10px;transition:all 0.2s}
+.food-glink:hover{background:var(--ocean);color:#fff;border-color:var(--ocean)}
 
-    .card-title {
-      font-size: 30px;
-      margin-bottom: 12px;
-      color: #1e1e1e;
-    }
+/* FOOD SECTION */
+.food-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px}
+.food-card{background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,0.08);transition:transform 0.2s}
+.food-card:hover{transform:translateY(-4px)}
+.food-img{width:100%;height:150px;object-fit:cover}
+.food-body{padding:12px}
+.food-name{font-weight:700;font-size:0.88rem;color:var(--dark);margin-bottom:4px}
+.food-desc{font-size:0.75rem;color:#777;line-height:1.4}
+.food-tag{display:inline-block;padding:2px 8px;border-radius:10px;font-size:0.65rem;font-weight:700;margin-top:6px}
+.ft-must{background:#fde8e4;color:var(--coral)}
+.ft-drink{background:#e3f2fd;color:var(--ocean)}
 
-    .subtitle {
-      font-size: 16px;
-      color: #666;
-      margin-bottom: 18px;
-      line-height: 1.6;
-    }
+/* INSTAGRAM SECTION */
+.insta-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px}
+.insta-card{background:#fff;border-radius:16px;overflow:hidden;box-shadow:var(--shadow);padding:20px}
+.insta-header{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.insta-icon{width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.2rem}
+.ig-icon{background:linear-gradient(135deg,#f58529,#dd2a7b,#8134af)}
+.yt-icon{background:#ff0000}
+.insta-label{font-weight:700;font-size:0.9rem}
+.insta-sub{font-size:0.75rem;color:#888}
+.shot-list{list-style:none}
+.shot-list li{padding:8px 0;border-bottom:1px solid #f0f0f0;font-size:0.82rem;color:#555;display:flex;gap:8px}
+.shot-list li:last-child{border-bottom:none}
+.shot-list li::before{content:'📸';flex-shrink:0}
+.shot-list.yt li::before{content:'🎬'}
+.caption-box{background:#f8f9fa;border-radius:10px;padding:12px;margin-top:10px;font-size:0.78rem;color:#555;font-style:italic;line-height:1.5}
+.hashtag{color:var(--ocean);font-weight:600}
 
-    .info-box {
-      background: #f8f8f8;
-      border-left: 5px solid #ff5a5f;
-      padding: 14px 16px;
-      border-radius: 10px;
-      margin-bottom: 18px;
-    }
+/* DOCUMENTS PAGE */
+.docs-upload-area{border:2px dashed var(--ocean);border-radius:16px;padding:40px;text-align:center;margin-bottom:24px;background:rgba(0,119,182,0.04);cursor:pointer;transition:all 0.2s}
+.docs-upload-area:hover{background:rgba(0,119,182,0.08);border-color:var(--deep)}
+.docs-upload-icon{font-size:3rem;margin-bottom:12px}
+.docs-upload-title{font-size:1.1rem;font-weight:700;color:var(--deep);margin-bottom:6px}
+.docs-upload-sub{font-size:0.85rem;color:#888;margin-bottom:16px}
+#fileInput{display:none}
+.docs-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px}
+.doc-card{background:#fff;border-radius:12px;padding:16px;box-shadow:0 4px 16px rgba(0,0,0,0.08);text-align:center;position:relative}
+.doc-icon{font-size:2.5rem;margin-bottom:8px}
+.doc-name{font-size:0.8rem;font-weight:600;color:var(--dark);margin-bottom:4px;word-break:break-word}
+.doc-size{font-size:0.7rem;color:#aaa}
+.doc-delete{position:absolute;top:8px;right:8px;background:none;border:none;cursor:pointer;color:#ccc;font-size:0.9rem;transition:color 0.2s}
+.doc-delete:hover{color:#e53e3e}
+.doc-category{margin-bottom:24px}
+.doc-cat-title{font-size:1rem;font-weight:700;color:var(--deep);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.doc-add-cat{background:var(--ocean);color:#fff;border:none;padding:8px 16px;border-radius:20px;font-size:0.8rem;cursor:pointer;font-family:'DM Sans',sans-serif;transition:background 0.2s}
+.doc-add-cat:hover{background:var(--deep)}
 
-    .section {
-      margin-bottom: 18px;
-    }
+/* TIPS */
+.tips-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px}
+.tip-card{background:#fff;border-radius:16px;padding:20px;box-shadow:0 4px 20px rgba(0,0,0,0.08);border-top:4px solid var(--coral)}
+.tip-icon{font-size:2rem;margin-bottom:10px}
+.tip-title{font-weight:700;font-size:1rem;color:var(--deep);margin-bottom:10px}
+.tip-list{list-style:none}
+.tip-list li{font-size:0.82rem;color:#555;padding:5px 0;border-bottom:1px solid #f5f5f5;padding-left:16px;position:relative;line-height:1.4}
+.tip-list li::before{content:'•';position:absolute;left:0;color:var(--coral);font-weight:700}
 
-    .section h3 {
-      font-size: 17px;
-      margin-bottom: 8px;
-      color: #222;
-    }
+/* CONTACTS */
+.contacts-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px}
+.contact-card{background:#fff;border-radius:12px;padding:14px 16px;box-shadow:0 2px 12px rgba(0,0,0,0.07);display:flex;align-items:center;gap:12px}
+.contact-icon{width:42px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0}
+.ci-emergency{background:#fde8e4}
+.ci-hotel{background:#e3f2fd}
+.ci-transport{background:#e8f5e9}
+.ci-medical{background:#fff3e0}
+.ci-tourism{background:#f3e8ff}
+.contact-name{font-size:0.82rem;font-weight:700;color:var(--dark)}
+.contact-num{font-size:0.88rem;color:var(--ocean);font-weight:600}
+.contact-note{font-size:0.7rem;color:#aaa}
 
-    .section ul {
-      padding-left: 18px;
-      line-height: 1.7;
-      color: #555;
-    }
+/* WEATHER STRIP */
+.weather-strip{background:linear-gradient(135deg,var(--deep),var(--ocean));border-radius:20px;padding:28px;color:#fff;margin-bottom:40px}
+.weather-days{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:16px;margin-top:20px}
+.weather-day{background:rgba(255,255,255,0.15);backdrop-filter:blur(8px);border-radius:12px;padding:14px;text-align:center}
+.w-date{font-size:0.75rem;opacity:0.7;margin-bottom:4px}
+.w-day{font-weight:700;font-size:0.9rem;margin-bottom:6px}
+.w-icon{font-size:1.8rem;margin-bottom:6px}
+.w-temp{font-size:1.1rem;font-weight:700}
+.w-low{font-size:0.78rem;opacity:0.7}
+.w-cond{font-size:0.72rem;opacity:0.8;margin-top:4px}
+.best-time-banner{background:rgba(255,255,255,0.15);border-radius:10px;padding:10px 16px;margin-top:16px;font-size:0.85rem;text-align:center}
 
-    .hotel-box {
-      background: #fff5ef;
-      border: 1px solid #ffd8c2;
-      padding: 14px;
-      border-radius: 10px;
-      margin-bottom: 18px;
-    }
+/* PAGE TABS */
+.page-tabs{display:flex;gap:0;flex-wrap:wrap;margin-bottom:0;border-bottom:2px solid #e0e0e0}
+.page-tab{padding:14px 22px;cursor:pointer;font-size:0.85rem;font-weight:600;color:#888;border-bottom:3px solid transparent;transition:all 0.2s;margin-bottom:-2px;font-family:'DM Sans',sans-serif;background:none;border-top:none;border-left:none;border-right:none}
+.page-tab.active{color:var(--ocean);border-bottom-color:var(--ocean)}
+.page-tab:hover{color:var(--ocean)}
+.tab-content{display:none;padding-top:32px}
+.tab-content.active{display:block;animation:fadeUp 0.3s ease}
 
-    .hotel-box strong {
-      display: block;
-      margin-bottom: 6px;
-      color: #c2410c;
-    }
+/* MAP CARDS */
+.map-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px}
+.map-card{background:#fff;border-radius:16px;overflow:hidden;box-shadow:var(--shadow)}
+.map-embed{width:100%;height:200px;border:none}
+.map-info{padding:16px}
+.map-name{font-weight:700;font-size:0.95rem;color:var(--deep);margin-bottom:4px}
+.map-addr{font-size:0.78rem;color:#888;margin-bottom:10px}
+.map-actions{display:flex;gap:8px}
 
-    .hotel-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-      margin-bottom: 18px;
-    }
+/* SECTION BG VARIANTS */
+.bg-light{background:#f8faff}
+.bg-sand{background:linear-gradient(180deg,var(--cream) 0%,#fff 100%)}
+.full-section{padding:80px 0}
+.inner{max-width:1400px;margin:0 auto;padding:0 20px}
 
-    .hotel-card {
-      background: #fff;
-      border: 1px solid #eee;
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 8px 18px rgba(0,0,0,0.08);
-    }
+/* FLOATING BACK TO TOP */
+.fab{position:fixed;bottom:28px;right:28px;width:48px;height:48px;background:var(--coral);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.2rem;cursor:pointer;box-shadow:0 4px 20px rgba(231,111,81,0.4);transition:all 0.2s;z-index:999;text-decoration:none}
+.fab:hover{transform:scale(1.1);background:var(--deep)}
 
-    .hotel-card img {
-      width: 100%;
-      height: 180px;
-      object-fit: cover;
-      display: block;
-    }
+/* CASINO HIGHLIGHT */
+.casino-banner{background:linear-gradient(135deg,#1a1a2e,#16213e,#0f3460);border-radius:16px;padding:20px 24px;margin:16px 0;color:#fff;position:relative;overflow:hidden}
+.casino-banner::before{content:'🎰';position:absolute;right:20px;top:50%;transform:translateY(-50%);font-size:3rem;opacity:0.2}
+.casino-title{font-family:'Playfair Display',serif;font-size:1.2rem;color:#ffd700;margin-bottom:6px}
+.casino-desc{font-size:0.85rem;opacity:0.85;margin-bottom:10px;line-height:1.5}
+.casino-pills{display:flex;gap:8px;flex-wrap:wrap}
+.cpill{background:rgba(255,215,0,0.2);border:1px solid rgba(255,215,0,0.3);color:#ffd700;padding:4px 12px;border-radius:20px;font-size:0.72rem}
 
-    .hotel-card-content {
-      padding: 14px;
-    }
+/* OPTIONAL NOTICE */
+.optional-notice{background:#f8f9fa;border:1px dashed #ccc;border-radius:10px;padding:10px 14px;font-size:0.78rem;color:#777;margin-bottom:12px;display:flex;gap:8px;align-items:flex-start}
 
-    .hotel-card-content h4 {
-      font-size: 18px;
-      margin-bottom: 8px;
-      color: #222;
-    }
-
-    .hotel-card-content p {
-      font-size: 14px;
-      color: #555;
-      line-height: 1.6;
-      margin-bottom: 10px;
-    }
-
-    .route-box {
-      background: #f6faff;
-      border: 1px solid #d8ebff;
-      border-radius: 12px;
-      padding: 14px;
-      margin-bottom: 18px;
-    }
-
-    .route-box h3 {
-      font-size: 17px;
-      margin-bottom: 10px;
-      color: #0b5394;
-    }
-
-    .route-meta {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      margin-bottom: 12px;
-    }
-
-    .route-meta div {
-      background: #fff;
-      border-radius: 10px;
-      padding: 10px 12px;
-      border: 1px solid #e6f2ff;
-      font-size: 14px;
-      line-height: 1.5;
-    }
-
-    .route-map {
-      width: 100%;
-      border-radius: 10px;
-      border: 1px solid #d8ebff;
-      display: block;
-      max-height: 380px;
-      object-fit: contain;
-      background: #fff;
-    }
-
-    .links {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 10px;
-    }
-
-    .links a {
-      text-decoration: none;
-      background: #ff6a00;
-      color: white;
-      padding: 10px 14px;
-      border-radius: 8px;
-      font-size: 14px;
-      transition: 0.25s ease;
-    }
-
-    .links a:hover {
-      background: #e75b00;
-    }
-
-    .card-footer {
-      display: flex;
-      justify-content: space-between;
-      text-align: center;
-      color: white;
-      font-weight: bold;
-      font-size: 13px;
-    }
-
-    .footer-box {
-      flex: 1;
-      padding: 15px 10px;
-    }
-
-    .pink { background: #ff007a; }
-    .orange { background: #ff5a00; }
-    .green { background: #00b140; }
-    .blue { background: #0077ff; }
-
-    .footer-box span {
-      display: block;
-      font-size: 22px;
-      margin-bottom: 3px;
-    }
-
-    .nav-buttons {
-      text-align: center;
-      margin-top: 25px;
-    }
-
-    .nav-buttons button {
-      border: none;
-      background: #222;
-      color: white;
-      padding: 12px 20px;
-      margin: 0 8px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 15px;
-      transition: 0.25s ease;
-    }
-
-    .nav-buttons button:hover {
-      background: #444;
-    }
-
-    .nav-buttons button:disabled {
-      background: #999;
-      cursor: not-allowed;
-    }
-
-    .trip-progress {
-      text-align: center;
-      margin-top: 15px;
-      color: #fff;
-      font-weight: bold;
-      font-size: 15px;
-    }
-
-    .note-box {
-      background: #fffef4;
-      border-left: 5px solid #f4b400;
-      padding: 14px 16px;
-      border-radius: 10px;
-      margin-bottom: 18px;
-      color: #5a4a00;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(8px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    @media (max-width: 768px) {
-      .card-title {
-        font-size: 24px;
-      }
-
-      .card-image {
-        height: 220px;
-      }
-
-      .page-title h1 {
-        font-size: 26px;
-      }
-
-      .links a {
-        width: 100%;
-        text-align: center;
-      }
-
-      .hotel-grid,
-      .route-meta {
-        grid-template-columns: 1fr;
-      }
-
-      .hotel-card img {
-        height: 160px;
-      }
-    }
-  </style>
+/* RESPONSIVE */
+@media(max-width:768px){
+  .nav-links{display:none}
+  .nav-logo{font-size:1.3rem}
+  .hero h1{font-size:2rem}
+  .timeline{padding-left:20px}
+  .timeline::before{left:8px}
+  .tl-dot{left:-16px}
+}
+</style>
 </head>
 <body>
-  <div class="container">
-    <div class="page-title">
-      <h1>Goa Family Trip Plan</h1>
-      <p>Family of 6 • 2 Couples • 2 Kids • 25–29 March 2026 • Morjim Stay</p>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="#home" class="nav-logo">🌴 Goa 2026</a>
+    <div class="nav-links">
+      <a href="#overview">Overview</a>
+      <a href="#itinerary">Itinerary</a>
+      <a href="#places">Places</a>
+      <a href="#food">Food & Drinks</a>
+      <a href="#videos">Videos</a>
+      <a href="#maps">Maps</a>
+      <a href="#instagram">Reels Ideas</a>
+      <a href="#documents">Documents</a>
+      <a href="#tips">Tips</a>
+      <a href="#contacts">Contacts</a>
     </div>
-
-    <div class="trip-wrapper">
-
-      <!-- Day 1 -->
-      <div class="trip-card active">
-        <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=1200&q=80');">
-          <div class="badge">25 March • Arrival Day</div>
-          <div class="temp-badge">Approx 24°C–32°C</div>
-        </div>
-        <div class="card-content">
-          <div class="date-label">Day 1 • Goa Airport → Morjim</div>
-          <h2 class="card-title">Arrival + Check-in + Morjim Beach Evening</h2>
-          <p class="subtitle">
-            Arrive in Goa, transfer to Morjim, check in, relax, and enjoy a peaceful evening by the beach.
-          </p>
-
-          <div class="info-box">
-            <strong>Stay for 25–27 March:</strong> Living Room Beach Resort – Morjim
-          </div>
-
-          <div class="hotel-grid">
-            <div class="hotel-card">
-              <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=900&q=80" alt="Living Room Beach Resort visual placeholder">
-              <div class="hotel-card-content">
-                <h4>Living Room Beach Resort – Morjim</h4>
-                <p>
-                  Beach distance: ~5 min walk<br>
-                  Recommended Room: Premium Chalet<br>
-                  Good for first half of the stay with family comfort and easy beach access.
-                </p>
-                <div class="links">
-                  <a href="https://www.agoda.com/living-room-beach-resort_2/hotel/goa-in.html" target="_blank">Open on Agoda</a>
-                </div>
-              </div>
-            </div>
-
-            <div class="hotel-card">
-              <img src="https://images.unsplash.com/photo-1522798514-97ceb8c4f1c8?auto=format&fit=crop&w=900&q=80" alt="Morjim resort visual placeholder">
-              <div class="hotel-card-content">
-                <h4>Stay Snapshot</h4>
-                <p>
-                  Area: Morjim<br>
-                  Family-friendly and calmer than many party-heavy Goa zones.<br>
-                  Good base for beach time, Parra Road, Fort Aguada, and Panjim day trip.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div class="route-box">
-            <h3>Route Overview</h3>
-            <div class="route-meta">
-              <div><strong>Start:</strong><br>Goa International Airport</div>
-              <div><strong>End:</strong><br>Living Room Beach Resort, Morjim</div>
-            </div>
-            <img class="route-map" src="route-map.png" alt="Trip route map">
-          </div>
-
-          <div class="section">
-            <h3>Plan for the Day</h3>
-            <ul>
-              <li>Arrive at airport and leave by pre-booked cab.</li>
-              <li>Check in and freshen up.</li>
-              <li>Evening walk at Morjim Beach.</li>
-              <li>Simple dinner near hotel and early rest.</li>
-            </ul>
-          </div>
-
-          <div class="section">
-            <h3>Best Timing</h3>
-            <ul>
-              <li>Hotel check-in: as per arrival</li>
-              <li>Morjim Beach walk: 5:00 PM to sunset</li>
-              <li>Dinner: 7:30 PM onward</li>
-            </ul>
-          </div>
-
-          <div class="links">
-            <a href="https://www.tripadvisor.in/Attraction_Review-g306993-d951184-Reviews-Candolim_Beach-Bardez_North_Goa_District_Goa.html" target="_blank">Candolim Beach</a>
-            <a href="https://www.tripadvisor.in/Attraction_Review-g2307943-d482978-Reviews-Arambol_Beach-Arambol_North_Goa_District_Goa.html" target="_blank">Arambol Beach</a>
-          </div>
-        </div>
-        <div class="card-footer">
-          <div class="footer-box pink"><span>1</span>DAY</div>
-          <div class="footer-box orange"><span>Morjim</span>STAY</div>
-          <div class="footer-box green"><span>Relax</span>EVENING</div>
-        </div>
-      </div>
-
-      <!-- Day 2 -->
-      <div class="trip-card">
-        <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80');">
-          <div class="badge">26 March • North Goa Easy Day</div>
-          <div class="temp-badge">Approx 24°C–33°C</div>
-        </div>
-        <div class="card-content">
-          <div class="date-label">Day 2 • Morjim → Parra Road → Candolim → Fort Aguada → Morjim</div>
-          <h2 class="card-title">Parra Road + Candolim + Fort Aguada</h2>
-          <p class="subtitle">
-            This day combines the famous coconut-tree Parra Road, a relaxed beach stop, and the classic Fort Aguada view.
-          </p>
-
-          <div class="route-box">
-            <h3>Route Overview</h3>
-            <div class="route-meta">
-              <div><strong>Start:</strong><br>Living Room Beach Resort, Morjim</div>
-              <div><strong>End:</strong><br>Back to Morjim hotel</div>
-            </div>
-            <img class="route-map" src="route-map.png" alt="Trip route map">
-          </div>
-
-          <div class="section">
-            <h3>Plan for the Day</h3>
-            <ul>
-              <li>Leave after breakfast.</li>
-              <li>Short photo stop at Parra Road.</li>
-              <li>Continue to Candolim Beach.</li>
-              <li>Lunch nearby.</li>
-              <li>Visit Fort Aguada in the later afternoon.</li>
-              <li>Return to Morjim by evening.</li>
-            </ul>
-          </div>
-
-          <div class="section">
-            <h3>Best Timing</h3>
-            <ul>
-              <li>Start: 8:00 AM</li>
-              <li>Parra Road: 9:00 AM to 9:30 AM</li>
-              <li>Candolim Beach: 10:30 AM to 12:30 PM</li>
-              <li>Lunch: 1:00 PM</li>
-              <li>Fort Aguada: 3:30 PM to 5:00 PM</li>
-            </ul>
-          </div>
-
-          <div class="note-box">
-            Keep Parra Road as a quick stop only. It is best for photos, not a long visit.
-          </div>
-
-          <div class="links">
-            <a href="https://www.tripadvisor.in/Attraction_Review-g306993-d951184-Reviews-Candolim_Beach-Bardez_North_Goa_District_Goa.html" target="_blank">Candolim Beach</a>
-            <a href="https://www.tripadvisor.in/Attraction_Review-g1165042-d1471459-Reviews-Taj_Fort_Aguada_Resort_Spa-Sinquerim_North_Goa_District_Goa.html" target="_blank">Fort Aguada</a>
-          </div>
-        </div>
-        <div class="card-footer">
-          <div class="footer-box pink"><span>2</span>DAY</div>
-          <div class="footer-box orange"><span>Parra</span>ROAD</div>
-          <div class="footer-box green"><span>Fort</span>VIEW</div>
-        </div>
-      </div>
-
-      <!-- Day 3 -->
-      <div class="trip-card">
-        <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1527631746610-bca00a040d60?auto=format&fit=crop&w=1200&q=80');">
-          <div class="badge">27 March • Hotel Shift + Panjim</div>
-          <div class="temp-badge">Approx 24°C–33°C</div>
-        </div>
-        <div class="card-content">
-          <div class="date-label">Day 3 • Checkout → Morjimbay Resort → Fontainhas → Church</div>
-          <h2 class="card-title">Hotel Change + Fontainhas Heritage Walk</h2>
-          <p class="subtitle">
-            Shift to your second Morjim stay, then enjoy a guided heritage day in Panjim with colorful streets and classic Goa character.
-          </p>
-
-          <div class="info-box">
-            <strong>Stay for 27–29 March:</strong> Morjimbay Resort – Morjim
-          </div>
-
-          <div class="hotel-grid">
-            <div class="hotel-card">
-              <img src="https://images.unsplash.com/photo-1445019980597-93fa8acb246c?auto=format&fit=crop&w=900&q=80" alt="Morjimbay Resort visual placeholder">
-              <div class="hotel-card-content">
-                <h4>Morjimbay Resort – Morjim</h4>
-                <p>
-                  Beach distance: ~5–10 min walk<br>
-                  Family-friendly boutique resort<br>
-                  Good for the second half of your trip with easy North Goa access.
-                </p>
-                <div class="links">
-                  <a href="https://www.agoda.com/morjim-bay-beach-resort/hotel/goa-in.html" target="_blank">Open on Agoda</a>
-                </div>
-              </div>
-            </div>
-
-            <div class="hotel-card">
-              <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=900&q=80" alt="Goa heritage visual">
-              <div class="hotel-card-content">
-                <h4>Day Theme</h4>
-                <p>
-                  Morning hotel shift, then Panjim heritage lane exploration, local architecture, photos, and a lighter cultural day.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div class="route-box">
-            <h3>Route Overview</h3>
-            <div class="route-meta">
-              <div><strong>Start:</strong><br>Living Room Beach Resort, Morjim</div>
-              <div><strong>End:</strong><br>Morjimbay Resort, Morjim</div>
-            </div>
-            <img class="route-map" src="route-map.png" alt="Trip route map">
-          </div>
-
-          <div class="section">
-            <h3>Plan for the Day</h3>
-            <ul>
-              <li>Check out from Hotel 1 and check in to Hotel 2.</li>
-              <li>Leave for Panjim after settling luggage.</li>
-              <li>Take Fontainhas Heritage Walk.</li>
-              <li>Visit Church of Our Lady of the Immaculate Conception.</li>
-              <li>Return to Morjim in the evening.</li>
-            </ul>
-          </div>
-
-          <div class="section">
-            <h3>Best Timing</h3>
-            <ul>
-              <li>Checkout / shift: morning</li>
-              <li>Leave for Panjim: 10:00 AM</li>
-              <li>Heritage Walk: 11:30 AM to 1:00 PM</li>
-              <li>Church / Panjim: 1:30 PM to 3:30 PM</li>
-              <li>Return: evening</li>
-            </ul>
-          </div>
-
-          <div class="links">
-            <a href="https://www.tripadvisor.in/AttractionProductReview-g303877-d17823193-Fontainhas_Heritage_Walk_by_Make_It_Happen-Panjim_North_Goa_District_Goa.html" target="_blank">Fontainhas Walk by Make It Happen</a>
-            <a href="https://www.tripadvisor.in/AttractionProductReview-g303877-d25267040-Fontainhas_Heritage_Walk_With_Guide_Mario-Panjim_North_Goa_District_Goa.html" target="_blank">Fontainhas Walk with Mario</a>
-            <a href="https://www.tripadvisor.in/Attraction_Review-g303877-d320658-Reviews-Fontainhas-Panjim_North_Goa_District_Goa.html" target="_blank">Fontainhas</a>
-            <a href="https://www.tripadvisor.in/Attraction_Review-g303877-d320654-Reviews-Church_Of_Our_Lady_Of_The_Immaculate_Conception-Panjim_North_Goa_District_Goa.html" target="_blank">Immaculate Conception Church</a>
-          </div>
-        </div>
-        <div class="card-footer">
-          <div class="footer-box pink"><span>3</span>DAY</div>
-          <div class="footer-box orange"><span>Hotel</span>SHIFT</div>
-          <div class="footer-box green"><span>Walk</span>TOUR</div>
-        </div>
-      </div>
-
-      <!-- Day 4 -->
-      <div class="trip-card">
-        <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1518509562904-e7ef99cdcc86?auto=format&fit=crop&w=1200&q=80');">
-          <div class="badge">28 March • South Goa Long Day</div>
-          <div class="temp-badge">Approx 25°C–33°C</div>
-        </div>
-        <div class="card-content">
-          <div class="date-label">Day 4 • Morjim → Palolem → Butterfly Beach / Agonda → Morjim</div>
-          <h2 class="card-title">Palolem Beach + Optional Butterfly Beach</h2>
-          <p class="subtitle">
-            A scenic South Goa day. Prioritize Palolem, and keep Butterfly Beach optional depending on weather, energy, and kids’ comfort.
-          </p>
-
-          <div class="route-box">
-            <h3>Route Overview</h3>
-            <div class="route-meta">
-              <div><strong>Start:</strong><br>Morjimbay Resort, Morjim</div>
-              <div><strong>End:</strong><br>Back to Morjimbay Resort, Morjim</div>
-            </div>
-            <img class="route-map" src="route-map.png" alt="Trip route map">
-          </div>
-
-          <div class="section">
-            <h3>Plan for the Day</h3>
-            <ul>
-              <li>Start early because travel is long.</li>
-              <li>Main stop: Palolem Beach.</li>
-              <li>Optional boat trip to Butterfly Beach.</li>
-              <li>Alternative quieter stop: Agonda Beach.</li>
-              <li>Return before it gets too late for kids.</li>
-            </ul>
-          </div>
-
-          <div class="section">
-            <h3>Best Timing</h3>
-            <ul>
-              <li>Leave Morjim: 7:00 AM</li>
-              <li>Reach Palolem: around late morning</li>
-              <li>Beach time + lunch: till 2:00 PM</li>
-              <li>Optional Butterfly / Agonda stop: 2:30 PM to 4:00 PM</li>
-              <li>Return journey: early evening</li>
-            </ul>
-          </div>
-
-          <div class="note-box">
-            This is the longest day. Keep snacks, water, extra clothes, and sun protection ready for kids.
-          </div>
-
-          <div class="links">
-            <a href="https://www.tripadvisor.in/Attraction_Review-g306996-d482982-Reviews-Palolem_Beach-Canacona_South_Goa_District_Goa.html" target="_blank">Palolem Beach</a>
-            <a href="https://www.tripadvisor.in/Attraction_Review-g2334950-d2721507-Reviews-Butterfly_Beach-Palolem_Canacona_South_Goa_District_Goa.html" target="_blank">Butterfly Beach</a>
-            <a href="https://www.tripadvisor.in/Attraction_Review-g816969-d1751637-Reviews-Agonda_Beach-Agonda_South_Goa_District_Goa.html" target="_blank">Agonda Beach</a>
-          </div>
-        </div>
-        <div class="card-footer">
-          <div class="footer-box pink"><span>4</span>DAY</div>
-          <div class="footer-box orange"><span>Palolem</span>TRIP</div>
-          <div class="footer-box green"><span>Optional</span>BOAT</div>
-        </div>
-      </div>
-
-      <!-- Day 5 -->
-      <div class="trip-card">
-        <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&fit=crop&w=1200&q=80');">
-          <div class="badge">29 March • Departure Day</div>
-          <div class="temp-badge">Approx 25°C–33°C</div>
-        </div>
-        <div class="card-content">
-          <div class="date-label">Day 5 • Morjim → optional church stop → airport</div>
-          <h2 class="card-title">Checkout + Optional Bom Jesus + Departure</h2>
-          <p class="subtitle">
-            Keep the last day stress-free. If flight timing allows, add Basilica of Bom Jesus as an optional stop; otherwise go directly to the airport.
-          </p>
-
-          <div class="route-box">
-            <h3>Route Overview</h3>
-            <div class="route-meta">
-              <div><strong>Start:</strong><br>Morjimbay Resort, Morjim</div>
-              <div><strong>End:</strong><br>Goa Airport</div>
-            </div>
-            <img class="route-map" src="route-map.png" alt="Trip route map">
-          </div>
-
-          <div class="section">
-            <h3>Plan for the Day</h3>
-            <ul>
-              <li>Breakfast and final packing.</li>
-              <li>Checkout on time.</li>
-              <li>Optional Basilica of Bom Jesus stop if flight timing is comfortable.</li>
-              <li>Leave enough buffer for airport travel.</li>
-            </ul>
-          </div>
-
-          <div class="section">
-            <h3>Checklist Before Leaving</h3>
-            <ul>
-              <li>ID cards, tickets, medicines, chargers</li>
-              <li>Kids items, hats, sunglasses, water</li>
-              <li>Hotel bill and any shopping packed separately</li>
-            </ul>
-          </div>
-
-          <div class="links">
-            <a href="https://www.tripadvisor.in/Attraction_Review-g6109760-d320663-Reviews-Basilica_of_Bom_Jesus-Goa_Velha_Goa.html" target="_blank">Basilica of Bom Jesus</a>
-            <a href="https://www.agoda.com/morjim-bay-beach-resort/hotel/goa-in.html" target="_blank">Hotel 2 on Agoda</a>
-          </div>
-        </div>
-        <div class="card-footer">
-          <div class="footer-box pink"><span>5</span>DAY</div>
-          <div class="footer-box orange"><span>Return</span>TRAVEL</div>
-          <div class="footer-box green"><span>Buffer</span>TIME</div>
-        </div>
-      </div>
-
-    </div>
-
-    <div class="nav-buttons">
-      <button id="prevBtn" onclick="changeCard(-1)">Previous</button>
-      <button id="nextBtn" onclick="changeCard(1)">Next</button>
-    </div>
-
-    <div class="trip-progress" id="progressText">Day 1 of 5</div>
   </div>
+</nav>
 
-  <script>
-    const cards = document.querySelectorAll('.trip-card');
-    const progressText = document.getElementById('progressText');
-    const prevBtn = document.getElementById('prevBtn');
-    const nextBtn = document.getElementById('nextBtn');
+<!-- HERO -->
+<div id="home" class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-badge">🌴 Family Trip Planner</div>
+    <h1>Goa, We Are<br>Coming! 🌊</h1>
+    <p class="hero-sub">25 – 29 March 2026 &nbsp;•&nbsp; 4 Adults + 2 Kids &nbsp;•&nbsp; 4 Nights</p>
+    <div class="hero-pills">
+      <span class="pill">✈️ Arriving 8:00 AM, Mar 25</span>
+      <span class="pill">🏨 2 Hotels</span>
+      <span class="pill">🚗 Bharat Taxi 7-Seater</span>
+      <span class="pill">🏖️ North Goa Only</span>
+    </div>
+    <div class="hero-scroll">↓ Scroll to explore your trip ↓</div>
+  </div>
+</div>
 
-    let currentCard = 0;
+<!-- OVERVIEW -->
+<div id="overview" class="full-section bg-sand">
+  <div class="inner">
+    <div class="section-header">
+      <div class="section-title">Trip Overview</div>
+      <div class="divider"></div>
+      <p class="section-sub">Everything you need to know at a glance</p>
+    </div>
 
-    function showCard(index) {
-      cards.forEach((card, i) => {
-        card.classList.toggle('active', i === index);
-      });
+    <!-- WEATHER -->
+    <div class="weather-strip">
+      <div style="font-family:'Playfair Display',serif;font-size:1.4rem;margin-bottom:6px">☀️ Weather Forecast – March, Goa</div>
+      <div style="font-size:0.85rem;opacity:0.8">Hot & sunny throughout – best beach weather of the year!</div>
+      <div class="weather-days">
+        <div class="weather-day"><div class="w-date">25 Mar</div><div class="w-day">Tuesday</div><div class="w-icon">☀️</div><div class="w-temp">34°C</div><div class="w-low">Low: 26°C</div><div class="w-cond">Sunny & Clear</div></div>
+        <div class="weather-day"><div class="w-date">26 Mar</div><div class="w-day">Wednesday</div><div class="w-icon">🌤️</div><div class="w-temp">34°C</div><div class="w-low">Low: 26°C</div><div class="w-cond">Light Breeze</div></div>
+        <div class="weather-day"><div class="w-date">27 Mar</div><div class="w-day">Thursday</div><div class="w-icon">☀️</div><div class="w-temp">35°C</div><div class="w-low">Low: 27°C</div><div class="w-cond">Humid & Sunny</div></div>
+        <div class="weather-day"><div class="w-date">28 Mar</div><div class="w-day">Friday</div><div class="w-icon">🌤️</div><div class="w-temp">34°C</div><div class="w-low">Low: 26°C</div><div class="w-cond">Sea Breeze</div></div>
+        <div class="weather-day"><div class="w-date">29 Mar</div><div class="w-day">Saturday</div><div class="w-icon">☀️</div><div class="w-temp">34°C</div><div class="w-low">Low: 26°C</div><div class="w-cond">Clear Skies</div></div>
+      </div>
+      <div class="best-time-banner">⏰ <strong>Best time out:</strong> Before 9 AM &amp; after 4:30 PM &nbsp;|&nbsp; 🏠 <strong>Rest 1–4 PM</strong> (peak heat) &nbsp;|&nbsp; 🧴 <strong>SPF 50+ sunscreen is a MUST!</strong></div>
+    </div>
 
-      progressText.textContent = `Day ${index + 1} of ${cards.length}`;
-      prevBtn.disabled = index === 0;
-      nextBtn.disabled = index === cards.length - 1;
-    }
+    <!-- HOTELS -->
+    <div class="section-title" style="margin-bottom:8px">Your Hotels</div>
+    <div class="divider"></div>
+    <div class="hotel-grid">
+      <div class="hotel-card">
+        <img class="hotel-img" src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=600&q=80" alt="Living Room Beach Resort Morjim">
+        <div class="hotel-body">
+          <span class="hotel-tag tag-blue">🏨 Hotel 1 &nbsp;|&nbsp; 25–27 March</span>
+          <div class="hotel-name">Living Room Beach Resort</div>
+          <div class="hotel-detail">📍 Morjim Beach, North Goa</div>
+          <div class="hotel-detail">📅 Check-in: 25 March (afternoon) &nbsp;|&nbsp; Checkout: <strong>11:00 AM, 27 March</strong></div>
+          <div class="hotel-detail" style="color:#e53e3e;font-weight:600;margin-top:6px">❌ Breakfast NOT included – eat at local cafes!</div>
+          <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">
+            <a href="https://www.tripadvisor.in/Search?q=Living+Room+Beach+Resort+Morjim&geo=659498&ssrc=a&searchNearby=false" target="_blank" class="btn-sm btn-blue">TripAdvisor ↗</a>
+            <a href="https://www.google.com/search?q=Living+Room+Beach+Resort+Morjim+Goa" target="_blank" class="btn-sm btn-green">🔍 Google</a>
+            <a href="https://www.google.com/maps/search/Living+Room+Beach+Resort+Morjim+Goa" target="_blank" class="btn-sm btn-outline">📍 Maps</a>
+          </div>
+        </div>
+      </div>
+      <div class="hotel-card">
+        <img class="hotel-img" src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=600&q=80" alt="BloomSuites Calangute">
+        <div class="hotel-body">
+          <span class="hotel-tag tag-amber">🏨 Hotel 2 &nbsp;|&nbsp; 27–29 March</span>
+          <div class="hotel-name">BloomSuites Calangute</div>
+          <div class="hotel-detail">📍 Calangute, North Goa</div>
+          <div class="hotel-detail">📅 Check-in: <strong>2:00 PM, 27 March</strong> &nbsp;|&nbsp; Checkout: 29 March</div>
+          <div class="hotel-detail" style="color:#2d6a4f;font-weight:600;margin-top:6px">✅ Breakfast INCLUDED – enjoy every morning!</div>
+          <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">
+            <a href="https://www.tripadvisor.in/Search?q=BloomSuites+Calangute+Goa&geo=303877&ssrc=a&searchNearby=false" target="_blank" class="btn-sm btn-blue">TripAdvisor ↗</a>
+            <a href="https://www.google.com/search?q=BloomSuites+Calangute+Goa" target="_blank" class="btn-sm btn-green">🔍 Google</a>
+            <a href="https://www.google.com/maps/search/BloomSuites+Calangute+Goa" target="_blank" class="btn-sm btn-outline">📍 Maps</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
-    function changeCard(step) {
-      currentCard += step;
+<!-- ITINERARY -->
+<div id="itinerary" class="full-section">
+  <div class="inner">
+    <div class="section-header">
+      <div class="section-title">Day-by-Day Itinerary</div>
+      <div class="divider"></div>
+      <p class="section-sub">Hour-by-hour plan • <strong style="color:var(--coral)">Bold = Must Do</strong> • <span style="color:#aaa">Optional = if time permits</span></p>
+    </div>
 
-      if (currentCard < 0) currentCard = 0;
-      if (currentCard >= cards.length) currentCard = cards.length - 1;
+    <div class="days-nav">
+      <button class="day-btn active" onclick="showDay('d1')">Day 1 – 25 Mar</button>
+      <button class="day-btn" onclick="showDay('d2')">Day 2 – 26 Mar</button>
+      <button class="day-btn" onclick="showDay('d3')">Day 3 – 27 Mar</button>
+      <button class="day-btn" onclick="showDay('d4')">Day 4 – 28 Mar</button>
+      <button class="day-btn" onclick="showDay('d5')">Day 5 – 29 Mar</button>
+    </div>
 
-      showCard(currentCard);
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
+    <!-- DAY 1 -->
+    <div id="d1" class="day-panel active">
+      <div class="day-header">
+        <h2>Day 1 – Tuesday, 25 March 2026</h2>
+        <p>Arrival Day · Morjim & North Goa · Hotel: Living Room Beach Resort</p>
+        <div class="day-weather">☀️ 34°C · Sunny & Clear · Best time out: 9 AM – 12 PM & 4:30 PM+</div>
+      </div>
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-dot dot-must"></div>
+          <div class="tl-card must">
+            <div class="tl-time">8:00 AM</div>
+            <div class="tl-title"><strong>✈️ Arrive at Goa Airport</strong> <span class="badge badge-must">MUST</span></div>
+            <div class="tl-desc">Flight lands around 8 AM. Collect luggage. Your Bharat Taxi 7-seater driver should be waiting at the arrivals gate. ~55 min drive to Morjim.</div>
+            <div class="tl-tip">💡 Get your driver's number on Day 1 itself. Save it on all adult phones!</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot dot-food"></div>
+          <div class="tl-card food">
+            <div class="tl-time">9:30 AM</div>
+            <div class="tl-title"><strong>🍽️ BREAKFAST: The Bodhi Tree Cafe, Morjim</strong> <span class="badge badge-food">⭐ 4.8</span></div>
+            <div class="tl-desc">Goa's most beloved cafe! Famous for incredible momos, fresh juices, and Tibetan-Goan fusion breakfast. Warm, welcoming atmosphere. <strong>No hotel breakfast today.</strong></div>
+            <div class="tl-tip">🥭 Must try: Pineapple Juice, Steamed Momos, Eggs Benedict · Budget: Rs 300–400/head</div>
+            <div class="tl-links">
+              <a href="https://www.tripadvisor.in/Search?q=The+Bodhi+Tree+Cafe+Morjim&geo=659498&ssrc=a&searchNearby=false" target="_blank" class="tl-link">TripAdvisor ↗</a>
+              <a href="https://www.google.com/search?q=The+Bodhi+Tree+Cafe%2C+Morjim" target="_blank" class="tl-link">🔍 Google</a>
+              <a href="https://www.google.com/maps/search/Bodhi+Tree+Cafe+Morjim+Goa" target="_blank" class="tl-link">📍 Map</a>
+              <a href="https://www.google.com/maps/search/Bodhi+Tree+Cafe+Morjim+Goa" target="_blank" class="tl-link">📍 Map</a>
+            </div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot dot-must"></div>
+          <div class="tl-card must">
+            <div class="tl-time">10:30 AM</div>
+            <div class="tl-title"><strong>🏨 Check-in: Living Room Beach Resort</strong> <span class="badge badge-must">MUST</span></div>
+            <div class="tl-desc">Check in, freshen up. Early check-in possible if you call ahead. Leave luggage if room not ready and explore the beach!</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot dot-must"></div>
+          <div class="tl-card must">
+            <div class="tl-time">11:30 AM</div>
+            <div class="tl-title"><strong>🐢 Morjim Beach – Olive Ridley Turtle Beach</strong> <span class="badge badge-must">MUST</span></div>
+            <div class="tl-desc">Goa's most peaceful beach! Famous protected nesting site for endangered Olive Ridley sea turtles. <strong>Kids love collecting shells</strong> and the calm, clean water. Also called "Little Russia" for its relaxed vibe.</div>
+            <div class="tl-tip">🐚 Shell collecting for kids! Very shallow, safe water near shore. Avoid swimming area marked in red flags.</div>
+            <div class="tl-links">
+              <a href="https://www.tripadvisor.in/Search?q=Morjim+Beach&geo=659498&ssrc=a&searchNearby=false" target="_blank" class="tl-link">TripAdvisor ↗</a>
+              <a href="https://www.google.com/search?q=Morjim+Beach+Goa" target="_blank" class="tl-link">🔍 Google</a>
+              <a href="https://www.google.com/maps/search/Morjim+Beach+Goa" target="_blank" class="tl-link">📍 Map</a>
+              <a href="https://www.google.com/maps/search/Morjim+Beach+Goa" target="_blank" class="tl-link">📍 Map</a>
+            </div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot dot-food"></div>
+          <div class="tl-card food">
+            <div class="tl-time">1:00 PM</div>
+            <div class="tl-title"><strong>🦐 LUNCH: Uma by the Sea, Morjim</strong> <span class="badge badge-food">⭐ 4.6</span></div>
+            <div class="tl-desc">Spectacular beachfront restaurant at Morjim. Walk right on the beach at your table at night! Tables on sand in evenings – very romantic & family-friendly.</div>
+            <div class="tl-tip">🍛 Must try: Chicken Xacuti, Goan Fish Curry & Rice, Kokum Shots, Prawn Masala · Rs 600–900/head</div>
+            <div class="tl-links">
+              <a href="https://www.tripadvisor.in/Search?q=Uma+by+the+Sea+Morjim&geo=659498&ssrc=a&searchNearby=false" target="_blank" class="tl-link">TripAdvisor ↗</a>
+              <a href="https://www.google.com/search?q=Uma+by+the+Sea%2C+Morjim" target="_blank" class="tl-link">🔍 Google</a>
+              <a href="https://www.google.com/maps/search/Uma+by+the+Sea+Morjim+Goa" target="_blank" class="tl-link">📍 Map</a>
+              <a href="https://www.google.com/maps/search/Uma+by+the+Sea+Morjim" target="_blank" class="tl-link">📍 Map</a>
+            </div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot dot-rest"></div>
+          <div class="tl-card rest">
+            <div class="tl-time">2:30 – 4:30 PM</div>
+            <div class="tl-title"><strong>😴 Hotel Rest / Pool Time</strong> <span class="badge badge-rest">REST</span></div>
+            <div class="tl-desc">Peak heat 2–4 PM. Relax at hotel, swim in pool. Let kids nap – big days ahead! <strong>Never go out in afternoon sun without sunscreen.</strong></div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot dot-must"></div>
+          <div class="tl-card must">
+            <div class="tl-time">4:30 PM</div>
+            <div class="tl-title"><strong>🏖️ Ashvem Beach (~4 km north of Morjim)</strong> <span class="badge badge-must">MUST</span></div>
+            <div class="tl-desc">One of Goa's most pristine and untouched beaches. Soft white sand, calm water. Very peaceful – mostly international tourists. <strong>Perfect for kids to swim safely.</strong> Beautiful for sunset walk.</div>
+            <div class="tl-tip">👟 Sunset walk highly recommended! Bring towels. Less crowd than any other beach.</div>
+            <div class="tl-links">
+              <a href="https://www.tripadvisor.in/Search?q=Ashvem+Beach&geo=659614&ssrc=a&searchNearby=false" target="_blank" class="tl-link">TripAdvisor ↗</a>
+              <a href="https://www.google.com/search?q=Ashvem+Beach+Goa" target="_blank" class="tl-link">🔍 Google</a>
+              <a href="https://www.google.com/maps/search/Ashvem+Beach+Goa" target="_blank" class="tl-link">📍 Map</a>
+              <a href="https://www.google.com/maps/search/Ashvem+Beach+Goa" target="_blank" class="tl-link">📍 Map</a>
+            </div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot dot-opt"></div>
+          <div class="tl-card optional">
+            <div class="tl-time">6:30 PM</div>
+            <div class="tl-title">🌿 Morjim Hill View Deck <span class="badge badge-opt">OPTIONAL</span></div>
+            <div class="tl-desc">Small elevated deck with backwater and mangrove views. Short easy climb. Free entry. Best at sunset – beautiful golden hour views over the river.</div>
+            <div class="tl-links">
+              <a href="https://www.google.com/maps/search/Morjim+Hill+View+Deck+Goa" target="_blank" class="tl-link">📍 Map</a>
+            </div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot dot-food"></div>
+          <div class="tl-card food">
+            <div class="tl-time">7:30 PM</div>
+            <div class="tl-title"><strong>🍹 SUNDOWNER: Blue Turtle Beach Bar</strong> <span class="badge badge-food">⭐ 4.7</span></div>
+            <div class="tl-desc">THE best sundowner spot in Morjim! Beachfront with sheesha, spectacular cocktails, and fresh seafood. Fairy lights, chill music, and sea breeze make it magical.</div>
+            <div class="tl-tip">🥂 Must try: BBQ Salmon Tacos, Lamb Cutlets, Pina Colada, Sheesha · Rs 1000–1500/couple</div>
+            <div class="tl-links">
+              <a href="https://www.tripadvisor.in/Search?q=Blue+Turtle+Beach+Bar+Morjim&geo=659498&ssrc=a&searchNearby=false" target="_blank" class="tl-link">TripAdvisor ↗</a>
+              <a href="https://www.google.com/search?q=Blue+Turtle+Beach+Bar+Morjim" target="_blank" class="tl-link">🔍 Google</a>
+              <a href="https://www.google.com/maps/search/Blue+Turtle+Beach+Bar+Morjim" target="_blank" class="tl-link">📍 Map</a>
+              <a href="https://www.google.com/maps/search/Blue+Turtle+Beach+Bar+Morjim" target="_blank" class="tl-link">📍 Map</a>
+            </div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot dot-rest"></div>
+          <div class="tl-card rest">
+            <div class="tl-time">9:30 PM</div>
+            <div class="tl-title">🌙 Back to Hotel – Rest</div>
+            <div class="tl-desc">Early night after long travel day. Big sightseeing day ahead!</div>
+          </div>
+        </div>
+      </div>
+    </div>
 
-    showCard(currentCard);
-  </script>
+    <!-- DAY 2 -->
+    <div id="d2" class="day-panel">
+      <div class="day-header">
+        <h2>Day 2 – Wednesday, 26 March 2026</h2>
+        <p>Full North Goa · Heritage + Beaches + Markets · Hotel: Living Room Beach Resort</p>
+        <div class="day-weather">🌤️ 34°C · Light Breeze · Ideal for sightseeing!</div>
+      </div>
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-dot dot-must"></div>
+          <div class="tl-card must">
+            <div class="tl-time">7:30 AM</div>
+            <div class="tl-title"><strong>🌅 Mandrem Beach – Sunrise Walk</strong> <span class="badge badge-must">MUST</span></div>
+            <div class="tl-desc">Goa's most peaceful and cleanest beach. Only 8 km from Morjim. <strong>Shallowest, safest water in Goa for kids.</strong> Gorgeous sunrise. Long open beach – ideal for morning walk.</div>
+            <div class="tl-tip">🌊 Kids can safely play in very shallow water. Lifeguards on duty. Clean & free of crowds.</div>
+            <div class="tl-links">
+              <a href="https://www.tripadvisor.in/Search?q=Mandrem+Beach&geo=659614&ssrc=a&searchNearby=false" target="_blank" class="tl-link">TripAdvisor ↗</a>
+              <a href="https://www.google.com/search?q=Mandrem+Beach+Goa" target="_blank" class="tl-link">🔍 Google</a>
+              <a href="https://www.google.com/maps/search/Mandrem+Beach+Goa" target="_blank" class="tl-link">📍 Map</a>
+              <a href="https://www.google.com/maps/search/Mandrem+Beach+Goa" target="_blank" class="tl-link">📍 Map</a>
+            </div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot dot-food"></div>
+          <div class="tl-card food">
+            <div class="tl-time">9:00 AM</div>
+            <div class="tl-title"><strong>🥐 BREAKFAST: Local Cafe at Mandrem</strong> <span class="badge badge-food">LOCAL GEM</span></div>
+            <div class="tl-desc">Grab breakfast at one of the laid-back cafes near Mandrem Beach. <strong>No hotel breakfast today.</strong> Try authentic Goan street food!</div>
+            <div class="tl-tip">🍞 Must try: Choriz Pav (Goan chorizo bread), fresh coconut water, Goan Poha · Rs 150–250/head</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot dot-opt"></div>
+          <div class="tl-card optional">
+            <div class="tl-time">10:00 AM</div>
+            <div class="tl-title">🌳 Parra Road Drive – Instagram Famous! <span class="badge badge-opt">OPTIONAL</span></div>
+            <div class="tl-desc">Beautiful tree-canopied road through old Goan village. Portuguese heritage homes on both sides. 15-minute photo stop. <strong>Great for family reels!</strong></div>
+            <div class="tl-tip">📸 Drive slowly – beautiful light through tree canopy. Best for morning photos.</div>
+            <div class="tl-links">
+              <a href="https://www.google.com/maps/search/Parra+Road+Goa" target="_blank" class="tl-link">📍 Map</a>
+            </div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot dot-must"></div>
+          <div class="tl-card must">
+            <div class="tl-time">10:30 AM</div>
+            <div class="tl-title"><strong>🎨 Fontainhas – Walk with Mario, Panaji</strong> <span class="badge badge-must">MUST</span></div>
+            <div class="tl-desc">Goa's iconic Latin Quarter! Book the famous <strong>"Walk with Mario"</strong> heritage tour. Colourful Portuguese houses painted in vibrant pastels. Incredible street art, history, and culture. <strong>Kids love the colours and art!</strong></div>
+            <div class="tl-tip">📞 Book Walk with Mario in advance: +91-9422435410 · Duration: 1.5 hrs · Rs 500/person</div>
+            <div class="tl-links">
+              <a href="https://www.tripadvisor.in/Search?q=Fontainhas+Latin+Quarter&geo=303876&ssrc=a&searchNearby=false" target="_blank" class="tl-link">TripAdvisor ↗</a>
+              <a href="https://www.google.com/search?q=Fontainhas+Panaji+Goa" target="_blank" class="tl-link">🔍 Google</a>
+              <a href="https://www.google.com/maps/search/Fontainhas+Panaji+Goa" target="_blank" class="tl-link">📍 Map</a>
+              <a href="https://www.google.com/maps/search/Fontainhas+Panaji+Goa" target="_blank" class="tl-link">📍 Map</a>
+            </div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot dot-must"></div>
+          <div class="tl-card must">
+            <div class="tl-time">12:00 PM</div>
+            <div class="tl-title"><strong>⛪ Immaculate Conception Church, Panaji</strong> <span class="badge badge-must">MUST</span></div>
+            <div class="tl-desc">Goa's most photographed landmark! Stunning white baroque church built in 1541. Just 5 mins from Fontainhas. <strong>Best photo stop in all of Goa!</strong> The iconic white staircase is perfect for family photos.</div>
+            <div class="tl-tip">📸 Best photo angle: from the bottom of the main staircase looking up. Morning light is perfect!</div>
+            <div class="tl-links">
+              <a href="https://www.tripadvisor.in/Search?q=Immaculate+Conception+Church&geo=303876&ssrc=a&searchNearby=false" target="_blank" class="tl-link">TripAdvisor ↗</a>
+              <a href="https://www.google.com/search?q=Immaculate+Conception+Church+Panaji+Goa" target="_blank" class="tl-link">🔍 Google</a>
+              <a href="https://www.google.com/maps/search/Immaculate+Conception+Church+Panaji" target="_blank" class="tl-link">📍 Map</a>
+              <a href="https://www.google.com/maps/search/Immaculate+Conception+Church+Panaji+Goa" target="_blank" class="tl-link">📍 Map</a>
+            </div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot dot-food"></div>
+          <div class="tl-card food">
+            <div class="tl-time">1:00 PM</div>
+            <div class="tl-title"><strong>🦀 LUNCH: Viva Panjim, Panaji</strong> <span class="badge badge-food">⭐ 4.4 · LEGEND</span></div>
+            <div class="tl-desc">Hidden in the lanes of Fontainhas – the most authentic Goan restaurant in Panaji! Small, cozy, family-run. Legendary food – book or arrive early!</div>
+            <div class="tl-tip">🍛 Must try: Sorpotel, Goan Vindaloo, Prawn Balchao, Fish Curry Rice, local Feni · Rs 500–700/head</div>
+            <div class="tl-links">
+              <a href="https://www.tripadvisor.in/Search?q=Viva+Panjim&geo=303876&ssrc=a&searchNearby=false" target="_blank" class="tl-link">TripAdvisor ↗</a>
+              <a href="https://www.google.com/search?q=Viva+Panjim+Restaurant+Goa" target="_blank" class="tl-link">🔍 Google</a>
+              <a href="https://www.google.com/maps/search/Viva+Panjim+Panaji+Goa" target="_blank" class="tl-link">📍 Map</a>
+              <a href="https://www.google.com/maps/search/Viva+Panjim+Restaurant+Goa" target="_blank" class="tl-link">📍 Map</a>
+            </div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot dot-opt"></div>
+          <div class="tl-card optional">
+            <div class="tl-time">2:30 PM</div>
+            <div class="tl-title">🛍️ Mapusa Market / Anjuna Flea Market <span class="badge badge-opt">OPTIONAL – IF OPEN</span></div>
+            <div class="tl-desc">Local market for Goan spices, cashews, handicrafts, Feni, Goan sausages, and souvenirs. Busy but great fun! <strong>Kids enjoy the chaos and local vibe.</strong></div>
+            <div class="tl-tip">💰 Bargain at 50% of asking price! Carry cash. Best buys: Cashews, Feni, spice mixes, crochet items.</div>
+            <div class="tl-links">
+              <a href="https://www.tripadvisor.in/Search?q=Anjuna+Flea+Market&geo=659609&ssrc=a&searchNearby=false" target="_blank" class="tl-link">TripAdvisor ↗</a>
+              <a href="https://www.google.com/search?q=Anjuna+Flea+Market+Goa" target="_blank" class="tl-link">🔍 Google</a>
+              <a href="https://www.google.com/maps/search/Anjuna+Flea+Market+Goa" target="_blank" class="tl-link">📍 Map</a>
+            </div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot dot-must"></div>
+          <div class="tl-card must">
+            <div class="tl-time">4:30 PM</div>
+            <div class="tl-title"><strong>🏖️ Candolim Beach</strong> <span class="badge badge-must">MUST</span></div>
+            <div class="tl-desc">One of Goa's cleanest and most refined beaches. Much less crowded than Calangute/Baga. Clean water, safe for swimming. Water sports available for adults.</div>
+            <div class="tl-tip">🤿 Adults can try parasailing (~Rs 1000/person) or jet ski while kids play on shore with family member.</div>
+            <div class="tl-links">
+              <a href="https://www.tripadvisor.in/Search?q=Candolim+Beach&geo=659474&ssrc=a&searchNearby=false" target="_blank" class="tl-link">TripAdvisor ↗</a>
+              <a href="https://www.google.com/search?q=Candolim+Beach+Goa" target="_blank" class="tl-link">🔍 Google</a>
+              <a href="https://www.google.com/maps/search/Candolim+Beach+Goa" target="_blank" class="tl-link">📍 Map</a>
+              <a href="https://www.google.com/maps/search/Candolim+Beach+Goa" target="_blank" class="tl-link">📍 Map</a>
+            </div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot dot-must"></div>
+          <div class="tl-card must">
+            <div class="tl-time">6:00 PM</div>
+            <div class="tl-title"><strong>🏰 Fort Aguada – Sunset</strong> <span class="badge badge-must">MUST</span></div>
+            <div class="tl-desc">Goa's most impressive 17th-century Portuguese fort! Stunning lighthouse and panoramic sea views. <strong>Sunset from the top is BREATHTAKING.</strong> Kids love climbing the fort walls. Free entry!</div>
+            <div class="tl-tip">🌅 Go before 6:30 PM for sunset views. Carry water. Easy walk to top – kids manage well.</div>
+            <div class="tl-links">
+              <a href="https://www.tripadvisor.in/Search?q=Fort+Aguada&geo=303877&ssrc=a&searchNearby=false" target="_blank" class="tl-link">TripAdvisor ↗</a>
+              <a href="https://www.google.com/search?q=Fort+Aguada+Goa" target="_blank" class="tl-link">🔍 Google</a>
+              <a href="https://www.google.com/maps/search/Fort+Aguada+Candolim+Goa" target="_blank" class="tl-link">📍 Map</a>
+              <a href="https://www.google.com/maps/search/Fort+Aguada+Goa" target="_blank" class="tl-link">📍 Map</a>
+            </div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot dot-food"></div>
+          <div class="tl-card food">
+            <div class="tl-time">7:30 PM</div>
+            <div class="tl-title"><strong>🦞 DINNER: Calamari, Candolim</strong> <span class="badge badge-food">⭐ 4.5</span></div>
+            <div class="tl-desc">Excellent beachfront restaurant famous for grilled seafood and Goan specialties. Great atmosphere with sea view dining.</div>
+            <div class="tl-tip">🦐 Must try: Grilled Prawns, Goan Prawn Curry, Grilled Fish, Cocktails · Rs 800–1200/head</div>
+            <div class="tl-links">
+              <a href="https://www.tripadvisor.in/Search?q=Calamari+Candolim&geo=659474&ssrc=a&searchNearby=false" target="_blank" class="tl-link">TripAdvisor ↗</a>
+              <a href="https://www.google.com/search?q=Calamari+Restaurant+Candolim+Goa" target="_blank" class="tl-link">🔍 Google</a>
+              <a href="https://www.google.com/maps/search/Calamari+Restaurant+Candolim+Goa" target="_blank" class="tl-link">📍 Map</a>
+              <a href="https://www.google.com/maps/search/Calamari+Restaurant+Candolim+Goa" target="_blank" class="tl-link">📍 Map</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DAY 3 -->
+    <div id="d3" class="day-panel">
+      <div class="day-header">
+        <h2>Day 3 – Thursday, 27 March 2026</h2>
+        <p>Hotel Change Day · Checkout 11 AM → Check-in 2 PM · Casino & Baga Evening</p>
+        <div class="day-weather">☀️ 35°C · Humid – Stay very hydrated today!</div>
+      </div>
+
+      <div style="background:linear-gradient(135deg,#fff8e1,#fff3cd);border:1px solid #ffc107;border-radius:12px;padding:16px 20px;margin-bottom:20px">
+        <div style="font-weight:700;color:#e65100;margin-bottom:6px">⚠️ Hotel Change Today!</div>
+        <div style="font-size:0.85rem;color:#555">Checkout Living Room, Morjim by <strong>11:00 AM</strong> · Drive ~45 mins · Check-in BloomSuites, Calangute at <strong>2:00 PM</strong> · Gap = Calangute beach + lunch!</div>
+      </div>
+
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-dot dot-food"></div>
+          <div class="tl-card food">
+            <div class="tl-time">7:30 AM</div>
+            <div class="tl-title"><strong>🍳 BREAKFAST: Bodhi Tree Cafe, Morjim</strong> <span class="badge badge-food">LAST MORJIM MORNING!</span></div>
+            <div class="tl-desc">Last morning at Morjim! <strong>No hotel breakfast today.</strong> Head back to the beloved Bodhi Tree for your farewell Morjim meal.</div>
+            <div class="tl-tip">☕ Try their full breakfast spread one last time. Order extra momos for kids!</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot dot-must"></div>
+          <div class="tl-card must">
+            <div class="tl-time">9:00 AM</div>
+            <div class="tl-title"><strong>🌊 Final Morjim Beach + Pack & Checkout</strong></div>
+            <div class="tl-desc">One last morning walk on beautiful Morjim Beach. Collect shells for kids. Pack all bags. <strong>Checkout by 11:00 AM sharp.</strong></div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot dot-must"></div>
+          <div class="tl-card must">
+            <div class="tl-time">11:45 AM</div>
+            <div class="tl-title"><strong>🏖️ Calangute Beach – Quick Arrival Visit</strong> <span class="badge badge-must">MUST</span></div>
+            <div class="tl-desc">India's most famous beach! Busy and buzzing with energy. Great for first impressions. Water sports available. Kids love the beach atmosphere and street food nearby.</div>
+            <div class="tl-tip">🏄 Adults can try banana boat ride (Rs 250/person) or parasailing while older kids watch!</div>
+            <div class="tl-links">
+              <a href="https://www.tripadvisor.in/Search?q=Calangute+Beach&geo=303877&ssrc=a&searchNearby=false" target="_blank" class="tl-link">TripAdvisor ↗</a>
+              <a href="https://www.google.com/search?q=Calangute+Beach+Goa" target="_blank" class="tl-link">🔍 Google</a>
+              <a href="https://www.google.com/maps/search/Calangute+Beach+Goa" target="_blank" class="tl-link">📍 Map</a>
+              <a href="https://www.google.com/maps/search/Calangute+Beach+Goa" target="_blank" class="tl-link">📍 Map</a>
+            </div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot dot-food"></div>
+          <div class="tl-card food">
+            <div class="tl-time">1:00 PM</div>
+            <div class="tl-title"><strong>🦀 LUNCH: Souza Lobo, Calangute</strong> <span class="badge badge-food">⭐ 4.2 · Est. 1932!</span></div>
+            <div class="tl-desc">A Goa LEGEND! This iconic restaurant has been serving since 1932. Authentic, time-tested Goan recipes. <strong>Seafood here is outstanding.</strong> Beachfront location.</div>
+            <div class="tl-tip">🦞 Must try: Crab Xacuti, Prawn Rissois, Fish Recheado, Goan Fish Curry · Rs 700–1000/head</div>
+            <div class="tl-links">
+              <a href="https://www.tripadvisor.in/Search?q=Souza+Lobo&geo=303877&ssrc=a&searchNearby=false" target="_blank" class="tl-link">TripAdvisor ↗</a>
+              <a href="https://www.google.com/search?q=Souza+Lobo+Calangute+Goa" target="_blank" class="tl-link">🔍 Google</a>
+              <a href="https://www.google.com/maps/search/Souza+Lobo+Calangute+Goa" target="_blank" class="tl-link">📍 Map</a>
+              <a href="https://www.google.com/maps/search/Souza+Lobo+Calangute+Goa" target="_blank" class="tl-link">📍 Map</a>
+            </div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot dot-must"></div>
+          <div class="tl-card must">
+            <div class="tl-time">2:00 PM</div>
+            <div class="tl-title"><strong>🏨 Check-in: BloomSuites Calangute</strong> <span class="badge badge-must">CHECK-IN</span></div>
+            <div class="tl-desc">Hotel 2 check-in at 2:00 PM. Freshen up and rest a bit. <strong>From tomorrow breakfast is included!</strong> This hotel is perfectly placed for Baga, Calangute, and casino visits.</div>
+          </div>
+        </div>
+
+        <!-- CASINO BANNER -->
+        <div class="tl-item">
+          <div class="tl-dot dot-must" style="background:#ffd700"></div>
+          <div class="tl-card must" style="border-left-color:#ffd700">
+            <div class="tl-time">3:30 PM / EVENING</div>
+            <div class="casino-banner">
+              <div class="casino-title">🎰 Big Day Casino – Offshore Experience!</div>
+              <div class="casino-desc">Goa's famous offshore casino experience on the Mandovi River! Entry includes food, drinks, and gaming credits. <strong>Adults only on gaming floor.</strong> Check if family lounge is available for kids to wait. Alternatively, plan this as an adults-only evening activity after kids sleep.</div>
+              <div class="casino-pills">
+                <span class="cpill">🎲 Adults Only Gaming</span>
+                <span class="cpill">🍽️ Food Included</span>
+                <span class="cpill">🥂 Drinks Included</span>
+                <span class="cpill">💰 Entry: Rs 1500–2500</span>
+                <span class="cpill">🚢 Boat to Casino</span>
+              </div>
+            </div>
+            <div class="tl-tip">💡 Option A: Go at 3:30 PM (before other sightseeing) if kids are with a parent at hotel · Option B: Evening after kids sleep at hotel · Call ahead: +91-832-2243033</div>
+            <div class="tl-links">
+              <a href="https://www.tripadvisor.in/Search?q=Big+Daddy+Casino&geo=303876&ssrc=a&searchNearby=false" target="_blank" class="tl-link">TripAdvisor ↗</a>
+              <a href="https://www.google.com/search?q=Big+Day+Casino+Goa" target="_blank" class="tl-link">🔍 Google</a>
+              <a href="https://www.google.com/maps/search/Big+Day+Casino+Goa" target="_blank" class="tl-link">📍 Map</a>
+              <a href="https://www.google.com/maps/search/Big+Daddy+Casino+Goa" target="_blank" class="tl-link">📍 Map</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-dot dot-must"></div>
+          <div class="tl-card must">
+            <div class="tl-time">5:30 PM</div>
+            <div class="tl-title"><strong>🌊 Baga Beach – Evening Walk</strong> <span class="badge badge-must">MUST</span></div>
+            <div class="tl-desc">Goa's most iconic beach strip! Vibrant, colourful, full of energy. Street food, tuk-tuks, ice cream carts, live music. <strong>Kids love the evening atmosphere.</strong></div>
+            <div class="tl-links">
+              <a href="https://www.tripadvisor.in/Search?q=Baga+Beach&geo=303877&ssrc=a&searchNearby=false" target="_blank" class="tl-link">TripAdvisor ↗</a>
+              <a href="https://www.google.com/search?q=Baga+Beach+Goa" target="_blank" class="tl-link">🔍 Google</a>
+              <a href="https://www.google.com/maps/search/Baga+Beach+Goa" target="_blank" class="tl-link">📍 Map</a>
+              <a href="https://www.google.com/maps/search/Baga+Beach+Goa" target="_blank" class="tl-link">📍 Map</a>
+            </div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot dot-food"></div>
+          <div class="tl-card food">
+            <div class="tl-time">8:00 PM</div>
+            <div class="tl-title"><strong>🎸 DINNER: Britto's Beach Restaurant, Baga</strong> <span class="badge badge-food">⭐ 4.3 · LEGENDARY</span></div>
+            <div class="tl-desc">Goa's most legendary beach restaurant! On Baga since forever. Sizzlers, fresh seafood, BBQ chicken, and live music most evenings. <strong>Extremely family-friendly!</strong></div>
+            <div class="tl-tip">🎵 Live music usually starts at 8 PM. Arrive a bit early for best beachside tables. Kids menus available!</div>
+            <div class="tl-links">
+              <a href="https://www.tripadvisor.in/Search?q=Britto%27s+Baga&geo=303877&ssrc=a&searchNearby=false" target="_blank" class="tl-link">TripAdvisor ↗</a>
+              <a href="https://www.google.com/search?q=Britto%27s+Baga+Beach+Goa" target="_blank" class="tl-link">🔍 Google</a>
+              <a href="https://www.google.com/maps/search/Britto+Baga+Beach+Goa" target="_blank" class="tl-link">📍 Map</a>
+              <a href="https://www.google.com/maps/search/Britto's+Baga+Beach+Goa" target="_blank" class="tl-link">📍 Map</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DAY 4 -->
+    <div id="d4" class="day-panel">
+      <div class="day-header">
+        <h2>Day 4 – Friday, 28 March 2026</h2>
+        <p>Chapora Fort + Vagator · North Goa's Best · Hotel: BloomSuites · Breakfast Included ✅</p>
+        <div class="day-weather">🌤️ 34°C · Sea Breeze · Lovely beach day!</div>
+      </div>
+
+      <div style="background:#e8f5e9;border:1px solid #81c784;border-radius:12px;padding:14px 18px;margin-bottom:20px;font-size:0.85rem;color:#2d6a4f">
+        ✅ <strong>Breakfast included at BloomSuites today!</strong> &nbsp;|&nbsp; 🏖️ North Goa only – Palolem removed for less hassle with kids &nbsp;|&nbsp; More beach time & relaxation!
+      </div>
+
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-dot dot-food"></div>
+          <div class="tl-card food">
+            <div class="tl-time">7:30 AM</div>
+            <div class="tl-title"><strong>🥐 BREAKFAST: BloomSuites Hotel – INCLUDED ✅</strong></div>
+            <div class="tl-desc">Enjoy your included hotel breakfast. Load up for a great day in North Goa!</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot dot-opt"></div>
+          <div class="tl-card optional">
+            <div class="tl-time">8:30 AM</div>
+            <div class="tl-title">🐬 Dolphin Boat Trip from Sinquerim <span class="badge badge-opt">OPTIONAL – KIDS LOVE!</span></div>
+            <div class="tl-desc">Early morning is the best time to spot dolphins! Short 45-min boat trip from Sinquerim jetty. <strong>Kids absolutely love dolphin watching!</strong> High success rate in March.</div>
+            <div class="tl-tip">🐬 Book through hotel or any operator near Sinquerim Beach. ~Rs 400–600/person. Best before 9 AM!</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot dot-must"></div>
+          <div class="tl-card must">
+            <div class="tl-time">10:30 AM</div>
+            <div class="tl-title"><strong>🏰 Chapora Fort – Dil Chahta Hai!</strong> <span class="badge badge-must">MUST – ICONIC</span></div>
+            <div class="tl-desc">Goa's most famous fort! Immortalised in the Bollywood film <strong>"Dil Chahta Hai"</strong>. Dramatic views of the Arabian Sea and Vagator Beach. <strong>Free entry!</strong> Short easy climb – kids manage well. Panoramic views from all sides.</div>
+            <div class="tl-tip">🎬 The exact spot where Aamir Khan, Saif Ali Khan & Akshaye Khanna sat is on the northern wall! Must recreate this photo!</div>
+            <div class="tl-links">
+              <a href="https://www.tripadvisor.in/Search?q=Chapora+Fort&geo=303877&ssrc=a&searchNearby=false" target="_blank" class="tl-link">TripAdvisor ↗</a>
+              <a href="https://www.google.com/search?q=Chapora+Fort+Goa" target="_blank" class="tl-link">🔍 Google</a>
+              <a href="https://www.google.com/maps/search/Chapora+Fort+Goa" target="_blank" class="tl-link">📍 Map</a>
+              <a href="https://www.google.com/maps/search/Chapora+Fort+Goa" target="_blank" class="tl-link">📍 Map</a>
+            </div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot dot-must"></div>
+          <div class="tl-card must">
+            <div class="tl-time">12:00 PM</div>
+            <div class="tl-title"><strong>🌊 Vagator Beach – Red Cliffs</strong> <span class="badge badge-must">MUST</span></div>
+            <div class="tl-desc">Dramatic red laterite cliffs overlooking the sea. Small, intimate beach. <strong>One of Goa's most beautiful and photogenic spots.</strong> Little Vagator has a secret beach cove perfect for photos.</div>
+            <div class="tl-links">
+              <a href="https://www.tripadvisor.in/Search?q=Vagator+Beach&geo=303877&ssrc=a&searchNearby=false" target="_blank" class="tl-link">TripAdvisor ↗</a>
+              <a href="https://www.google.com/search?q=Vagator+Beach+Goa" target="_blank" class="tl-link">🔍 Google</a>
+              <a href="https://www.google.com/maps/search/Vagator+Beach+Goa" target="_blank" class="tl-link">📍 Map</a>
+              <a href="https://www.google.com/maps/search/Vagator+Beach+Goa" target="_blank" class="tl-link">📍 Map</a>
+            </div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot dot-food"></div>
+          <div class="tl-card food">
+            <div class="tl-time">1:30 PM</div>
+            <div class="tl-title"><strong>🍝 LUNCH: Thalassa, Vagator</strong> <span class="badge badge-food">⭐ 4.5 · VIEWS!</span></div>
+            <div class="tl-desc">Spectacular cliffside restaurant with stunning sea views! Greek-Mediterranean cuisine in Goa. <strong>Undoubtedly one of the best views while dining in all of Goa.</strong></div>
+            <div class="tl-tip">🫒 Try: Fresh mezze, grilled seafood, Greek salad, sangria · Slightly pricey but views are WORTH IT · Rs 1000–1400/head</div>
+            <div class="tl-links">
+              <a href="https://www.tripadvisor.in/Search?q=Thalassa+Vagator&geo=659609&ssrc=a&searchNearby=false" target="_blank" class="tl-link">TripAdvisor ↗</a>
+              <a href="https://www.google.com/search?q=Thalassa+Restaurant+Vagator+Goa" target="_blank" class="tl-link">🔍 Google</a>
+              <a href="https://www.google.com/maps/search/Thalassa+Vagator+Goa" target="_blank" class="tl-link">📍 Map</a>
+              <a href="https://www.google.com/maps/search/Thalassa+Restaurant+Vagator+Goa" target="_blank" class="tl-link">📍 Map</a>
+            </div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot dot-rest"></div>
+          <div class="tl-card rest">
+            <div class="tl-time">3:00 – 4:30 PM</div>
+            <div class="tl-title"><strong>😎 Hotel Pool / Beach Rest</strong> <span class="badge badge-rest">REST</span></div>
+            <div class="tl-desc">Return to BloomSuites. Cool off in pool. Kids play. Recharge for evening Baga adventures!</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot dot-opt"></div>
+          <div class="tl-card optional">
+            <div class="tl-time">4:30 PM</div>
+            <div class="tl-title">🛍️ Anjuna Flea Market (Wednesdays only) / Calangute Market <span class="badge badge-opt">OPTIONAL</span></div>
+            <div class="tl-desc">If this is a Wednesday, the Anjuna Flea Market is spectacular! Otherwise, the Calangute local market has great shopping for souvenirs and Goan products.</div>
+            <div class="tl-tip">💰 Best buys: Cashews (Rs 500–600/kg), Feni bottles, spices, beachwear, handmade jewellery.</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot dot-food"></div>
+          <div class="tl-card food">
+            <div class="tl-time">7:30 PM</div>
+            <div class="tl-title"><strong>🌟 DINNER: A Reverie, Calangute</strong> <span class="badge badge-food">⭐ 4.5 · AWARD WINNING</span></div>
+            <div class="tl-desc"><strong>The best fine dining restaurant in North Goa!</strong> Award-winning Goan fusion cuisine. Beautiful ambience. Perfect for a special family dinner on your last full night in Goa.</div>
+            <div class="tl-tip">🌟 Must try: Their Goan-French fusion tasting menu, seafood specialties, innovative cocktails · Rs 1200–1800/head · BOOK IN ADVANCE!</div>
+            <div class="tl-links">
+              <a href="https://www.tripadvisor.in/Search?q=A+Reverie+Calangute&geo=303877&ssrc=a&searchNearby=false" target="_blank" class="tl-link">TripAdvisor ↗</a>
+              <a href="https://www.google.com/search?q=A+Reverie+Restaurant+Calangute+Goa" target="_blank" class="tl-link">🔍 Google</a>
+              <a href="https://www.google.com/maps/search/A+Reverie+Calangute+Goa" target="_blank" class="tl-link">📍 Map</a>
+              <a href="https://www.google.com/maps/search/A+Reverie+Restaurant+Calangute+Goa" target="_blank" class="tl-link">📍 Map</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DAY 5 -->
+    <div id="d5" class="day-panel">
+      <div class="day-header">
+        <h2>Day 5 – Saturday, 29 March 2026</h2>
+        <p>Last Morning · Shopping · Checkout · Departure · Breakfast Included ✅</p>
+        <div class="day-weather">☀️ 34°C · Clear Skies · Happy journey home!</div>
+      </div>
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-dot dot-food"></div>
+          <div class="tl-card food">
+            <div class="tl-time">7:30 AM</div>
+            <div class="tl-title"><strong>🥐 BREAKFAST: BloomSuites Hotel – INCLUDED ✅</strong></div>
+            <div class="tl-desc">Final hotel breakfast. Load up! Pack bags after breakfast for smooth checkout.</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot dot-must"></div>
+          <div class="tl-card must">
+            <div class="tl-time">9:00 AM</div>
+            <div class="tl-title"><strong>🛍️ Last-Minute Shopping – Calangute & Tibetan Market</strong></div>
+            <div class="tl-desc">Final shopping run! <strong>Cashews are cheapest here vs anywhere else.</strong> Pick up Feni, spices, Goan sausages for home. Tibetan market for clothes and jewellery.</div>
+            <div class="tl-tip">🥜 Best buy: 1 kg cashews ~Rs 500 vacuum packed. Buy Urak (seasonal cashew spirit – only March–May!) if available.</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot dot-food"></div>
+          <div class="tl-card food">
+            <div class="tl-time">11:00 AM</div>
+            <div class="tl-title"><strong>🍮 Sweet Stop – Pick up Bebinca & Dodol</strong> <span class="badge badge-food">MUST BUY!</span></div>
+            <div class="tl-desc">Pick up Goa's famous <strong>Bebinca</strong> (layered coconut-egg dessert) and <strong>Dodol</strong> (coconut-jaggery sweet) to carry home. Available at any confectionery in Calangute/Panaji.</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot dot-must"></div>
+          <div class="tl-card must">
+            <div class="tl-time">11:30 AM</div>
+            <div class="tl-title"><strong>🏨 Checkout BloomSuites + Drive to Airport</strong></div>
+            <div class="tl-desc">Checkout and head to airport. Allow <strong>60–75 min buffer</strong> from Calangute. Traffic can be unpredictable near airport.</div>
+            <div class="tl-tip">✈️ Mopa Airport: ~45 min drive · Dabolim Airport: ~60 min drive. Depart hotel by 11:30 AM for most afternoon flights.</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot dot-rest"></div>
+          <div class="tl-card rest">
+            <div class="tl-time">Onwards</div>
+            <div class="tl-title">✈️ Departure – Carry the Sunshine Home! 🌞</div>
+            <div class="tl-desc">Pack: Feni bottles, Cashews, Bebinca, Spice mixes, Choriz sausages, and a million golden memories of Goa!</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PLACES WITH IMAGES -->
+<div id="places" class="full-section bg-light">
+  <div class="inner">
+    <div class="section-header">
+      <div class="section-title">All Places – Image Gallery</div>
+      <div class="divider"></div>
+      <p class="section-sub">Real photos with TripAdvisor & Google links for full details</p>
+    </div>
+    <div class="places-grid">
+
+      <div class="place-card">
+        <div class="place-img-wrap">
+          <img src="https://images.unsplash.com/photo-1590123715373-c16e3c9fa7a5?w=500&q=80" alt="Morjim Beach">
+          <div class="place-day-tag">Day 1</div>
+          <div class="place-overlay"><div class="place-name-overlay">Morjim Beach</div></div>
+        </div>
+        <div class="place-body">
+          <div class="place-rating"><span class="stars">★★★★★</span><span style="font-size:0.8rem;color:#555;margin-left:4px">4.6 (9,948 reviews)</span></div>
+          <div class="place-desc">Goa's iconic "Turtle Beach" – Olive Ridley turtle nesting site. Peaceful, white sand, called "Little Russia". Calm water, perfect for families.</div>
+          <div class="place-links">
+            <a href="https://www.tripadvisor.in/Search?q=Morjim+Beach&geo=659498&ssrc=a&searchNearby=false" target="_blank" class="btn-sm btn-blue">TripAdvisor ↗</a>
+            <a href="https://www.google.com/search?q=Morjim+Beach+Goa" target="_blank" class="btn-sm btn-outline">🔍 Google</a>
+            <a href="https://www.google.com/maps/search/Morjim+Beach+Goa" target="_blank" class="btn-sm btn-green">📍 Map</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="place-card">
+        <div class="place-img-wrap">
+          <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=500&q=80" alt="Ashvem Beach">
+          <div class="place-day-tag">Day 1</div>
+          <div class="place-overlay"><div class="place-name-overlay">Ashvem Beach</div></div>
+        </div>
+        <div class="place-body">
+          <div class="place-rating"><span class="stars">★★★★★</span><span style="font-size:0.8rem;color:#555;margin-left:4px">4.6 (2,732 reviews)</span></div>
+          <div class="place-desc">Pristine, untouched beach just 4 km from Morjim. Soft white sand, very clean, safe swimming for kids. Mostly international crowd. Best sunset beach.</div>
+          <div class="place-links">
+            <a href="https://www.tripadvisor.in/Search?q=Ashvem+Beach&geo=659614&ssrc=a&searchNearby=false" target="_blank" class="btn-sm btn-blue">TripAdvisor ↗</a>
+            <a href="https://www.google.com/search?q=Ashvem+Beach+Goa" target="_blank" class="btn-sm btn-outline">🔍 Google</a>
+            <a href="https://www.google.com/maps/search/Ashvem+Beach+Goa" target="_blank" class="btn-sm btn-green">📍 Map</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="place-card">
+        <div class="place-img-wrap">
+          <img src="https://images.unsplash.com/photo-1500375592092-40eb2168fd21?w=500&q=80" alt="Mandrem Beach">
+          <div class="place-day-tag">Day 2</div>
+          <div class="place-overlay"><div class="place-name-overlay">Mandrem Beach</div></div>
+        </div>
+        <div class="place-body">
+          <div class="place-rating"><span class="stars">★★★★★</span><span style="font-size:0.8rem;color:#555;margin-left:4px">4.6 (7,294 reviews)</span></div>
+          <div class="place-desc">Goa's most peaceful and cleanest beach. Wide, open, rarely crowded. Shallowest and safest water for children. Ideal for sunrise walks.</div>
+          <div class="place-links">
+            <a href="https://www.tripadvisor.in/Search?q=Mandrem+Beach&geo=659614&ssrc=a&searchNearby=false" target="_blank" class="btn-sm btn-blue">TripAdvisor ↗</a>
+            <a href="https://www.google.com/search?q=Mandrem+Beach+Goa" target="_blank" class="btn-sm btn-outline">🔍 Google</a>
+            <a href="https://www.google.com/maps/search/Mandrem+Beach+Goa" target="_blank" class="btn-sm btn-green">📍 Map</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="place-card">
+        <div class="place-img-wrap">
+          <img src="https://images.unsplash.com/photo-1548013146-72479768bada?w=500&q=80" alt="Fontainhas Panaji">
+          <div class="place-day-tag">Day 2</div>
+          <div class="place-overlay"><div class="place-name-overlay">Fontainhas – Panaji</div></div>
+        </div>
+        <div class="place-body">
+          <div class="place-rating"><span class="stars">★★★★½</span><span style="font-size:0.8rem;color:#555;margin-left:4px">4.5 Heritage Walk</span></div>
+          <div class="place-desc">Goa's Latin Quarter with vivid Portuguese colonial architecture. Book "Walk with Mario" for the most memorable heritage experience. Kids love the colours!</div>
+          <div class="place-links">
+            <a href="https://www.tripadvisor.in/Search?q=Fontainhas+Latin+Quarter&geo=303876&ssrc=a&searchNearby=false" target="_blank" class="btn-sm btn-blue">TripAdvisor ↗</a>
+            <a href="https://www.google.com/search?q=Fontainhas+Latin+Quarter+Panaji+Goa" target="_blank" class="btn-sm btn-outline">🔍 Google</a>
+            <a href="https://www.google.com/maps/search/Fontainhas+Panaji+Goa" target="_blank" class="btn-sm btn-green">📍 Map</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="place-card">
+        <div class="place-img-wrap">
+          <img src="https://images.unsplash.com/photo-1532664189809-02133fee698d?w=500&q=80" alt="Immaculate Conception Church">
+          <div class="place-day-tag">Day 2</div>
+          <div class="place-overlay"><div class="place-name-overlay">Immaculate Conception Church</div></div>
+        </div>
+        <div class="place-body">
+          <div class="place-rating"><span class="stars">★★★★★</span><span style="font-size:0.8rem;color:#555;margin-left:4px">Goa Icon</span></div>
+          <div class="place-desc">The most photographed landmark in Goa! Brilliant white baroque church built in 1541. Iconic white staircase for the perfect family photo. Panaji's pride.</div>
+          <div class="place-links">
+            <a href="https://www.tripadvisor.in/Search?q=Immaculate+Conception+Church&geo=303876&ssrc=a&searchNearby=false" target="_blank" class="btn-sm btn-blue">TripAdvisor ↗</a>
+            <a href="https://www.google.com/search?q=Immaculate+Conception+Church+Panaji+Goa" target="_blank" class="btn-sm btn-outline">🔍 Google</a>
+            <a href="https://www.google.com/maps/search/Immaculate+Conception+Church+Panaji" target="_blank" class="btn-sm btn-green">📍 Map</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="place-card">
+        <div class="place-img-wrap">
+          <img src="https://images.unsplash.com/photo-1533760881669-80db4d7b341d?w=500&q=80" alt="Fort Aguada">
+          <div class="place-day-tag">Day 2</div>
+          <div class="place-overlay"><div class="place-name-overlay">Fort Aguada</div></div>
+        </div>
+        <div class="place-body">
+          <div class="place-rating"><span class="stars">★★★★★</span><span style="font-size:0.8rem;color:#555;margin-left:4px">4.4 (25,000+ reviews)</span></div>
+          <div class="place-desc">Majestic 17th-century Portuguese fort and lighthouse. Stunning panoramic sea views. Best sunset spot in Candolim area. Free entry, kids-friendly climb.</div>
+          <div class="place-links">
+            <a href="https://www.tripadvisor.in/Search?q=Fort+Aguada&geo=303877&ssrc=a&searchNearby=false" target="_blank" class="btn-sm btn-blue">TripAdvisor ↗</a>
+            <a href="https://www.google.com/search?q=Fort+Aguada+Goa" target="_blank" class="btn-sm btn-outline">🔍 Google</a>
+            <a href="https://www.google.com/maps/search/Fort+Aguada+Goa" target="_blank" class="btn-sm btn-green">📍 Map</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="place-card">
+        <div class="place-img-wrap">
+          <img src="https://images.unsplash.com/photo-1596422846543-75c6fc197f11?w=500&q=80" alt="Calangute Beach">
+          <div class="place-day-tag">Day 3</div>
+          <div class="place-overlay"><div class="place-name-overlay">Calangute Beach</div></div>
+        </div>
+        <div class="place-body">
+          <div class="place-rating"><span class="stars">★★★★</span><span style="font-size:0.8rem;color:#555;margin-left:4px">4.1 (India's #1 Beach)</span></div>
+          <div class="place-desc">India's most famous beach! Lively, energetic, full of activities. Water sports hub – parasailing, banana boats, jet skis. Beach shacks, food, shopping all along the shore.</div>
+          <div class="place-links">
+            <a href="https://www.tripadvisor.in/Search?q=Calangute+Beach&geo=303877&ssrc=a&searchNearby=false" target="_blank" class="btn-sm btn-blue">TripAdvisor ↗</a>
+            <a href="https://www.google.com/search?q=Calangute+Beach+Goa" target="_blank" class="btn-sm btn-outline">🔍 Google</a>
+            <a href="https://www.google.com/maps/search/Calangute+Beach+Goa" target="_blank" class="btn-sm btn-green">📍 Map</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="place-card">
+        <div class="place-img-wrap">
+          <img src="https://images.unsplash.com/photo-1540202404-a2f29076b523?w=500&q=80" alt="Chapora Fort">
+          <div class="place-day-tag">Day 4</div>
+          <div class="place-overlay"><div class="place-name-overlay">Chapora Fort</div></div>
+        </div>
+        <div class="place-body">
+          <div class="place-rating"><span class="stars">★★★★</span><span style="font-size:0.8rem;color:#555;margin-left:4px">4.2 (25,967 reviews)</span></div>
+          <div class="place-desc">Goa's most iconic fort! Made famous by Dil Chahta Hai. Breathtaking panoramic views of Vagator Beach & Arabian Sea. Free entry. Short climb. Unmissable!</div>
+          <div class="place-links">
+            <a href="https://www.tripadvisor.in/Search?q=Chapora+Fort&geo=303877&ssrc=a&searchNearby=false" target="_blank" class="btn-sm btn-blue">TripAdvisor ↗</a>
+            <a href="https://www.google.com/search?q=Chapora+Fort+Goa" target="_blank" class="btn-sm btn-outline">🔍 Google</a>
+            <a href="https://www.google.com/maps/search/Chapora+Fort+Goa" target="_blank" class="btn-sm btn-green">📍 Map</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="place-card">
+        <div class="place-img-wrap">
+          <img src="https://images.unsplash.com/photo-1516815231560-8f41ec531527?w=500&q=80" alt="Vagator Beach">
+          <div class="place-day-tag">Day 4</div>
+          <div class="place-overlay"><div class="place-name-overlay">Vagator Beach</div></div>
+        </div>
+        <div class="place-body">
+          <div class="place-rating"><span class="stars">★★★★½</span><span style="font-size:0.8rem;color:#555;margin-left:4px">4.4 (1,000+ reviews)</span></div>
+          <div class="place-desc">Dramatic red laterite cliffs towering over the sea. One of the most photogenic beaches in Goa. Small, intimate beach with hidden cove. Perfect sunset photography spot.</div>
+          <div class="place-links">
+            <a href="https://www.tripadvisor.in/Search?q=Vagator+Beach&geo=303877&ssrc=a&searchNearby=false" target="_blank" class="btn-sm btn-blue">TripAdvisor ↗</a>
+            <a href="https://www.google.com/search?q=Vagator+Beach+Goa" target="_blank" class="btn-sm btn-outline">🔍 Google</a>
+            <a href="https://www.google.com/maps/search/Vagator+Beach+Goa" target="_blank" class="btn-sm btn-green">📍 Map</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- FOOD & DRINKS -->
+<div id="food" class="full-section">
+  <div class="inner">
+    <div class="section-header">
+      <div class="section-title">Goa's Famous Food & Drinks</div>
+      <div class="divider"></div>
+      <p class="section-sub">Must-try dishes, drinks, and where to find them</p>
+    </div>
+    <div class="food-grid">
+      <div class="food-card"><img class="food-img" src="https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=400&q=80" alt="Goan Fish Curry"><div class="food-body"><div class="food-name">Goan Fish Curry &amp; Rice</div><div class="food-desc">The soul of Goa! Kokum-coconut tangy curry. At any local shack – Rs 200–350.</div><span class="food-tag ft-must">MUST TRY</span><a href="https://www.google.com/search?q=Goan+Fish+Curry+Rice" target="_blank" class="food-glink">🔍 Google</a></div></div>
+      <div class="food-card"><img class="food-img" src="https://images.unsplash.com/photo-1567529692333-de9fd6772897?w=400&q=80" alt="Prawn Balchao"><div class="food-body"><div class="food-name">Prawn Balchao</div><div class="food-desc">Intensely spicy pickled prawns. Unique to Goa. Viva Panjim is the place!</div><span class="food-tag ft-must">MUST TRY</span><a href="https://www.google.com/search?q=Goan+Prawn+Balchao" target="_blank" class="food-glink">🔍 Google</a></div></div>
+      <div class="food-card"><img class="food-img" src="https://images.unsplash.com/photo-1574484284002-952d92456975?w=400&q=80" alt="Chicken Vindaloo"><div class="food-body"><div class="food-name">Goan Vindaloo</div><div class="food-desc">World-famous spicy-tangy curry. Pork or chicken. Try at Viva Panjim!</div><span class="food-tag ft-must">MUST TRY</span><a href="https://www.google.com/search?q=Goan+Vindaloo" target="_blank" class="food-glink">🔍 Google</a></div></div>
+      <div class="food-card"><img class="food-img" src="https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=400&q=80" alt="Choriz Pav"><div class="food-body"><div class="food-name">Choriz Pav</div><div class="food-desc">Spicy Goan chorizo sausage in bread. Perfect street breakfast. Any local bakery!</div><span class="food-tag ft-must">STREET FOOD</span><a href="https://www.google.com/search?q=Goan+Choriz+Pav" target="_blank" class="food-glink">🔍 Google</a></div></div>
+      <div class="food-card"><img class="food-img" src="https://images.unsplash.com/photo-1606491956689-2ea866880c84?w=400&q=80" alt="Bebinca"><div class="food-body"><div class="food-name">Bebinca</div><div class="food-desc">Goa's iconic 16-layer coconut-egg dessert. Must carry home!</div><span class="food-tag ft-must">CARRY HOME!</span><a href="https://www.google.com/search?q=Goan+Bebinca+dessert" target="_blank" class="food-glink">🔍 Google</a></div></div>
+      <div class="food-card"><img class="food-img" src="https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=400&q=80" alt="Solkadi"><div class="food-body"><div class="food-name">Solkadi</div><div class="food-desc">Pink coconut-kokum digestive drink. Perfect after heavy seafood!</div><span class="food-tag ft-drink">DRINK</span><a href="https://www.google.com/search?q=Goan+Solkadi+drink" target="_blank" class="food-glink">🔍 Google</a></div></div>
+      <div class="food-card"><img class="food-img" src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80" alt="Feni"><div class="food-body"><div class="food-name">Cashew Feni</div><div class="food-desc">Goa's iconic spirit! GI-tagged. Buy Cazulo or Makazana brand to take home.</div><span class="food-tag ft-drink">ICONIC DRINK</span><a href="https://www.google.com/search?q=Goa+Cashew+Feni+spirit" target="_blank" class="food-glink">🔍 Google</a></div></div>
+      <div class="food-card"><img class="food-img" src="https://images.unsplash.com/photo-1551024506-0bccd828d307?w=400&q=80" alt="Crab Xacuti"><div class="food-body"><div class="food-name">Crab Xacuti</div><div class="food-desc">King crab in coconut spice gravy. Try at Souza Lobo – best in Goa!</div><span class="food-tag ft-must">MUST TRY</span><a href="https://www.google.com/search?q=Goan+Crab+Xacuti" target="_blank" class="food-glink">🔍 Google</a></div></div>
+      <div class="food-card"><img class="food-img" src="https://images.unsplash.com/photo-1587825140708-dfaf72ae4b04?w=400&q=80" alt="King's Beer"><div class="food-body"><div class="food-name">King's Beer</div><div class="food-desc">Goa's own beer brand! Rs 70–80/bottle. Must try!</div><span class="food-tag ft-drink">LOCAL BEER</span><a href="https://www.google.com/search?q=Kings+Beer+Goa" target="_blank" class="food-glink">🔍 Google</a></div></div>
+      <div class="food-card"><img class="food-img" src="https://images.unsplash.com/photo-1546173159-315724a31696?w=400&q=80" alt="Coconut Water"><div class="food-body"><div class="food-name">Fresh Coconut Water</div><div class="food-desc">Direct from coconut at any beach. Rs 40–60. Get one every day!</div><span class="food-tag ft-drink">BEACH MUST</span><a href="https://www.google.com/search?q=fresh+coconut+water+Goa+beach" target="_blank" class="food-glink">🔍 Google</a></div></div>
+      <div class="food-card"><img class="food-img" src="https://images.unsplash.com/photo-1625938144755-652e08e359b7?w=400&q=80" alt="Fish Recheado"><div class="food-body"><div class="food-name">Fish Recheado</div><div class="food-desc">Whole fish stuffed with Goan red masala &amp; shallow fried. Spectacular!</div><span class="food-tag ft-must">MUST TRY</span><a href="https://www.google.com/search?q=Goan+Fish+Recheado" target="_blank" class="food-glink">🔍 Google</a></div></div>
+      <div class="food-card"><img class="food-img" src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400&q=80" alt="Kokum Sherbet"><div class="food-body"><div class="food-name">Kokum Sherbet</div><div class="food-desc">Cold, tangy kokum juice. Perfect summer drink. Rs 30–50 everywhere!</div><span class="food-tag ft-drink">SUMMER DRINK</span><a href="https://www.google.com/search?q=Goan+Kokum+Sherbet" target="_blank" class="food-glink">🔍 Google</a></div></div>
+      <div class="food-card"><img class="food-img" src="https://images.unsplash.com/photo-1482938289607-e9573fc25ebb?w=400&q=80" alt="Chicken Cafreal"><div class="food-body"><div class="food-name">Chicken Cafreal</div><div class="food-desc">Green herb-spiced Goan-African fusion chicken. Unique to Goa!</div><span class="food-tag ft-must">MUST TRY</span><a href="https://www.google.com/search?q=Goan+Chicken+Cafreal" target="_blank" class="food-glink">🔍 Google</a></div></div>
+      <div class="food-card"><img class="food-img" src="https://images.unsplash.com/photo-1613564955768-73f2ff55b1c7?w=400&q=80" alt="Urak"><div class="food-body"><div class="food-name">Urak (Seasonal)</div><div class="food-desc">First cashew distillation – only available March–May! Lighter than Feni. Very rare.</div><span class="food-tag ft-drink">SEASONAL</span><a href="https://www.google.com/search?q=Goa+Urak+cashew+drink" target="_blank" class="food-glink">🔍 Google</a></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- YOUTUBE VIDEOS -->
+<div id="videos" class="full-section bg-light">
+  <div class="inner">
+    <div class="section-header">
+      <div class="section-title">Explore via YouTube 🎬</div>
+      <div class="divider"></div>
+      <p class="section-sub">Click any card to search that place on YouTube – real videos from real travellers!</p>
+    </div>
+    <div class="videos-grid">
+
+      <div class="video-card">
+        <a href="https://www.youtube.com/results?search_query=Morjim+Beach+Turtle+Beach+Guide+Goa" target="_blank" class="yt-thumb-link">
+          <div class="yt-thumb-wrap">
+            <img src="https://images.unsplash.com/photo-1590123715373-c16e3c9fa7a5?w=600&q=80" alt="Morjim Beach" class="yt-thumb">
+            <div class="yt-play-btn"><span>▶</span></div>
+            <div class="yt-badge">YouTube Search</div>
+          </div>
+        </a>
+        <div class="video-info">
+          <div class="video-title">🏖️ Morjim Beach – Turtle Beach Guide</div>
+          <div class="video-sub">North Goa's most peaceful &amp; scenic beach</div>
+          <a href="https://www.youtube.com/results?search_query=Morjim+Beach+Turtle+Beach+Guide+Goa" target="_blank" class="yt-search-btn">🔴 Search on YouTube ↗</a>
+        </div>
+      </div>
+
+      <div class="video-card">
+        <a href="https://www.youtube.com/results?search_query=Ashvem+Beach+Goa+Travel+Guide" target="_blank" class="yt-thumb-link">
+          <div class="yt-thumb-wrap">
+            <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&q=80" alt="Ashvem Beach" class="yt-thumb">
+            <div class="yt-play-btn"><span>▶</span></div>
+            <div class="yt-badge">YouTube Search</div>
+          </div>
+        </a>
+        <div class="video-info">
+          <div class="video-title">🏝️ Ashvem Beach – Hidden Gem Goa</div>
+          <div class="video-sub">Pristine, untouched beach near Morjim</div>
+          <a href="https://www.youtube.com/results?search_query=Ashvem+Beach+Goa+Travel+Guide" target="_blank" class="yt-search-btn">🔴 Search on YouTube ↗</a>
+        </div>
+      </div>
+
+      <div class="video-card">
+        <a href="https://www.youtube.com/results?search_query=Mandrem+Beach+Goa+peaceful+family" target="_blank" class="yt-thumb-link">
+          <div class="yt-thumb-wrap">
+            <img src="https://images.unsplash.com/photo-1500375592092-40eb2168fd21?w=600&q=80" alt="Mandrem Beach" class="yt-thumb">
+            <div class="yt-play-btn"><span>▶</span></div>
+            <div class="yt-badge">YouTube Search</div>
+          </div>
+        </a>
+        <div class="video-info">
+          <div class="video-title">🌅 Mandrem Beach – Sunrise & Family</div>
+          <div class="video-sub">Goa's cleanest & calmest beach for kids</div>
+          <a href="https://www.youtube.com/results?search_query=Mandrem+Beach+Goa+peaceful+family" target="_blank" class="yt-search-btn">🔴 Search on YouTube ↗</a>
+        </div>
+      </div>
+
+      <div class="video-card">
+        <a href="https://www.youtube.com/results?search_query=Fontainhas+Panaji+Goa+Latin+Quarter+Walk" target="_blank" class="yt-thumb-link">
+          <div class="yt-thumb-wrap">
+            <img src="https://images.unsplash.com/photo-1548013146-72479768bada?w=600&q=80" alt="Fontainhas Panaji" class="yt-thumb">
+            <div class="yt-play-btn"><span>▶</span></div>
+            <div class="yt-badge">YouTube Search</div>
+          </div>
+        </a>
+        <div class="video-info">
+          <div class="video-title">🎨 Fontainhas – Latin Quarter Panaji</div>
+          <div class="video-sub">Walk with Mario heritage tour Goa</div>
+          <a href="https://www.youtube.com/results?search_query=Fontainhas+Panaji+Goa+Latin+Quarter+Walk" target="_blank" class="yt-search-btn">🔴 Search on YouTube ↗</a>
+        </div>
+      </div>
+
+      <div class="video-card">
+        <a href="https://www.youtube.com/results?search_query=Immaculate+Conception+Church+Panaji+Goa" target="_blank" class="yt-thumb-link">
+          <div class="yt-thumb-wrap">
+            <img src="https://images.unsplash.com/photo-1532664189809-02133fee698d?w=600&q=80" alt="Immaculate Conception Church" class="yt-thumb">
+            <div class="yt-play-btn"><span>▶</span></div>
+            <div class="yt-badge">YouTube Search</div>
+          </div>
+        </a>
+        <div class="video-info">
+          <div class="video-title">⛪ Immaculate Conception Church Panaji</div>
+          <div class="video-sub">Goa's most iconic baroque church</div>
+          <a href="https://www.youtube.com/results?search_query=Immaculate+Conception+Church+Panaji+Goa" target="_blank" class="yt-search-btn">🔴 Search on YouTube ↗</a>
+        </div>
+      </div>
+
+      <div class="video-card">
+        <a href="https://www.youtube.com/results?search_query=Parra+Road+Goa+Instagram+drive" target="_blank" class="yt-thumb-link">
+          <div class="yt-thumb-wrap">
+            <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=600&q=80" alt="Parra Road Goa" class="yt-thumb">
+            <div class="yt-play-btn"><span>▶</span></div>
+            <div class="yt-badge">YouTube Search</div>
+          </div>
+        </a>
+        <div class="video-info">
+          <div class="video-title">🌳 Parra Road – Goa's Tree Tunnel</div>
+          <div class="video-sub">Instagram famous heritage road drive</div>
+          <a href="https://www.youtube.com/results?search_query=Parra+Road+Goa+Instagram+drive" target="_blank" class="yt-search-btn">🔴 Search on YouTube ↗</a>
+        </div>
+      </div>
+
+      <div class="video-card">
+        <a href="https://www.youtube.com/results?search_query=Fort+Aguada+Goa+complete+tour+lighthouse" target="_blank" class="yt-thumb-link">
+          <div class="yt-thumb-wrap">
+            <img src="https://images.unsplash.com/photo-1533760881669-80db4d7b341d?w=600&q=80" alt="Fort Aguada" class="yt-thumb">
+            <div class="yt-play-btn"><span>▶</span></div>
+            <div class="yt-badge">YouTube Search</div>
+          </div>
+        </a>
+        <div class="video-info">
+          <div class="video-title">🏰 Fort Aguada – Complete Tour</div>
+          <div class="video-sub">Portuguese fortress &amp; lighthouse Candolim</div>
+          <a href="https://www.youtube.com/results?search_query=Fort+Aguada+Goa+complete+tour+lighthouse" target="_blank" class="yt-search-btn">🔴 Search on YouTube ↗</a>
+        </div>
+      </div>
+
+      <div class="video-card">
+        <a href="https://www.youtube.com/results?search_query=Calangute+Beach+Goa+water+sports+guide" target="_blank" class="yt-thumb-link">
+          <div class="yt-thumb-wrap">
+            <img src="https://images.unsplash.com/photo-1596422846543-75c6fc197f11?w=600&q=80" alt="Calangute Beach" class="yt-thumb">
+            <div class="yt-play-btn"><span>▶</span></div>
+            <div class="yt-badge">YouTube Search</div>
+          </div>
+        </a>
+        <div class="video-info">
+          <div class="video-title">🏄 Calangute Beach – Water Sports</div>
+          <div class="video-sub">India's most famous beach guide</div>
+          <a href="https://www.youtube.com/results?search_query=Calangute+Beach+Goa+water+sports+guide" target="_blank" class="yt-search-btn">🔴 Search on YouTube ↗</a>
+        </div>
+      </div>
+
+      <div class="video-card">
+        <a href="https://www.youtube.com/results?search_query=Baga+Beach+Goa+nightlife+restaurants" target="_blank" class="yt-thumb-link">
+          <div class="yt-thumb-wrap">
+            <img src="https://images.unsplash.com/photo-1519046904884-53103b34b206?w=600&q=80" alt="Baga Beach" class="yt-thumb">
+            <div class="yt-play-btn"><span>▶</span></div>
+            <div class="yt-badge">YouTube Search</div>
+          </div>
+        </a>
+        <div class="video-info">
+          <div class="video-title">🎸 Baga Beach – Nightlife &amp; Food</div>
+          <div class="video-sub">Britto's, Tito's Lane &amp; shack vibes</div>
+          <a href="https://www.youtube.com/results?search_query=Baga+Beach+Goa+nightlife+restaurants" target="_blank" class="yt-search-btn">🔴 Search on YouTube ↗</a>
+        </div>
+      </div>
+
+      <div class="video-card">
+        <a href="https://www.youtube.com/results?search_query=Chapora+Fort+Goa+Dil+Chahta+Hai" target="_blank" class="yt-thumb-link">
+          <div class="yt-thumb-wrap">
+            <img src="https://images.unsplash.com/photo-1540202404-a2f29076b523?w=600&q=80" alt="Chapora Fort" class="yt-thumb">
+            <div class="yt-play-btn"><span>▶</span></div>
+            <div class="yt-badge">YouTube Search</div>
+          </div>
+        </a>
+        <div class="video-info">
+          <div class="video-title">🏰 Chapora Fort – Dil Chahta Hai!</div>
+          <div class="video-sub">Goa's most iconic Bollywood filming location</div>
+          <a href="https://www.youtube.com/results?search_query=Chapora+Fort+Goa+Dil+Chahta+Hai" target="_blank" class="yt-search-btn">🔴 Search on YouTube ↗</a>
+        </div>
+      </div>
+
+      <div class="video-card">
+        <a href="https://www.youtube.com/results?search_query=Vagator+Beach+Goa+red+cliffs+sunset" target="_blank" class="yt-thumb-link">
+          <div class="yt-thumb-wrap">
+            <img src="https://images.unsplash.com/photo-1516815231560-8f41ec531527?w=600&q=80" alt="Vagator Beach" class="yt-thumb">
+            <div class="yt-play-btn"><span>▶</span></div>
+            <div class="yt-badge">YouTube Search</div>
+          </div>
+        </a>
+        <div class="video-info">
+          <div class="video-title">🌊 Vagator Beach – Red Cliffs Sunset</div>
+          <div class="video-sub">Dramatic landscape &amp; hidden cove</div>
+          <a href="https://www.youtube.com/results?search_query=Vagator+Beach+Goa+red+cliffs+sunset" target="_blank" class="yt-search-btn">🔴 Search on YouTube ↗</a>
+        </div>
+      </div>
+
+      <div class="video-card">
+        <a href="https://www.youtube.com/results?search_query=Big+Daddy+Casino+Goa+offshore+experience" target="_blank" class="yt-thumb-link">
+          <div class="yt-thumb-wrap">
+            <img src="https://images.unsplash.com/photo-1596838132731-360aa9d4bd61?w=600&q=80" alt="Goa Casino" class="yt-thumb">
+            <div class="yt-play-btn"><span>▶</span></div>
+            <div class="yt-badge">YouTube Search</div>
+          </div>
+        </a>
+        <div class="video-info">
+          <div class="video-title">🎰 Big Day Casino Goa – Offshore Experience</div>
+          <div class="video-sub">What to expect inside Goa's casinos</div>
+          <a href="https://www.youtube.com/results?search_query=Big+Daddy+Casino+Goa+offshore+experience" target="_blank" class="yt-search-btn">🔴 Search on YouTube ↗</a>
+        </div>
+      </div>
+
+      <div class="video-card">
+        <a href="https://www.youtube.com/results?search_query=Goa+food+guide+must+try+dishes+2025" target="_blank" class="yt-thumb-link">
+          <div class="yt-thumb-wrap">
+            <img src="https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=600&q=80" alt="Goa Food" class="yt-thumb">
+            <div class="yt-play-btn"><span>▶</span></div>
+            <div class="yt-badge">YouTube Search</div>
+          </div>
+        </a>
+        <div class="video-info">
+          <div class="video-title">🍛 Goa Food Guide – Must Try Dishes</div>
+          <div class="video-sub">Fish curry, Feni, Bebinca &amp; more!</div>
+          <a href="https://www.youtube.com/results?search_query=Goa+food+guide+must+try+dishes+2025" target="_blank" class="yt-search-btn">🔴 Search on YouTube ↗</a>
+        </div>
+      </div>
+
+      <div class="video-card">
+        <a href="https://www.youtube.com/results?search_query=North+Goa+family+trip+with+kids+itinerary+2025" target="_blank" class="yt-thumb-link">
+          <div class="yt-thumb-wrap">
+            <img src="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=600&q=80" alt="Goa Family Trip" class="yt-thumb">
+            <div class="yt-play-btn"><span>▶</span></div>
+            <div class="yt-badge">YouTube Search</div>
+          </div>
+        </a>
+        <div class="video-info">
+          <div class="video-title">👨‍👩‍👧‍👦 North Goa Family Trip Guide</div>
+          <div class="video-sub">Complete itinerary with kids – 2025</div>
+          <a href="https://www.youtube.com/results?search_query=North+Goa+family+trip+with+kids+itinerary+2025" target="_blank" class="yt-search-btn">🔴 Search on YouTube ↗</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- MAPS -->
+<div id="maps" class="full-section">
+  <div class="inner">
+    <div class="section-header">
+      <div class="section-title">📍 Maps – Navigate from Your Phone</div>
+      <div class="divider"></div>
+      <p class="section-sub">Tap the map or "Open in Maps" to navigate directly. Share with your Bharat Taxi driver!</p>
+    </div>
+    <div class="map-grid">
+
+      <div class="map-card">
+        <iframe class="map-embed" src="https://maps.google.com/maps?q=Morjim+Beach+Goa&output=embed&z=15" loading="lazy"></iframe>
+        <div class="map-info">
+          <div class="map-name">🏖️ Morjim Beach</div>
+          <div class="map-addr">Morjim, North Goa – Day 1</div>
+          <div class="map-actions">
+            <a href="https://www.google.com/maps/search/Morjim+Beach+Goa" target="_blank" class="btn-sm btn-blue">Open in Maps ↗</a>
+            <a href="https://maps.apple.com/?q=Morjim+Beach+Goa" target="_blank" class="btn-sm btn-outline">Apple Maps</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="map-card">
+        <iframe class="map-embed" src="https://maps.google.com/maps?q=Mandrem+Beach+Goa&output=embed&z=15" loading="lazy"></iframe>
+        <div class="map-info">
+          <div class="map-name">🌅 Mandrem Beach</div>
+          <div class="map-addr">Mandrem, North Goa – Day 2</div>
+          <div class="map-actions">
+            <a href="https://www.google.com/maps/search/Mandrem+Beach+Goa" target="_blank" class="btn-sm btn-blue">Open in Maps ↗</a>
+            <a href="https://maps.apple.com/?q=Mandrem+Beach+Goa" target="_blank" class="btn-sm btn-outline">Apple Maps</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="map-card">
+        <iframe class="map-embed" src="https://maps.google.com/maps?q=Fontainhas+Panaji+Goa&output=embed&z=16" loading="lazy"></iframe>
+        <div class="map-info">
+          <div class="map-name">🎨 Fontainhas, Panaji</div>
+          <div class="map-addr">Latin Quarter, Panaji – Day 2</div>
+          <div class="map-actions">
+            <a href="https://www.google.com/maps/search/Fontainhas+Panaji+Goa" target="_blank" class="btn-sm btn-blue">Open in Maps ↗</a>
+            <a href="https://maps.apple.com/?q=Fontainhas+Panaji+Goa" target="_blank" class="btn-sm btn-outline">Apple Maps</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="map-card">
+        <iframe class="map-embed" src="https://maps.google.com/maps?q=Immaculate+Conception+Church+Panaji&output=embed&z=16" loading="lazy"></iframe>
+        <div class="map-info">
+          <div class="map-name">⛪ Immaculate Conception Church</div>
+          <div class="map-addr">Panaji, Goa – Day 2</div>
+          <div class="map-actions">
+            <a href="https://www.google.com/maps/search/Immaculate+Conception+Church+Panaji" target="_blank" class="btn-sm btn-blue">Open in Maps ↗</a>
+            <a href="https://maps.apple.com/?q=Immaculate+Conception+Church+Panaji" target="_blank" class="btn-sm btn-outline">Apple Maps</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="map-card">
+        <iframe class="map-embed" src="https://maps.google.com/maps?q=Fort+Aguada+Goa&output=embed&z=15" loading="lazy"></iframe>
+        <div class="map-info">
+          <div class="map-name">🏰 Fort Aguada</div>
+          <div class="map-addr">Candolim, Goa – Day 2</div>
+          <div class="map-actions">
+            <a href="https://www.google.com/maps/search/Fort+Aguada+Candolim+Goa" target="_blank" class="btn-sm btn-blue">Open in Maps ↗</a>
+            <a href="https://maps.apple.com/?q=Fort+Aguada+Goa" target="_blank" class="btn-sm btn-outline">Apple Maps</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="map-card">
+        <iframe class="map-embed" src="https://maps.google.com/maps?q=Chapora+Fort+Goa&output=embed&z=15" loading="lazy"></iframe>
+        <div class="map-info">
+          <div class="map-name">🏰 Chapora Fort</div>
+          <div class="map-addr">Vagator, Goa – Day 4</div>
+          <div class="map-actions">
+            <a href="https://www.google.com/maps/search/Chapora+Fort+Goa" target="_blank" class="btn-sm btn-blue">Open in Maps ↗</a>
+            <a href="https://maps.apple.com/?q=Chapora+Fort+Goa" target="_blank" class="btn-sm btn-outline">Apple Maps</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="map-card">
+        <iframe class="map-embed" src="https://maps.google.com/maps?q=Calangute+Beach+Goa&output=embed&z=15" loading="lazy"></iframe>
+        <div class="map-info">
+          <div class="map-name">🏖️ Calangute Beach</div>
+          <div class="map-addr">Calangute, Goa – Day 3</div>
+          <div class="map-actions">
+            <a href="https://www.google.com/maps/search/Calangute+Beach+Goa" target="_blank" class="btn-sm btn-blue">Open in Maps ↗</a>
+            <a href="https://maps.apple.com/?q=Calangute+Beach+Goa" target="_blank" class="btn-sm btn-outline">Apple Maps</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="map-card">
+        <iframe class="map-embed" src="https://maps.google.com/maps?q=BloomSuites+Calangute+Goa&output=embed&z=15" loading="lazy"></iframe>
+        <div class="map-info">
+          <div class="map-name">🏨 BloomSuites Calangute</div>
+          <div class="map-addr">Your Hotel 2 – Calangute</div>
+          <div class="map-actions">
+            <a href="https://www.google.com/maps/search/BloomSuites+Calangute+Goa" target="_blank" class="btn-sm btn-blue">Open in Maps ↗</a>
+            <a href="https://maps.apple.com/?q=BloomSuites+Calangute+Goa" target="_blank" class="btn-sm btn-outline">Apple Maps</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- INSTAGRAM / REELS -->
+<div id="instagram" class="full-section bg-light">
+  <div class="inner">
+    <div class="section-header">
+      <div class="section-title">📸 Instagram & Reels Ideas</div>
+      <div class="divider"></div>
+      <p class="section-sub">Shots, captions & hashtags for your social media gold!</p>
+    </div>
+    <div class="insta-grid">
+
+      <div class="insta-card">
+        <div class="insta-header">
+          <div class="insta-icon ig-icon" style="display:flex;align-items:center;justify-content:center;color:#fff">📸</div>
+          <div><div class="insta-label">Instagram – Day 1</div><div class="insta-sub">Morjim & Ashvem Beach Shots</div></div>
+        </div>
+        <ul class="shot-list">
+          <li>Feet in wet sand with waves crashing – classic Goa opener</li>
+          <li>Kids running towards waves at Ashvem – golden hour light</li>
+          <li>Family silhouette at sunset – Morjim Beach</li>
+          <li>Shell collection flat lay on white sand</li>
+          <li>Overhead drone-style shot of Morjim turquoise water</li>
+          <li>Blue Turtle sheesha smoke & cocktails at golden hour</li>
+        </ul>
+        <div class="caption-box">
+          "Where the sea meets serenity 🌊 Goa, you never disappoint. 4 adults, 2 kids, and a whole lot of memories in the making! #GoaWithKids #MorjimBeach<br>
+          <span class="hashtag">#GoadiariesIndia #BeachFamilyTrip #NorthGoa #GoaLife #TravelWithKids #GoaBeach #FamilyTravel2026</span>
+        </div>
+      </div>
+
+      <div class="insta-card">
+        <div class="insta-header">
+          <div class="insta-icon ig-icon" style="display:flex;align-items:center;justify-content:center;color:#fff">📸</div>
+          <div><div class="insta-label">Instagram – Day 2</div><div class="insta-sub">Heritage & Cultural Shots</div></div>
+        </div>
+        <ul class="shot-list">
+          <li>Family photo on Immaculate Conception Church steps – WHITE & BLUE contrast!</li>
+          <li>Kids touching colourful Fontainhas walls – vibrant background</li>
+          <li>Couple walking through Fontainhas lanes – cobblestone & colour</li>
+          <li>Parra Road canopy of trees – drive through green tunnel</li>
+          <li>Fort Aguada lighthouse framing – dramatic & historic</li>
+          <li>Sunset from Fort Aguada with sea in background</li>
+        </ul>
+        <div class="caption-box">
+          "451 years of Portuguese magic still alive on these walls 🏛️✨ Fontainhas never gets old. The colours, the stories, the warmth!<br>
+          <span class="hashtag">#Fontainhas #GoaHeritage #WalkWithMario #ImmaculateConception #PanajiGoa #PortugueseLegacy #GoaDiaries</span>
+        </div>
+      </div>
+
+      <div class="insta-card">
+        <div class="insta-header">
+          <div class="insta-icon ig-icon" style="display:flex;align-items:center;justify-content:center;color:#fff">📸</div>
+          <div><div class="insta-label">Instagram – Day 3 & 4</div><div class="insta-sub">Baga, Chapora & Vagator</div></div>
+        </div>
+        <ul class="shot-list">
+          <li>Recreate Dil Chahta Hai shot at Chapora Fort with friends!</li>
+          <li>Dramatic red cliff & blue sea at Vagator – amazing contrast</li>
+          <li>Casino night – dressed up glam with neon lights</li>
+          <li>Kids on beach with colourful buckets at Baga</li>
+          <li>Aerial-style beach panorama from Chapora Fort walls</li>
+          <li>Britto's live music night – warm bokeh lights & food</li>
+        </ul>
+        <div class="caption-box">
+          "Dekha hai pehli baar… Chapora Fort 🏰 Fulfilling our Dil Chahta Hai dream! Life goals with my favourite people ❤️<br>
+          <span class="hashtag">#ChaporaFort #DilChahtaHai #VagatorBeach #GoaFort #BagaBeach #BrittosBaga #CasinoNightGoa #GoaNights</span>
+        </div>
+      </div>
+
+      <div class="insta-card">
+        <div class="insta-header">
+          <div class="insta-icon yt-icon" style="display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.2rem">▶</div>
+          <div><div class="insta-label">YouTube Reel Ideas</div><div class="insta-sub">Short-form video content</div></div>
+        </div>
+        <ul class="shot-list yt">
+          <li>Day 1 vlog: Airport → Morjim → Beach sunset (60 sec reel)</li>
+          <li>Food reel: 5 Goan dishes in 30 seconds with reactions</li>
+          <li>Kids' reactions to first beach swim – priceless moments!</li>
+          <li>"Goa with 6" – 3 min travel montage with Goan music BGM</li>
+          <li>Chapora Fort DCH recreation – side by side with movie clip</li>
+          <li>Transition reel: hotel to beach outfit change with Goa backdrop</li>
+        </ul>
+        <div class="caption-box">
+          🎬 BGM suggestions: "Dum Maro Dum" (classic Goa) · "Gallan Goodiyaan" · "Lamberghini" · Goa Trance playlist for beach reels · "Aankhon Mein Teri" for heritage shots
+        </div>
+      </div>
+
+      <div class="insta-card">
+        <div class="insta-header">
+          <div class="insta-icon ig-icon" style="display:flex;align-items:center;justify-content:center;color:#fff">📸</div>
+          <div><div class="insta-label">Food & Drinks Shots</div><div class="insta-sub">Goa on a plate!</div></div>
+        </div>
+        <ul class="shot-list">
+          <li>Overhead flat lay of full Goan seafood spread at Souza Lobo</li>
+          <li>Feni shot glass with cashew nuts – classic Goa aesthetic</li>
+          <li>King's Beer with ocean in background – the Goa cliché done right</li>
+          <li>Fresh coconut water at beach – simple, beautiful</li>
+          <li>Bebinca close-up – those gorgeous golden layers!</li>
+          <li>Full Goan breakfast spread at Bodhi Tree</li>
+        </ul>
+        <div class="caption-box">
+          "Every meal in Goa hits different 🦐🌊 From Prawn Balchao to fresh coconut on the beach – this is what travel tastes like!<br>
+          <span class="hashtag">#GoaFood #GoanCuisine #SeafoodGoa #FishCurry #Feni #GoaFoodie #EatInGoa #FoodieTravel</span>
+        </div>
+      </div>
+
+      <div class="insta-card">
+        <div class="insta-header">
+          <div class="insta-icon ig-icon" style="display:flex;align-items:center;justify-content:center;color:#fff">📸</div>
+          <div><div class="insta-label">Kids & Family Shots</div><div class="insta-sub">The memories that matter most!</div></div>
+        </div>
+        <ul class="shot-list">
+          <li>Kids building sandcastles at Mandrem Beach – morning light</li>
+          <li>Whole family jumping photo on empty beach – epic!</li>
+          <li>Kids feeding fish at beach – candid & sweet</li>
+          <li>Full family portrait at Immaculate Conception Church steps</li>
+          <li>Kids with coconut water at beach – pure joy!</li>
+          <li>Night photo: family at Baga beach shack, all lit up</li>
+        </ul>
+        <div class="caption-box">
+          "Some trips are just about showing them the world 🌍👨‍👩‍👧‍👦 Goa through little eyes is pure magic! The best investment: memories.<br>
+          <span class="hashtag">#GoaFamilyTrip #TravelWithKids #FamilyVacation #GoaWithFamily #KidsOfInstagram #GoaKids #MemoriesMade</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- DOCUMENTS PAGE -->
+<div id="documents" class="full-section">
+  <div class="inner">
+    <div class="section-header">
+      <div class="section-title">📁 My Trip Documents</div>
+      <div class="divider"></div>
+      <p class="section-sub">Upload and store all your important trip documents here. Saved locally in your browser.</p>
+    </div>
+
+    <div class="docs-upload-area" onclick="document.getElementById('fileInput').click()">
+      <div class="docs-upload-icon">📤</div>
+      <div class="docs-upload-title">Click or Drag & Drop to Upload Documents</div>
+      <div class="docs-upload-sub">Hotel payment slips, flight tickets, ID proofs, insurance, itinerary PDFs, photos – anything important!</div>
+      <button class="doc-add-cat" onclick="event.stopPropagation();document.getElementById('fileInput').click()">Choose Files</button>
+    </div>
+    <input type="file" id="fileInput" multiple accept="image/*,.pdf,.doc,.docx,.txt,.jpg,.png">
+
+    <!-- Category Buttons -->
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:28px">
+      <button class="doc-add-cat" onclick="uploadToCategory('flights')">✈️ Add Flight Ticket</button>
+      <button class="doc-add-cat" onclick="uploadToCategory('hotels')">🏨 Add Hotel Voucher</button>
+      <button class="doc-add-cat" onclick="uploadToCategory('ids')">🪪 Add ID/Passport</button>
+      <button class="doc-add-cat" onclick="uploadToCategory('payments')">💳 Add Payment Slip</button>
+      <button class="doc-add-cat" onclick="uploadToCategory('insurance')">🛡️ Add Insurance</button>
+      <button class="doc-add-cat" onclick="uploadToCategory('other')">📄 Add Other Doc</button>
+    </div>
+
+    <div id="docCategories">
+      <!-- Categories will be rendered here by JS -->
+    </div>
+
+    <div id="emptyDocs" style="text-align:center;padding:40px;color:#aaa">
+      <div style="font-size:3rem;margin-bottom:12px">📂</div>
+      <div style="font-size:1rem;font-weight:600">No documents uploaded yet</div>
+      <div style="font-size:0.85rem;margin-top:6px">Upload your hotel vouchers, flight tickets, and other trip documents above!</div>
+    </div>
+  </div>
+</div>
+
+<!-- TIPS -->
+<div id="tips" class="full-section bg-light">
+  <div class="inner">
+    <div class="section-header">
+      <div class="section-title">🏖️ Goa Travel Tips</div>
+      <div class="divider"></div>
+      <p class="section-sub">Essential tips for a smooth, fun, and safe trip</p>
+    </div>
+    <div class="tips-grid">
+      <div class="tip-card">
+        <div class="tip-icon">💰</div>
+        <div class="tip-title">Money & Shopping</div>
+        <ul class="tip-list">
+          <li>Carry cash always – many shacks don't accept UPI/cards</li>
+          <li>Bargain at markets – start at 50% of asking price</li>
+          <li>Keep Rs 100–200 change for parking, tips, coconut water</li>
+          <li>Best buys: Cashews (Rs 500/kg), Feni, spices, Bebinca</li>
+          <li>Don't buy cashews at airport – overpriced!</li>
+        </ul>
+      </div>
+      <div class="tip-card" style="border-top-color:var(--ocean)">
+        <div class="tip-icon">🕐</div>
+        <div class="tip-title">Timing & Weather</div>
+        <ul class="tip-list">
+          <li>Leave hotel before 9 AM for all morning activities</li>
+          <li>Rest 1–4 PM (35°C peak heat – avoid going out!)</li>
+          <li>Evening activities from 4:30 PM onwards</li>
+          <li>SPF 50+ sunscreen – reapply every 2 hours!</li>
+          <li>Carry reusable water bottles – fill at hotel daily</li>
+        </ul>
+      </div>
+      <div class="tip-card" style="border-top-color:var(--palm)">
+        <div class="tip-icon">👨‍👩‍👧‍👦</div>
+        <div class="tip-title">For Kids in Goa</div>
+        <ul class="tip-list">
+          <li>Mandrem & Ashvem safest for kids – shallowest water</li>
+          <li>Avoid Baga/Calangute for swimming – strong undertow</li>
+          <li>Carry ORS sachets, mosquito repellent, first aid kit</li>
+          <li>Banana boat rides & dolphin trips are kid favourites!</li>
+          <li>Kids under 5 usually free at tourist spots</li>
+          <li>Sun hats & UV protection swimwear are essential</li>
+        </ul>
+      </div>
+      <div class="tip-card" style="border-top-color:var(--gold)">
+        <div class="tip-icon">🏖️</div>
+        <div class="tip-title">Beach Safety</div>
+        <ul class="tip-list">
+          <li>🟢 Green flag = safe swimming | 🟡 Yellow = caution</li>
+          <li>🔴 Red flag = NO swimming under any circumstances</li>
+          <li>Swim only between coloured flags with lifeguards</li>
+          <li>Never leave valuables on beach unattended</li>
+          <li>Don't swim after heavy meals or alcohol</li>
+        </ul>
+      </div>
+      <div class="tip-card" style="border-top-color:#e53e3e">
+        <div class="tip-icon">🚗</div>
+        <div class="tip-title">Transport Tips</div>
+        <ul class="tip-list">
+          <li>Book Bharat Taxi full day (~Rs 2500–3000) vs per trip</li>
+          <li>Get driver's number on Day 1 – save on all phones</li>
+          <li>Ola/Uber also work in Goa as backup</li>
+          <li>Parking at popular spots: Rs 30–50/car</li>
+          <li>Download Google Maps offline before arriving</li>
+          <li>Never rent bikes/scooters without proper experience!</li>
+        </ul>
+      </div>
+      <div class="tip-card" style="border-top-color:#9b59b6">
+        <div class="tip-icon">📋</div>
+        <div class="tip-title">General Must-Dos</div>
+        <ul class="tip-list">
+          <li>Book popular restaurants in advance (A Reverie, Souza Lobo)</li>
+          <li>Pre-book Walk with Mario: +91-9422435410</li>
+          <li>Keep ID copies – originals in hotel safe</li>
+          <li>Dress modestly at churches & heritage sites</li>
+          <li>Carry insect repellent – evening beach mosquitoes!</li>
+          <li>Try local toddy shop (tadi bar) experience once!</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CONTACTS -->
+<div id="contacts" class="full-section">
+  <div class="inner">
+    <div class="section-header">
+      <div class="section-title">📞 Important Contacts</div>
+      <div class="divider"></div>
+      <p class="section-sub">Save these on ALL adult phones before leaving!</p>
+    </div>
+    <div class="contacts-grid">
+      <div class="contact-card"><div class="contact-icon ci-emergency">🚨</div><div><div class="contact-name">Police Emergency</div><div class="contact-num">100</div><div class="contact-note">National emergency</div></div></div>
+      <div class="contact-card"><div class="contact-icon ci-emergency">🚑</div><div><div class="contact-name">Ambulance / Medical</div><div class="contact-num">108</div><div class="contact-note">Free 24x7 medical emergency</div></div></div>
+      <div class="contact-card"><div class="contact-icon ci-emergency">🔥</div><div><div class="contact-name">Fire Brigade</div><div class="contact-num">101</div><div class="contact-note">Emergency fire service</div></div></div>
+      <div class="contact-card"><div class="contact-icon ci-tourism">👮</div><div><div class="contact-name">Tourist Police Goa</div><div class="contact-num">0832-2425591</div><div class="contact-note">Tourist assistance & complaints</div></div></div>
+      <div class="contact-card"><div class="contact-icon ci-tourism">ℹ️</div><div><div class="contact-name">Goa Tourism Helpline</div><div class="contact-num">1800-180-3700</div><div class="contact-note">Free tourist helpline 24x7</div></div></div>
+      <div class="contact-card"><div class="contact-icon ci-transport">✈️</div><div><div class="contact-name">Mopa Airport (Manohar)</div><div class="contact-num">0832-2540111</div><div class="contact-note">North Goa – New International</div></div></div>
+      <div class="contact-card"><div class="contact-icon ci-transport">✈️</div><div><div class="contact-name">Dabolim Airport</div><div class="contact-num">0832-2458666</div><div class="contact-note">South Goa airport</div></div></div>
+      <div class="contact-card"><div class="contact-icon ci-transport">🚗</div><div><div class="contact-name">Bharat Taxi (Your Driver)</div><div class="contact-num">Note on Arrival!</div><div class="contact-note">Get number from driver on Day 1</div></div></div>
+      <div class="contact-card"><div class="contact-icon ci-hotel">🏨</div><div><div class="contact-name">Living Room Beach Resort</div><div class="contact-num">From Booking Confirmation</div><div class="contact-note">Hotel 1 – Morjim</div></div></div>
+      <div class="contact-card"><div class="contact-icon ci-hotel">🏨</div><div><div class="contact-name">BloomSuites Calangute</div><div class="contact-num">From Booking Confirmation</div><div class="contact-note">Hotel 2 – Calangute</div></div></div>
+      <div class="contact-card"><div class="contact-icon ci-medical">🏥</div><div><div class="contact-name">Manipal Hospital Goa</div><div class="contact-num">0832-2444444</div><div class="contact-note">Major hospital – Panaji area</div></div></div>
+      <div class="contact-card"><div class="contact-icon ci-medical">🏥</div><div><div class="contact-name">Apollo Clinic Calangute</div><div class="contact-num">0832-6633000</div><div class="contact-note">Nearest clinic to Hotel 2</div></div></div>
+      <div class="contact-card"><div class="contact-icon ci-medical">🚑</div><div><div class="contact-name">Goa Medical College</div><div class="contact-num">0832-2458700</div><div class="contact-note">Government emergency hospital</div></div></div>
+      <div class="contact-card"><div class="contact-icon ci-emergency">👩‍💼</div><div><div class="contact-name">Women's Helpline</div><div class="contact-num">1091</div><div class="contact-note">24x7 women's safety helpline</div></div></div>
+      <div class="contact-card"><div class="contact-icon ci-emergency">👶</div><div><div class="contact-name">Child Helpline</div><div class="contact-num">1098</div><div class="contact-note">24x7 child emergency support</div></div></div>
+      <div class="contact-card"><div class="contact-icon ci-tourism">🌊</div><div><div class="contact-name">Coast Guard Goa</div><div class="contact-num">1554</div><div class="contact-note">Sea emergency helpline</div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer style="background:var(--dark);color:rgba(255,255,255,0.7);text-align:center;padding:40px 20px">
+  <div style="font-family:'Satisfy',cursive;font-size:2rem;color:#fff;margin-bottom:10px">🌴 Goa Family Trip 2026</div>
+  <div style="font-size:0.9rem;margin-bottom:6px">25–29 March 2026 &nbsp;•&nbsp; 4 Adults + 2 Kids &nbsp;•&nbsp; North Goa</div>
+  <div style="font-size:0.8rem;color:rgba(255,255,255,0.4);margin-top:16px">Living Room Beach Resort, Morjim &nbsp;→&nbsp; BloomSuites, Calangute &nbsp;•&nbsp; Bharat Taxi 7-Seater</div>
+  <div style="margin-top:20px;font-size:0.75rem;color:rgba(255,255,255,0.3)">Have the most wonderful trip! 🌊☀️🌴</div>
+</footer>
+
+<a href="#home" class="fab">↑</a>
+
+<script>
+// Day switcher
+function showDay(id) {
+  document.querySelectorAll('.day-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.day-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  event.target.classList.add('active');
+}
+
+// DOCUMENTS SYSTEM
+let documents = JSON.parse(localStorage.getItem('goaDocs') || '{}');
+let currentCategory = null;
+
+const categoryConfig = {
+  flights:  { label: '✈️ Flight Tickets',    icon: '✈️' },
+  hotels:   { label: '🏨 Hotel Vouchers',    icon: '🏨' },
+  ids:      { label: '🪪 ID / Passport',     icon: '🪪' },
+  payments: { label: '💳 Payment Slips',     icon: '💳' },
+  insurance:{ label: '🛡️ Insurance',         icon: '🛡️' },
+  other:    { label: '📄 Other Documents',   icon: '📄' }
+};
+
+function uploadToCategory(cat) {
+  currentCategory = cat;
+  document.getElementById('fileInput').click();
+}
+
+document.getElementById('fileInput').addEventListener('change', function(e) {
+  const files = Array.from(e.target.files);
+  const cat = currentCategory || 'other';
+  if (!documents[cat]) documents[cat] = [];
+  files.forEach(file => {
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      documents[cat].push({ name: file.name, size: (file.size/1024).toFixed(1) + ' KB', type: file.type, data: ev.target.result, id: Date.now() + Math.random() });
+      saveAndRender();
+    };
+    reader.readAsDataURL(file);
+  });
+  this.value = '';
+  currentCategory = null;
+});
+
+// Drag and drop
+const uploadArea = document.querySelector('.docs-upload-area');
+uploadArea.addEventListener('dragover', (e) => { e.preventDefault(); uploadArea.style.background = 'rgba(0,119,182,0.12)'; });
+uploadArea.addEventListener('dragleave', () => { uploadArea.style.background = ''; });
+uploadArea.addEventListener('drop', (e) => {
+  e.preventDefault(); uploadArea.style.background = '';
+  const files = Array.from(e.dataTransfer.files);
+  const cat = 'other';
+  if (!documents[cat]) documents[cat] = [];
+  files.forEach(file => {
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      documents[cat].push({ name: file.name, size: (file.size/1024).toFixed(1) + ' KB', type: file.type, data: ev.target.result, id: Date.now() + Math.random() });
+      saveAndRender();
+    };
+    reader.readAsDataURL(file);
+  });
+});
+
+function saveAndRender() {
+  try { localStorage.setItem('goaDocs', JSON.stringify(documents)); } catch(e) {}
+  renderDocuments();
+}
+
+function deleteDoc(cat, id) {
+  documents[cat] = documents[cat].filter(d => d.id !== id);
+  if (documents[cat].length === 0) delete documents[cat];
+  saveAndRender();
+}
+
+function renderDocuments() {
+  const container = document.getElementById('docCategories');
+  const empty = document.getElementById('emptyDocs');
+  const allDocs = Object.values(documents).flat();
+  container.innerHTML = '';
+  if (allDocs.length === 0) { empty.style.display = 'block'; return; }
+  empty.style.display = 'none';
+  Object.entries(documents).forEach(([cat, docs]) => {
+    if (!docs || docs.length === 0) return;
+    const cfg = categoryConfig[cat] || { label: '📄 Documents', icon: '📄' };
+    const section = document.createElement('div');
+    section.className = 'doc-category';
+    section.innerHTML = `<div class="doc-cat-title">${cfg.icon} ${cfg.label} <span style="background:#eee;color:#666;padding:2px 8px;border-radius:10px;font-size:0.75rem;font-weight:600">${docs.length}</span></div>`;
+    const grid = document.createElement('div');
+    grid.className = 'docs-grid';
+    docs.forEach(doc => {
+      const card = document.createElement('div');
+      card.className = 'doc-card';
+      const isImg = doc.type && doc.type.startsWith('image');
+      const isPdf = doc.type === 'application/pdf';
+      card.innerHTML = `
+        <button class="doc-delete" onclick="deleteDoc('${cat}',${doc.id})">✕</button>
+        ${isImg ? `<img src="${doc.data}" style="width:100%;height:80px;object-fit:cover;border-radius:8px;margin-bottom:8px">` : `<div class="doc-icon">${isPdf ? '📄' : '📎'}</div>`}
+        <div class="doc-name">${doc.name}</div>
+        <div class="doc-size">${doc.size}</div>
+        <a href="${doc.data}" download="${doc.name}" class="btn-sm btn-blue" style="margin-top:8px;width:100%;justify-content:center">Download</a>
+        ${isImg ? `<a href="${doc.data}" target="_blank" class="btn-sm btn-outline" style="margin-top:4px;width:100%;justify-content:center">View</a>` : ''}
+      `;
+      grid.appendChild(card);
+    });
+    section.appendChild(grid);
+    container.appendChild(section);
+  });
+}
+
+renderDocuments();
+
+// Smooth active nav on scroll
+window.addEventListener('scroll', () => {
+  const fab = document.querySelector('.fab');
+  if (window.scrollY > 400) { fab.style.opacity = '1'; fab.style.pointerEvents = 'auto'; }
+  else { fab.style.opacity = '0'; fab.style.pointerEvents = 'none'; }
+});
+document.querySelector('.fab').style.opacity = '0';
+</script>
 </body>
 </html>
