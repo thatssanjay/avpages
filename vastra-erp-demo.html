@@ -1,0 +1,1772 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vastra ERP — Garments Order Management</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  /* ===================  RESET + TOKENS  =================== */
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --bg:#F6F7FB;
+    --surface:#FFFFFF;
+    --surface-2:#FAFAFC;
+    --sidebar:#0B1120;
+    --sidebar-2:#111827;
+    --sidebar-hover:rgba(255,255,255,.06);
+    --sidebar-active:rgba(99,102,241,.15);
+    --border:#E6E8EF;
+    --border-strong:#D5D9E2;
+    --text:#0F172A;
+    --text-muted:#64748B;
+    --text-light:#94A3B8;
+    --primary:#4F46E5;
+    --primary-hover:#4338CA;
+    --primary-soft:#EEF2FF;
+    --success:#059669;
+    --success-soft:#D1FAE5;
+    --warning:#D97706;
+    --warning-soft:#FEF3C7;
+    --danger:#DC2626;
+    --danger-soft:#FEE2E2;
+    --info:#0284C7;
+    --info-soft:#E0F2FE;
+    --radius-sm:6px;
+    --radius:8px;
+    --radius-lg:12px;
+    --shadow-sm:0 1px 2px rgba(15,23,42,.04);
+    --shadow:0 1px 3px rgba(15,23,42,.06),0 1px 2px rgba(15,23,42,.04);
+    --shadow-lg:0 10px 30px rgba(15,23,42,.08),0 2px 6px rgba(15,23,42,.04);
+    --font:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,sans-serif;
+    --mono:'JetBrains Mono',ui-monospace,monospace;
+  }
+  html,body{height:100%}
+  body{
+    font-family:var(--font);
+    background:var(--bg);
+    color:var(--text);
+    font-size:14px;
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+    letter-spacing:-.005em;
+  }
+  button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+  input,select,textarea{font-family:inherit;font-size:inherit;color:inherit}
+  a{color:inherit;text-decoration:none}
+  .mono{font-family:var(--mono);font-feature-settings:"tnum"}
+
+  /* ===================  LOGIN  =================== */
+  .login-screen{
+    min-height:100vh;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    background:var(--bg);
+  }
+  .login-hero{
+    background:
+      radial-gradient(circle at 20% 20%,rgba(99,102,241,.35),transparent 50%),
+      radial-gradient(circle at 80% 80%,rgba(236,72,153,.25),transparent 50%),
+      linear-gradient(135deg,#0B1120 0%,#1E1B4B 50%,#312E81 100%);
+    padding:48px;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    color:#fff;
+    position:relative;
+    overflow:hidden;
+  }
+  .login-hero::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background-image:
+      linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);
+    background-size:40px 40px;
+  }
+  .brand-mark{display:flex;align-items:center;gap:12px;position:relative;z-index:1}
+  .brand-logo{
+    width:44px;height:44px;border-radius:10px;
+    background:linear-gradient(135deg,#fff,#E0E7FF);
+    display:grid;place-items:center;color:#4F46E5;font-weight:800;font-size:18px;
+    box-shadow:0 8px 24px rgba(0,0,0,.2);
+  }
+  .brand-name{font-size:20px;font-weight:800;letter-spacing:-.02em}
+  .brand-sub{font-size:11px;opacity:.7;letter-spacing:.15em;text-transform:uppercase;margin-top:2px}
+  .hero-content{position:relative;z-index:1;max-width:460px}
+  .hero-content h1{font-size:42px;line-height:1.1;font-weight:700;letter-spacing:-.03em;margin-bottom:16px}
+  .hero-content h1 em{font-style:normal;background:linear-gradient(90deg,#A5B4FC,#F9A8D4);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .hero-content p{opacity:.75;font-size:15px;line-height:1.6}
+  .hero-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:40px}
+  .hero-stat-value{font-size:28px;font-weight:700;letter-spacing:-.02em}
+  .hero-stat-label{font-size:12px;opacity:.6;margin-top:4px}
+  .hero-footer{position:relative;z-index:1;font-size:12px;opacity:.5;display:flex;justify-content:space-between}
+
+  .login-form-wrap{
+    display:flex;align-items:center;justify-content:center;padding:48px;
+  }
+  .login-card{
+    width:100%;max-width:400px;
+  }
+  .login-card h2{font-size:28px;font-weight:700;letter-spacing:-.02em;margin-bottom:6px}
+  .login-card .subtitle{color:var(--text-muted);margin-bottom:32px}
+  .field{margin-bottom:18px}
+  .field label{display:block;font-size:12px;font-weight:600;color:var(--text);margin-bottom:6px;letter-spacing:.01em}
+  .field input{
+    width:100%;padding:11px 14px;border:1px solid var(--border-strong);
+    border-radius:var(--radius);background:#fff;transition:all .15s;
+    font-size:14px;
+  }
+  .field input:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px rgba(79,70,229,.1)}
+  .field-hint{font-size:11px;color:var(--text-light);margin-top:4px}
+  .check-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;font-size:13px}
+  .check-row label{display:flex;align-items:center;gap:8px;cursor:pointer}
+  .check-row a{color:var(--primary);font-weight:600}
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:8px;
+    padding:11px 18px;border-radius:var(--radius);font-weight:600;font-size:14px;
+    transition:all .15s;white-space:nowrap;
+  }
+  .btn-primary{background:var(--primary);color:#fff}
+  .btn-primary:hover{background:var(--primary-hover)}
+  .btn-ghost{color:var(--text-muted)}
+  .btn-ghost:hover{background:#F1F5F9;color:var(--text)}
+  .btn-secondary{border:1px solid var(--border-strong);background:#fff;color:var(--text)}
+  .btn-secondary:hover{background:var(--surface-2)}
+  .btn-danger{background:var(--danger-soft);color:var(--danger)}
+  .btn-danger:hover{background:#FECACA}
+  .btn-block{width:100%}
+  .btn-sm{padding:7px 12px;font-size:13px;border-radius:var(--radius-sm)}
+  .error-banner{
+    background:var(--danger-soft);color:var(--danger);padding:10px 14px;
+    border-radius:var(--radius);font-size:13px;margin-bottom:16px;display:none;
+    border-left:3px solid var(--danger);
+  }
+  .demo-creds{
+    margin-top:20px;padding:14px;border:1px dashed var(--border-strong);
+    border-radius:var(--radius);background:var(--surface-2);font-size:12px;
+  }
+  .demo-creds strong{color:var(--primary)}
+  .demo-creds code{font-family:var(--mono);background:#fff;padding:2px 6px;border-radius:4px;border:1px solid var(--border)}
+
+  /* ===================  APP SHELL  =================== */
+  .app{display:none;min-height:100vh}
+  .app.active{display:grid;grid-template-columns:248px 1fr}
+
+  .sidebar{
+    background:var(--sidebar);
+    color:#CBD5E1;
+    padding:20px 14px;
+    position:sticky;top:0;height:100vh;
+    display:flex;flex-direction:column;
+    border-right:1px solid #1E293B;
+  }
+  .sidebar-brand{display:flex;align-items:center;gap:10px;padding:4px 6px 20px;border-bottom:1px solid #1E293B;margin-bottom:14px}
+  .sidebar-brand .brand-logo{width:34px;height:34px;font-size:14px;border-radius:8px}
+  .sidebar-brand .bn{font-size:15px;font-weight:700;color:#fff;letter-spacing:-.01em}
+  .sidebar-brand .bs{font-size:10px;opacity:.5;letter-spacing:.15em;text-transform:uppercase}
+
+  .nav-section{margin-bottom:14px}
+  .nav-label{font-size:10px;font-weight:700;color:#64748B;letter-spacing:.15em;text-transform:uppercase;padding:0 10px 8px}
+  .nav-item{
+    display:flex;align-items:center;gap:11px;padding:9px 10px;border-radius:var(--radius);
+    color:#94A3B8;font-size:13.5px;font-weight:500;cursor:pointer;transition:all .12s;
+    margin-bottom:2px;
+  }
+  .nav-item svg{width:18px;height:18px;flex-shrink:0}
+  .nav-item:hover{background:var(--sidebar-hover);color:#fff}
+  .nav-item.active{background:var(--sidebar-active);color:#A5B4FC;font-weight:600}
+  .nav-item .badge-nav{margin-left:auto;background:var(--primary);color:#fff;font-size:10px;font-weight:700;padding:2px 6px;border-radius:20px}
+
+  .sidebar-footer{margin-top:auto;padding-top:14px;border-top:1px solid #1E293B}
+  .sidebar-footer .nav-item{font-size:12.5px}
+
+  /* Topbar */
+  .main{display:flex;flex-direction:column;min-width:0}
+  .topbar{
+    height:62px;background:#fff;border-bottom:1px solid var(--border);
+    display:flex;align-items:center;padding:0 24px;gap:16px;position:sticky;top:0;z-index:20;
+  }
+  .breadcrumb{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text-muted)}
+  .breadcrumb .current{color:var(--text);font-weight:600}
+  .breadcrumb svg{width:14px;height:14px;opacity:.4}
+  .search{
+    flex:1;max-width:420px;position:relative;margin-left:auto;
+  }
+  .search input{
+    width:100%;padding:8px 14px 8px 38px;border:1px solid var(--border);
+    border-radius:var(--radius);background:var(--surface-2);font-size:13px;
+  }
+  .search input:focus{outline:none;border-color:var(--primary);background:#fff}
+  .search svg{position:absolute;left:12px;top:50%;transform:translateY(-50%);width:16px;height:16px;color:var(--text-light)}
+  .search kbd{position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:10px;background:#fff;border:1px solid var(--border);padding:1px 5px;border-radius:4px;color:var(--text-muted);font-family:var(--mono)}
+
+  .topbar-actions{display:flex;align-items:center;gap:4px}
+  .icon-btn{
+    width:36px;height:36px;border-radius:var(--radius);display:grid;place-items:center;
+    color:var(--text-muted);position:relative;transition:all .12s;
+  }
+  .icon-btn:hover{background:var(--surface-2);color:var(--text)}
+  .icon-btn svg{width:18px;height:18px}
+  .notif-dot{position:absolute;top:8px;right:8px;width:7px;height:7px;background:var(--danger);border:2px solid #fff;border-radius:50%}
+
+  .user-chip{
+    display:flex;align-items:center;gap:10px;padding:4px 10px 4px 4px;border-radius:30px;
+    cursor:pointer;transition:all .12s;margin-left:8px;
+  }
+  .user-chip:hover{background:var(--surface-2)}
+  .avatar{
+    width:32px;height:32px;border-radius:50%;
+    background:linear-gradient(135deg,#6366F1,#EC4899);
+    display:grid;place-items:center;color:#fff;font-weight:700;font-size:12px;
+    flex-shrink:0;
+  }
+  .user-info{line-height:1.2;text-align:left}
+  .user-name{font-size:13px;font-weight:600}
+  .user-role{font-size:11px;color:var(--text-muted)}
+  .dropdown{position:relative}
+  .dropdown-menu{
+    position:absolute;top:calc(100% + 6px);right:0;background:#fff;
+    border:1px solid var(--border);border-radius:var(--radius-lg);box-shadow:var(--shadow-lg);
+    min-width:220px;padding:6px;display:none;z-index:50;
+  }
+  .dropdown-menu.open{display:block}
+  .dropdown-header{padding:10px 12px;border-bottom:1px solid var(--border);margin-bottom:4px}
+  .dropdown-header .user-name{font-size:14px}
+  .dropdown-header .email{font-size:12px;color:var(--text-muted)}
+  .dropdown-item{
+    display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:var(--radius-sm);
+    font-size:13px;cursor:pointer;color:var(--text);width:100%;text-align:left;
+  }
+  .dropdown-item svg{width:15px;height:15px;color:var(--text-muted)}
+  .dropdown-item:hover{background:var(--surface-2)}
+  .dropdown-item.danger{color:var(--danger)}
+  .dropdown-item.danger svg{color:var(--danger)}
+  .dropdown-sep{height:1px;background:var(--border);margin:4px 0}
+
+  /* Content */
+  .content{padding:24px 28px;flex:1;overflow-x:hidden}
+  .page-head{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:16px}
+  .page-title{font-size:22px;font-weight:700;letter-spacing:-.02em}
+  .page-subtitle{font-size:13px;color:var(--text-muted);margin-top:2px}
+  .page-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+
+  .page{display:none;animation:fadeIn .25s ease}
+  .page.active{display:block}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+
+  /* ===================  CARDS / KPIs  =================== */
+  .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);box-shadow:var(--shadow-sm)}
+  .card-header{padding:16px 20px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
+  .card-title{font-size:14px;font-weight:700;letter-spacing:-.01em}
+  .card-sub{font-size:12px;color:var(--text-muted);margin-top:2px}
+  .card-body{padding:20px}
+  .card-body.p0{padding:0}
+
+  .kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:20px}
+  .kpi{background:#fff;border:1px solid var(--border);border-radius:var(--radius-lg);padding:18px;position:relative;overflow:hidden}
+  .kpi-icon{
+    width:36px;height:36px;border-radius:10px;display:grid;place-items:center;margin-bottom:12px;
+  }
+  .kpi-icon svg{width:18px;height:18px}
+  .kpi-icon.ind{background:var(--primary-soft);color:var(--primary)}
+  .kpi-icon.suc{background:var(--success-soft);color:var(--success)}
+  .kpi-icon.war{background:var(--warning-soft);color:var(--warning)}
+  .kpi-icon.inf{background:var(--info-soft);color:var(--info)}
+  .kpi-label{font-size:12px;color:var(--text-muted);font-weight:500;margin-bottom:4px}
+  .kpi-value{font-size:24px;font-weight:700;letter-spacing:-.02em;font-family:var(--font);font-feature-settings:"tnum"}
+  .kpi-trend{font-size:11px;display:inline-flex;align-items:center;gap:3px;margin-top:6px;font-weight:600;padding:2px 7px;border-radius:20px}
+  .trend-up{background:var(--success-soft);color:var(--success)}
+  .trend-down{background:var(--danger-soft);color:var(--danger)}
+
+  /* Dashboard layout */
+  .dash-row{display:grid;grid-template-columns:1.6fr 1fr;gap:16px;margin-bottom:16px}
+  .dash-row-2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+
+  /* Chart (pure SVG) */
+  .chart-wrap{padding:8px 4px 0}
+  .chart-legend{display:flex;gap:16px;font-size:12px;padding:0 16px 8px}
+  .legend-item{display:flex;align-items:center;gap:6px;color:var(--text-muted)}
+  .legend-dot{width:8px;height:8px;border-radius:50%}
+
+  /* ===================  TABLES  =================== */
+  .table-wrap{overflow-x:auto}
+  table.t{width:100%;border-collapse:collapse;font-size:13px}
+  table.t thead{background:var(--surface-2)}
+  table.t th{
+    text-align:left;padding:11px 16px;font-size:11px;color:var(--text-muted);
+    font-weight:600;letter-spacing:.05em;text-transform:uppercase;border-bottom:1px solid var(--border);
+  }
+  table.t td{padding:12px 16px;border-bottom:1px solid var(--border);vertical-align:middle}
+  table.t tbody tr:hover{background:var(--surface-2)}
+  table.t tbody tr:last-child td{border-bottom:none}
+  .cell-tight{line-height:1.3}
+  .cell-tight .s{display:block;font-size:11px;color:var(--text-muted);margin-top:2px}
+
+  .badge{
+    display:inline-flex;align-items:center;gap:4px;padding:2px 8px;
+    border-radius:20px;font-size:11px;font-weight:600;letter-spacing:.01em;
+  }
+  .b-success{background:var(--success-soft);color:var(--success)}
+  .b-warning{background:var(--warning-soft);color:var(--warning)}
+  .b-danger{background:var(--danger-soft);color:var(--danger)}
+  .b-info{background:var(--info-soft);color:var(--info)}
+  .b-neutral{background:#F1F5F9;color:#475569}
+  .b-primary{background:var(--primary-soft);color:var(--primary)}
+
+  .dot{width:6px;height:6px;border-radius:50%;background:currentColor}
+
+  .customer-cell{display:flex;align-items:center;gap:10px}
+  .customer-avatar{
+    width:32px;height:32px;border-radius:8px;display:grid;place-items:center;
+    color:#fff;font-weight:700;font-size:11px;flex-shrink:0;
+  }
+
+  /* ===================  PUNCH ORDER  =================== */
+  .form-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .form-grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
+  .form-grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+  .field-sm label{font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:var(--text-muted);font-weight:600}
+  .field-sm input, .field-sm select, .field-sm textarea{
+    width:100%;padding:9px 12px;border:1px solid var(--border-strong);
+    border-radius:var(--radius);background:#fff;font-size:13px;margin-top:4px;
+  }
+  .field-sm input:focus,.field-sm select:focus,.field-sm textarea:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px rgba(79,70,229,.08)}
+
+  .punch-entry{
+    display:grid;grid-template-columns:140px 1fr 90px 120px 110px auto;gap:10px;align-items:end;
+    padding:16px;border:1px dashed var(--border-strong);border-radius:var(--radius);background:var(--surface-2);
+    margin-bottom:14px;
+  }
+  .order-items-empty{text-align:center;padding:40px 20px;color:var(--text-light);font-size:13px}
+
+  .totals{
+    display:grid;grid-template-columns:1fr 280px;gap:24px;align-items:flex-start;margin-top:18px;padding-top:18px;border-top:1px solid var(--border);
+  }
+  .total-row{display:flex;justify-content:space-between;padding:6px 0;font-size:13px}
+  .total-row.grand{
+    border-top:2px solid var(--text);margin-top:8px;padding-top:12px;font-size:16px;font-weight:700;
+  }
+  .total-row .lbl{color:var(--text-muted)}
+  .total-row .val{font-family:var(--mono);font-weight:600}
+
+  /* Stock bar */
+  .stock-bar{width:120px;height:6px;background:var(--border);border-radius:4px;overflow:hidden}
+  .stock-bar .fill{height:100%;border-radius:4px}
+  .sf-ok{background:var(--success)}
+  .sf-low{background:var(--warning)}
+  .sf-out{background:var(--danger)}
+
+  /* Tabs */
+  .tabs{display:flex;gap:2px;border-bottom:1px solid var(--border);margin-bottom:18px}
+  .tab{
+    padding:9px 14px;font-size:13px;font-weight:600;color:var(--text-muted);
+    border-bottom:2px solid transparent;margin-bottom:-1px;cursor:pointer;transition:all .12s;
+  }
+  .tab:hover{color:var(--text)}
+  .tab.active{color:var(--primary);border-bottom-color:var(--primary)}
+
+  /* Toast */
+  .toast{
+    position:fixed;bottom:24px;right:24px;background:var(--text);color:#fff;
+    padding:12px 18px;border-radius:var(--radius);font-size:13px;font-weight:500;
+    box-shadow:var(--shadow-lg);transform:translateY(100px);opacity:0;transition:all .3s;z-index:100;
+    display:flex;align-items:center;gap:10px;
+  }
+  .toast.show{transform:translateY(0);opacity:1}
+  .toast svg{color:#6EE7B7}
+
+  /* Report cards */
+  .report-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  .report-card{
+    background:#fff;border:1px solid var(--border);border-radius:var(--radius-lg);padding:18px;
+    cursor:pointer;transition:all .15s;position:relative;
+  }
+  .report-card:hover{border-color:var(--primary);box-shadow:var(--shadow)}
+  .report-card .ri{
+    width:38px;height:38px;border-radius:10px;display:grid;place-items:center;margin-bottom:12px;
+    background:var(--primary-soft);color:var(--primary);
+  }
+  .report-card .rt{font-weight:700;margin-bottom:3px}
+  .report-card .rs{font-size:12px;color:var(--text-muted);line-height:1.5}
+  .report-card .rl{margin-top:14px;font-size:12px;color:var(--primary);font-weight:600;display:flex;align-items:center;gap:4px}
+
+  /* Filter bar */
+  .filter-bar{
+    display:flex;gap:8px;align-items:center;padding:10px 14px;background:#fff;
+    border:1px solid var(--border);border-radius:var(--radius);margin-bottom:14px;flex-wrap:wrap;
+  }
+  .chip{
+    padding:5px 10px;border:1px solid var(--border-strong);border-radius:20px;
+    font-size:12px;font-weight:500;color:var(--text-muted);cursor:pointer;
+    display:inline-flex;align-items:center;gap:5px;background:#fff;
+  }
+  .chip:hover{background:var(--surface-2)}
+  .chip.active{background:var(--text);color:#fff;border-color:var(--text)}
+
+  /* Empty/responsive helpers */
+  .hstack{display:flex;align-items:center;gap:8px}
+  .vstack{display:flex;flex-direction:column;gap:4px}
+  .muted{color:var(--text-muted)}
+  .right{text-align:right}
+  .center{text-align:center}
+  .nowrap{white-space:nowrap}
+
+  @media (max-width:1024px){
+    .login-screen{grid-template-columns:1fr}
+    .login-hero{display:none}
+    .app.active{grid-template-columns:1fr}
+    .sidebar{display:none}
+    .kpi-grid{grid-template-columns:repeat(2,1fr)}
+    .dash-row,.dash-row-2{grid-template-columns:1fr}
+    .form-grid-3,.form-grid-4{grid-template-columns:1fr 1fr}
+    .report-grid{grid-template-columns:1fr 1fr}
+    .punch-entry{grid-template-columns:1fr 1fr;gap:10px}
+  }
+</style>
+</head>
+<body>
+
+<!-- ============================================  LOGIN  ============================================ -->
+<div class="login-screen" id="loginScreen">
+  <div class="login-hero">
+    <div class="brand-mark">
+      <div class="brand-logo">V</div>
+      <div>
+        <div class="brand-name">Vastra ERP</div>
+        <div class="brand-sub">Garments • Textiles • Apparel</div>
+      </div>
+    </div>
+
+    <div class="hero-content">
+      <h1>Run your garment business <em>end-to-end.</em></h1>
+      <p>From order punching at the counter to inventory, GST-ready invoicing, sales dashboards and customer ledgers — Vastra puts the whole shop floor in one login.</p>
+
+      <div class="hero-stats">
+        <div>
+          <div class="hero-stat-value">1,240+</div>
+          <div class="hero-stat-label">Retailers onboarded</div>
+        </div>
+        <div>
+          <div class="hero-stat-value">₹42Cr</div>
+          <div class="hero-stat-label">Monthly GMV processed</div>
+        </div>
+        <div>
+          <div class="hero-stat-value">99.9%</div>
+          <div class="hero-stat-label">Uptime SLA</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-footer">
+      <span>© 2026 Vastra Systems Pvt Ltd</span>
+      <span>Made in Bharat 🇮🇳</span>
+    </div>
+  </div>
+
+  <div class="login-form-wrap">
+    <div class="login-card">
+      <h2>Welcome back</h2>
+      <p class="subtitle">Sign in to continue to your workspace.</p>
+
+      <div class="error-banner" id="loginError">Invalid User ID or password. Please try again.</div>
+
+      <form id="loginForm">
+        <div class="field">
+          <label>User ID</label>
+          <input type="text" id="userId" placeholder="Enter your user ID" autocomplete="username">
+        </div>
+        <div class="field">
+          <label>Password</label>
+          <input type="password" id="password" placeholder="Enter your password" autocomplete="current-password">
+        </div>
+        <div class="check-row">
+          <label><input type="checkbox" checked> Remember me on this device</label>
+          <a href="#">Forgot password?</a>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Sign in to Vastra →</button>
+      </form>
+
+      <div class="demo-creds">
+        <strong>Demo credentials</strong><br>
+        User ID: <code>hellodemo</code> &nbsp; Password: <code>demo1</code>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================  MAIN APP  ============================================ -->
+<div class="app" id="app">
+
+  <!-- ===== SIDEBAR ===== -->
+  <aside class="sidebar">
+    <div class="sidebar-brand">
+      <div class="brand-logo">V</div>
+      <div>
+        <div class="bn">Vastra ERP</div>
+        <div class="bs">Shree Laxmi Garments</div>
+      </div>
+    </div>
+
+    <div class="nav-section">
+      <div class="nav-label">Main</div>
+      <div class="nav-item active" data-page="dashboard">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/><rect x="14" y="12" width="7" height="9"/><rect x="3" y="16" width="7" height="5"/></svg>
+        Dashboard
+      </div>
+      <div class="nav-item" data-page="punch-order">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+        Punch New Order
+        <span class="badge-nav">F2</span>
+      </div>
+      <div class="nav-item" data-page="orders">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M9 14l2 2 4-4"/></svg>
+        Order History
+      </div>
+    </div>
+
+    <div class="nav-section">
+      <div class="nav-label">Inventory</div>
+      <div class="nav-item" data-page="products">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.38 3.46 16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.47a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.47a2 2 0 0 0-1.34-2.23z"/></svg>
+        Products &amp; Stock
+      </div>
+      <div class="nav-item" data-page="customers">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        Customers
+      </div>
+    </div>
+
+    <div class="nav-section">
+      <div class="nav-label">Analytics</div>
+      <div class="nav-item" data-page="sales">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg>
+        Sales
+      </div>
+      <div class="nav-item" data-page="reports">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        Reports
+      </div>
+    </div>
+
+    <div class="sidebar-footer">
+      <div class="nav-item" data-page="settings">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        Settings
+      </div>
+      <div class="nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        Help &amp; Support
+      </div>
+    </div>
+  </aside>
+
+  <!-- ===== MAIN ===== -->
+  <div class="main">
+
+    <!-- Topbar -->
+    <header class="topbar">
+      <div class="breadcrumb">
+        <span>Vastra</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg>
+        <span class="current" id="crumb">Dashboard</span>
+      </div>
+
+      <div class="search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input placeholder="Search orders, SKUs, customers…">
+        <kbd>⌘K</kbd>
+      </div>
+
+      <div class="topbar-actions">
+        <button class="icon-btn" title="Help">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        </button>
+        <button class="icon-btn" title="Notifications">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+          <span class="notif-dot"></span>
+        </button>
+
+        <div class="dropdown">
+          <button class="user-chip" id="userChip">
+            <div class="avatar">AM</div>
+            <div class="user-info">
+              <div class="user-name">Arjun Mehta</div>
+              <div class="user-role">Sales Manager</div>
+            </div>
+            <svg style="width:14px;height:14px;color:#94A3B8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="dropdown-menu" id="userMenu">
+            <div class="dropdown-header">
+              <div class="user-name">Arjun Mehta</div>
+              <div class="email">arjun.mehta@shreelaxmi.in</div>
+            </div>
+            <button class="dropdown-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              My Profile
+            </button>
+            <button class="dropdown-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+              Account Settings
+            </button>
+            <button class="dropdown-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              Activity Log
+            </button>
+            <div class="dropdown-sep"></div>
+            <button class="dropdown-item danger" id="logoutBtn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+              Sign out
+            </button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="content">
+
+      <!-- =============== DASHBOARD =============== -->
+      <section class="page active" id="page-dashboard">
+        <div class="page-head">
+          <div>
+            <h1 class="page-title">Good morning, Arjun 👋</h1>
+            <p class="page-subtitle">Here's what's happening at Shree Laxmi Garments today, 16 Apr 2026.</p>
+          </div>
+          <div class="page-actions">
+            <button class="btn btn-secondary btn-sm">
+              <svg style="width:14px;height:14px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              This month
+            </button>
+            <button class="btn btn-secondary btn-sm">
+              <svg style="width:14px;height:14px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Export
+            </button>
+            <button class="btn btn-primary btn-sm" onclick="navigate('punch-order')">
+              <svg style="width:14px;height:14px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              New Order
+            </button>
+          </div>
+        </div>
+
+        <!-- KPIs -->
+        <div class="kpi-grid">
+          <div class="kpi">
+            <div class="kpi-icon ind">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            </div>
+            <div class="kpi-label">Today's Revenue</div>
+            <div class="kpi-value">₹ 3,84,520</div>
+            <span class="kpi-trend trend-up">▲ 12.4% vs yesterday</span>
+          </div>
+          <div class="kpi">
+            <div class="kpi-icon suc">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+            </div>
+            <div class="kpi-label">Orders Today</div>
+            <div class="kpi-value">84</div>
+            <span class="kpi-trend trend-up">▲ 8 new this hour</span>
+          </div>
+          <div class="kpi">
+            <div class="kpi-icon war">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.38 3.46 16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.47a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.47a2 2 0 0 0-1.34-2.23z"/></svg>
+            </div>
+            <div class="kpi-label">Low Stock Items</div>
+            <div class="kpi-value">17</div>
+            <span class="kpi-trend trend-down">▲ 3 need reorder</span>
+          </div>
+          <div class="kpi">
+            <div class="kpi-icon inf">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </div>
+            <div class="kpi-label">Active Customers</div>
+            <div class="kpi-value">1,248</div>
+            <span class="kpi-trend trend-up">▲ 32 this week</span>
+          </div>
+        </div>
+
+        <!-- Row: chart + top products -->
+        <div class="dash-row">
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <div class="card-title">Sales Overview</div>
+                <div class="card-sub">Last 7 days · Revenue vs Orders</div>
+              </div>
+              <div class="hstack">
+                <span class="chip active">7D</span>
+                <span class="chip">30D</span>
+                <span class="chip">90D</span>
+              </div>
+            </div>
+            <div class="card-body p0">
+              <div class="chart-legend">
+                <div class="legend-item"><span class="legend-dot" style="background:#4F46E5"></span> Revenue (₹)</div>
+                <div class="legend-item"><span class="legend-dot" style="background:#10B981"></span> Orders</div>
+              </div>
+              <div class="chart-wrap">
+                <svg viewBox="0 0 700 240" width="100%" height="240" preserveAspectRatio="none">
+                  <defs>
+                    <linearGradient id="gradA" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stop-color="#4F46E5" stop-opacity=".25"/>
+                      <stop offset="100%" stop-color="#4F46E5" stop-opacity="0"/>
+                    </linearGradient>
+                  </defs>
+                  <!-- grid -->
+                  <g stroke="#E6E8EF" stroke-width="1">
+                    <line x1="40" y1="30" x2="680" y2="30"/>
+                    <line x1="40" y1="80" x2="680" y2="80"/>
+                    <line x1="40" y1="130" x2="680" y2="130"/>
+                    <line x1="40" y1="180" x2="680" y2="180"/>
+                    <line x1="40" y1="220" x2="680" y2="220"/>
+                  </g>
+                  <!-- y labels -->
+                  <g fill="#94A3B8" font-size="10" font-family="JetBrains Mono">
+                    <text x="8" y="34">5L</text>
+                    <text x="8" y="84">4L</text>
+                    <text x="8" y="134">3L</text>
+                    <text x="8" y="184">2L</text>
+                    <text x="8" y="224">1L</text>
+                  </g>
+                  <!-- revenue area -->
+                  <path d="M60,160 L155,120 L250,135 L345,85 L440,100 L535,60 L630,75 L630,220 L60,220 Z" fill="url(#gradA)"/>
+                  <!-- revenue line -->
+                  <path d="M60,160 L155,120 L250,135 L345,85 L440,100 L535,60 L630,75" stroke="#4F46E5" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                  <!-- dots -->
+                  <g fill="#fff" stroke="#4F46E5" stroke-width="2">
+                    <circle cx="60" cy="160" r="4"/><circle cx="155" cy="120" r="4"/><circle cx="250" cy="135" r="4"/>
+                    <circle cx="345" cy="85" r="4"/><circle cx="440" cy="100" r="4"/>
+                    <circle cx="535" cy="60" r="5"/><circle cx="630" cy="75" r="4"/>
+                  </g>
+                  <!-- orders bars -->
+                  <g fill="#10B981" opacity=".75">
+                    <rect x="50" y="195" width="20" height="25" rx="2"/>
+                    <rect x="145" y="180" width="20" height="40" rx="2"/>
+                    <rect x="240" y="188" width="20" height="32" rx="2"/>
+                    <rect x="335" y="170" width="20" height="50" rx="2"/>
+                    <rect x="430" y="175" width="20" height="45" rx="2"/>
+                    <rect x="525" y="160" width="20" height="60" rx="2"/>
+                    <rect x="620" y="165" width="20" height="55" rx="2"/>
+                  </g>
+                  <!-- x labels -->
+                  <g fill="#94A3B8" font-size="10" font-family="Plus Jakarta Sans" text-anchor="middle">
+                    <text x="60" y="238">Wed</text><text x="155" y="238">Thu</text><text x="250" y="238">Fri</text>
+                    <text x="345" y="238">Sat</text><text x="440" y="238">Sun</text>
+                    <text x="535" y="238">Mon</text><text x="630" y="238">Tue</text>
+                  </g>
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <div class="card-title">Top Selling Products</div>
+                <div class="card-sub">This week</div>
+              </div>
+              <button class="btn btn-ghost btn-sm">View all</button>
+            </div>
+            <div class="card-body p0">
+              <div class="table-wrap">
+                <table class="t">
+                  <tbody>
+                    <tr>
+                      <td style="width:28px" class="mono muted">01</td>
+                      <td>
+                        <div class="cell-tight">
+                          Manyavar Sherwani Set
+                          <span class="s">MVR-SHR-0421 · Maroon · XL</span>
+                        </div>
+                      </td>
+                      <td class="right mono"><strong>284</strong><br><span class="muted" style="font-size:11px">₹8.4L</span></td>
+                    </tr>
+                    <tr>
+                      <td class="mono muted">02</td>
+                      <td>
+                        <div class="cell-tight">
+                          Fabindia Cotton Kurta
+                          <span class="s">FAB-KRT-1198 · Indigo · L</span>
+                        </div>
+                      </td>
+                      <td class="right mono"><strong>218</strong><br><span class="muted" style="font-size:11px">₹3.1L</span></td>
+                    </tr>
+                    <tr>
+                      <td class="mono muted">03</td>
+                      <td>
+                        <div class="cell-tight">
+                          Peter England Formal Shirt
+                          <span class="s">PE-SHT-0872 · White · 40</span>
+                        </div>
+                      </td>
+                      <td class="right mono"><strong>196</strong><br><span class="muted" style="font-size:11px">₹2.7L</span></td>
+                    </tr>
+                    <tr>
+                      <td class="mono muted">04</td>
+                      <td>
+                        <div class="cell-tight">
+                          Biba Anarkali Suit
+                          <span class="s">BIB-ANK-0653 · Teal · M</span>
+                        </div>
+                      </td>
+                      <td class="right mono"><strong>174</strong><br><span class="muted" style="font-size:11px">₹4.2L</span></td>
+                    </tr>
+                    <tr>
+                      <td class="mono muted">05</td>
+                      <td>
+                        <div class="cell-tight">
+                          Allen Solly Chinos
+                          <span class="s">AS-TRS-0510 · Beige · 32</span>
+                        </div>
+                      </td>
+                      <td class="right mono"><strong>152</strong><br><span class="muted" style="font-size:11px">₹2.3L</span></td>
+                    </tr>
+                    <tr>
+                      <td class="mono muted">06</td>
+                      <td>
+                        <div class="cell-tight">
+                          Raymond Blazer
+                          <span class="s">RAY-BLZ-0098 · Navy · 42</span>
+                        </div>
+                      </td>
+                      <td class="right mono"><strong>118</strong><br><span class="muted" style="font-size:11px">₹5.9L</span></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Row: recent orders + alerts -->
+        <div class="dash-row">
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <div class="card-title">Recent Orders</div>
+                <div class="card-sub">Last 6 transactions</div>
+              </div>
+              <button class="btn btn-ghost btn-sm" onclick="navigate('orders')">View all →</button>
+            </div>
+            <div class="card-body p0">
+              <div class="table-wrap">
+                <table class="t">
+                  <thead>
+                    <tr><th>Order #</th><th>Customer</th><th>Items</th><th>Amount</th><th>Status</th></tr>
+                  </thead>
+                  <tbody id="dashOrdersBody"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <div class="card-title">Stock Alerts</div>
+                <div class="card-sub">Reorder immediately</div>
+              </div>
+              <span class="badge b-warning">17 items</span>
+            </div>
+            <div class="card-body p0">
+              <div class="table-wrap">
+                <table class="t">
+                  <tbody>
+                    <tr>
+                      <td>
+                        <div class="cell-tight">Van Heusen White Shirt <span class="s">VH-SHT-0221 · 38</span></div>
+                      </td>
+                      <td class="right"><span class="badge b-danger"><span class="dot"></span>Out of stock</span></td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <div class="cell-tight">Louis Philippe Trouser <span class="s">LP-TRS-0911 · 34</span></div>
+                      </td>
+                      <td class="right"><span class="badge b-warning"><span class="dot"></span>3 left</span></td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <div class="cell-tight">W for Women Kurti <span class="s">W-KRT-1765 · S</span></div>
+                      </td>
+                      <td class="right"><span class="badge b-warning"><span class="dot"></span>5 left</span></td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <div class="cell-tight">Arrow Navy Blazer <span class="s">ARW-BLZ-0034 · 44</span></div>
+                      </td>
+                      <td class="right"><span class="badge b-warning"><span class="dot"></span>7 left</span></td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <div class="cell-tight">Jockey Inner Vest <span class="s">JCK-VST-0111 · L</span></div>
+                      </td>
+                      <td class="right"><span class="badge b-danger"><span class="dot"></span>Out of stock</span></td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <div class="cell-tight">Levi's 511 Slim Jeans <span class="s">LVS-JNS-0511 · 32</span></div>
+                      </td>
+                      <td class="right"><span class="badge b-warning"><span class="dot"></span>4 left</span></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =============== PUNCH ORDER =============== -->
+      <section class="page" id="page-punch-order">
+        <div class="page-head">
+          <div>
+            <h1 class="page-title">Punch New Order</h1>
+            <p class="page-subtitle">Scan or enter item codes to quickly build an order — just like your counter ESP system.</p>
+          </div>
+          <div class="page-actions">
+            <button class="btn btn-secondary btn-sm">Hold Order</button>
+            <button class="btn btn-secondary btn-sm">Clear</button>
+            <button class="btn btn-primary btn-sm" id="submitOrderBtn">
+              <svg style="width:14px;height:14px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+              Save &amp; Print Invoice
+            </button>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <div class="card-title">Order Details</div>
+              <div class="card-sub">Invoice #INV-2026-04-0874 · <span class="mono">16 Apr 2026, 10:42 AM</span></div>
+            </div>
+            <span class="badge b-primary"><span class="dot"></span>Draft</span>
+          </div>
+          <div class="card-body">
+            <div class="form-grid-3">
+              <div class="field-sm">
+                <label>Customer</label>
+                <select id="custSelect">
+                  <option>Rajesh Kumar — 9821034567</option>
+                  <option>Priya Sharma — 9898123450</option>
+                  <option>Anil Verma — 9900112233</option>
+                  <option>Sneha Patel — 9812345678</option>
+                  <option>Mumbai Fashion House (B2B) — GSTIN 27AAACM1234F1Z5</option>
+                  <option>+ Add new customer…</option>
+                </select>
+              </div>
+              <div class="field-sm">
+                <label>Payment Mode</label>
+                <select>
+                  <option>Cash</option><option>UPI / QR</option><option>Credit Card</option><option>Debit Card</option><option>Bank Transfer</option><option>Credit (30 days)</option>
+                </select>
+              </div>
+              <div class="field-sm">
+                <label>Salesperson</label>
+                <select>
+                  <option>Arjun Mehta (Me)</option><option>Deepika Nair</option><option>Vikram Singh</option><option>Meera Iyer</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top:16px">
+          <div class="card-header">
+            <div>
+              <div class="card-title">Add Items</div>
+              <div class="card-sub">Type an item code and press <kbd style="font-family:var(--mono);font-size:11px;background:var(--surface-2);padding:1px 6px;border-radius:4px;border:1px solid var(--border)">Enter</kbd> — quantity defaults to 1.</div>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="punch-entry">
+              <div class="field-sm">
+                <label>Item Code</label>
+                <input type="text" id="itemCode" placeholder="e.g. MVR-SHR-0421" autofocus>
+              </div>
+              <div class="field-sm">
+                <label>Item Name (auto-filled)</label>
+                <input type="text" id="itemName" placeholder="Auto-filled from code" readonly style="background:var(--surface-2)">
+              </div>
+              <div class="field-sm">
+                <label>Qty</label>
+                <input type="number" id="itemQty" value="1" min="1">
+              </div>
+              <div class="field-sm">
+                <label>Rate (₹)</label>
+                <input type="number" id="itemRate" placeholder="0.00" readonly style="background:var(--surface-2)">
+              </div>
+              <div class="field-sm">
+                <label>Disc %</label>
+                <input type="number" id="itemDisc" value="0">
+              </div>
+              <button class="btn btn-primary" id="addItemBtn" type="button">
+                <svg style="width:14px;height:14px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                Add
+              </button>
+            </div>
+
+            <div style="margin-top:6px;font-size:12px;color:var(--text-muted)">
+              <strong style="color:var(--text)">Try these sample codes:</strong>
+              <span class="mono" style="color:var(--primary);cursor:pointer" onclick="quickCode('MVR-SHR-0421')">MVR-SHR-0421</span> ·
+              <span class="mono" style="color:var(--primary);cursor:pointer" onclick="quickCode('FAB-KRT-1198')">FAB-KRT-1198</span> ·
+              <span class="mono" style="color:var(--primary);cursor:pointer" onclick="quickCode('PE-SHT-0872')">PE-SHT-0872</span> ·
+              <span class="mono" style="color:var(--primary);cursor:pointer" onclick="quickCode('BIB-ANK-0653')">BIB-ANK-0653</span> ·
+              <span class="mono" style="color:var(--primary);cursor:pointer" onclick="quickCode('RAY-BLZ-0098')">RAY-BLZ-0098</span> ·
+              <span class="mono" style="color:var(--primary);cursor:pointer" onclick="quickCode('LVS-JNS-0511')">LVS-JNS-0511</span>
+            </div>
+
+            <div class="table-wrap" style="margin-top:18px">
+              <table class="t">
+                <thead>
+                  <tr>
+                    <th>#</th><th>Code</th><th>Item</th><th class="right">Qty</th><th class="right">Rate</th><th class="right">Disc</th><th class="right">GST</th><th class="right">Total</th><th></th>
+                  </tr>
+                </thead>
+                <tbody id="orderItemsBody">
+                  <tr id="emptyOrderRow"><td colspan="9" class="order-items-empty">No items yet — enter an item code above to start.</td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="totals">
+              <div class="field-sm">
+                <label>Notes</label>
+                <textarea rows="3" placeholder="Any special instructions for this order…"></textarea>
+              </div>
+              <div>
+                <div class="total-row"><span class="lbl">Subtotal</span><span class="val" id="sumSubtotal">₹ 0.00</span></div>
+                <div class="total-row"><span class="lbl">Discount</span><span class="val" id="sumDiscount">− ₹ 0.00</span></div>
+                <div class="total-row"><span class="lbl">CGST (6%)</span><span class="val" id="sumCgst">₹ 0.00</span></div>
+                <div class="total-row"><span class="lbl">SGST (6%)</span><span class="val" id="sumSgst">₹ 0.00</span></div>
+                <div class="total-row grand"><span>Grand Total</span><span class="val" id="sumGrand">₹ 0.00</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =============== ORDER HISTORY =============== -->
+      <section class="page" id="page-orders">
+        <div class="page-head">
+          <div>
+            <h1 class="page-title">Order History</h1>
+            <p class="page-subtitle">Browse and manage all orders. Click any row to view full invoice.</p>
+          </div>
+          <div class="page-actions">
+            <button class="btn btn-secondary btn-sm">Export CSV</button>
+            <button class="btn btn-primary btn-sm" onclick="navigate('punch-order')">+ New Order</button>
+          </div>
+        </div>
+
+        <div class="filter-bar">
+          <span class="chip active">All <span class="mono">· 2,184</span></span>
+          <span class="chip">Completed <span class="mono">· 1,921</span></span>
+          <span class="chip">Pending <span class="mono">· 147</span></span>
+          <span class="chip">Cancelled <span class="mono">· 42</span></span>
+          <span class="chip">Refunded <span class="mono">· 74</span></span>
+          <div style="margin-left:auto;display:flex;gap:8px">
+            <select class="chip" style="padding:6px 10px;border-radius:var(--radius)"><option>All salespeople</option><option>Arjun Mehta</option><option>Deepika Nair</option></select>
+            <select class="chip" style="padding:6px 10px;border-radius:var(--radius)"><option>Last 30 days</option><option>Last 7 days</option><option>Today</option></select>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="table-wrap">
+            <table class="t">
+              <thead>
+                <tr><th>Order #</th><th>Date</th><th>Customer</th><th>Items</th><th class="right">Amount</th><th>Payment</th><th>Salesperson</th><th>Status</th><th></th></tr>
+              </thead>
+              <tbody id="ordersBody"></tbody>
+            </table>
+          </div>
+          <div style="padding:14px 18px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;font-size:12px;color:var(--text-muted)">
+            <span>Showing <strong>1 – 12</strong> of <strong>2,184</strong> orders</span>
+            <div class="hstack">
+              <button class="btn btn-secondary btn-sm">Previous</button>
+              <span class="mono">Page 1 / 183</span>
+              <button class="btn btn-secondary btn-sm">Next</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =============== PRODUCTS / STOCK =============== -->
+      <section class="page" id="page-products">
+        <div class="page-head">
+          <div>
+            <h1 class="page-title">Products &amp; Stock</h1>
+            <p class="page-subtitle">Live inventory across all SKUs, brands, sizes and colours.</p>
+          </div>
+          <div class="page-actions">
+            <button class="btn btn-secondary btn-sm">Import</button>
+            <button class="btn btn-secondary btn-sm">Stock Audit</button>
+            <button class="btn btn-primary btn-sm">+ Add Product</button>
+          </div>
+        </div>
+
+        <div class="kpi-grid">
+          <div class="kpi"><div class="kpi-label">Total SKUs</div><div class="kpi-value">4,827</div><span class="kpi-trend trend-up">▲ 142 added this month</span></div>
+          <div class="kpi"><div class="kpi-label">Units in Stock</div><div class="kpi-value">32,410</div><span class="kpi-trend trend-up">▲ 3.1%</span></div>
+          <div class="kpi"><div class="kpi-label">Stock Value</div><div class="kpi-value">₹ 1.84 Cr</div><span class="kpi-trend trend-up">▲ 5.6%</span></div>
+          <div class="kpi"><div class="kpi-label">Out of Stock</div><div class="kpi-value" style="color:var(--danger)">23</div><span class="kpi-trend trend-down">▼ reorder now</span></div>
+        </div>
+
+        <div class="card" style="margin-top:16px">
+          <div class="card-header">
+            <div class="card-title">Inventory</div>
+            <div class="hstack">
+              <span class="chip active">All</span>
+              <span class="chip">Men</span>
+              <span class="chip">Women</span>
+              <span class="chip">Kids</span>
+              <span class="chip">Ethnic</span>
+            </div>
+          </div>
+          <div class="table-wrap">
+            <table class="t">
+              <thead>
+                <tr><th>SKU</th><th>Product</th><th>Brand</th><th>Size / Color</th><th class="right">Stock</th><th>Level</th><th class="right">MRP</th><th class="right">Sold (30d)</th></tr>
+              </thead>
+              <tbody id="productsBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- =============== CUSTOMERS =============== -->
+      <section class="page" id="page-customers">
+        <div class="page-head">
+          <div>
+            <h1 class="page-title">Customers</h1>
+            <p class="page-subtitle">1,248 active customers · 312 B2B accounts · 936 retail.</p>
+          </div>
+          <div class="page-actions">
+            <button class="btn btn-secondary btn-sm">Import Contacts</button>
+            <button class="btn btn-primary btn-sm">+ Add Customer</button>
+          </div>
+        </div>
+
+        <div class="tabs">
+          <div class="tab active">All Customers</div>
+          <div class="tab">B2B / Wholesale</div>
+          <div class="tab">Retail</div>
+          <div class="tab">VIP</div>
+          <div class="tab">Credit Outstanding</div>
+        </div>
+
+        <div class="card">
+          <div class="table-wrap">
+            <table class="t">
+              <thead>
+                <tr><th>Customer</th><th>Type</th><th>Phone</th><th>City</th><th class="right">Orders</th><th class="right">Lifetime Value</th><th class="right">Outstanding</th><th>Status</th></tr>
+              </thead>
+              <tbody id="customersBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- =============== SALES =============== -->
+      <section class="page" id="page-sales">
+        <div class="page-head">
+          <div>
+            <h1 class="page-title">Sales Analytics</h1>
+            <p class="page-subtitle">Track performance by product, category, salesperson and region.</p>
+          </div>
+          <div class="page-actions">
+            <button class="btn btn-secondary btn-sm">Last Quarter</button>
+            <button class="btn btn-secondary btn-sm">Export PDF</button>
+          </div>
+        </div>
+
+        <div class="kpi-grid">
+          <div class="kpi"><div class="kpi-label">Total Sales (MTD)</div><div class="kpi-value">₹ 84.2 L</div><span class="kpi-trend trend-up">▲ 18.4%</span></div>
+          <div class="kpi"><div class="kpi-label">Avg Order Value</div><div class="kpi-value">₹ 3,840</div><span class="kpi-trend trend-up">▲ 6.2%</span></div>
+          <div class="kpi"><div class="kpi-label">Units Sold</div><div class="kpi-value">4,218</div><span class="kpi-trend trend-up">▲ 11.8%</span></div>
+          <div class="kpi"><div class="kpi-label">Return Rate</div><div class="kpi-value">2.4%</div><span class="kpi-trend trend-up">▼ 0.3%</span></div>
+        </div>
+
+        <div class="dash-row" style="margin-top:16px">
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <div class="card-title">Monthly Revenue Trend</div>
+                <div class="card-sub">FY 2025-26 · Apr to Mar</div>
+              </div>
+            </div>
+            <div class="card-body">
+              <svg viewBox="0 0 700 240" width="100%" height="240">
+                <defs>
+                  <linearGradient id="gradB" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#059669" stop-opacity=".3"/>
+                    <stop offset="100%" stop-color="#059669" stop-opacity="0"/>
+                  </linearGradient>
+                </defs>
+                <g stroke="#E6E8EF" stroke-width="1">
+                  <line x1="40" y1="30" x2="680" y2="30"/><line x1="40" y1="90" x2="680" y2="90"/>
+                  <line x1="40" y1="150" x2="680" y2="150"/><line x1="40" y1="210" x2="680" y2="210"/>
+                </g>
+                <g fill="#94A3B8" font-size="10" font-family="JetBrains Mono">
+                  <text x="8" y="34">1Cr</text><text x="8" y="94">75L</text><text x="8" y="154">50L</text><text x="8" y="214">25L</text>
+                </g>
+                <path d="M60,180 L115,165 L170,155 L225,140 L280,130 L335,115 L390,95 L445,105 L500,80 L555,70 L610,55 L665,45 L665,210 L60,210 Z" fill="url(#gradB)"/>
+                <path d="M60,180 L115,165 L170,155 L225,140 L280,130 L335,115 L390,95 L445,105 L500,80 L555,70 L610,55 L665,45" stroke="#059669" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                <g fill="#fff" stroke="#059669" stroke-width="2">
+                  <circle cx="60" cy="180" r="3.5"/><circle cx="115" cy="165" r="3.5"/><circle cx="170" cy="155" r="3.5"/>
+                  <circle cx="225" cy="140" r="3.5"/><circle cx="280" cy="130" r="3.5"/><circle cx="335" cy="115" r="3.5"/>
+                  <circle cx="390" cy="95" r="3.5"/><circle cx="445" cy="105" r="3.5"/><circle cx="500" cy="80" r="3.5"/>
+                  <circle cx="555" cy="70" r="3.5"/><circle cx="610" cy="55" r="3.5"/><circle cx="665" cy="45" r="4"/>
+                </g>
+                <g fill="#94A3B8" font-size="10" font-family="Plus Jakarta Sans" text-anchor="middle">
+                  <text x="60" y="230">Apr</text><text x="115" y="230">May</text><text x="170" y="230">Jun</text>
+                  <text x="225" y="230">Jul</text><text x="280" y="230">Aug</text><text x="335" y="230">Sep</text>
+                  <text x="390" y="230">Oct</text><text x="445" y="230">Nov</text><text x="500" y="230">Dec</text>
+                  <text x="555" y="230">Jan</text><text x="610" y="230">Feb</text><text x="665" y="230">Mar</text>
+                </g>
+              </svg>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <div class="card-title">Category Mix</div>
+                <div class="card-sub">This month</div>
+              </div>
+            </div>
+            <div class="card-body">
+              <svg viewBox="0 0 200 200" width="180" height="180" style="display:block;margin:0 auto 16px">
+                <circle cx="100" cy="100" r="70" fill="none" stroke="#E6E8EF" stroke-width="30"/>
+                <!-- segments -->
+                <circle cx="100" cy="100" r="70" fill="none" stroke="#4F46E5" stroke-width="30" stroke-dasharray="165 440" transform="rotate(-90 100 100)"/>
+                <circle cx="100" cy="100" r="70" fill="none" stroke="#10B981" stroke-width="30" stroke-dasharray="110 440" stroke-dashoffset="-165" transform="rotate(-90 100 100)"/>
+                <circle cx="100" cy="100" r="70" fill="none" stroke="#F59E0B" stroke-width="30" stroke-dasharray="85 440" stroke-dashoffset="-275" transform="rotate(-90 100 100)"/>
+                <circle cx="100" cy="100" r="70" fill="none" stroke="#EC4899" stroke-width="30" stroke-dasharray="80 440" stroke-dashoffset="-360" transform="rotate(-90 100 100)"/>
+                <text x="100" y="95" text-anchor="middle" font-size="22" font-weight="700" fill="#0F172A" font-family="Plus Jakarta Sans">84.2L</text>
+                <text x="100" y="113" text-anchor="middle" font-size="11" fill="#64748B" font-family="Plus Jakarta Sans">Total Revenue</text>
+              </svg>
+              <div style="display:flex;flex-direction:column;gap:10px;font-size:13px">
+                <div style="display:flex;justify-content:space-between;align-items:center"><span class="hstack"><span class="legend-dot" style="background:#4F46E5"></span> Men's Ethnic</span><span><strong>37%</strong> <span class="muted mono">₹31.2L</span></span></div>
+                <div style="display:flex;justify-content:space-between;align-items:center"><span class="hstack"><span class="legend-dot" style="background:#10B981"></span> Men's Western</span><span><strong>25%</strong> <span class="muted mono">₹21.0L</span></span></div>
+                <div style="display:flex;justify-content:space-between;align-items:center"><span class="hstack"><span class="legend-dot" style="background:#F59E0B"></span> Women's Ethnic</span><span><strong>19%</strong> <span class="muted mono">₹16.1L</span></span></div>
+                <div style="display:flex;justify-content:space-between;align-items:center"><span class="hstack"><span class="legend-dot" style="background:#EC4899"></span> Women's Western</span><span><strong>19%</strong> <span class="muted mono">₹15.9L</span></span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="dash-row-2" style="margin-top:16px">
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">Top Salespeople</div>
+              <span class="badge b-neutral">April 2026</span>
+            </div>
+            <div class="card-body p0">
+              <table class="t">
+                <tbody>
+                  <tr><td><div class="customer-cell"><div class="customer-avatar" style="background:#4F46E5">AM</div><div class="cell-tight">Arjun Mehta<span class="s">Sales Manager · Mumbai</span></div></div></td><td class="right mono"><strong>₹ 18.4L</strong><br><span class="muted" style="font-size:11px">142 orders</span></td></tr>
+                  <tr><td><div class="customer-cell"><div class="customer-avatar" style="background:#EC4899">DN</div><div class="cell-tight">Deepika Nair<span class="s">Sales Executive · Bangalore</span></div></div></td><td class="right mono"><strong>₹ 14.7L</strong><br><span class="muted" style="font-size:11px">118 orders</span></td></tr>
+                  <tr><td><div class="customer-cell"><div class="customer-avatar" style="background:#10B981">VS</div><div class="cell-tight">Vikram Singh<span class="s">Sales Executive · Delhi</span></div></div></td><td class="right mono"><strong>₹ 12.1L</strong><br><span class="muted" style="font-size:11px">96 orders</span></td></tr>
+                  <tr><td><div class="customer-cell"><div class="customer-avatar" style="background:#F59E0B">MI</div><div class="cell-tight">Meera Iyer<span class="s">Sales Executive · Chennai</span></div></div></td><td class="right mono"><strong>₹ 9.8L</strong><br><span class="muted" style="font-size:11px">81 orders</span></td></tr>
+                  <tr><td><div class="customer-cell"><div class="customer-avatar" style="background:#0284C7">RG</div><div class="cell-tight">Rohit Gupta<span class="s">Sales Executive · Pune</span></div></div></td><td class="right mono"><strong>₹ 8.3L</strong><br><span class="muted" style="font-size:11px">74 orders</span></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">Regional Performance</div>
+              <span class="badge b-neutral">Last 30 days</span>
+            </div>
+            <div class="card-body">
+              <div style="display:flex;flex-direction:column;gap:14px">
+                <div>
+                  <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:4px"><strong>Mumbai</strong><span class="mono">₹ 24.8L</span></div>
+                  <div class="stock-bar" style="width:100%;height:8px"><div class="fill sf-ok" style="width:92%"></div></div>
+                </div>
+                <div>
+                  <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:4px"><strong>Delhi NCR</strong><span class="mono">₹ 18.2L</span></div>
+                  <div class="stock-bar" style="width:100%;height:8px"><div class="fill" style="width:75%;background:#4F46E5"></div></div>
+                </div>
+                <div>
+                  <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:4px"><strong>Bangalore</strong><span class="mono">₹ 15.4L</span></div>
+                  <div class="stock-bar" style="width:100%;height:8px"><div class="fill" style="width:64%;background:#4F46E5"></div></div>
+                </div>
+                <div>
+                  <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:4px"><strong>Chennai</strong><span class="mono">₹ 11.1L</span></div>
+                  <div class="stock-bar" style="width:100%;height:8px"><div class="fill" style="width:48%;background:#F59E0B"></div></div>
+                </div>
+                <div>
+                  <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:4px"><strong>Pune</strong><span class="mono">₹ 8.9L</span></div>
+                  <div class="stock-bar" style="width:100%;height:8px"><div class="fill" style="width:36%;background:#F59E0B"></div></div>
+                </div>
+                <div>
+                  <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:4px"><strong>Kolkata</strong><span class="mono">₹ 5.8L</span></div>
+                  <div class="stock-bar" style="width:100%;height:8px"><div class="fill sf-low" style="width:24%"></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =============== REPORTS =============== -->
+      <section class="page" id="page-reports">
+        <div class="page-head">
+          <div>
+            <h1 class="page-title">Reports</h1>
+            <p class="page-subtitle">Generate business, accounting &amp; compliance reports instantly.</p>
+          </div>
+          <div class="page-actions">
+            <button class="btn btn-secondary btn-sm">Schedule Report</button>
+            <button class="btn btn-primary btn-sm">+ Custom Report</button>
+          </div>
+        </div>
+
+        <div class="tabs">
+          <div class="tab active">Sales</div>
+          <div class="tab">Inventory</div>
+          <div class="tab">Customer</div>
+          <div class="tab">GST &amp; Tax</div>
+          <div class="tab">Finance</div>
+        </div>
+
+        <div class="report-grid">
+          <div class="report-card">
+            <div class="ri"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg></div>
+            <div class="rt">Daily Sales Summary</div>
+            <div class="rs">Day-wise revenue, orders and payment split across all outlets.</div>
+            <div class="rl">Generate report →</div>
+          </div>
+          <div class="report-card">
+            <div class="ri"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg></div>
+            <div class="rt">Product Performance</div>
+            <div class="rs">Best &amp; worst performing SKUs by units and margin.</div>
+            <div class="rl">Generate report →</div>
+          </div>
+          <div class="report-card">
+            <div class="ri"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div>
+            <div class="rt">Customer Ledger</div>
+            <div class="rs">Outstanding, receivables &amp; ageing buckets per customer.</div>
+            <div class="rl">Generate report →</div>
+          </div>
+          <div class="report-card">
+            <div class="ri"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/></svg></div>
+            <div class="rt">GSTR-1 Filing</div>
+            <div class="rs">Auto-prepared outward supplies return for GST portal upload.</div>
+            <div class="rl">Generate report →</div>
+          </div>
+          <div class="report-card">
+            <div class="ri"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px"><path d="M20.38 3.46 16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.47a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.47a2 2 0 0 0-1.34-2.23z"/></svg></div>
+            <div class="rt">Stock Valuation</div>
+            <div class="rs">Closing stock valuation at cost, MRP and weighted average.</div>
+            <div class="rl">Generate report →</div>
+          </div>
+          <div class="report-card">
+            <div class="ri"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+            <div class="rt">Profit &amp; Loss</div>
+            <div class="rs">Category-wise gross &amp; net margin analysis.</div>
+            <div class="rl">Generate report →</div>
+          </div>
+          <div class="report-card">
+            <div class="ri"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></div>
+            <div class="rt">Salesperson Scorecard</div>
+            <div class="rs">Target vs achievement, conversion rate and incentive payout.</div>
+            <div class="rl">Generate report →</div>
+          </div>
+          <div class="report-card">
+            <div class="ri"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg></div>
+            <div class="rt">Low Stock &amp; Reorder</div>
+            <div class="rs">Items below reorder level with suggested purchase qty.</div>
+            <div class="rl">Generate report →</div>
+          </div>
+          <div class="report-card">
+            <div class="ri"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+            <div class="rt">Sales Trend Analysis</div>
+            <div class="rs">YoY growth, seasonality &amp; festive spike comparison.</div>
+            <div class="rl">Generate report →</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =============== SETTINGS =============== -->
+      <section class="page" id="page-settings">
+        <div class="page-head">
+          <div>
+            <h1 class="page-title">Settings</h1>
+            <p class="page-subtitle">Manage your organisation, users, GST, invoice templates and integrations.</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header"><div class="card-title">Organisation Profile</div></div>
+          <div class="card-body">
+            <div class="form-grid-2">
+              <div class="field-sm"><label>Business Name</label><input value="Shree Laxmi Garments Pvt Ltd"></div>
+              <div class="field-sm"><label>GSTIN</label><input value="27AAACS1234F1Z5" class="mono"></div>
+              <div class="field-sm"><label>Contact Email</label><input value="accounts@shreelaxmi.in"></div>
+              <div class="field-sm"><label>Phone</label><input value="+91 98210 34567"></div>
+              <div class="field-sm" style="grid-column:span 2"><label>Registered Address</label><input value="12/A, Mangaldas Market, Kalbadevi Road, Mumbai 400002, Maharashtra"></div>
+            </div>
+            <div style="margin-top:16px"><button class="btn btn-primary btn-sm">Save Changes</button></div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast">
+  <svg style="width:16px;height:16px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg>
+  <span id="toastMsg">Item added</span>
+</div>
+
+<!-- ============================================  SCRIPT  ============================================ -->
+<script>
+/* ------- PRODUCT CATALOG (Indian clothing brands) ------- */
+const CATALOG = {
+  'MVR-SHR-0421': {name:'Manyavar Sherwani Set - Maroon XL', brand:'Manyavar', rate:15999, gst:12},
+  'FAB-KRT-1198': {name:'Fabindia Cotton Kurta - Indigo L', brand:'Fabindia', rate:1499, gst:5},
+  'PE-SHT-0872':  {name:'Peter England Formal Shirt - White 40', brand:'Peter England', rate:1399, gst:5},
+  'BIB-ANK-0653': {name:'Biba Anarkali Suit - Teal M', brand:'Biba', rate:2499, gst:5},
+  'RAY-BLZ-0098': {name:'Raymond 2-Piece Blazer - Navy 42', brand:'Raymond', rate:6499, gst:12},
+  'LVS-JNS-0511': {name:"Levi's 511 Slim Jeans - Dark Blue 32", brand:"Levi's", rate:2799, gst:5},
+  'AS-TRS-0510':  {name:'Allen Solly Chinos - Beige 32', brand:'Allen Solly', rate:1499, gst:5},
+  'W-KRT-1765':   {name:'W for Women Kurti - Pink S', brand:'W for Women', rate:999, gst:5},
+  'VH-SHT-0221':  {name:'Van Heusen White Shirt - 38', brand:'Van Heusen', rate:1599, gst:5},
+  'LP-TRS-0911':  {name:'Louis Philippe Trouser - Black 34', brand:'Louis Philippe', rate:2199, gst:5},
+  'ARW-BLZ-0034': {name:'Arrow Navy Blazer - 44', brand:'Arrow', rate:5499, gst:12},
+  'JCK-VST-0111': {name:'Jockey Inner Vest - White L (Pack of 3)', brand:'Jockey', rate:599, gst:5},
+};
+
+/* ------- SEED DATA: Orders ------- */
+const ORDERS = [
+  {no:'INV-2026-04-0873', date:'16 Apr 2026, 10:21 AM', cust:'Rajesh Kumar',   type:'Retail', items:3, amount:5897,  pay:'UPI',   sp:'Arjun Mehta',   status:'Completed'},
+  {no:'INV-2026-04-0872', date:'16 Apr 2026, 09:54 AM', cust:'Mumbai Fashion House', type:'B2B', items:42, amount:184500, pay:'Credit 30d', sp:'Arjun Mehta',   status:'Pending'},
+  {no:'INV-2026-04-0871', date:'16 Apr 2026, 09:32 AM', cust:'Priya Sharma',    type:'Retail', items:2, amount:3498,  pay:'Card',  sp:'Deepika Nair',  status:'Completed'},
+  {no:'INV-2026-04-0870', date:'15 Apr 2026, 08:48 PM', cust:'Anil Verma',      type:'Retail', items:5, amount:12450, pay:'Cash',  sp:'Vikram Singh',  status:'Completed'},
+  {no:'INV-2026-04-0869', date:'15 Apr 2026, 07:12 PM', cust:'Delhi Textile Traders', type:'B2B', items:28, amount:98300,  pay:'Bank Transfer', sp:'Vikram Singh', status:'Completed'},
+  {no:'INV-2026-04-0868', date:'15 Apr 2026, 05:44 PM', cust:'Sneha Patel',     type:'Retail', items:1, amount:2499,  pay:'UPI',   sp:'Meera Iyer',    status:'Completed'},
+  {no:'INV-2026-04-0867', date:'15 Apr 2026, 04:22 PM', cust:'Vikram Agarwal',  type:'Retail', items:4, amount:8975,  pay:'Card',  sp:'Deepika Nair',  status:'Refunded'},
+  {no:'INV-2026-04-0866', date:'15 Apr 2026, 02:18 PM', cust:'Kavita Desai',    type:'Retail', items:2, amount:4298,  pay:'UPI',   sp:'Arjun Mehta',   status:'Completed'},
+  {no:'INV-2026-04-0865', date:'15 Apr 2026, 12:54 PM', cust:'Chennai Silks',   type:'B2B', items:65, amount:245000, pay:'Bank Transfer', sp:'Meera Iyer', status:'Completed'},
+  {no:'INV-2026-04-0864', date:'15 Apr 2026, 11:33 AM', cust:'Arjun Reddy',     type:'Retail', items:3, amount:6750,  pay:'Cash',  sp:'Rohit Gupta',   status:'Completed'},
+  {no:'INV-2026-04-0863', date:'14 Apr 2026, 08:21 PM', cust:'Meera Iyer',      type:'Retail', items:2, amount:3198,  pay:'UPI',   sp:'Vikram Singh',  status:'Cancelled'},
+  {no:'INV-2026-04-0862', date:'14 Apr 2026, 06:47 PM', cust:'Pooja Agarwal',   type:'Retail', items:6, amount:14299, pay:'Card',  sp:'Arjun Mehta',   status:'Completed'},
+];
+
+const PRODUCTS = [
+  {sku:'MVR-SHR-0421', name:'Manyavar Sherwani Set',  brand:'Manyavar',     sz:'Maroon · XL',      stock:48, level:'ok',  mrp:15999, sold:284},
+  {sku:'FAB-KRT-1198', name:'Fabindia Cotton Kurta',  brand:'Fabindia',     sz:'Indigo · L',       stock:124, level:'ok', mrp:1499,  sold:218},
+  {sku:'PE-SHT-0872',  name:'Peter England Shirt',    brand:'Peter England',sz:'White · 40',       stock:86, level:'ok',  mrp:1399,  sold:196},
+  {sku:'BIB-ANK-0653', name:'Biba Anarkali Suit',     brand:'Biba',         sz:'Teal · M',         stock:34, level:'ok',  mrp:2499,  sold:174},
+  {sku:'AS-TRS-0510',  name:'Allen Solly Chinos',     brand:'Allen Solly',  sz:'Beige · 32',       stock:58, level:'ok',  mrp:1499,  sold:152},
+  {sku:'RAY-BLZ-0098', name:'Raymond Blazer',         brand:'Raymond',      sz:'Navy · 42',        stock:22, level:'ok',  mrp:6499,  sold:118},
+  {sku:'LVS-JNS-0511', name:"Levi's 511 Slim Jeans",  brand:"Levi's",       sz:'Dark Blue · 32',   stock:4,  level:'low', mrp:2799,  sold:142},
+  {sku:'VH-SHT-0221',  name:'Van Heusen Shirt',       brand:'Van Heusen',   sz:'White · 38',       stock:0,  level:'out', mrp:1599,  sold:98},
+  {sku:'W-KRT-1765',   name:'W for Women Kurti',      brand:'W for Women',  sz:'Pink · S',         stock:5,  level:'low', mrp:999,   sold:88},
+  {sku:'LP-TRS-0911',  name:'Louis Philippe Trouser', brand:'Louis Philippe',sz:'Black · 34',      stock:3,  level:'low', mrp:2199,  sold:76},
+  {sku:'ARW-BLZ-0034', name:'Arrow Navy Blazer',      brand:'Arrow',        sz:'Navy · 44',        stock:7,  level:'low', mrp:5499,  sold:62},
+  {sku:'JCK-VST-0111', name:'Jockey Inner Vest',      brand:'Jockey',       sz:'White · L',        stock:0,  level:'out', mrp:599,   sold:184},
+  {sku:'LUX-VST-0044', name:'Lux Cozi Vest',          brand:'Lux Cozi',     sz:'White · XL',       stock:312,level:'ok',  mrp:349,   sold:211},
+  {sku:'WLD-JKT-0287', name:'Wildcraft Padded Jacket',brand:'Wildcraft',    sz:'Black · L',        stock:18, level:'ok',  mrp:3999,  sold:54},
+  {sku:'MAX-TEE-1103', name:'Max Fashion Polo Tee',   brand:'Max',          sz:'Grey · M',         stock:142,level:'ok',  mrp:699,   sold:168},
+];
+
+const COLORS = ['#4F46E5','#EC4899','#10B981','#F59E0B','#0284C7','#8B5CF6','#EF4444','#14B8A6'];
+
+const CUSTOMERS = [
+  {name:'Rajesh Kumar',         type:'Retail', phone:'98210 34567', city:'Mumbai',    orders:42,  ltv:184500,  outst:0,      status:'Active', vip:true},
+  {name:'Mumbai Fashion House', type:'B2B',    phone:'022 26551234',city:'Mumbai',    orders:187, ltv:2840000, outst:184500, status:'Active', vip:true},
+  {name:'Priya Sharma',         type:'Retail', phone:'98981 23450', city:'Ahmedabad', orders:18,  ltv:48200,   outst:0,      status:'Active'},
+  {name:'Anil Verma',           type:'Retail', phone:'99001 12233', city:'Delhi',     orders:24,  ltv:72100,   outst:0,      status:'Active'},
+  {name:'Sneha Patel',          type:'Retail', phone:'98123 45678', city:'Surat',     orders:9,   ltv:21400,   outst:0,      status:'Active'},
+  {name:'Delhi Textile Traders',type:'B2B',    phone:'011 23564789',city:'Delhi',     orders:142, ltv:1840000, outst:92300,  status:'Active', vip:true},
+  {name:'Vikram Agarwal',       type:'Retail', phone:'90001 78945', city:'Jaipur',    orders:14,  ltv:38750,   outst:4200,   status:'Active'},
+  {name:'Kavita Desai',         type:'Retail', phone:'97654 32109', city:'Pune',      orders:28,  ltv:84200,   outst:0,      status:'Active'},
+  {name:'Chennai Silks',        type:'B2B',    phone:'044 28419876',city:'Chennai',   orders:96,  ltv:1240000, outst:0,      status:'Active', vip:true},
+  {name:'Arjun Reddy',          type:'Retail', phone:'94400 12345', city:'Hyderabad', orders:11,  ltv:28900,   outst:0,      status:'Active'},
+  {name:'Pooja Agarwal',        type:'Retail', phone:'88881 22334', city:'Lucknow',   orders:16,  ltv:42800,   outst:2100,   status:'Active'},
+  {name:'Bangalore Apparel Co', type:'B2B',    phone:'080 41234567',city:'Bangalore', orders:74,  ltv:920000,  outst:145000, status:'Active', vip:true},
+  {name:'Neha Kapoor',          type:'Retail', phone:'99887 65432', city:'Chandigarh',orders:6,   ltv:14200,   outst:0,      status:'Inactive'},
+  {name:'Kolkata Knits',        type:'B2B',    phone:'033 22874512',city:'Kolkata',   orders:52,  ltv:680000,  outst:0,      status:'Active'},
+  {name:'Suresh Menon',         type:'Retail', phone:'98460 11223', city:'Kochi',     orders:19,  ltv:54100,   outst:0,      status:'Active'},
+];
+
+/* ------- LOGIN ------- */
+document.getElementById('loginForm').addEventListener('submit', e => {
+  e.preventDefault();
+  const u = document.getElementById('userId').value.trim();
+  const p = document.getElementById('password').value;
+  const err = document.getElementById('loginError');
+  if (u === 'hellodemo' && p === 'demo1') {
+    document.getElementById('loginScreen').style.display = 'none';
+    document.getElementById('app').classList.add('active');
+    renderAll();
+  } else {
+    err.style.display = 'block';
+    err.textContent = u === '' || p === '' ? 'Please enter both User ID and password.' : 'Invalid User ID or password. Please try again.';
+  }
+});
+
+/* ------- NAVIGATION ------- */
+const titles = {
+  'dashboard':'Dashboard','punch-order':'Punch New Order','orders':'Order History',
+  'products':'Products & Stock','customers':'Customers','sales':'Sales Analytics',
+  'reports':'Reports','settings':'Settings'
+};
+function navigate(page){
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.toggle('active', n.dataset.page===page));
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  const tgt = document.getElementById('page-'+page);
+  if(tgt){ tgt.classList.add('active'); }
+  document.getElementById('crumb').textContent = titles[page] || 'Dashboard';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+document.querySelectorAll('.nav-item[data-page]').forEach(n=>{
+  n.addEventListener('click',()=>navigate(n.dataset.page));
+});
+
+/* ------- USER DROPDOWN ------- */
+const chip = document.getElementById('userChip');
+const menu = document.getElementById('userMenu');
+chip.addEventListener('click', e=>{e.stopPropagation();menu.classList.toggle('open')});
+document.addEventListener('click', ()=>menu.classList.remove('open'));
+document.getElementById('logoutBtn').addEventListener('click', ()=>{
+  document.getElementById('app').classList.remove('active');
+  document.getElementById('loginScreen').style.display = 'grid';
+  document.getElementById('password').value = '';
+  document.getElementById('loginError').style.display = 'none';
+  menu.classList.remove('open');
+});
+
+/* ------- STATUS BADGE ------- */
+function statusBadge(s){
+  const m = {'Completed':'b-success','Pending':'b-warning','Cancelled':'b-neutral','Refunded':'b-danger'};
+  return `<span class="badge ${m[s]||'b-neutral'}"><span class="dot"></span>${s}</span>`;
+}
+function initials(n){
+  return n.split(/\s+/).slice(0,2).map(w=>w[0]||'').join('').toUpperCase();
+}
+function colorFor(n){
+  let h=0; for(let i=0;i<n.length;i++) h = (h*31+n.charCodeAt(i))|0;
+  return COLORS[Math.abs(h)%COLORS.length];
+}
+function fmt(n){
+  return '₹ '+n.toLocaleString('en-IN',{minimumFractionDigits:0,maximumFractionDigits:0});
+}
+
+/* ------- RENDER: Dashboard recent orders ------- */
+function renderDashOrders(){
+  const body = document.getElementById('dashOrdersBody');
+  body.innerHTML = ORDERS.slice(0,6).map(o=>`
+    <tr>
+      <td class="mono" style="font-size:12px">${o.no}</td>
+      <td><div class="customer-cell"><div class="customer-avatar" style="background:${colorFor(o.cust)}">${initials(o.cust)}</div><div class="cell-tight">${o.cust}<span class="s">${o.type} · ${o.date.split(',')[0]}</span></div></div></td>
+      <td>${o.items}</td>
+      <td class="mono"><strong>${fmt(o.amount)}</strong></td>
+      <td>${statusBadge(o.status)}</td>
+    </tr>
+  `).join('');
+}
+
+/* ------- RENDER: Orders page ------- */
+function renderOrders(){
+  const body = document.getElementById('ordersBody');
+  body.innerHTML = ORDERS.map(o=>`
+    <tr style="cursor:pointer">
+      <td class="mono" style="font-size:12px;font-weight:600;color:var(--primary)">${o.no}</td>
+      <td class="nowrap" style="font-size:12px;color:var(--text-muted)">${o.date}</td>
+      <td><div class="customer-cell"><div class="customer-avatar" style="background:${colorFor(o.cust)}">${initials(o.cust)}</div><div class="cell-tight">${o.cust}<span class="s">${o.type}</span></div></div></td>
+      <td>${o.items}</td>
+      <td class="right mono"><strong>${fmt(o.amount)}</strong></td>
+      <td><span class="badge b-neutral">${o.pay}</span></td>
+      <td>${o.sp}</td>
+      <td>${statusBadge(o.status)}</td>
+      <td class="right"><button class="btn btn-ghost btn-sm">⋯</button></td>
+    </tr>
+  `).join('');
+}
+
+/* ------- RENDER: Products ------- */
+function renderProducts(){
+  const body = document.getElementById('productsBody');
+  body.innerHTML = PRODUCTS.map(p=>{
+    const pct = p.level==='out' ? 0 : p.level==='low' ? 15 : Math.min(95, 30+p.stock);
+    const cls = p.level==='out' ? 'sf-out' : p.level==='low' ? 'sf-low' : 'sf-ok';
+    const badge = p.level==='out' ? '<span class="badge b-danger"><span class="dot"></span>Out</span>'
+                 : p.level==='low' ? '<span class="badge b-warning"><span class="dot"></span>Low</span>'
+                 : '<span class="badge b-success"><span class="dot"></span>In stock</span>';
+    return `<tr>
+      <td class="mono" style="font-size:12px;font-weight:600">${p.sku}</td>
+      <td><strong>${p.name}</strong></td>
+      <td><span class="badge b-neutral">${p.brand}</span></td>
+      <td style="font-size:12px;color:var(--text-muted)">${p.sz}</td>
+      <td class="right mono"><strong>${p.stock}</strong></td>
+      <td><div class="hstack"><div class="stock-bar"><div class="fill ${cls}" style="width:${pct}%"></div></div>${badge}</div></td>
+      <td class="right mono">${fmt(p.mrp)}</td>
+      <td class="right mono">${p.sold}</td>
+    </tr>`;
+  }).join('');
+}
+
+/* ------- RENDER: Customers ------- */
+function renderCustomers(){
+  const body = document.getElementById('customersBody');
+  body.innerHTML = CUSTOMERS.map(c=>`
+    <tr>
+      <td>
+        <div class="customer-cell">
+          <div class="customer-avatar" style="background:${colorFor(c.name)}">${initials(c.name)}</div>
+          <div class="cell-tight">
+            <strong>${c.name}</strong>${c.vip?' <span class="badge b-warning" style="font-size:9px;padding:1px 5px">VIP</span>':''}
+            <span class="s">${c.type==='B2B'?'Wholesale · GSTIN verified':'Walk-in customer'}</span>
+          </div>
+        </div>
+      </td>
+      <td><span class="badge ${c.type==='B2B'?'b-primary':'b-neutral'}">${c.type}</span></td>
+      <td class="mono" style="font-size:12px">+91 ${c.phone}</td>
+      <td>${c.city}</td>
+      <td class="right mono"><strong>${c.orders}</strong></td>
+      <td class="right mono"><strong>${fmt(c.ltv)}</strong></td>
+      <td class="right mono" style="color:${c.outst>0?'var(--danger)':'var(--text-muted)'}">${c.outst>0?fmt(c.outst):'—'}</td>
+      <td>${c.status==='Active'?'<span class="badge b-success"><span class="dot"></span>Active</span>':'<span class="badge b-neutral"><span class="dot"></span>Inactive</span>'}</td>
+    </tr>
+  `).join('');
+}
+
+/* ------- PUNCH ORDER LOGIC ------- */
+let orderItems = [];
+
+function quickCode(c){
+  document.getElementById('itemCode').value = c;
+  lookupCode();
+  document.getElementById('itemQty').focus();
+}
+
+function lookupCode(){
+  const code = document.getElementById('itemCode').value.trim().toUpperCase();
+  const item = CATALOG[code];
+  if (item) {
+    document.getElementById('itemName').value = item.name;
+    document.getElementById('itemRate').value = item.rate;
+  } else if (code) {
+    document.getElementById('itemName').value = 'Not found — try MVR-SHR-0421';
+    document.getElementById('itemRate').value = '';
+  } else {
+    document.getElementById('itemName').value = '';
+    document.getElementById('itemRate').value = '';
+  }
+}
+document.getElementById('itemCode').addEventListener('input', lookupCode);
+document.getElementById('itemCode').addEventListener('keydown', e=>{
+  if(e.key==='Enter'){ e.preventDefault(); addItem(); }
+});
+
+function addItem(){
+  const code = document.getElementById('itemCode').value.trim().toUpperCase();
+  const item = CATALOG[code];
+  if (!item) { showToast('⚠ Item code not found','#FEE2E2','#DC2626'); return; }
+  const qty  = parseInt(document.getElementById('itemQty').value) || 1;
+  const disc = parseFloat(document.getElementById('itemDisc').value) || 0;
+
+  orderItems.push({code, name:item.name, qty, rate:item.rate, disc, gst:item.gst});
+  renderOrderItems();
+
+  document.getElementById('itemCode').value = '';
+  document.getElementById('itemName').value = '';
+  document.getElementById('itemRate').value = '';
+  document.getElementById('itemQty').value = 1;
+  document.getElementById('itemDisc').value = 0;
+  document.getElementById('itemCode').focus();
+  showToast('✓ '+item.name.split(' - ')[0]+' added');
+}
+document.getElementById('addItemBtn').addEventListener('click', addItem);
+
+function renderOrderItems(){
+  const body = document.getElementById('orderItemsBody');
+  if (orderItems.length === 0) {
+    body.innerHTML = '<tr><td colspan="9" class="order-items-empty">No items yet — enter an item code above to start.</td></tr>';
+    updateTotals();
+    return;
+  }
+  body.innerHTML = orderItems.map((it,i)=>{
+    const gross = it.qty * it.rate;
+    const discAmt = gross * (it.disc/100);
+    const taxable = gross - discAmt;
+    const gstAmt = taxable * (it.gst/100);
+    const total = taxable + gstAmt;
+    return `<tr>
+      <td class="mono muted">${i+1}</td>
+      <td class="mono" style="font-size:12px;font-weight:600;color:var(--primary)">${it.code}</td>
+      <td><strong>${it.name}</strong></td>
+      <td class="right mono">${it.qty}</td>
+      <td class="right mono">${fmt(it.rate)}</td>
+      <td class="right mono">${it.disc}%</td>
+      <td class="right mono">${it.gst}%</td>
+      <td class="right mono"><strong>${fmt(total)}</strong></td>
+      <td class="right"><button class="btn btn-ghost btn-sm" onclick="removeItem(${i})">✕</button></td>
+    </tr>`;
+  }).join('');
+  updateTotals();
+}
+
+function removeItem(i){ orderItems.splice(i,1); renderOrderItems(); }
+window.removeItem = removeItem;
+window.quickCode = quickCode;
+
+function updateTotals(){
+  let sub=0, disc=0, tax=0;
+  orderItems.forEach(it=>{
+    const gross = it.qty * it.rate;
+    const d = gross * (it.disc/100);
+    const t = (gross-d) * (it.gst/100);
+    sub += gross; disc += d; tax += t;
+  });
+  const cgst = tax/2, sgst = tax/2;
+  const grand = sub - disc + tax;
+  document.getElementById('sumSubtotal').textContent = fmt(sub);
+  document.getElementById('sumDiscount').textContent = '− '+fmt(disc);
+  document.getElementById('sumCgst').textContent = fmt(cgst);
+  document.getElementById('sumSgst').textContent = fmt(sgst);
+  document.getElementById('sumGrand').textContent = fmt(grand);
+}
+
+document.getElementById('submitOrderBtn').addEventListener('click',()=>{
+  if(orderItems.length===0){ showToast('⚠ Add items first'); return; }
+  showToast('✓ Order saved · Invoice printed');
+  orderItems = [];
+  renderOrderItems();
+});
+
+/* ------- TOAST ------- */
+let toastTimer;
+function showToast(msg){
+  const t = document.getElementById('toast');
+  document.getElementById('toastMsg').textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(()=>t.classList.remove('show'), 2400);
+}
+
+/* ------- INITIAL RENDER ------- */
+function renderAll(){
+  renderDashOrders();
+  renderOrders();
+  renderProducts();
+  renderCustomers();
+  renderOrderItems();
+}
+
+/* ------- F2 SHORTCUT ------- */
+document.addEventListener('keydown', e=>{
+  if(e.key==='F2'){ e.preventDefault(); if(document.getElementById('app').classList.contains('active')) navigate('punch-order'); }
+});
+</script>
+</body>
+</html>
