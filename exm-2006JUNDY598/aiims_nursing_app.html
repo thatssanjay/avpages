@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AIIMS Nursing Entrance - सफलता ऐप</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+  :root {
+    --primary: #6C3FC5;
+    --primary-light: #8B5CF6;
+    --secondary: #F97316;
+    --success: #10B981;
+    --danger: #EF4444;
+    --card-shadow: 0 4px 20px rgba(108,63,197,0.12);
+    --bg: #F3F0FF;
+  }
+  body { background: var(--bg); font-family: 'Segoe UI', sans-serif; min-height: 100vh; }
+  .page { display: none; }
+  .page.active { display: block; }
+
+  /* HOME */
+  .home-hero {
+    background: linear-gradient(135deg, #6C3FC5 0%, #A855F7 100%);
+    color: white; padding: 50px 20px 40px; text-align: center;
+  }
+  .home-hero h1 { font-size: 1.8rem; font-weight: 700; }
+  .home-hero p { opacity: 0.9; margin-bottom: 0; }
+  .menu-card {
+    border: none; border-radius: 18px; cursor: pointer;
+    box-shadow: var(--card-shadow); transition: transform .2s, box-shadow .2s;
+    color: white; padding: 30px 20px; text-align: center;
+  }
+  .menu-card:hover { transform: translateY(-4px); box-shadow: 0 8px 30px rgba(108,63,197,.22); }
+  .menu-card .icon { font-size: 2.8rem; margin-bottom: 12px; }
+  .menu-card h3 { font-weight: 700; margin-bottom: 4px; }
+  .menu-card p { font-size: .9rem; opacity: .88; margin: 0; }
+  .card-learn { background: linear-gradient(135deg, #6C3FC5, #A855F7); }
+  .card-qbank { background: linear-gradient(135deg, #F97316, #FBBF24); }
+  .card-test  { background: linear-gradient(135deg, #10B981, #34D399); }
+
+  /* NAVBAR */
+  .app-nav {
+    background: white; box-shadow: 0 2px 10px rgba(0,0,0,.08);
+    padding: 12px 16px; display: flex; align-items: center; gap: 12px; position: sticky; top: 0; z-index: 100;
+  }
+  .btn-home { background: var(--primary); color: white; border: none; border-radius: 8px; padding: 6px 14px; font-size: .85rem; }
+  .btn-home:hover { background: var(--primary-light); color: white; }
+  .nav-title { font-weight: 700; color: var(--primary); font-size: 1rem; }
+
+  /* LEARNING */
+  .topic-btn {
+    display: flex; align-items: center; gap: 12px; padding: 16px 20px;
+    background: white; border: 2px solid transparent; border-radius: 14px;
+    cursor: pointer; transition: all .2s; box-shadow: 0 2px 8px rgba(0,0,0,.06);
+    text-align: left; width: 100%; margin-bottom: 10px;
+  }
+  .topic-btn:hover, .topic-btn.active { border-color: var(--primary); background: #F5F0FF; }
+  .topic-icon { width: 42px; height: 42px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; flex-shrink: 0; }
+  .topic-btn h6 { margin: 0; font-weight: 700; color: #1F2937; }
+  .topic-btn small { color: #6B7280; }
+
+  /* CONTENT CARD */
+  .content-card {
+    background: white; border-radius: 18px; box-shadow: var(--card-shadow);
+    padding: 28px; min-height: 240px; position: relative;
+  }
+  .content-card .note-text { font-size: 1.05rem; line-height: 1.8; color: #1F2937; }
+  .content-card .note-label {
+    font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;
+    color: var(--primary); background: #F5F0FF; padding: 4px 10px; border-radius: 20px;
+    display: inline-block; margin-bottom: 14px;
+  }
+  .card-counter { position: absolute; top: 18px; right: 20px; font-size: .8rem; color: #9CA3AF; }
+  .nav-btns { display: flex; gap: 10px; justify-content: space-between; margin-top: 18px; }
+  .btn-nav { border-radius: 10px; padding: 10px 20px; font-weight: 600; }
+  .btn-prev { background: #F3F0FF; color: var(--primary); border: 2px solid var(--primary); }
+  .btn-next { background: var(--primary); color: white; border: 2px solid var(--primary); }
+  .btn-prev:hover { background: var(--primary); color: white; }
+  .btn-next:hover { background: var(--primary-light); color: white; }
+  .progress-bar-custom { height: 6px; background: #E5E7EB; border-radius: 10px; overflow: hidden; margin-bottom: 14px; }
+  .progress-fill { height: 100%; background: linear-gradient(90deg, var(--primary), var(--primary-light)); transition: width .3s; }
+
+  /* QUESTION BANK */
+  .qb-card {
+    background: white; border-radius: 18px; box-shadow: var(--card-shadow); padding: 28px;
+  }
+  .qb-question { font-size: 1.1rem; font-weight: 700; color: #1F2937; margin-bottom: 16px; }
+  .qb-answer { background: #F0FDF4; border-left: 4px solid var(--success); border-radius: 10px; padding: 16px; color: #065F46; font-size: 1rem; line-height: 1.7; }
+
+  /* TEST */
+  .test-header { background: white; border-radius: 14px; padding: 16px 20px; box-shadow: var(--card-shadow); margin-bottom: 16px; }
+  .score-badge { display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: 20px; font-weight: 700; font-size: .9rem; }
+  .badge-correct { background: #D1FAE5; color: #065F46; }
+  .badge-wrong   { background: #FEE2E2; color: #991B1B; }
+  .badge-total   { background: #EDE9FE; color: #5B21B6; }
+  .test-q-card { background: white; border-radius: 18px; box-shadow: var(--card-shadow); padding: 28px; }
+  .test-question { font-size: 1.15rem; font-weight: 700; color: #1F2937; margin-bottom: 22px; }
+  .option-btn {
+    display: block; width: 100%; text-align: left; border: 2px solid #E5E7EB;
+    border-radius: 12px; padding: 14px 18px; margin-bottom: 10px; background: white;
+    cursor: pointer; font-size: .95rem; transition: all .18s; color: #1F2937; font-weight: 500;
+  }
+  .option-btn:hover:not(:disabled) { border-color: var(--primary); background: #F5F0FF; }
+  .option-btn.correct { border-color: var(--success); background: #D1FAE5; color: #065F46; }
+  .option-btn.wrong   { border-color: var(--danger);  background: #FEE2E2; color: #991B1B; }
+  .option-btn.reveal  { border-color: var(--success); background: #D1FAE5; color: #065F46; }
+  .option-btn:disabled { cursor: default; }
+  .result-box { border-radius: 12px; padding: 16px; margin-top: 14px; }
+  .result-box.correct { background: #D1FAE5; border: 1px solid #6EE7B7; }
+  .result-box.wrong   { background: #FEE2E2; border: 1px solid #FCA5A5; }
+  .result-box h6 { margin-bottom: 6px; }
+  .result-box p  { margin: 0; font-size: .93rem; line-height: 1.6; }
+
+  /* SUMMARY */
+  .summary-card { background: white; border-radius: 20px; box-shadow: var(--card-shadow); padding: 36px; text-align: center; }
+  .summary-score { font-size: 3.5rem; font-weight: 900; }
+  .pass { color: var(--success); }
+  .fail { color: var(--danger); }
+  .stat-box { background: #F9FAFB; border-radius: 14px; padding: 20px; text-align: center; }
+  .stat-num { font-size: 2rem; font-weight: 800; }
+
+  /* TOPIC SECTION LIST */
+  .section-list { list-style: none; padding: 0; margin: 0; }
+  .section-list li { margin-bottom: 8px; }
+
+  @media (max-width: 576px) {
+    .home-hero h1 { font-size: 1.4rem; }
+    .menu-card { padding: 22px 16px; }
+    .content-card, .qb-card, .test-q-card { padding: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== HOME PAGE ===== -->
+<div id="page-home" class="page active">
+  <div class="home-hero">
+    <div style="font-size:3rem;margin-bottom:10px;">🏥</div>
+    <h1>AIIMS Nursing Entrance</h1>
+    <p class="mb-1">सफलता ऐप — आसान Hindi में पढ़ाई</p>
+    <small style="opacity:.75;">200 MCQ · 100 Theory · Notes · Test</small>
+  </div>
+  <div class="container py-4">
+    <div class="row g-3">
+      <div class="col-12">
+        <div class="menu-card card-learn" onclick="showPage('learn')">
+          <div class="icon">📚</div>
+          <h3>पढ़ाई (Learning)</h3>
+          <p>Chemistry, Physics, GK, Nursing Notes — topic wise</p>
+        </div>
+      </div>
+      <div class="col-12">
+        <div class="menu-card card-qbank" onclick="showPage('qbank')">
+          <div class="icon">📝</div>
+          <h3>Question Bank</h3>
+          <p>100 Theory Questions — एक-एक card में</p>
+        </div>
+      </div>
+      <div class="col-12">
+        <div class="menu-card card-test" onclick="showPage('test')">
+          <div class="icon">🎯</div>
+          <h3>Test / परीक्षा</h3>
+          <p>200 MCQ Exam — score, pass/fail result</p>
+        </div>
+      </div>
+    </div>
+    <p class="text-center text-muted mt-4" style="font-size:.8rem;">Physics · Chemistry · Biology · GK · Nursing Aptitude</p>
+  </div>
+</div>
+
+<!-- ===== LEARNING PAGE ===== -->
+<div id="page-learn" class="page">
+  <div class="app-nav">
+    <button class="btn btn-home btn-sm" onclick="showPage('home')"><i class="fa fa-home"></i> Home</button>
+    <span class="nav-title">📚 Learning Notes</span>
+  </div>
+  <div class="container py-3">
+    <div id="learn-topics">
+      <h5 class="fw-bold mb-3" style="color:var(--primary)">Topic चुनें:</h5>
+    </div>
+    <div id="learn-content" style="display:none">
+      <div class="d-flex align-items-center gap-2 mb-3">
+        <button class="btn btn-sm btn-home" onclick="backToTopics()"><i class="fa fa-arrow-left"></i> Topics</button>
+        <span id="learn-topic-title" class="fw-bold" style="color:var(--primary)"></span>
+      </div>
+      <div class="progress-bar-custom"><div class="progress-fill" id="learn-progress" style="width:0%"></div></div>
+      <div class="content-card">
+        <span class="card-counter" id="learn-counter"></span>
+        <div class="note-label" id="learn-label"></div>
+        <div class="note-text" id="learn-text"></div>
+      </div>
+      <div class="nav-btns">
+        <button class="btn btn-nav btn-prev" onclick="learnNav(-1)"><i class="fa fa-chevron-left"></i> पिछला</button>
+        <button class="btn btn-nav btn-next" onclick="learnNav(1)">अगला <i class="fa fa-chevron-right"></i></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== QUESTION BANK PAGE ===== -->
+<div id="page-qbank" class="page">
+  <div class="app-nav">
+    <button class="btn btn-home btn-sm" onclick="showPage('home')"><i class="fa fa-home"></i> Home</button>
+    <span class="nav-title">📝 Question Bank</span>
+  </div>
+  <div class="container py-3">
+    <div class="progress-bar-custom"><div class="progress-fill" id="qb-progress" style="width:0%"></div></div>
+    <div class="qb-card">
+      <span class="card-counter" id="qb-counter"></span>
+      <div class="note-label mb-2">Theory Question</div>
+      <div class="qb-question" id="qb-question"></div>
+      <div class="qb-answer" id="qb-answer"></div>
+    </div>
+    <div class="nav-btns mt-3">
+      <button class="btn btn-nav btn-prev" onclick="qbNav(-1)"><i class="fa fa-chevron-left"></i> पिछला</button>
+      <button class="btn btn-nav btn-next" onclick="qbNav(1)">अगला <i class="fa fa-chevron-right"></i></button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== TEST PAGE ===== -->
+<div id="page-test" class="page">
+  <div class="app-nav">
+    <button class="btn btn-home btn-sm" onclick="showPage('home')"><i class="fa fa-home"></i> Home</button>
+    <span class="nav-title">🎯 Test / परीक्षा</span>
+  </div>
+  <div class="container py-3" id="test-area">
+    <!-- score header -->
+    <div class="test-header d-flex flex-wrap gap-2 align-items-center justify-content-between">
+      <div class="d-flex gap-2 flex-wrap">
+        <span class="score-badge badge-correct"><i class="fa fa-check-circle"></i> सही: <span id="t-correct">0</span></span>
+        <span class="score-badge badge-wrong"><i class="fa fa-times-circle"></i> गलत: <span id="t-wrong">0</span></span>
+        <span class="score-badge badge-total"><i class="fa fa-list"></i> Total: <span id="t-total">0</span>/<span id="t-max">0</span></span>
+      </div>
+      <span style="font-size:.85rem;color:#6B7280" id="t-qnum"></span>
+    </div>
+
+    <div class="progress-bar-custom"><div class="progress-fill" id="test-progress" style="width:0%"></div></div>
+
+    <div id="test-question-area">
+      <div class="test-q-card">
+        <div class="test-question" id="t-question"></div>
+        <div id="t-options"></div>
+        <div id="t-result" style="display:none"></div>
+      </div>
+      <div class="nav-btns mt-3">
+        <button class="btn btn-nav btn-prev" onclick="testNav(-1)" id="btn-t-prev"><i class="fa fa-chevron-left"></i> पिछला</button>
+        <button class="btn btn-nav btn-next" onclick="testNav(1)" id="btn-t-next">अगला <i class="fa fa-chevron-right"></i></button>
+      </div>
+    </div>
+
+    <div id="test-summary" style="display:none">
+      <div class="summary-card">
+        <div style="font-size:3rem;margin-bottom:8px;">🏆</div>
+        <h3 class="fw-bold">परीक्षा समाप्त!</h3>
+        <div class="summary-score" id="sum-pct"></div>
+        <div id="sum-result" class="fw-bold mb-4" style="font-size:1.3rem;"></div>
+        <div class="row g-3 mb-4">
+          <div class="col-4"><div class="stat-box"><div class="stat-num text-success" id="sum-c"></div><div class="text-muted" style="font-size:.8rem;">सही</div></div></div>
+          <div class="col-4"><div class="stat-box"><div class="stat-num text-danger" id="sum-w"></div><div class="text-muted" style="font-size:.8rem;">गलत</div></div></div>
+          <div class="col-4"><div class="stat-box"><div class="stat-num" style="color:var(--primary)" id="sum-total"></div><div class="text-muted" style="font-size:.8rem;">कुल</div></div></div>
+        </div>
+        <button class="btn btn-next btn-nav w-100 mb-2" onclick="restartTest()">🔄 फिर से Test करें</button>
+        <button class="btn btn-prev btn-nav w-100" onclick="showPage('home')"><i class="fa fa-home"></i> Home</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ======================== DATA ========================
+
+const TOPICS = [
+  { id:'chem11', label:'11th Chemistry', icon:'⚗️', color:'#6C3FC5', notes:[
+    'Atom यानी एटम matter की smallest unit है जो chemical reaction में भाग लेता है।',
+    'Mole concept: 1 mole में 6.022 × 10²³ particles होते हैं। इसे Avogadro number कहते हैं।',
+    'Periodic table में elements atomic number के order में रखे जाते हैं। Periods = horizontal rows, Groups = vertical columns।',
+    'Chemical bond atoms को जोड़ता है। Ionic bond electron transfer से और Covalent bond sharing से बनता है।',
+    'Ionic bond: जब metal अपना electron non-metal को देता है तब ionic bond बनता है, जैसे NaCl (Sodium Chloride)।',
+    'Covalent bond: दो non-metals जब electrons share करते हैं, जैसे H₂O में oxygen और hydrogen।',
+    'Thermodynamics heat, work और energy change का study है। Exothermic reaction में heat release होती है, Endothermic में absorb।',
+    'Equilibrium में forward और backward reaction की rate equal हो जाती है। Le Chatelier principle: condition change → equilibrium shift।',
+    'Redox reaction में oxidation और reduction दोनों साथ होते हैं। Oxidation = electron loss, Reduction = electron gain।',
+    'Organic chemistry carbon compounds का study है। GOC में inductive effect, resonance और acidity/basicity important हैं।',
+    'Alkane = single bond (C-C), Alkene = double bond (C=C), Alkyne = triple bond (C≡C)।',
+    'pH scale: pH < 7 = Acid, pH = 7 = Neutral, pH > 7 = Base। Acid blue litmus red करता है, Base red litmus blue करता है।',
+    'Buffer solution: pH को almost constant रखता है। Small acid/base add करने पर pH नहीं बदलता।'
+  ]},
+  { id:'chem12', label:'12th Chemistry', icon:'🧪', color:'#A855F7', notes:[
+    'Solution दो या अधिक substances का homogeneous mixture है। Solute + Solvent = Solution।',
+    'Colligative properties: Boiling point elevation, Freezing point depression, Osmotic pressure — ये solute की concentration पर depend करती हैं।',
+    'Electrochemistry में chemical energy और electrical energy का relation study होता है। Electrolytic cell = external current से reaction।',
+    'Galvanic cell (Voltaic cell): chemical energy को electrical energy में convert करता है। Anode पर oxidation, Cathode पर reduction।',
+    'Chemical kinetics: reaction की speed यानी rate बताती है। Rate = k[A]ⁿ[B]ᵐ।',
+    'D और F block elements: D block = Transition elements (Fe, Cu, Zn), F block = Inner transition elements (Lanthanide, Actinide)।',
+    'Surface chemistry में adsorption (surface पर particles जमा), colloid और catalyst का study होता है।',
+    'Coordination compounds: central metal ion और ligands से बने होते हैं। Ligand electron pair donate करता है।',
+    'Amines nitrogen containing organic compounds हैं। Primary, Secondary, Tertiary amines होती हैं।',
+    'Biomolecules: Carbohydrate (energy), Protein (amino acids से बना, body building), Lipid (stored energy), Vitamin (immunity), Nucleic acid (DNA/RNA)।',
+    'Polymer: Repeated monomer units का large molecule। Nylon, Polyester = Synthetic polymers। Natural polymers: Rubber, Silk।',
+    'Saponification: Fat + Alkali → Soap + Glycerol। यही soap बनने की process है।'
+  ]},
+  { id:'phy11', label:'11th Physics', icon:'⚡', color:'#F97316', notes:[
+    'Physics natural laws का study है। SI units बहुत जरूरी हैं: Length=meter, Mass=kg, Time=second, Current=Ampere।',
+    'Scalar quantity: केवल magnitude, जैसे mass, speed, temperature। Vector quantity: magnitude + direction, जैसे velocity, force।',
+    'Kinematics (motion without force): v = u + at, s = ut + ½at², v² = u² + 2as।',
+    'Newton का First Law (Inertia): जब तक external force न लगे, body अपनी state नहीं बदलती।',
+    'Newton का Second Law: F = ma (Force = mass × acceleration)। यह सबसे important formula है।',
+    'Newton का Third Law: हर action का equal और opposite reaction होता है।',
+    'Work = Force × displacement (same direction में)। Work की unit = Joule। Work = 0 जब displacement = 0।',
+    'Kinetic Energy (KE) = ½mv². Potential Energy (PE) = mgh। Energy conservation: Total energy always conserved।',
+    'Power = Work/Time। Power की unit = Watt।',
+    'Gravitation: हर mass दूसरे mass को attract करता है। g = 9.8 m/s² (Earth surface)।',
+    'Thermodynamics: Heat, Temperature और energy। 0°C = 273 K। Temperature की SI unit = Kelvin।',
+    'Waves: energy transfer करती हैं। Sound wave = Longitudinal। Light wave = Transverse/Electromagnetic। Wave speed v = fλ।'
+  ]},
+  { id:'phy12', label:'12th Physics', icon:'🔋', color:'#EF4444', notes:[
+    'Electric charge दो type: Positive और Negative। Like charges repel, Unlike charges attract।',
+    'Coulomb Law: F = kq₁q₂/r²। Electric force charges के product के proportional और distance² के inverse proportional।',
+    'Electric Current: I = Q/t (Charge/time)। Unit = Ampere। Current की direction = positive charge flow।',
+    'Ohm Law: V = IR (Voltage = Current × Resistance)। Resistance की unit = Ohm (Ω)।',
+    'Electric Power: P = VI = I²R = V²/R। Power की unit = Watt।',
+    'Capacitor: Electric charge और energy store करता है। Parallel plates के बीच electric field बनता है।',
+    'Magnetism: Moving charge से magnetic field बनती है। Magnetic field की SI unit = Tesla।',
+    'Electromagnetic Induction (Faraday): Changing magnetic field से EMF/current induce होती है।',
+    'Alternating Current (AC): direction और value समय के साथ बदलता है। Transformer AC पर काम करता है।',
+    'Ray Optics: Reflection में angle of incidence = angle of reflection। Concave lens = diverging, Convex lens = converging।',
+    'Radioactivity: Alpha particle = Helium nucleus (²⁴He), Beta particle = Electron/Positron, Gamma = High energy electromagnetic radiation।',
+    'Semiconductor: Conductivity conductor और insulator के बीच, जैसे Silicon। Diode one direction में current flow करने देता है। LED = Light Emitting Diode।'
+  ]},
+  { id:'gk', label:'General Knowledge', icon:'🌍', color:'#10B981', notes:[
+    'Indian Constitution: भारत का supreme law है। Preamble में Justice, Liberty, Equality और Fraternity की भावना है।',
+    'Fundamental Rights: नागरिकों को freedom और equality देते हैं। Right to Equality, Right to Freedom, Right against Exploitation, Right to Education (6-14 years) important हैं।',
+    'Parliament: Lok Sabha (Lower House) + Rajya Sabha (Upper House) + President। Lok Sabha में 543 elected seats हैं।',
+    'Indian Geography: भारत की longest river = Ganga। Highest peak = Kangchenjunga (India में)। States = 28, UTs = 8।',
+    'Indian Economy: GDP = Gross Domestic Product = देश में goods/services की total value। RBI = Reserve Bank of India = Central Bank।',
+    'Inflation: General prices बढ़ना inflation है। RBI interest rates control करके inflation manage करता है।',
+    'Environment: Greenhouse effect = CO₂, CH₄ gases heat trap करती हैं → Earth गर्म होती है। Ozone layer UV rays से बचाती है।',
+    'Important Days: World Health Day = 7 April, World Environment Day = 5 June, Independence Day = 15 August, Republic Day = 26 January।',
+    'National Symbols: Flag में Ashoka Chakra = 24 spokes। National Anthem = Jana Gana Mana। National Song = Vande Mataram।',
+    'International Organizations: UNO = United Nations Organization, WHO = World Health Organization (health), UNICEF = Children welfare।',
+    'Current Affairs (Revise करें): Health schemes, Science awards, Sports results, Government schemes, Important appointments।',
+    'Tax, Budget: Tax से roads, health, education जैसी services चलती हैं। Union Budget Finance Minister present करता है।'
+  ]},
+  { id:'nursing', label:'Nursing Aptitude & Health', icon:'💉', color:'#0EA5E9', notes:[
+    'Nursing में compassion (दया), patience (धैर्य) और clear communication बहुत जरूरी हैं।',
+    'Hand hygiene: Infection control का सबसे basic और powerful step है। WHO के 5 moments of hand hygiene follow करें।',
+    'Vital Signs: Temperature (37°C normal), Pulse (60-100/min normal adult), Respiration (12-20/min normal), Blood Pressure (120/80 mmHg normal adult)।',
+    'Patient Safety: 5 Rights of Medication — Correct Patient, Correct Medicine, Correct Dose, Correct Route, Correct Time।',
+    'First Aid का goal: 1) Life बचाना, 2) Condition worse होने से रोकना, 3) Recovery में help करना।',
+    'CPR (Cardiopulmonary Resuscitation): Cardiac arrest में lifesaving technique। 30 chest compressions + 2 rescue breaths। Proper training जरूरी।',
+    'Asepsis: Infection risk कम करने की technique। Aseptic technique में sterile instruments और clean environment use होते हैं।',
+    'Isolation: Infection spread रोकने में help करता है। Infectious patients को isolate किया जाता है।',
+    'Blood Pressure: Artery में blood का pressure। Hypertension = >140/90 mmHg। Hypotension = <90/60 mmHg।',
+    'Dehydration में water और electrolytes की कमी हो जाती है। ORS (Oral Rehydration Solution) पहली treatment है।',
+    'Nursing Records: Record से next shift staff को correct information मिलती है। Documentation बहुत important है।',
+    'Empathy: Patient की feelings समझना और care करना। Nurse को हमेशा patient को respect करनी चाहिए।'
+  ]},
+  { id:'formula', label:'Formula & Quick Facts', icon:'📊', color:'#6366F1', notes:[
+    'Physics Formulas: Speed = distance/time (m/s), Acceleration a = (v-u)/t, Force F = ma, Work W = F×s, Power P = W/t, Ohm Law V = IR।',
+    'KE = ½mv², PE = mgh, Electric Power P = VI, Current I = Q/t, Density = mass/volume, Pressure = Force/Area।',
+    'Wave speed v = fλ (frequency × wavelength), Centripetal force = mv²/r, Gravitational acceleration g = 9.8 m/s²।',
+    'Chemistry Facts: 1 mole = 6.022×10²³ particles (Avogadro number), pH < 7 = Acid, pH = 7 = Neutral, pH > 7 = Base।',
+    'Photosynthesis: CO₂ + H₂O + Sunlight → Glucose + O₂ (Chlorophyll needed, Chloroplast में होता है)।',
+    'Biology Facts: Normal BP = 120/80 mmHg, Normal Temperature = 37°C, Normal Pulse = 60-100/min, RBC lifespan = 120 days।',
+    'DNA = Deoxyribonucleic Acid (genetic information), RNA = Ribonucleic Acid (protein synthesis में help)।',
+    'Vitamin C deficiency = Scurvy, Vitamin D deficiency = Rickets, Iron deficiency = Anemia, Iodine deficiency = Goitre।',
+    'Malaria → Female Anopheles mosquito, TB → Mycobacterium tuberculosis, AIDS → HIV virus।',
+    'Heart chambers = 4 (RA, RV, LA, LV), Kidney functional unit = Nephron, Lung unit = Alveoli।',
+    'NaCl = Common salt, H₂O = Water, CO₂ = Carbon dioxide, NH₃ = Ammonia, CH₄ = Methane, C₂H₅OH = Ethanol।',
+    'SI Units: Force = Newton, Work = Joule, Power = Watt, Charge = Coulomb, Current = Ampere, Magnetic field = Tesla, Lens power = Dioptre।'
+  ]}
+];
+
+const THEORY_QS = [
+  {q:'Cell क्या है?', a:'Cell यानी सेल living body की सबसे छोटी basic unit है। हमारी body बहुत सारे cells से बनी है।'},
+  {q:'Tissue क्या है?', a:'Same type के cells का group tissue कहलाता है, जो एक काम मिलकर करता है।'},
+  {q:'Organ क्या है?', a:'Different tissues मिलकर organ बनाते हैं, जैसे heart यानी हार्ट, stomach यानी स्टमक।'},
+  {q:'Digestive system का काम क्या है?', a:'यह food को छोटे-छोटे parts में तोड़कर body को energy और nutrients देता है।'},
+  {q:'Stomach का काम क्या है?', a:'Stomach food को mix करता है और acid/enzyme से protein digestion शुरू करता है।'},
+  {q:'Small intestine क्यों important है?', a:'यह digestion complete करता है और nutrients को blood में absorb करता है।'},
+  {q:'Large intestine का काम क्या है?', a:'यह पानी absorb करता है और waste को stool के रूप में बाहर भेजता है।'},
+  {q:'RBC क्या करता है?', a:'RBC oxygen को lungs से body cells तक ले जाता है।'},
+  {q:'WBC क्या करता है?', a:'WBC body को infection से बचाने में help करता है।'},
+  {q:'Platelets क्या करते हैं?', a:'Platelets bleeding रोकने के लिए clot बनाने में help करते हैं।'},
+  {q:'Heart का काम क्या है?', a:'Heart blood को पूरी body में pump करता है।'},
+  {q:'Lungs का काम क्या है?', a:'Lungs oxygen अंदर लेते हैं और carbon dioxide बाहर निकालते हैं।'},
+  {q:'Alveoli क्या हैं?', a:'Alveoli lungs की small air sacs हैं जहाँ gas exchange होता है।'},
+  {q:'Kidney का काम क्या है?', a:'Kidney blood को filter करके urine बनाती है और waste निकालती है।'},
+  {q:'Nephron क्या है?', a:'Nephron kidney की functional unit है जो filtration करती है।'},
+  {q:'Brain का काम क्या है?', a:'Brain body का control center है; thinking, movement और senses control करता है।'},
+  {q:'Neuron क्या है?', a:'Neuron nervous system की cell है जो message भेजती है।'},
+  {q:'Hormone क्या है?', a:'Hormone chemical messenger है जो body functions control करता है।'},
+  {q:'Insulin क्या करता है?', a:'Insulin blood sugar level control करता है।'},
+  {q:'Vitamin क्या हैं?', a:'Vitamins small nutrients हैं जो growth, immunity और health के लिए जरूरी हैं।'},
+  {q:'Balanced diet क्या है?', a:'ऐसा भोजन जिसमें carbohydrate, protein, fat, vitamin, mineral और water सही मात्रा में हों।'},
+  {q:'Photosynthesis क्या है?', a:'Plants sunlight की help से CO₂ और water से glucose बनाते हैं और oxygen छोड़ते हैं।'},
+  {q:'Xylem क्या करता है?', a:'Xylem root से water और minerals को plant में ऊपर ले जाता है।'},
+  {q:'Phloem क्या करता है?', a:'Phloem leaves में बना food plant के बाकी parts तक ले जाता है।'},
+  {q:'Pollination क्या है?', a:'Pollen का anther से stigma तक transfer pollination कहलाता है।'},
+  {q:'Fertilization क्या है?', a:'Male और female gamete के मिलने से zygote बनना fertilization है।'},
+  {q:'DNA क्या है?', a:'DNA genetic information रखता है और heredity में help करता है।'},
+  {q:'Gene क्या है?', a:'Gene DNA का part है जो किसी character की information रखता है।'},
+  {q:'Mendel कौन थे?', a:'Mendel ने pea plant पर heredity के rules समझाए।'},
+  {q:'Evolution क्या है?', a:'Long time में living organisms में बदलाव आना evolution है।'},
+  {q:'Immunity क्या है?', a:'Body की disease से fight करने की capacity immunity है।'},
+  {q:'Vaccine कैसे help करती है?', a:'Vaccine immune system को disease organism पहचानना सिखाती है।'},
+  {q:'Pathogen क्या है?', a:'Disease causing organism जैसे bacteria, virus, fungus pathogen कहलाते हैं।'},
+  {q:'Ecosystem क्या है?', a:'Living organisms और environment का एक साथ interaction ecosystem है।'},
+  {q:'Food chain क्या है?', a:'Food chain बताती है कि energy एक organism से दूसरे में कैसे जाती है।'},
+  {q:'Biodiversity क्या है?', a:'Earth पर different living organisms की variety biodiversity है।'},
+  {q:'Conservation क्या है?', a:'Natural resources और living organisms को बचाना conservation है।'},
+  {q:'Atom क्या है?', a:'Atom matter की छोटी unit है जो chemical reaction में भाग लेती है।'},
+  {q:'Molecule क्या है?', a:'दो या अधिक atoms मिलकर molecule बनाते हैं।'},
+  {q:'Element क्या है?', a:'जिसमें एक ही type के atoms हों उसे element कहते हैं।'},
+  {q:'Compound क्या है?', a:'दो या अधिक elements fixed ratio में मिलकर compound बनाते हैं।'},
+  {q:'Mixture क्या है?', a:'दो या अधिक substances का physical combination mixture है।'},
+  {q:'Solution क्या है?', a:'Uniform mixture जिसमें solute solvent में dissolve हो जाता है।'},
+  {q:'Mole concept क्या है?', a:'1 mole में 6.022 × 10²³ particles होते हैं।'},
+  {q:'pH क्या बताता है?', a:'pH solution की acidic या basic nature बताता है।'},
+  {q:'Acid क्या है?', a:'Acid H⁺ ions देता है और pH 7 से कम होता है।'},
+  {q:'Base क्या है?', a:'Base OH⁻ ions देता है और pH 7 से अधिक होता है।'},
+  {q:'Neutralization क्या है?', a:'Acid और base मिलकर salt और water बनाते हैं।'},
+  {q:'Ionic bond क्या है?', a:'Electron transfer से बनने वाला bond ionic bond है।'},
+  {q:'Covalent bond क्या है?', a:'Electron sharing से बनने वाला bond covalent bond है।'},
+  {q:'Oxidation क्या है?', a:'Electron loss या oxygen gain oxidation कहलाता है।'},
+  {q:'Reduction क्या है?', a:'Electron gain या oxygen loss reduction कहलाता है।'},
+  {q:'Catalyst क्या है?', a:'Catalyst reaction rate को change करता है पर खुद consume नहीं होता।'},
+  {q:'Chemical kinetics क्या है?', a:'Reaction की speed यानी rate का study chemical kinetics है।'},
+  {q:'Electrochemistry क्या है?', a:'Chemical energy और electrical energy के relation का study electrochemistry है।'},
+  {q:'Hydrocarbon क्या है?', a:'Carbon और hydrogen से बना compound hydrocarbon है।'},
+  {q:'Alcohol का functional group क्या है?', a:'Alcohol में -OH group होता है।'},
+  {q:'Amines क्या हैं?', a:'Nitrogen containing organic compounds amines कहलाते हैं।'},
+  {q:'Protein किससे बनता है?', a:'Protein amino acids से बनता है।'},
+  {q:'Carbohydrate का main काम क्या है?', a:'Carbohydrate body को energy देता है।'},
+  {q:'Physics क्या है?', a:'Nature, matter, energy और forces के rules का study physics है।'},
+  {q:'Scalar quantity क्या है?', a:'जिसमें केवल magnitude हो, direction न हो, जैसे mass और time।'},
+  {q:'Vector quantity क्या है?', a:'जिसमें magnitude और direction दोनों हों, जैसे force और velocity।'},
+  {q:'Speed क्या है?', a:'Distance per unit time speed कहलाती है।'},
+  {q:'Velocity क्या है?', a:'Direction के साथ speed velocity कहलाती है।'},
+  {q:'Acceleration क्या है?', a:'Velocity का time के साथ change acceleration है।'},
+  {q:'Force क्या है?', a:'Force push या pull है जो motion बदल सकता है।'},
+  {q:'Newton first law क्या है?', a:'Body अपनी rest या motion state बनाए रखती है जब तक external force न लगे।'},
+  {q:'Newton second law क्या है?', a:'Force = mass × acceleration यानी F = ma।'},
+  {q:'Newton third law क्या है?', a:'Every action has equal and opposite reaction।'},
+  {q:'Work क्या है?', a:'Force से displacement होने पर work होता है।'},
+  {q:'Energy क्या है?', a:'Work करने की capacity energy है।'},
+  {q:'Power क्या है?', a:'Work करने की rate power है।'},
+  {q:'Gravitation क्या है?', a:'हर mass दूसरे mass को attract करता है, इसे gravitation कहते हैं।'},
+  {q:'Pressure क्या है?', a:'Force per unit area pressure है।'},
+  {q:'Heat क्या है?', a:'Temperature difference के कारण energy transfer heat है।'},
+  {q:'Temperature क्या है?', a:'Body कितनी hot या cold है, यह temperature बताता है।'},
+  {q:'Wave क्या है?', a:'Wave energy transfer करती है without permanent matter transfer।'},
+  {q:'Sound wave कैसी होती है?', a:'Sound longitudinal wave है और medium की जरूरत होती है।'},
+  {q:'Reflection क्या है?', a:'Light का surface से वापस लौटना reflection है।'},
+  {q:'Refraction क्या है?', a:'Medium बदलने पर light का bend होना refraction है।'},
+  {q:'Electric current क्या है?', a:'Charge का flow electric current है।'},
+  {q:'Ohm law क्या है?', a:'Constant temperature पर V = IR होता है।'},
+  {q:'Resistance क्या है?', a:'Current के flow को oppose करने वाली property resistance है।'},
+  {q:'Capacitor क्या करता है?', a:'Capacitor electric charge store करता है।'},
+  {q:'Magnetism क्या है?', a:'Magnet और moving charges से जुड़ी force/property magnetism है।'},
+  {q:'Electromagnetic induction क्या है?', a:'Changing magnetic field से emf/current बनना electromagnetic induction है।'},
+  {q:'AC क्या है?', a:'Alternating current दिशा और value समय के साथ बदलता है।'},
+  {q:'DC क्या है?', a:'Direct current एक direction में flow करता है।'},
+  {q:'Semiconductor क्या है?', a:'जिसकी conductivity conductor और insulator के बीच हो, जैसे silicon।'},
+  {q:'Diode क्या है?', a:'Diode current को mostly one direction में flow करने देता है।'},
+  {q:'Constitution क्या है?', a:'देश चलाने के basic rules और laws का document constitution है।'},
+  {q:'Democracy क्या है?', a:'Democracy में जनता अपने representatives चुनती है।'},
+  {q:'RBI क्या करता है?', a:'RBI India का central bank है और monetary system control करता है।'},
+  {q:'GDP क्या है?', a:'GDP एक समय में देश में बने goods और services की total value है।'},
+  {q:'Inflation क्या है?', a:'General prices बढ़ना inflation कहलाता है।'},
+  {q:'Environment pollution क्या है?', a:'Air, water या soil में harmful substances का बढ़ना pollution है।'},
+  {q:'Hand hygiene क्यों जरूरी है?', a:'यह germs और infection spread को रोकने का सबसे basic तरीका है।'},
+  {q:'Vital signs क्या हैं?', a:'Temperature, pulse, respiration और blood pressure vital signs हैं।'},
+  {q:'First aid क्या है?', a:'Doctor आने से पहले दी जाने वाली emergency basic help first aid है।'}
+];
+
+// ---- MCQ (200 questions, using Part A data + Part B answers) ----
+// Curated subset of 50 best questions for test (representative sample)
+const MCQ = [
+  {q:'जीवन की basic unit क्या है?', opts:['Tissue','Cell','Organ','Blood'], ans:1, exp:'Cell यानी सेल सबसे छोटी living unit है।'},
+  {q:'Mitochondria को क्या कहते हैं?', opts:['Brain of cell','Power house of cell','Kitchen of cell','Gate of cell'], ans:1, exp:'यह energy यानी ATP बनाता है।'},
+  {q:'Photosynthesis किस organelle में होता है?', opts:['Chloroplast','Ribosome','Nucleus','Lysosome'], ans:0, exp:'Chloroplast में chlorophyll होता है।'},
+  {q:'Human blood में oxygen कौन ले जाता है?', opts:['WBC','RBC','Platelet','Plasma only'], ans:1, exp:'RBC में hemoglobin होता है।'},
+  {q:'Blood clotting में कौन मदद करता है?', opts:['Platelets','Neuron','Ribosome','Bile'], ans:0, exp:'Platelets injury पर clot बनाते हैं।'},
+  {q:'Stomach में कौन सा acid होता है?', opts:['HCl','NaOH','H₂SO₄','Acetic acid'], ans:0, exp:'HCl food digestion और germs kill करने में help करता है।'},
+  {q:'Kidney की functional unit क्या है?', opts:['Neuron','Nephron','Alveoli','Villus'], ans:1, exp:'Nephron urine बनाता है।'},
+  {q:'Lung में gas exchange कहाँ होता है?', opts:['Alveoli','Trachea','Bronchus','Diaphragm'], ans:0, exp:'Alveoli thin walls से gas exchange करते हैं।'},
+  {q:'Heart में कितने chambers होते हैं?', opts:['2','3','4','5'], ans:2, exp:'Right atrium, right ventricle, left atrium, left ventricle।'},
+  {q:'DNA का full form क्या है?', opts:['Deoxy ribonucleic acid','Daily nitrogen acid','Double nutrient acid','Digital nucleic acid'], ans:0, exp:'DNA genetic information रखता है।'},
+  {q:'Mendel ने किस plant पर experiment किया?', opts:['Pea','Rice','Wheat','Mango'], ans:0, exp:'Mendel ने pea plant पर inheritance study की।'},
+  {q:'Malaria किससे फैलता है?', opts:['Housefly','Female Anopheles mosquito','Dog','Rat'], ans:1, exp:'Female Anopheles mosquito parasite फैलाती है।'},
+  {q:'AIDS किस virus से होता है?', opts:['HIV','HBV','Influenza','Dengue'], ans:0, exp:'HIV immune system को कमजोर करता है।'},
+  {q:'Vitamin C की कमी से क्या होता है?', opts:['Scurvy','Rickets','Night blindness','Goitre'], ans:0, exp:'Scurvy में gums bleeding हो सकती है।'},
+  {q:'Vitamin D की कमी से क्या होता है?', opts:['Rickets','Scurvy','AIDS','Malaria'], ans:0, exp:'Vitamin D bones के लिए जरूरी है।'},
+  {q:'Insulin hormone कहाँ से निकलता है?', opts:['Pancreas','Liver','Kidney','Lung'], ans:0, exp:'Insulin blood sugar control करता है।'},
+  {q:'Ribosome का main काम क्या है?', opts:['Protein synthesis','Urine बनाना','Oxygen लेना','Blood pump करना'], ans:0, exp:'Ribosome protein बनाता है।'},
+  {q:'1 mole में particles की संख्या कितनी होती है?', opts:['6.022 × 10²³','3.14','9.8','100'], ans:0, exp:'यह Avogadro number है।'},
+  {q:'pH 7 का meaning क्या है?', opts:['Neutral','Strong acid','Strong base','Salt only'], ans:0, exp:'Pure water का pH करीब 7 होता है।'},
+  {q:'Acid blue litmus को क्या करता है?', opts:['Red','Green','Black','No change'], ans:0, exp:'Acid blue litmus red करता है।'},
+  {q:'Ionic bond कैसे बनता है?', opts:['Electron transfer','Electron sharing','Proton loss only','Neutron sharing'], ans:0, exp:'Metal से non-metal को electron transfer होता है।'},
+  {q:'Oxidation में generally क्या होता है?', opts:['Electron loss','Electron gain','No change','Only cooling'], ans:0, exp:'Oxidation = loss of electron।'},
+  {q:'Catalyst क्या करता है?', opts:['Reaction speed बदलता है','Product बन जाता है','Atom destroy करता है','Mass zero करता है'], ans:0, exp:'Catalyst reaction rate change करता है और खुद mostly unchanged रहता है।'},
+  {q:'Alcohol का functional group क्या है?', opts:['-OH','-COOH','-NH₂','-CHO'], ans:0, exp:'Alcohol में hydroxyl group होता है।'},
+  {q:'Periodic table में elements किस order में होते हैं?', opts:['Atomic number','Color','Size only','Price'], ans:0, exp:'Modern periodic table atomic number पर based है।'},
+  {q:'Newton second law कौन सा है?', opts:['F = ma','V = IR','P = VI','E = mc'], ans:0, exp:'Force mass और acceleration पर depend करता है।'},
+  {q:'Kinetic energy का formula क्या है?', opts:['1/2 mv²','mgh','VIR','IR'], ans:0, exp:'Moving body की energy kinetic energy है।'},
+  {q:'Gravitational acceleration g लगभग कितना है?', opts:['9.8 m/s²','1 m/s²','100 m/s²','0'], ans:0, exp:'Earth surface पर g लगभग 9.8 m/s² है।'},
+  {q:'Sound wave कैसी wave है?', opts:['Longitudinal','Transverse always','Electromagnetic','No wave'], ans:0, exp:'Sound में compression और rarefaction होते हैं।'},
+  {q:'Reflection में angle of incidence किसके बराबर होता है?', opts:['Angle of reflection','Angle of refraction','90 always','0 always'], ans:0, exp:'Reflection law है।'},
+  {q:'Electric current का formula क्या है?', opts:['I = Q/t','F=ma','P=W/t','v=u+at'], ans:0, exp:'Charge flow per time current है।'},
+  {q:'Ohm law क्या है?', opts:['V = IR','F = ma','P = W/t','Q = It²'], ans:0, exp:'Voltage current के proportional है।'},
+  {q:'Electromagnetic induction किसने दिया?', opts:['Faraday','Newton','Mendel','Darwin'], ans:0, exp:'Changing magnetic field से emf induce होती है।'},
+  {q:'Alpha particle क्या है?', opts:['Helium nucleus','Electron','Photon','Neutron only'], ans:0, exp:'Alpha particle 2 proton + 2 neutron है।'},
+  {q:'Semiconductor का example क्या है?', opts:['Silicon','Wood','Plastic only','Water'], ans:0, exp:'Silicon electronic devices में use होता है।'},
+  {q:'भारत का supreme law क्या है?', opts:['Constitution','Newspaper','Textbook','Map'], ans:0, exp:'Constitution देश का सर्वोच्च कानून है।'},
+  {q:'Lok Sabha को क्या कहते हैं?', opts:['Lower House','Upper House','Court','Bank'], ans:0, exp:'Lok Sabha Parliament का lower house है।'},
+  {q:'RBI का full form क्या है?', opts:['Reserve Bank of India','Road Bank India','Rural Budget Institute','Regional Board India'], ans:0, exp:'RBI भारत का central bank है।'},
+  {q:'Greenhouse effect किससे related है?', opts:['Earth warming','Blood clot','Magnet','Lens'], ans:0, exp:'Greenhouse gases heat trap करती हैं।'},
+  {q:'World Health Day कब होता है?', opts:['7 April','1 May','14 November','10 December'], ans:0, exp:'WHO से related health awareness day।'},
+  {q:'Indian National Flag Ashoka Chakra में कितनी spokes होती हैं?', opts:['24','12','18','32'], ans:0, exp:'Ashoka Chakra में 24 spokes हैं।'},
+  {q:'Vital signs में क्या आता है?', opts:['Temperature, pulse, respiration, BP','Only temperature','Only pulse','Only BP'], ans:0, exp:'ये basic body status बताते हैं।'},
+  {q:'Hand hygiene infection control का क्या है?', opts:['सबसे basic तरीका','सबसे last step','Optional step','Doctor का काम'], ans:0, exp:'Clean hands infection spread कम करते हैं।'},
+  {q:'Normal human body temperature लगभग कितना है?', opts:['37°C','25°C','50°C','10°C'], ans:0, exp:'Adult average body temperature लगभग 37°C है।'},
+  {q:'Xylem क्या transport करता है?', opts:['Water','Food','Hormone only','Oxygen only'], ans:0, exp:'Xylem roots से water ऊपर ले जाता है।'},
+  {q:'Gene किसका unit है?', opts:['Heredity','Digestion','Respiration','Excretion'], ans:0, exp:'Gene character की inherited information देता है।'},
+  {q:'Anode पर क्या होता है?', opts:['Oxidation','Reduction','Both never','No reaction'], ans:0, exp:'Anode oxidation का place है।'},
+  {q:'Power की SI unit क्या है?', opts:['Watt','Joule','Meter','Second'], ans:0, exp:'Power = work/time, unit Watt।'},
+  {q:'Carboxylic acid का functional group क्या है?', opts:['-COOH','-OH','-NH₂','-C=C'], ans:0, exp:'Carboxyl group acid nature देता है।'},
+  {q:'TB किस bacteria से होती है?', opts:['Mycobacterium tuberculosis','E. coli','Yeast','Amoeba'], ans:0, exp:'TB mainly lungs को affect करती है।'}
+];
+
+// ======================== STATE ========================
+let learnTopicIdx = null;
+let learnNoteIdx = 0;
+let qbIdx = 0;
+let testIdx = 0;
+let testCorrect = 0;
+let testWrong = 0;
+let testAnswered = []; // null = not answered, true/false = result
+let testOrder = [];
+
+// ======================== NAVIGATION ========================
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-' + id).classList.add('active');
+  if (id === 'learn') renderTopics();
+  if (id === 'qbank') { qbIdx = 0; renderQB(); }
+  if (id === 'test') initTest();
+  window.scrollTo(0, 0);
+}
+
+// ======================== LEARNING ========================
+function renderTopics() {
+  const container = document.getElementById('learn-topics');
+  document.getElementById('learn-content').style.display = 'none';
+  container.style.display = 'block';
+  container.innerHTML = '<h5 class="fw-bold mb-3" style="color:var(--primary)">Topic चुनें:</h5>';
+  TOPICS.forEach((t, i) => {
+    container.innerHTML += `
+      <button class="topic-btn" onclick="openTopic(${i})">
+        <div class="topic-icon" style="background:${t.color}22;color:${t.color}">${t.icon}</div>
+        <div>
+          <h6>${t.label}</h6>
+          <small>${t.notes.length} Notes</small>
+        </div>
+        <i class="fa fa-chevron-right ms-auto" style="color:#9CA3AF"></i>
+      </button>`;
+  });
+}
+
+function openTopic(idx) {
+  learnTopicIdx = idx;
+  learnNoteIdx = 0;
+  document.getElementById('learn-topics').style.display = 'none';
+  document.getElementById('learn-content').style.display = 'block';
+  document.getElementById('learn-topic-title').textContent = TOPICS[idx].icon + ' ' + TOPICS[idx].label;
+  renderLearnNote();
+}
+
+function backToTopics() {
+  document.getElementById('learn-content').style.display = 'none';
+  document.getElementById('learn-topics').style.display = 'block';
+}
+
+function renderLearnNote() {
+  const t = TOPICS[learnTopicIdx];
+  const total = t.notes.length;
+  document.getElementById('learn-counter').textContent = `${learnNoteIdx+1} / ${total}`;
+  document.getElementById('learn-label').textContent = t.label;
+  document.getElementById('learn-text').innerHTML = '✅ ' + t.notes[learnNoteIdx];
+  document.getElementById('learn-progress').style.width = ((learnNoteIdx+1)/total*100) + '%';
+}
+
+function learnNav(dir) {
+  const t = TOPICS[learnTopicIdx];
+  learnNoteIdx = Math.max(0, Math.min(t.notes.length-1, learnNoteIdx + dir));
+  renderLearnNote();
+  window.scrollTo(0, 0);
+}
+
+// ======================== QUESTION BANK ========================
+function renderQB() {
+  const q = THEORY_QS[qbIdx];
+  document.getElementById('qb-counter').textContent = `${qbIdx+1} / ${THEORY_QS.length}`;
+  document.getElementById('qb-question').textContent = `Q${qbIdx+1}. ${q.q}`;
+  document.getElementById('qb-answer').innerHTML = `<strong>उत्तर:</strong> ${q.a}`;
+  document.getElementById('qb-progress').style.width = ((qbIdx+1)/THEORY_QS.length*100) + '%';
+}
+
+function qbNav(dir) {
+  qbIdx = Math.max(0, Math.min(THEORY_QS.length-1, qbIdx + dir));
+  renderQB();
+  window.scrollTo(0, 0);
+}
+
+// ======================== TEST ========================
+function initTest() {
+  testOrder = MCQ.map((_, i) => i).sort(() => Math.random() - 0.5);
+  testIdx = 0;
+  testCorrect = 0;
+  testWrong = 0;
+  testAnswered = new Array(MCQ.length).fill(null);
+  document.getElementById('t-max').textContent = MCQ.length;
+  document.getElementById('test-summary').style.display = 'none';
+  document.getElementById('test-question-area').style.display = 'block';
+  updateScoreHeader();
+  renderTestQ();
+}
+
+function renderTestQ() {
+  const qi = testOrder[testIdx];
+  const q = MCQ[qi];
+  const pct = (testIdx+1)/MCQ.length*100;
+  document.getElementById('test-progress').style.width = pct + '%';
+  document.getElementById('t-qnum').textContent = `प्रश्न ${testIdx+1} / ${MCQ.length}`;
+  document.getElementById('t-question').textContent = `Q${testIdx+1}. ${q.q}`;
+
+  const answered = testAnswered[qi];
+  const optDiv = document.getElementById('t-options');
+  optDiv.innerHTML = '';
+  q.opts.forEach((opt, oi) => {
+    let cls = 'option-btn';
+    let disabled = '';
+    if (answered !== null) {
+      disabled = 'disabled';
+      if (oi === q.ans) cls += ' correct';
+      else if (oi === answered && answered !== q.ans) cls += ' wrong';
+    }
+    optDiv.innerHTML += `<button class="${cls}" ${disabled} onclick="selectAnswer(${qi}, ${oi})">${String.fromCharCode(65+oi)}. ${opt}</button>`;
+  });
+
+  const rBox = document.getElementById('t-result');
+  if (answered !== null) {
+    const isCorrect = answered === q.ans;
+    rBox.style.display = 'block';
+    rBox.className = 'result-box ' + (isCorrect ? 'correct' : 'wrong');
+    rBox.innerHTML = `<h6>${isCorrect ? '✅ सही!' : '❌ गलत!'}</h6><p><strong>सही उत्तर:</strong> ${q.opts[q.ans]}<br><strong>Explanation:</strong> ${q.exp}</p>`;
+  } else {
+    rBox.style.display = 'none';
+  }
+}
+
+function selectAnswer(qi, optIdx) {
+  if (testAnswered[qi] !== null) return;
+  const q = MCQ[qi];
+  testAnswered[qi] = optIdx;
+  if (optIdx === q.ans) testCorrect++;
+  else testWrong++;
+  updateScoreHeader();
+  renderTestQ();
+}
+
+function updateScoreHeader() {
+  const answered = testAnswered.filter(a => a !== null).length;
+  document.getElementById('t-correct').textContent = testCorrect;
+  document.getElementById('t-wrong').textContent = testWrong;
+  document.getElementById('t-total').textContent = answered;
+}
+
+function testNav(dir) {
+  testIdx = testIdx + dir;
+  if (testIdx >= MCQ.length) {
+    showSummary(); return;
+  }
+  testIdx = Math.max(0, testIdx);
+  renderTestQ();
+  window.scrollTo(0, 0);
+}
+
+function showSummary() {
+  document.getElementById('test-question-area').style.display = 'none';
+  document.getElementById('test-summary').style.display = 'block';
+  const total = MCQ.length;
+  const pct = Math.round(testCorrect / total * 100);
+  const pass = pct >= 60;
+  document.getElementById('sum-pct').textContent = pct + '%';
+  document.getElementById('sum-pct').className = 'summary-score ' + (pass ? 'pass' : 'fail');
+  document.getElementById('sum-result').textContent = pass ? '🎉 PASS! बहुत अच्छे!' : '😔 FAIL — और मेहनत करें!';
+  document.getElementById('sum-result').style.color = pass ? 'var(--success)' : 'var(--danger)';
+  document.getElementById('sum-c').textContent = testCorrect;
+  document.getElementById('sum-w').textContent = testWrong;
+  document.getElementById('sum-total').textContent = total;
+  window.scrollTo(0, 0);
+}
+
+function restartTest() {
+  initTest();
+}
+</script>
+</body>
+</html>
